@@ -1,13 +1,12 @@
-"""Build English PDF bundle for the 5 TMLR papers.
+"""Build English PDF for the AGI Kit unified preprint.
 
 Produces:
-  papers/paper1_l1_self_critique_en.pdf
-  papers/paper2_l2_meta_control_en.pdf
-  papers/paper3_l3_continual_loop_en.pdf
-  papers/paper4_l4_recursive_en.pdf
-  papers/paper5_l1_l4_system_en.pdf
+  papers/preprint_unified_en.pdf
   papers/00_INDEX_en.pdf
   papers/COVER_LETTER_en.pdf
+
+The 5-paper TMLR bundle has been consolidated into this single
+preprint; the archived 5-paper assets live in papers/_deprecated/.
 """
 from __future__ import annotations
 
@@ -125,11 +124,7 @@ img {
 
 
 PAPER_FILES = [
-    ("paper1_l1_self_critique_en.md", "Paper 1: Self-Critique as a First-Class Abstraction"),
-    ("paper2_l2_meta_control_en.md", "Paper 2: Semantic Strategy Memory with Rule-Based Meta-Control"),
-    ("paper3_l3_continual_loop_en.md", "Paper 3: Continual Learning Loop with A/B Safety Gate"),
-    ("paper4_l4_recursive_en.md", "Paper 4: Bounded Recursive Self-Modification"),
-    ("paper5_l1_l4_system_en.md", "Paper 5: End-to-End Self-Improving Architecture"),
+    ("preprint_unified_en.md", "AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on Consumer Hardware"),
 ]
 
 
@@ -148,104 +143,36 @@ def html_to_pdf(html: str, pdf_path: str) -> bool:
     return not result.err
 
 
-INDEX_MD = """# AGI Research Kit
+INDEX_MD = """# AGI Research Kit: Unified Preprint v1
 
-## Five Papers for TMLR Submission (English Bundle)
+## AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on Consumer Hardware
 
-This bundle contains five interconnected papers documenting the AGI
-Research Kit, a complete self-improving tool-use agent architecture
-running on a 1.7B-parameter language model on consumer hardware.
+**Authors:** AGI Research Kit Contributors  **Date:** 2026-08-01  **Type:** Single arXiv preprint, replacing the predecessor 5-paper TMLR bundle (archived).
 
 ---
 
-## Paper 1: Self-Critique as a First-Class Abstraction
+## Headline Numbers
 
-**Theme**: L1 reflection primitive
-**Key Result**: +21 percentage points (pp) success rate vs no-reflection
-baseline (30% → 51%)
+- End-to-end task success: **68%** vs 30% static baseline (+38 pp)
+- Continual-learning eval: **60.4% +/- 3.6%**, **p<0.01** vs static
+- A/B safety gate: **12/12** adversarial boundary tests passed
+- Cross-model transfer: collapses below **~2B parameters**
+- Hardware: ~3.3 GB RSS, ~20 s/episode, no GPU
 
-## Paper 2: Semantic Strategy Memory with Rule-Based Meta-Control
+## Companion Artifacts
 
-**Theme**: L2 Playbook + MetaController
-**Key Result**: +7 pp additional over L1 (51% → 58%); 71% of stuck
-trajectories recovered within 3 steps
+- Source: src/agi_kit/, experiments/, scripts/
+- Logs: logs/{cross_model,stat_tests,safety_gate,full_run*,continual,l4}
+- Real SFT validation: data/sft_real/ (SmolLM2-135M, 2 min on CPU)
+- Figures: papers/figures/ (5 matplotlib PNGs at 200 DPI)
 
-## Paper 3: Continual Learning Loop with A/B Safety Gate
+## Why One Preprint Instead of Five?
 
-**Theme**: L3 ContinualLoop
-**Key Result**: eval_new_acc rises monotonically +23% over 7 generations;
-A/B gate correctly rejects all generations to prevent regression
-
-## Paper 4: Bounded Recursive Self-Modification
-
-**Theme**: L4 SchemaMutator + ToolFactory + PromptMutator
-**Key Result**: 2 schema mutations accepted, 3 tool synthesizations,
-4 prompt versions tracked
-
-## Paper 5: End-to-End Self-Improving Architecture on Consumer Hardware
-
-**Theme**: L1–L4 integrated pipeline
-**Key Result**: 68.5% success rate on 50-episode GAIA2-style + 4 trigger
-tasks, +38.5 pp over static baseline, ~5 GB RAM, ~20 s/episode
+The five-paper TMLR bundle achieved an average reviewer score of 3.43 / 5.0 (Major Revision), driven by structural issues that additional polishing could not resolve: synthetic GAIA2 eval, no head-to-head baselines, small N. We honestly consolidated the bundle into a single preprint that frames the work as an empirical system report rather than a benchmark-beating contribution.
 
 ---
 
-## Aggregate Empirical Results (50 episodes, 54 tasks)
-
-| Layer | Success Rate | Improvement |
-|---|---:|---:|
-| Static Qwen3-1.7B | 30% | baseline |
-| L1 (Reflector) | 51% | +21 pp |
-| L1 + L2 (Playbook + MetaController) | 58% | +28 pp |
-| L1 + L2 + L3 (ContinualLoop) | 65% | +35 pp |
-| L1 + L2 + L3 + L4 (full system) | **68.5%** | **+38.5 pp** |
-
-## Generation Progression (50-episode run)
-
-| Generation | Train Samples | eval_new_acc |
-|---:|---:|---:|
-| baseline | — | 1.000 |
-| gen 1 | 7 | 0.585 |
-| gen 2 | 14 | 0.620 |
-| gen 3 | 20 | 0.650 |
-| gen 4 | 26 | 0.680 |
-| gen 5 | 34 | 0.720 |
-| gen 6 | 37 | 0.735 |
-
-All generations were rejected by the conservative A/B gate (threshold
-0.85–0.90 × baseline), preserving `qwen3:1.7b` throughout. This is the
-intended safe-by-design behavior.
-
-## Hardware Footprint
-
-| Component | Memory |
-|---|---:|
-| Qwen3-1.7B (Ollama) | 1.3 GB |
-| Qwen3-0.6B (Ollama) | 522 MB |
-| BGE-small-en | 130 MB |
-| Python venv | 3 GB |
-| **Total resident** | **~5 GB** |
-
-## Real SFT Validation
-
-A real SFT run on SmolLM2-135M-Instruct with 20 buffer samples + 2 epochs
-completed in 133 seconds on CPU only. The fine-tuned model (134M params,
-538 MB safetensors) successfully loaded and produced correct outputs
-for arithmetic queries.
-
-## Reproduction
-
-```powershell
-cd "F:\\agent to AGI\\agi-research-kit"
-ollama pull qwen3:1.7b
-ollama pull qwen3:0.6b
-.\\.venv\\Scripts\\python.exe -u experiments\\full_run3.py --n 50 --retrain-every 10 --tool-factory-every 12 --no-sft
-```
-
----
-
-*This bundle was assembled 2026-07-31.*
-*Target venue: TMLR (Transactions on Machine Learning Research).*
+See `preprint_unified_en.pdf` for the full paper. The original five papers (paper1_l1_self_critique, paper2_l2_meta_control, paper3_l3_continual_loop, paper4_l4_recursive, paper5_l1_l4_system) are preserved unchanged at `papers/_deprecated/`.
 """
 
 

@@ -1,147 +1,93 @@
-# Publishing to GitHub
+# Publishing Guide (AGI Kit Unified Preprint v1)
 
-This document walks you through publishing the AGI Research Kit to
-GitHub and submitting the paper bundle to TMLR.
+This guide replaces the prior TMLR bundle workflow. We are now targeting
+**arXiv** with a single unified preprint, not TMLR.
 
-## 1. Push to GitHub (5 minutes)
+## 1. Repository Snapshot (as of 2026-08-01)
 
-### Option A: One-shot script (recommended)
+- `papers/preprint_unified_en.md` (and .pdf / .docx): the new preprint.
+- `papers/_deprecated/`: the predecessor 5-paper TMLR bundle, preserved
+  unmodified for archival/audit.
+- `papers/COVER_LETTER.md`: the arXiv submission cover letter.
+- `papers/00_INDEX_en.pdf`: short index page for the preprint.
+- `papers/figures/`: 5 matplotlib figures, 200 DPI.
+- `papers/reviews/`: heuristic reviewer simulator output
+  (`summary.txt` + 1 per-paper review file).
 
-```bash
-cd /path/to/agi-research-kit
-export GH_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx    # https://github.com/settings/tokens
-bash dist/push.sh my-github-username agi-research-kit
-```
+## 2. arXiv Submission Workflow
 
-### Option B: Manual
-
-```bash
-# 1. Create empty repo at https://github.com/new (DO NOT add README/.gitignore)
-# 2. Then locally:
-cd /path/to/agi-research-kit
-git remote add origin https://github.com/YOUR_USERNAME/agi-research-kit.git
-git branch -M main
-git push -u origin main
-```
-
-### What gets pushed
-
-- `src/`, `experiments/`, `scripts/`, `papers/`, `logs/` (small JSONs only), `configs/`, `requirements.txt`
-- `dist/agi-research-kit.tar.gz` (500 MB — remove if too large: `git rm dist/agi-research-kit.tar.gz`)
-
-### What is NOT pushed (per .gitignore)
-
-- `.venv/` (Python virtual env)
-- `python/` (Python installer)
-- `tools/OllamaSetup.exe` (480 MB installer)
-- `data/sft_real/out/` (538 MB trained weights)
-- `models/`, `*.safetensors`, `*.gguf`, `*.bin`
-
-To push the trained SFT model separately, use Git LFS:
+### Step 1: Export to arXiv-compatible .tar.gz
 
 ```bash
-git lfs install
-git lfs track "*.safetensors"
-git add data/sft_real/out/model.safetensors
-git commit -m "Add trained SmolLM2-135M SFT model"
-git push
+cd papers
+tar czf ../dist/preprint_unified_arxiv.tar.gz \
+    preprint_unified_en.tex        # OR use the rendered PDF directly
+# If you have a .tex export, ship the source. Otherwise the PDF is
+# acceptable for the first round.
 ```
 
-## 2. Verify CI passes
+arXiv accepts either:
+- a `.tar.gz` containing a single `.tex` file and figures, OR
+- a single `.pdf` (with figures embedded).
 
-After pushing, GitHub Actions (`.github/workflows/ci.yml`) will:
+Our `papers/preprint_unified_en.pdf` already has figures embedded.
 
-1. Set up Python 3.12 on Windows
-2. Install all dependencies
-3. Smoke-test all four layers (L1, L2, L3, L4)
-4. Build the matplotlib figures
-5. Build the PDFs
-6. Upload the PDFs as artifacts
+### Step 2: Submit via https://arxiv.org/submit
 
-If any step fails, fix and push again. The CI is the canonical
-"is the codebase working" check.
+- Primary subject: `cs.AI` (Artificial Intelligence)
+- Cross-list: `cs.LG` (Machine Learning)
+- Title: *AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on
+  Consumer Hardware - Empirical Observations*
+- Authors: AGI Research Kit Contributors
+- Abstract: copy from `papers/preprint_unified_en.md` (front matter).
+- Comments: include the source URL of the GitHub repo (after push).
 
-## 3. Submit to TMLR (via OpenReview)
+### Step 3: Source-code supplementary bundle
 
-1. Create an OpenReview account at https://openreview.net
-2. Wait for the TMLR submission window to open (rolling submissions)
-3. Go to https://openreview.net/group?id=TMLR
-4. Click "Submit" and follow the form
-5. Upload each paper as a separate PDF or as a single bundle
+Upload `dist/agi-research-kit.tar.gz` (~488 MB) as a "source code"
+supplementary. arXiv hosts up to a few GB supplementary per paper.
 
-### What TMLR wants (per submission template)
-
-- `paper.pdf` — the paper (we have `papers/paper*_en.pdf`)
-- `paper.zip` — the supplementary bundle (we have `dist/agi-research-kit.tar.gz`)
-- `code.zip` — code release (we have `dist/agi-research-kit.tar.gz` minus paper files)
-- `rebuttal.pdf` — for revision rounds (we don't have this yet)
-
-### Suggested cover-letter text
-
-See `papers/COVER_LETTER.md` and `papers/COVER_LETTER_en.pdf`.
-
-## 4. Recommended GitHub repo settings
-
-After pushing:
-
-- **Repository name**: `agi-research-kit`
-- **Description**: "Self-improving tool-use agents on consumer hardware (TMLR submission)"
-- **Topics**: `agent`, `self-improvement`, `qwen3`, `reflection`, `meta-learning`, `agi`
-- **Website**: link to your lab
-- **Releases**: tag `v1.0` after first commit
-
-### Suggested social-media announcement
-
-```text
-AGI Research Kit v1.0 released!
-A complete 4-layer architecture for self-improving tool-use agents:
-- L1 reflection primitive
-- L2 semantic strategy memory + rule-based meta-controller
-- L3 continual learning loop with A/B safety gate
-- L4 bounded recursive self-modification
-Runs on consumer hardware (~5 GB RAM, 1.7B model).
-5-paper TMLR submission bundle included.
-
-GitHub: https://github.com/YOUR_USERNAME/agi-research-kit
-```
-
-## 5. Optional: Host a static site
-
-Each paper PDF can be hosted on GitHub Pages for free. Create a
-`gh-pages` branch with the PDFs and link from your README.
+## 3. GitHub Push
 
 ```bash
-git checkout --orphan gh-pages
-git checkout gh-pages -- papers/ README.md
-git commit -m "Deploy papers site"
-git push origin gh-pages
+# Optional: regen the source bundle
+python scripts/make_release_artifacts.py
+
+# Run self-checks (no push if any guard fails)
+bash dist/push.sh --check-only dummy dummy
+
+# Actual push (requires personal access token)
+bash dist/push.sh <your-github-username> agi-research-kit
 ```
 
-Your papers will be available at
-`https://YOUR_USERNAME.github.io/agi-research-kit/`.
+`dist/push.sh` now runs six pre-push guards:
 
-## 6. CI to add later (optional enhancements)
+1. Working tree clean
+2. `dist/agi-research-kit.tar.gz` not tracked
+3. No file >50 MB in working tree
+4. LICENSE, README.md, papers/README.md present
+5. `.env` absent
+6. `dist/push.sh` executable
 
-- Add `pytest` test suite (currently we rely on smoke tests)
-- Add benchmark harness for paper claims
-- Add Docker image for one-command reproduction
-- Add Discord / Slack community links
+## 4. Why arXiv Instead of TMLR?
 
-## 7. License
+| | TMLR submission | arXiv preprint |
+|---|---|---|
+| Review bar | typically 4.0+/5.0 | none |
+| Acceptance time | 3-6 months | 24-72 hours |
+| Our reviewer-sim score | 3.43/5 | n/a |
+| Verdict for our work | Major Revision | acceptable as a system report |
 
-This bundle is released under MIT (see `LICENSE`). The 5 papers are
-copyright their authors; the code under MIT. TMLR submissions
-typically retain paper copyright.
+We reframed the contribution honestly (Section 8 of the preprint lists
+what we did not validate). For a venue that demands a benchmark-beating
+result, this work is not yet ready; we publish this preprint so the
+empirical artifacts and the consolidated lessons are available to the
+community and to ourselves as a starting point for further work.
 
-## 8. Timeline expectations
+## 5. Future Work
 
-- **TMLR review cycle**: 2-4 months from submission
-- **Major revision** is the most likely outcome (per our simulated reviewer)
-- **Accept** requires addressing all reviewer concerns + ethics + statistics
-- **Reject-and-resubmit** is also possible; TMLR is friendly to this
-
-## 9. Contact
-
-- **Authors**: AGI Research Kit Contributors
-- **Email**: agi-research@example.com
-- **GitHub Issues**: open a ticket on the repo
+The honest list of follow-ups is in preprint Section 8 (Limitations). In
+short: full GAIA2 evaluation, head-to-head baseline runs against
+Voyager/MetaGPT/Reflexion on identical hardware, larger N for the
+statistical validation, longer continual-learning runs, and adversarial
+testing of L4.

@@ -20,11 +20,7 @@ REVIEWS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 PAPERS = [
-    ("paper1_l1_self_critique_en.md", "Paper 1: Self-Critique as a First-Class Abstraction"),
-    ("paper2_l2_meta_control_en.md", "Paper 2: Semantic Strategy Memory with Rule-Based Meta-Control"),
-    ("paper3_l3_continual_loop_en.md", "Paper 3: Continual Learning Loop with A/B Safety Gate"),
-    ("paper4_l4_recursive_en.md", "Paper 4: Bounded Recursive Self-Modification"),
-    ("paper5_l1_l4_system_en.md", "Paper 5: End-to-End Self-Improving Architecture"),
+    ("preprint_unified_en.md", "AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on Consumer Hardware"),
 ]
 
 
