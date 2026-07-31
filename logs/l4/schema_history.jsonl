@@ -1,0 +1,4 @@
+{"ts": "2026-07-31T08:49:33Z", "field": "low_conf_threshold", "old": 0.35, "new": 0.2, "reason": "want more aggressive intervention", "accepted": true, "new_acc": 0.9, "reason_final": "passed", "generation": 1, "hash": "783e2ca032"}
+{"ts": "2026-07-31T08:49:33Z", "field": "low_conf_threshold", "old": 0.2, "new": 0.5, "reason": "try raising it", "accepted": true, "new_acc": 0.75, "reason_final": "passed", "generation": 2, "hash": "3276cf89a2"}
+{"ts": "2026-07-31T08:50:23Z", "field": "low_conf_threshold", "old": 0.35, "new": 0.2, "reason": "want more aggressive intervention", "accepted": true, "new_acc": 0.9, "reason_final": "passed", "generation": 1, "hash": "783e2ca032"}
+{"ts": "2026-07-31T08:50:23Z", "field": "low_conf_threshold", "old": 0.2, "new": 0.5, "reason": "try raising it", "accepted": true, "new_acc": 0.75, "reason_final": "passed", "generation": 2, "hash": "3276cf89a2"}

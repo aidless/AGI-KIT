@@ -1,0 +1,42 @@
+{
+  "episodes": 15,
+  "final_generation": 4,
+  "buffer_size": 10,
+  "generations": [
+    {
+      "generation": 1,
+      "accepted": true,
+      "train_samples": 3,
+      "eval_new_acc": 0.55,
+      "train_seconds": 0.03,
+      "reason": "no_eval_fn_passed"
+    },
+    {
+      "generation": 2,
+      "accepted": true,
+      "train_samples": 6,
+      "eval_new_acc": 0.55,
+      "train_seconds": 0.06,
+      "reason": "no_eval_fn_passed"
+    },
+    {
+      "generation": 3,
+      "accepted": true,
+      "train_samples": 10,
+      "eval_new_acc": 0.55,
+      "train_seconds": 0.1,
+      "reason": "no_eval_fn_passed"
+    },
+    {
+      "generation": 4,
+      "accepted": true,
+      "train_samples": 10,
+      "eval_new_acc": 0.55,
+      "train_seconds": 0.1,
+      "reason": "no_eval_fn_passed"
+    }
+  ],
+  "current_model": "F:\\agent to AGI\\agi-research-kit\\logs\\continual\\gen-4",
+  "success_rate": 0.6666666666666666,
+  "avg_score": 0.5333333333333333
+}

@@ -1,0 +1,58 @@
+# AGI Kit - Default configuration
+# Override any field via env: AGI_KIT__SECTION__KEY=value
+
+env: dev
+
+# Data and model directories
+data_dir: ./data
+model_cache_dir: ./models
+
+# LLM configuration
+llm:
+  backend: ollama
+  model: qwen3:1.7b
+  host: http://127.0.0.1:11434
+  max_tokens: 512
+  temperature: 0.0
+  timeout_s: 60.0
+
+# Agent configuration
+agent:
+  paradigm: react
+  max_steps: 10
+  enable_tracing: true
+  parser_max_retries: 2
+
+# Tool configuration
+tools:
+  enable_web: true
+  enable_shell: false
+  enable_rag: true
+  shell_timeout_s: 15.0
+
+# RAG configuration
+rag:
+  embedder: BAAI/bge-small-en-v1.5
+  chunk_size: 400
+  chunk_overlap: 50
+  index_path: ./data/rag.index
+
+# API server
+api:
+  host: 0.0.0.0
+  port: 8000
+  workers: 1
+  secret_key: change-me-in-production
+  rate_limit_per_min: 60
+  enable_auth: true
+  cors_origins:
+    - "*"
+
+# Observability
+observability:
+  log_level: INFO
+  log_format: console
+  enable_metrics: true
+  metrics_port: 9090
+  enable_tracing: false
+  otel_endpoint: null

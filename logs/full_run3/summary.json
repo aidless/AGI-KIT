@@ -1,0 +1,68 @@
+{
+  "episodes": 54,
+  "tasks_total": 54,
+  "gaia2_tasks": 50,
+  "trigger_tasks": 4,
+  "final_generation": 6,
+  "buffer_size": 37,
+  "playbook_size": 1,
+  "generations": [
+    {
+      "generation": 1,
+      "accepted": false,
+      "train_samples": 7,
+      "eval_new_acc": 0.5850000000000001,
+      "train_seconds": 0.0,
+      "reason": "regressed_below_threshold"
+    },
+    {
+      "generation": 2,
+      "accepted": false,
+      "train_samples": 14,
+      "eval_new_acc": 0.6200000000000001,
+      "train_seconds": 0.0,
+      "reason": "regressed_below_threshold"
+    },
+    {
+      "generation": 3,
+      "accepted": false,
+      "train_samples": 20,
+      "eval_new_acc": 0.65,
+      "train_seconds": 0.0,
+      "reason": "regressed_below_threshold"
+    },
+    {
+      "generation": 4,
+      "accepted": false,
+      "train_samples": 26,
+      "eval_new_acc": 0.68,
+      "train_seconds": 0.0,
+      "reason": "regressed_below_threshold"
+    },
+    {
+      "generation": 5,
+      "accepted": false,
+      "train_samples": 34,
+      "eval_new_acc": 0.7200000000000001,
+      "train_seconds": 0.0,
+      "reason": "regressed_below_threshold"
+    },
+    {
+      "generation": 6,
+      "accepted": false,
+      "train_samples": 37,
+      "eval_new_acc": 0.7350000000000001,
+      "train_seconds": 0.0,
+      "reason": "regressed_below_threshold"
+    }
+  ],
+  "current_model": "qwen3:1.7b",
+  "success_rate": 0.6851851851851852,
+  "trigger_success_rate": 0.75,
+  "avg_score": 0.7095679012345679,
+  "total_seconds": 1005.8,
+  "schema_mutations": 2,
+  "tool_factory_attempts": 0,
+  "tool_factory_accepted": 0,
+  "baseline_acc": 1.0
+}

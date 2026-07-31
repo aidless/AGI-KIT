@@ -1,0 +1,28 @@
+{
+  "schema_mutation": {
+    "final_config": {
+      "confidence_window": 5,
+      "low_conf_threshold": 0.5,
+      "tool_error_threshold": 2,
+      "stuck_obs_threshold": 3,
+      "max_strategy_switches": 2,
+      "generation": 2,
+      "parent_hash": "783e2ca032"
+    },
+    "history_len": 4
+  },
+  "tool_factory": {
+    "synthesized_count": 1,
+    "registered": [
+      "repeat_text"
+    ]
+  },
+  "prompt_mutation": {
+    "templates": {
+      "hindsight": [
+        1,
+        2
+      ]
+    }
+  }
+}

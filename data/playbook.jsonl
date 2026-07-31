@@ -1,0 +1,1 @@
+{"sid": "42305bf17a", "pattern": "when calculator tool fails, use calculator (not calc/compute)", "strategy": "Use 'calculator' tool name. Try it before retrying with different names.", "success_rate": 0.9, "uses": 0, "examples": [], "created_at": "2026-07-31T08:51:49Z", "updated_at": "2026-07-31T08:51:49Z"}

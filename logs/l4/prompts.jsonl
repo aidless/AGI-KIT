@@ -1,0 +1,2 @@
+{"name": "hindsight", "text": "Look at this step. What could be improved?\nAction: {action}\nObs: {obs}", "version": 1, "parent_version": 0, "metrics": {"expected_quality": 0.5}, "created_ts": "2026-07-31T08:50:23Z"}
+{"name": "hindsight", "text": "Be more concrete. What SPECIFIC change would help?\nAction: {action}\nObs: {obs}", "version": 2, "parent_version": 1, "metrics": {"expected_quality": 0.7}, "created_ts": "2026-07-31T08:50:23Z"}

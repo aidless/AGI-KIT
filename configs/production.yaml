@@ -1,0 +1,27 @@
+env: production
+
+llm:
+  backend: ollama
+  model: qwen3:1.7b
+  timeout_s: 120.0
+
+agent:
+  max_steps: 15
+  enable_tracing: true
+
+tools:
+  enable_shell: false
+  enable_web: true
+
+api:
+  workers: 4
+  rate_limit_per_min: 120
+  enable_auth: true
+  cors_origins:
+    - "https://yourdomain.com"
+
+observability:
+  log_level: WARNING
+  log_format: json
+  enable_metrics: true
+  enable_tracing: true

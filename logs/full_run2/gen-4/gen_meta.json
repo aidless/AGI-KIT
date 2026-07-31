@@ -1,0 +1,6 @@
+{
+  "base_model": "qwen3:1.7b",
+  "train_samples": 27,
+  "trained": false,
+  "ts": "2026-07-31T09:49:51Z"
+}

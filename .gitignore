@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Virtual env
+.venv/
+python/
+
+# Ollama installer
+tools/OllamaSetup.exe
+
+# Logs (keep summaries, skip huge traces)
+logs/*/trace.jsonl
+logs/*/episode_summary.jsonl
+logs/*/data.jsonl
+logs/*/samples.jsonl
+logs/*/schema_history.jsonl
+logs/*/tool_factory_history.jsonl
+logs/full_run*/gen-*/
+
+# Real SFT model outputs (huge)
+data/sft_real/out/
+
+# HuggingFace cache
+*.gguf
+*.safetensors
+*.bin
+
+# Generated model dirs
+models/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp

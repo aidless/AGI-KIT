@@ -1,0 +1,145 @@
+{
+  "qwen3:1.7b": {
+    "correct": 13,
+    "total": 15,
+    "acc": 86.7,
+    "avg_seconds": 12.09,
+    "results": [
+      {
+        "pred": 391,
+        "gold": "391",
+        "ok": true,
+        "seconds": 14.7,
+        "task": "Use calculator to compute 17 * 23, then final",
+        "category": "arithmetic",
+        "model": "qwen3:1.7b"
+      },
+      {
+        "pred": "1045",
+        "gold": "1045",
+        "ok": true,
+        "seconds": 10.0,
+        "task": "Use calculator to compute 256 + 789, then final",
+        "category": "arithmetic",
+        "model": "qwen3:1.7b"
+      },
+      {
+        "pred": "8765",
+        "gold": "8765",
+        "ok": true,
+        "seconds": 6.6,
+        "task": "Use calculator to compute 9999 - 1234, then final",
+        "category": "arithmetic",
+        "model": "qwen3:1.7b"
+      },
+      {
+        "pred": "12",
+        "gold": "12.0",
+        "ok": false,
+        "seconds": 9.3,
+        "task": "Use calculator to compute 144 / 12, then final",
+        "category": "arithmetic",
+        "model": "qwen3:1.7b"
+      },
+      {
+        "pred": "1024",
+        "gold": "1024",
+        "ok": true,
+        "seconds": 11.2,
+        "task": "Use calculator to compute 2**10, then final",
+        "category": "arithmetic",
+        "model": "qwen3:1.7b"
+      },
+      {
+        "pred": "2",
+        "gold": "2",
+        "ok": true,
+        "seconds": 11.2,
+        "task": "Use calculator to compute 100 % 7, then final",
+        "category": "arithmetic",
+        "model": "qwen3:1.7b"
+      },
+      {
+        "pred": 60,
+        "gold": "60",
+        "ok": true,
+        "seconds": 17.0,
+        "task": "Use calculator to compute (15+5)*3, then final",
+        "category": "arithmetic",
+        "model": "qwen3:1.7b"
+      },
+      {
+        "pred": "1900",
+        "gold": "1900",
+        "ok": true,
+        "seconds": 11.3,
+        "task": "Use calculator to compute 50 * 40 - 100, then final",
+        "category": "arithmetic",
+        "model": "qwen3:1.7b"
+      },
+      {
+        "pred": "6912",
+        "gold": "6912",
+        "ok": true,
+        "seconds": 7.8,
+        "task": "Use calculator to compute 1234 + 5678, then final",
+        "category": "arithmetic",
+        "model": "qwen3:1.7b"
+      },
+      {
+        "pred": 7744,
+        "gold": "7744",
+        "ok": true,
+        "seconds": 15.0,
+        "task": "Use calculator to compute 88 * 88, then final",
+        "category": "arithmetic",
+        "model": "qwen3:1.7b"
+      },
+      {
+        "pred": "256",
+        "gold": "256",
+        "ok": true,
+        "seconds": 17.8,
+        "task": "Use calculator to compute 2**8, then echo the result, then final",
+        "category": "chained",
+        "model": "qwen3:1.7b"
+      },
+      {
+        "pred": "25",
+        "gold": "25.0",
+        "ok": false,
+        "seconds": 5.6,
+        "task": "Use calculator to compute 100/4, then echo the result, then final",
+        "category": "chained",
+        "model": "qwen3:1.7b"
+      },
+      {
+        "pred": "42",
+        "gold": "42",
+        "ok": true,
+        "seconds": 13.3,
+        "task": "Use calculator to compute 7*6, then echo the result, then final",
+        "category": "chained",
+        "model": "qwen3:1.7b"
+      },
+      {
+        "pred": "81",
+        "gold": "81",
+        "ok": true,
+        "seconds": 13.7,
+        "task": "Use calculator to compute 3**4, then echo the result, then final",
+        "category": "chained",
+        "model": "qwen3:1.7b"
+      },
+      {
+        "pred": "768",
+        "gold": "768",
+        "ok": true,
+        "seconds": 16.9,
+        "task": "Use calculator to compute 1024-256, then echo the result, then final",
+        "category": "chained",
+        "model": "qwen3:1.7b"
+      }
+    ]
+  }
+}

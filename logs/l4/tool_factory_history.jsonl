@@ -1,0 +1,1 @@
+{"name": "repeat_text", "desc": "Repeat a string N times", "params": {"text": "str", "n": "int"}, "code": "def repeat_text(text, n=2):\n    return text * int(n)", "uses": 0, "created_ts": "2026-07-31T08:50:23Z", "accepted": true, "reason": "registered"}

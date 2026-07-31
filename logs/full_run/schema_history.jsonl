@@ -1,0 +1,2 @@
+{"ts": "2026-07-31T08:59:40Z", "field": "low_conf_threshold", "old": 0.35, "new": 0.25, "reason": "init: be more aggressive", "accepted": true, "new_acc": null, "reason_final": "applied_no_eval", "generation": 1, "hash": "56c8fe4f0d"}
+{"ts": "2026-07-31T08:59:40Z", "field": "stuck_obs_threshold", "old": 3, "new": 4, "reason": "init: tolerate more retries", "accepted": true, "new_acc": null, "reason_final": "applied_no_eval", "generation": 2, "hash": "a7573d4b80"}

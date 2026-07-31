@@ -1,0 +1,132 @@
+[build-system]
+requires = ["hatchling>=1.21", "hatch-vcs>=0.4"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agi-kit"
+version = "0.1.0"
+description = "Enterprise-grade AGI research platform: agents, tools, RAG, evals, training, and serving"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [{ name = "AGI Kit Authors" }]
+requires-python = ">=3.10"
+keywords = ["agent", "rag", "llm", "agi", "tool-use", "evaluation"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "pydantic>=2.8",
+    "pydantic-settings>=2.5",
+    "PyYAML>=6.0",
+    "httpx>=0.27",
+    "rich>=13.7",
+    "typer>=0.12",
+    "tenacity>=9.0",
+    "structlog>=24.4",
+    "prometheus-client>=0.21",
+    "opentelemetry-api>=1.27",
+    "opentelemetry-sdk>=1.27",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pyjwt>=2.9",
+    "transformers>=4.55",
+    "torch>=2.5",
+    "sentence-transformers>=3.0",
+    "faiss-cpu>=1.9",
+    "rank-bm25>=0.2",
+    "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=6.0",
+    "ruff>=0.7",
+    "mypy>=1.13",
+    "black>=24.10",
+    "isort>=5.13",
+    "pre-commit>=4.0",
+    "sphinx>=8.0",
+    "sphinx-rtd-theme>=3.0",
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+]
+playwright = ["playwright>=1.50"]
+vllm = ["vllm>=0.7"]
+training = ["trl>=0.12", "peft>=0.13", "accelerate>=1.0"]
+
+[project.urls]
+Homepage = "https://github.com/your-org/agi-kit"
+Documentation = "https://agi-kit.readthedocs.io"
+Repository = "https://github.com/your-org/agi-kit"
+Issues = "https://github.com/your-org/agi-kit/issues"
+
+[project.scripts]
+agi-kit = "agi_kit.cli.main:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agi_kit"]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = [".venv", "build", "dist"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "A", "C4", "DTZ", "T20", "PT", "Q", "RET", "SIM", "TID", "ARG", "ERA", "PL", "RUF"]
+ignore = ["PLR0913", "PLR2004", "E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "PLR2004"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = false
+warn_return_any = false
+ignore_missing_imports = true
+files = ["src/agi_kit"]
+
+[[tool.mypy.overrides]]
+module = "sentence_transformers.*"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-ra -q --strict-markers"
+markers = [
+    "slow: marks tests as slow (deselect with -m 'not slow')",
+    "integration: marks tests requiring external services",
+    "agent: marks agent-related tests",
+    "tool: marks tool-related tests",
+]
+
+[tool.coverage.run]
+source = ["src/agi_kit"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "if __name__ == .__main__.:",
+]
+show_missing = true
+skip_covered = false
+fail_under = 60
