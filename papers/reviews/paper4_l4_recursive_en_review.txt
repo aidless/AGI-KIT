@@ -1,23 +1,21 @@
 ======================================================================
 REVIEWER REPORT — Paper 4: Bounded Recursive Self-Modification
 File: paper4_l4_recursive_en.md
-Word count: 1641
+Word count: 1790
 Has figure: True, Has table: True
 Has ethics: True, Has ablation: True
 Has reproducibility: True
 
-OVERALL: avg score = 3.23 / 5.0
+OVERALL: avg score = 3.43 / 5.0
 RECOMMENDATION: Major Revision
 ======================================================================
 
 
 Reviewer 1 (Methods rigor) (focus: experimental design, ablations, statistical significance)
-  Score: 2.70/5.0  Severity: WEAK
+  Score: 3.30/5.0  Severity: MINOR
   Summary: Methods section is reasonable but lacks depth in a few places.
   Concerns:
-    - Paper is short (1641 words); methodology section may be terse
-    - Only 4 citation clusters; lacks grounding
-    - SFT/retrain is mocked (gen_meta only); no real training loss reported
+    - Paper is short (1790 words); methodology section may be terse
     - Tiny held-out eval (5 arithmetic tasks); variance likely high
   Questions for authors:
     ? How sensitive is performance to the alpha=0.4 hybrid weight? Have you tried alpha=0.2 and 0.6?
@@ -29,8 +27,6 @@ Reviewer 2 (Novelty & positioning) (focus: contribution clarity, related work, c
   Score: 3.30/5.0  Severity: MINOR
   Summary: Novelty is incremental; many components are well-known in isolation.
   Concerns:
-    - Doesn't discuss Reflexion (Shinn et al. 2023) — closest prior work
-    - No comparison with Voyager (Wang et al. 2023) lifelong-learning skill library
     - MetaGPT not cited — closest analog of a meta-controller
     - Hard to tell from the writeup what is the marginal contribution beyond composing existing ideas
     - Title says 'first-class abstraction' — but is this just a Python module?

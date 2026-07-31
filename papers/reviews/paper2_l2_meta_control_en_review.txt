@@ -1,7 +1,7 @@
 ======================================================================
 REVIEWER REPORT — Paper 2: Semantic Strategy Memory with Rule-Based Meta-Control
 File: paper2_l2_meta_control_en.md
-Word count: 1653
+Word count: 1787
 Has figure: True, Has table: True
 Has ethics: True, Has ablation: True
 Has reproducibility: True
@@ -15,7 +15,7 @@ Reviewer 1 (Methods rigor) (focus: experimental design, ablations, statistical s
   Score: 3.30/5.0  Severity: MINOR
   Summary: Methods section is reasonable but lacks depth in a few places.
   Concerns:
-    - Paper is short (1653 words); methodology section may be terse
+    - Paper is short (1787 words); methodology section may be terse
     - Tiny held-out eval (5 arithmetic tasks); variance likely high
   Questions for authors:
     ? How sensitive is performance to the alpha=0.4 hybrid weight? Have you tried alpha=0.2 and 0.6?

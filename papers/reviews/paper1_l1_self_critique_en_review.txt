@@ -1,7 +1,7 @@
 ======================================================================
 REVIEWER REPORT — Paper 1: Self-Critique as a First-Class Abstraction
 File: paper1_l1_self_critique_en.md
-Word count: 1754
+Word count: 1912
 Has figure: True, Has table: True
 Has ethics: True, Has ablation: True
 Has reproducibility: True
@@ -15,7 +15,7 @@ Reviewer 1 (Methods rigor) (focus: experimental design, ablations, statistical s
   Score: 3.00/5.0  Severity: MINOR
   Summary: Methods section is reasonable but lacks depth in a few places.
   Concerns:
-    - Paper is short (1754 words); methodology section may be terse
+    - Paper is short (1912 words); methodology section may be terse
     - SFT/retrain is mocked (gen_meta only); no real training loss reported
     - Tiny held-out eval (5 arithmetic tasks); variance likely high
   Questions for authors:

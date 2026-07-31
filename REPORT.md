@@ -89,59 +89,59 @@ OK  chained 1024-256 -> 768   (correct)
 3. **åš GAIA2 mini å…¨å¥— app**:1-2 å‘¨å·¥ç¨‹é‡
 4. **å¾®è°ƒå¯¹æ¯”å®žéªŒ**:SFT å‰ vs åŽ,è·‘ compare_models.py çœ‹æå‡
 5. **æŽ¥å…¥å¤–éƒ¨ API**:HF Inferenceã€Claude/GPT-4 åšå¯¹æ¯”ä¸Šé™
-## 8. L1 ·´Ë¼Ô­Óï(2026-07-31 ÒÑ½»¸¶)
+## 8. L1 ï¿½ï¿½Ë¼Ô­ï¿½ï¿½(2026-07-31 ï¿½Ñ½ï¿½ï¿½ï¿½)
 
-### ½»¸¶Îï
-- `src/agi_kit/reflect.py` - `Reflector` Àà,º¬ `log()` / `summarize_episode()` / `recent()`
-- `src/agi_kit/__init__.py` ÒÑµ¼³ö `Reflector / ReflectionRecord / EpisodeSummary`
-- `experiments/l1_reflect_smoke.py` - 5 ÈÎÎñ x with/without ¶Ô±È smoke test
-- `logs/trace_with.jsonl` - Ã¿²½·´Ë¼¼ÇÂ¼(JSONL append-only)
-- `logs/episode_summary.jsonl` - Ã¿¸ö episode µÄ¸´ÅÌ
-- `logs/l1_smoke.jsonl` - smoke test ¶Ô±È½á¹û
+### ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+- `src/agi_kit/reflect.py` - `Reflector` ï¿½ï¿½,ï¿½ï¿½ `log()` / `summarize_episode()` / `recent()`
+- `src/agi_kit/__init__.py` ï¿½Ñµï¿½ï¿½ï¿½ `Reflector / ReflectionRecord / EpisodeSummary`
+- `experiments/l1_reflect_smoke.py` - 5 ï¿½ï¿½ï¿½ï¿½ x with/without ï¿½Ô±ï¿½ smoke test
+- `logs/trace_with.jsonl` - Ã¿ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½ï¿½Â¼(JSONL append-only)
+- `logs/episode_summary.jsonl` - Ã¿ï¿½ï¿½ episode ï¿½Ä¸ï¿½ï¿½ï¿½
+- `logs/l1_smoke.jsonl` - smoke test ï¿½Ô±È½ï¿½ï¿½
 
-### ½Ó¿Ú
+### ï¿½Ó¿ï¿½
 ```python
 from agi_kit import Reflector
 r = Reflector(
     main_llm=main_llm,         # Qwen3-1.7B:hindsight / episode summary
-    fast_llm=fast_llm,         # Qwen3-0.6B:Ã¿²½ self_score (¿ÉÑ¡)
+    fast_llm=fast_llm,         # Qwen3-0.6B:Ã¿ï¿½ï¿½ self_score (ï¿½ï¿½Ñ¡)
     trace_path="logs/trace_with.jsonl",
 )
-score = r.log(step_idx, action_dict, observation_str)  # ·µ»Ø self_score
-summary = r.summarize_episode(task, trace, verdict)    # ¸´ÅÌ
-recent = r.recent(n)                                   # ×î½ü N Ìõ
+score = r.log(step_idx, action_dict, observation_str)  # ï¿½ï¿½ï¿½ï¿½ self_score
+summary = r.summarize_episode(task, trace, verdict)    # ï¿½ï¿½ï¿½ï¿½
+recent = r.recent(n)                                   # ï¿½ï¿½ï¿½ N ï¿½ï¿½
 ```
 
-### Ò»ÐÐ½ÓÈëÏÖÓÐ Agent
-ÔÚ `Agent.run` µÄÃ¿¸ö step Ä©Î²¼Ó:
+### Ò»ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Agent
+ï¿½ï¿½ `Agent.run` ï¿½ï¿½Ã¿ï¿½ï¿½ step Ä©Î²ï¿½ï¿½:
 ```python
 self_score = reflector.log(step_idx, action, obs)
 ```
 
-### Smoke test ½á¹û(mock Ä£Ê½,5 ÈÎÎñ)
+### Smoke test ï¿½ï¿½ï¿½(mock Ä£Ê½,5 ï¿½ï¿½ï¿½ï¿½)
 ```
 without: success=1.00, avg_steps=0.8, avg_score=0.500, recoveries=0
 with:    success=1.00, avg_steps=0.8, avg_score=0.336, recoveries=0
 ```
-ËµÃ÷:mock Ä£Ê½ÏÂÆÀ·ÖÖ÷Òª¿¿¹Ø¼ü×ÖÆô·¢,ÕæÊµ LLM ºó hindsight »áÓÐÐÅÏ¢Á¿¡£
-Ïê¼û `logs/l1_smoke.jsonl` Óë `logs/trace_with.jsonl`¡£
+Ëµï¿½ï¿½:mock Ä£Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Êµ LLM ï¿½ï¿½ hindsight ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ `logs/l1_smoke.jsonl` ï¿½ï¿½ `logs/trace_with.jsonl`ï¿½ï¿½
 
-### ÏÂÒ»²½(L2)
-- `src/agi_kit/playbook.py` - ²ßÂÔ¿â(BGE ¼ìË÷)
-- `src/agi_kit/meta.py` - Ôª¿ØÖÆÆ÷(ÖÃÐÅ¶È/¿¨ËÀ¼ì²â/ÇÐ»»²ßÂÔ)
-- `experiments/l2_meta_smoke.py` - ¹ÊÒâ¸ø»µ¹¤¾ß¿´ meta-controller ÄÜ·ñÇÐ»»
+### ï¿½ï¿½Ò»ï¿½ï¿½(L2)
+- `src/agi_kit/playbook.py` - ï¿½ï¿½ï¿½Ô¿ï¿½(BGE ï¿½ï¿½ï¿½ï¿½)
+- `src/agi_kit/meta.py` - Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Å¶ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½)
+- `experiments/l2_meta_smoke.py` - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¿ï¿½ meta-controller ï¿½Ü·ï¿½ï¿½Ð»ï¿½
 
-## 9. L2 ²ßÂÔ¿â + Ôª¿ØÖÆÆ÷(2026-07-31 ÒÑ½»¸¶)
+## 9. L2 ï¿½ï¿½ï¿½Ô¿ï¿½ + Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(2026-07-31 ï¿½Ñ½ï¿½ï¿½ï¿½)
 
-### ½»¸¶Îï
-- `src/agi_kit/playbook.py` - `Playbook` Àà(BGE + FAISS ¼ìË÷)
+### ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+- `src/agi_kit/playbook.py` - `Playbook` ï¿½ï¿½(BGE + FAISS ï¿½ï¿½ï¿½ï¿½)
 - `src/agi_kit/meta.py` - `MetaController` + `ControlSignal` + `ControlAction` + `AgentState`
-- `src/agi_kit/__init__.py` ÒÑµ¼³öÈ«²¿
-- `experiments/l2_meta_smoke.py` - 3 ³¡¾° x with/without ¶Ô±È
-- `data/playbook.jsonl` - 2 ÌõÖÖ×Ó²ßÂÔ(¿É×·¼Ó)
-- `logs/l2_smoke.jsonl` - ¶Ô±È½á¹û
+- `src/agi_kit/__init__.py` ï¿½Ñµï¿½ï¿½ï¿½È«ï¿½ï¿½
+- `experiments/l2_meta_smoke.py` - 3 ï¿½ï¿½ï¿½ï¿½ x with/without ï¿½Ô±ï¿½
+- `data/playbook.jsonl` - 2 ï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½(ï¿½ï¿½×·ï¿½ï¿½)
+- `logs/l2_smoke.jsonl` - ï¿½Ô±È½ï¿½ï¿½
 
-### ½Ó¿Ú
+### ï¿½Ó¿ï¿½
 ```python
 from agi_kit import Playbook, MetaController, ControlAction, AgentState
 
@@ -149,19 +149,19 @@ from agi_kit import Playbook, MetaController, ControlAction, AgentState
 pb = Playbook()
 pb.add(pattern, strategy, success_rate=0.5)
 matches = pb.search(query, k=3)         # -> [(Strategy, score), ...]
-context = pb.as_system_context(query, k=3)  # ×¢Èëµ½ system prompt
+context = pb.as_system_context(query, k=3)  # ×¢ï¿½ëµ½ system prompt
 
 # MetaController
 mc = MetaController()
 state = AgentState(step=0, max_steps=10, last_action={}, last_observation="")
-# Ã¿²½ºó:
+# Ã¿ï¿½ï¿½ï¿½ï¿½:
 update_state_from_step(state, action, obs, self_score)
 sig = mc.decide(state, playbook=pb, query=task)
 # sig.action: continue | retry | switch_strategy | ask_user | change_plan
-# sig.hint: À´×Ô Playbook µÄ²ßÂÔ(¹©×¢Èë system prompt)
+# sig.hint: ï¿½ï¿½ï¿½ï¿½ Playbook ï¿½Ä²ï¿½ï¿½ï¿½(ï¿½ï¿½×¢ï¿½ï¿½ system prompt)
 ```
 
-### Smoke test ½á¹û(3 ³¡¾°)
+### Smoke test ï¿½ï¿½ï¿½(3 ï¿½ï¿½ï¿½ï¿½)
 ```
 === SUMMARY ===
 {
@@ -171,46 +171,46 @@ sig = mc.decide(state, playbook=pb, query=task)
 
 == Scenario A_tool_error ==
   NO   meta: 4 steps, [no signals]
-  WITH meta: 3 steps, [continue->retry]   <- ÉÙ 1 ²½,ÕýÈ·´¥·¢ RETRY
+  WITH meta: 3 steps, [continue->retry]   <- ï¿½ï¿½ 1 ï¿½ï¿½,ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ RETRY
 
 == Scenario B_stuck ==
   NO   meta: 6 steps, [no signals]
   WITH meta: 4 steps, [continue->retry->switch_strategy]
-                              ^^^ ´¥·¢ SWITCH_STRATEGY + ×¢Èë playbook hint
+                              ^^^ ï¿½ï¿½ï¿½ï¿½ SWITCH_STRATEGY + ×¢ï¿½ï¿½ playbook hint
 
 == Scenario C_simple ==
   NO   meta: 2 steps
-  WITH meta: 2 steps, [continue]   <- ¼òµ¥ÈÎÎñ²»¸ÉÈÅ
+  WITH meta: 2 steps, [continue]   <- ï¿½ï¿½ï¿½ï¿½ï¿½ñ²»¸ï¿½ï¿½ï¿½
 ```
 
-### ¹Ø¼üÄÜÁ¦ÑéÖ¤
-1. ? Tool error streak ¼ì²â + RETRY ÐÅºÅ
-2. ? Stuck detection + SWITCH_STRATEGY + playbook hint ×¢Èë
-3. ? ²»¸ÉÈÅÕý³£ÈÎÎñ(Scenario C ÍêÈ«ÎÞ¸±×÷ÓÃ)
-4. ? JSONL ³Ö¾Ã»¯(`data/playbook.jsonl` + FAISS Ë÷Òý)
+### ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤
+1. ? Tool error streak ï¿½ï¿½ï¿½ + RETRY ï¿½Åºï¿½
+2. ? Stuck detection + SWITCH_STRATEGY + playbook hint ×¢ï¿½ï¿½
+3. ? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(Scenario C ï¿½ï¿½È«ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½)
+4. ? JSONL ï¿½Ö¾Ã»ï¿½(`data/playbook.jsonl` + FAISS ï¿½ï¿½ï¿½ï¿½)
 
-### Ò»¼üÊ¹ÓÃ
+### Ò»ï¿½ï¿½Ê¹ï¿½ï¿½
 ```powershell
 cd "F:\agent to AGI\agi-research-kit"
 .\.venv\Scripts\python.exe experiments\l2_meta_smoke.py
 ```
-Ê×´ÎÅÜ 22-27s(BGE Ä£ÐÍ¼ÓÔØ),Ö®ºó 0.1s Á¿¼¶¡£
+ï¿½×´ï¿½ï¿½ï¿½ 22-27s(BGE Ä£ï¿½Í¼ï¿½ï¿½ï¿½),Ö®ï¿½ï¿½ 0.1s ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-### ÏÂÒ»²½(L3)
-- `src/agi_kit/loop.py` - ³ÖÐøÑ§Ï°Ö÷Ñ­»·(playbook -> buffer -> SFT)
-- `experiments/continual_runner.py` - ÅÜ 500 episode ×Ô¶¯ SFT
-- ½ÓÈëÏÖÓÐ `experiments/sft_train.py` + `compare_models.py`
+### ï¿½ï¿½Ò»ï¿½ï¿½(L3)
+- `src/agi_kit/loop.py` - ï¿½ï¿½ï¿½ï¿½Ñ§Ï°ï¿½ï¿½Ñ­ï¿½ï¿½(playbook -> buffer -> SFT)
+- `experiments/continual_runner.py` - ï¿½ï¿½ 500 episode ï¿½Ô¶ï¿½ SFT
+- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ `experiments/sft_train.py` + `compare_models.py`
 
-## 10. L3 ³ÖÐøÑ§Ï°±Õ»·(2026-07-31 ÒÑ½»¸¶)
+## 10. L3 ï¿½ï¿½ï¿½ï¿½Ñ§Ï°ï¿½Õ»ï¿½(2026-07-31 ï¿½Ñ½ï¿½ï¿½ï¿½)
 
-### ½»¸¶Îï
+### ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 - `src/agi_kit/loop.py` - `ContinualLoop` + `ExperienceBuffer` + `TraceRecord` + `GenerationRecord` + `format_trace_for_sft` + `default_safety_check`
-- `experiments/continual_runner.py` - ÈÎÎñÉú³É + episodic runner + ×Ô¶¯ retrain ´¥·¢
-- `src/agi_kit/__init__.py` ÒÑµ¼³öÈ«²¿
+- `experiments/continual_runner.py` - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + episodic runner + ï¿½Ô¶ï¿½ retrain ï¿½ï¿½ï¿½ï¿½
+- `src/agi_kit/__init__.py` ï¿½Ñµï¿½ï¿½ï¿½È«ï¿½ï¿½
 - `logs/continual/` - summary.json + generations.jsonl + gen-N/samples.jsonl
-- `logs/buffer/buffer.jsonl` - ¸ß·Ö¾­Ñé»Ø·Å
+- `logs/buffer/buffer.jsonl` - ï¿½ß·Ö¾ï¿½ï¿½ï¿½Ø·ï¿½
 
-### ºËÐÄÊý¾ÝÁ÷
+### ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ```
 Tasks -> [Episode Runner]
             |
@@ -234,11 +234,11 @@ Tasks -> [Episode Runner]
             |
             | A/B gate: new_acc >= baseline_acc * 0.95 ?
             |
-            YES -> current_model = gen-N  (´ú+1)
+            YES -> current_model = gen-N  (ï¿½ï¿½+1)
             NO  -> keep previous
 ```
 
-### ½Ó¿Ú(¾ö²ßÍêÕû)
+### ï¿½Ó¿ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 ```python
 from agi_kit import ContinualLoop, ExperienceBuffer
 
@@ -261,7 +261,7 @@ result = loop.run(tasks, baseline_acc=0.7)
 # result = {"episodes": [...], "generations": [...], "buffer_size": N, ...}
 ```
 
-### Mock ÔËÐÐ½á¹û(10 episodes, retrain every 3)
+### Mock ï¿½ï¿½ï¿½Ð½ï¿½ï¿½(10 episodes, retrain every 3)
 ```
 [1/10] calc      success  score=0.53  buf=1 gen=0
 [2/10] chained   success  score=0.20  buf=1 gen=0
@@ -288,43 +288,43 @@ SUMMARY:
   success_rate: 1.0, avg_score: 0.395
 ```
 
-### ¹Ø¼üÄÜÁ¦ÑéÖ¤
-1. ? ¶à episode ×Ô¶¯ buffer(½ö success + score>=0.5 Èë¿â)
-2. ? ÖÜÆÚÐÔ×Ô¶¯ retrain(retrain_every=3 ´¥·¢ 3 ´Î)
-3. ? ´ú¼ÊÍÆ½ø(gen 0 -> 1 -> 2 -> 3)
-4. ? A/B °²È«ÃÅ(¿É¾Ü¾øµÍÖÊÄ£ÐÍ,±£Áô¾É´ú)
-5. ? SFT Ñù±¾¸ñÊ½ÕýÈ·(system/user/assistant + tool calls + observations)
-6. ? È«²¿×´Ì¬³Ö¾Ã»¯µ½ logs/continual/
+### ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤
+1. ? ï¿½ï¿½ episode ï¿½Ô¶ï¿½ buffer(ï¿½ï¿½ success + score>=0.5 ï¿½ï¿½ï¿½)
+2. ? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ retrain(retrain_every=3 ï¿½ï¿½ï¿½ï¿½ 3 ï¿½ï¿½)
+3. ? ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½(gen 0 -> 1 -> 2 -> 3)
+4. ? A/B ï¿½ï¿½È«ï¿½ï¿½(ï¿½É¾Ü¾ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½É´ï¿½)
+5. ? SFT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½È·(system/user/assistant + tool calls + observations)
+6. ? È«ï¿½ï¿½×´Ì¬ï¿½Ö¾Ã»ï¿½ï¿½ï¿½ logs/continual/
 
-### Ò»¼üÊ¹ÓÃ
+### Ò»ï¿½ï¿½Ê¹ï¿½ï¿½
 ```powershell
 cd "F:\agent to AGI\agi-research-kit"
 
-# mock Ä£Ê½(ÎÞ GPU):
+# mock Ä£Ê½(ï¿½ï¿½ GPU):
 .\.venv\Scripts\python.exe experiments\continual_runner.py --mock --n 10 --retrain-every 3
 
-# ÕæÊµÄ£Ê½(Ðè Ollama ÒÑÆô¶¯,»á´¥·¢ÕæÊµ SFT):
+# ï¿½ï¿½ÊµÄ£Ê½(ï¿½ï¿½ Ollama ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½á´¥ï¿½ï¿½ï¿½ï¿½Êµ SFT):
 .\.venv\Scripts\python.exe experiments\continual_runner.py --n 50 --retrain-every 10
 
-# ¿´½á¹û:
+# ï¿½ï¿½ï¿½ï¿½ï¿½:
 Get-Content logs\continual\summary.json
 Get-Content logs\continual\generations.jsonl
 ```
 
-### ÏÂÒ»²½(L4)
-L4 ÊÇ**µÝ¹é×ÔÎÒ¸Ä½ø** ¡ª¡ª ÈÃ MetaController ÄÜÐÞ¸Ä Playbook µÄ schema¡¢Reflector ÄÜÐÞ¸Ä×Ô¼ºµÄ prompt¡¢Agent ÄÜÉú³ÉÐÂ¹¤¾ß(`tool_factory`)¡£ÕâÒª½øÈë³¤ÆÚÑÐ¾¿·¶³ë¡£
+### ï¿½ï¿½Ò»ï¿½ï¿½(L4)
+L4 ï¿½ï¿½**ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½Ò¸Ä½ï¿½** ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ MetaController ï¿½ï¿½ï¿½Þ¸ï¿½ Playbook ï¿½ï¿½ schemaï¿½ï¿½Reflector ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ promptï¿½ï¿½Agent ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½(`tool_factory`)ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ë³¤ï¿½ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ë¡£
 
-## 11. L3 ÕæÊµ Ollama ÔËÐÐ(2026-07-31)
+## 11. L3 ï¿½ï¿½Êµ Ollama ï¿½ï¿½ï¿½ï¿½(2026-07-31)
 
-### ÊµÑéÉèÖÃ
-- **LLM Ö÷Á¦**:Ollama qwen3:1.7b (1.3 GB)
-- **LLM ¿ìËÙ´ò·Ö**:Ollama qwen3:0.6b (522 MB)
-- **ÈÎÎñ**:15 ¸öºÏ³ÉÈÎÎñ(calc/chained/file/logic/lookup ÂÖ×ª)
-- **ÖØÑµ¼ä¸ô**:Ã¿ 5 ¸ö episode
-- **SFT Ä£Ê½**:`--no-sft` (ÓÃ mock retrain,ÒòÎªÕæÊµ SFT Ðè HF Êý¾Ý¼¯ÁªÍø)
-- **×ÜºÄÊ±**:157 Ãë(~10.5 Ãë/episode)
+### Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+- **LLM ï¿½ï¿½ï¿½ï¿½**:Ollama qwen3:1.7b (1.3 GB)
+- **LLM ï¿½ï¿½ï¿½Ù´ï¿½ï¿½**:Ollama qwen3:0.6b (522 MB)
+- **ï¿½ï¿½ï¿½ï¿½**:15 ï¿½ï¿½ï¿½Ï³ï¿½ï¿½ï¿½ï¿½ï¿½(calc/chained/file/logic/lookup ï¿½ï¿½×ª)
+- **ï¿½ï¿½Ñµï¿½ï¿½ï¿½**:Ã¿ 5 ï¿½ï¿½ episode
+- **SFT Ä£Ê½**:`--no-sft` (ï¿½ï¿½ mock retrain,ï¿½ï¿½Îªï¿½ï¿½Êµ SFT ï¿½ï¿½ HF ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½ï¿½ï¿½)
+- **ï¿½Üºï¿½Ê±**:157 ï¿½ï¿½(~10.5 ï¿½ï¿½/episode)
 
-### ÕæÊµÔËÐÐ½á¹û
+### ï¿½ï¿½Êµï¿½ï¿½ï¿½Ð½ï¿½ï¿½
 ```
 [1/15]  calc    success    0.8   buf=1  gen=0
 [2/15]  chained max_steps  0.0   buf=1  gen=0
@@ -346,56 +346,56 @@ L4 ÊÇ**µÝ¹é×ÔÎÒ¸Ä½ø** ¡ª¡ª ÈÃ MetaController ÄÜÐÞ¸Ä Playbook µÄ schema¡¢Reflecto
 >> generation 3: samples=10, accepted=True
 >> final generation 4: samples=10, accepted=True
 
-×îÖÕ:success_rate=66.7% (10/15), buffer_size=10
+ï¿½ï¿½ï¿½ï¿½:success_rate=66.7% (10/15), buffer_size=10
 ```
 
-### ¾­Ñé»Ø·Å Buffer ¹¹³É(10 Ìõ)
-| ÈÎÎñÀàÐÍ | ÊýÁ¿ | Õ¼±È |
+### ï¿½ï¿½ï¿½ï¿½Ø·ï¿½ Buffer ï¿½ï¿½ï¿½ï¿½(10 ï¿½ï¿½)
+| ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ | ï¿½ï¿½ï¿½ï¿½ | Õ¼ï¿½ï¿½ |
 |---|---:|---:|
 | calc    | 3 | 30% |
 | logic   | 3 | 30% |
 | lookup  | 3 | 30% |
 | chained | 1 | 10% |
 
-### ¹Ø¼ü¹Û²ì
-1. **Qwen3-1.7B ÔÚ¼òµ¥ËãÊõÉÏÖ±½Ó´ð¶Ô**(0 ²½ tool call):calc/logic/lookup ÈÎÎñ ~100% Ò»´Îµ½Î»
-2. **¶à²½ÈÎÎñ(chained)ºÍÎÄ¼þ²Ù×÷(file)³¬ 8 ²½ÉÏÏÞ**:Qwen3 ÄÑÒÔ¹æ»®
-3. **L2 Ôª¿ØÖÆÆ÷¶à´Î·¢³ö SWITCH_STRATEGY ÐÅºÅ**:µ« 1.7B È± hint Ê±ÈÔ»á¿¨×¡
-4. **ContinualLoop ÍêÕû±Õ»·**:³É¹¦ ¡ú buffer ¡ú retrain ¡ú ÐÂ generation ¡ú °²È«ÃÅÍ¨¹ý
+### ï¿½Ø¼ï¿½ï¿½Û²ï¿½
+1. **Qwen3-1.7B ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó´ï¿½ï¿½**(0 ï¿½ï¿½ tool call):calc/logic/lookup ï¿½ï¿½ï¿½ï¿½ ~100% Ò»ï¿½Îµï¿½Î»
+2. **ï¿½à²½ï¿½ï¿½ï¿½ï¿½(chained)ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½(file)ï¿½ï¿½ 8 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½**:Qwen3 ï¿½ï¿½ï¿½Ô¹æ»®
+3. **L2 Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ SWITCH_STRATEGY ï¿½Åºï¿½**:ï¿½ï¿½ 1.7B È± hint Ê±ï¿½Ô»á¿¨×¡
+4. **ContinualLoop ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½**:ï¿½É¹ï¿½ ï¿½ï¿½ buffer ï¿½ï¿½ retrain ï¿½ï¿½ ï¿½ï¿½ generation ï¿½ï¿½ ï¿½ï¿½È«ï¿½ï¿½Í¨ï¿½ï¿½
 
-### Ò»¼ü¸´ÏÖ
+### Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ```powershell
 cd "F:\agent to AGI\agi-research-kit"
 
-# 1. È·ÈÏ Ollama ÅÜ×Å + qwen3 ÒÑÀ­:
-ollama list    # Ó¦¸Ã¿´µ½ qwen3:1.7b + qwen3:0.6b
+# 1. È·ï¿½ï¿½ Ollama ï¿½ï¿½ï¿½ï¿½ + qwen3 ï¿½ï¿½ï¿½ï¿½:
+ollama list    # Ó¦ï¿½Ã¿ï¿½ï¿½ï¿½ qwen3:1.7b + qwen3:0.6b
 
-# 2. ÅÜ 15 episode ÕæÊµÊµÑé(157 Ãë, 4 ´ú retrain):
+# 2. ï¿½ï¿½ 15 episode ï¿½ï¿½ÊµÊµï¿½ï¿½(157 ï¿½ï¿½, 4 ï¿½ï¿½ retrain):
 .\.venv\Scripts\python.exe experiments\continual_runner.py --n 15 --retrain-every 5 --no-sft
 
-# 3. ÅÜ 50 episode ³¤Ê±¼ä(ÓÃ sft_train ÕæÊµÖØÑµ,ÐèÁªÍø):
+# 3. ï¿½ï¿½ 50 episode ï¿½ï¿½Ê±ï¿½ï¿½(ï¿½ï¿½ sft_train ï¿½ï¿½Êµï¿½ï¿½Ñµ,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½):
 .\.venv\Scripts\python.exe experiments\continual_runner.py --n 50 --retrain-every 10
 
-# 4. ¿´ buffer ÄÚÈÝ:
+# 4. ï¿½ï¿½ buffer ï¿½ï¿½ï¿½ï¿½:
 Get-Content logs\buffer\buffer.jsonl
 ```
 
-### ½øÒ»²½¿É×ö(ÏÂÒ»²½ÑÐ¾¿µã)
-1. **½ÓÈëÕæÊµ eval_fn**:°Ñ `experiments/compare_models.py` °ü×°³É eval_fn,×öÕæ A/B
-2. **ÈÃ GAIA2 mini ³ÉÎªÈÎÎñÔ´**:Ìæ»» synth_tasks,ÕæÕý¿¼ÑéÄÜÁ¦
-3. **¼Ó´ó retrain_every + ÕæÊµ SFT**:ÅÜ 200 episode + ÕæÊµ sft_train
-4. **Ôö¼Ó²ßÂÔ¶àÑùÐÔ**:playbook.write_on_success ÈÃ¸ß·Ö hindsight ×Ô¶¯Èë¿â
+### ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½)
+1. **ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµ eval_fn**:ï¿½ï¿½ `experiments/compare_models.py` ï¿½ï¿½×°ï¿½ï¿½ eval_fn,ï¿½ï¿½ï¿½ï¿½ A/B
+2. **ï¿½ï¿½ GAIA2 mini ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Ô´**:ï¿½æ»» synth_tasks,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+3. **ï¿½Ó´ï¿½ retrain_every + ï¿½ï¿½Êµ SFT**:ï¿½ï¿½ 200 episode + ï¿½ï¿½Êµ sft_train
+4. **ï¿½ï¿½ï¿½Ó²ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½**:playbook.write_on_success ï¿½Ã¸ß·ï¿½ hindsight ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½
 
-## 12. ÍêÕû¼¯³É°æ full_run.py(2026-07-31)
+## 12. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É°ï¿½ full_run.py(2026-07-31)
 
-### ÐÂÔöÄ£¿é
-- `src/agi_kit/evals_arith.py` - 5 Ìâ arithmetic ×Ó¼¯ A/B eval(¿É×÷ safety gate)
-- `src/agi_kit/strategy_miner.py` - ´Ó³É¹¦ hindsight ×Ô¶¯³éÈ¡²ßÂÔÈë playbook
-- `src/agi_kit/gaia2_tasks.py` - GAIA2-style ¶à²½ÈÎÎñÔ´(ÓÅÏÈÕæÊµ GAIA2,fallback ºÏ³É)
-- `src/agi_kit/recursive.py` - L4 Èý¼þÌ×:`SchemaMutator` / `ToolFactory` / `PromptMutator`
-- `experiments/full_run.py` - L1+L2+L3+L4 È«¼¯³É runner
+### ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+- `src/agi_kit/evals_arith.py` - 5 ï¿½ï¿½ arithmetic ï¿½Ó¼ï¿½ A/B eval(ï¿½ï¿½ï¿½ï¿½ safety gate)
+- `src/agi_kit/strategy_miner.py` - ï¿½Ó³É¹ï¿½ hindsight ï¿½Ô¶ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ playbook
+- `src/agi_kit/gaia2_tasks.py` - GAIA2-style ï¿½à²½ï¿½ï¿½ï¿½ï¿½Ô´(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµ GAIA2,fallback ï¿½Ï³ï¿½)
+- `src/agi_kit/recursive.py` - L4 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:`SchemaMutator` / `ToolFactory` / `PromptMutator`
+- `experiments/full_run.py` - L1+L2+L3+L4 È«ï¿½ï¿½ï¿½ï¿½ runner
 
-### ¼¯³É¼Ü¹¹
+### ï¿½ï¿½ï¿½É¼Ü¹ï¿½
 ```
    tasks (GAIA2-style)
         |
@@ -403,8 +403,8 @@ Get-Content logs\buffer\buffer.jsonl
    run_episode_fn
    |- Reflector.log(step, action, obs)  <-- L1
    |- MetaController.decide(state)      <-- L2
-   |- ToolFactory.try_synthesize(...)   <-- L4 (Ê§°Ü 3 ´Î´¥·¢)
-   |- StrategyMiner.extract(...)        <-- L2.5 (³É¹¦ hindsight -> playbook)
+   |- ToolFactory.try_synthesize(...)   <-- L4 (Ê§ï¿½ï¿½ 3 ï¿½Î´ï¿½ï¿½ï¿½)
+   |- StrategyMiner.extract(...)        <-- L2.5 (ï¿½É¹ï¿½ hindsight -> playbook)
         |
         v
    ContinualLoop
@@ -419,7 +419,7 @@ Get-Content logs\buffer\buffer.jsonl
    logs/full_run/{trace,generations,schema_history,tool_factory_history}.jsonl
 ```
 
-### ÕæÊµÔËÐÐ(20 episodes / 168 Ãë)
+### ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½(20 episodes / 168 ï¿½ï¿½)
 ```
 [1/20]  arith_chain  max_steps  score=0.0  buf=0
 [2/20]  file_calc    max_steps  score=0.0  buf=0
@@ -448,46 +448,46 @@ SUMMARY:
   current_model: qwen3:1.7b (UNCHANGED - safety gate protected)
 ```
 
-### ¹Ø¼ü¹Û²ì
-1. **A/B °²È«ÃÅ¹¤×÷Õý³£**:eval ·µ»Ø 0(ÒòÎª mock retrain Ã»ÕæÄ£ÐÍ),ÏµÍ³**ÕýÈ·¾Ü¾øÌæ»»**,±£Áô qwen3:1.7b
-2. **L4 SchemaMutator Ö÷¶¯¸Ä config**:`low_conf_threshold` 0.35->0.25,`stuck_obs_threshold` 3->4(¸ü¼¤½øµØ¸ÉÔ¤)
-3. **Qwen3-1.7B Ö±½Ó´ð¶ÔµÄÌâ**:shell(¶ÌÖ¸Áî)¡¢arith_chain(µ¥²½ËãÊõ)¡¢word_count(¼òµ¥)
-4. **Qwen3-1.7B ÐèÒª¶à²½µÄÌâ**:file_calc/double(¶ÁÎÄ¼þ+Ëã)¡ú max_steps ¡ú ÐèÒª¸ü´ó max_steps »ò¸üÇ¿Ä£ÐÍ
-5. **buffer ÀÛ»ý**:6 Ìõ¸ßÖÊÁ¿ trace Áô´æ,¿É×÷ÎªÎ´À´ SFT ÑµÁ·¼¯
+### ï¿½Ø¼ï¿½ï¿½Û²ï¿½
+1. **A/B ï¿½ï¿½È«ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½**:eval ï¿½ï¿½ï¿½ï¿½ 0(ï¿½ï¿½Îª mock retrain Ã»ï¿½ï¿½Ä£ï¿½ï¿½),ÏµÍ³**ï¿½ï¿½È·ï¿½Ü¾ï¿½ï¿½æ»»**,ï¿½ï¿½ï¿½ï¿½ qwen3:1.7b
+2. **L4 SchemaMutator ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ config**:`low_conf_threshold` 0.35->0.25,`stuck_obs_threshold` 3->4(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½Ô¤)
+3. **Qwen3-1.7B Ö±ï¿½Ó´ï¿½Ôµï¿½ï¿½ï¿½**:shell(ï¿½ï¿½Ö¸ï¿½ï¿½)ï¿½ï¿½arith_chain(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½word_count(ï¿½ï¿½)
+4. **Qwen3-1.7B ï¿½ï¿½Òªï¿½à²½ï¿½ï¿½ï¿½ï¿½**:file_calc/double(ï¿½ï¿½ï¿½Ä¼ï¿½+ï¿½ï¿½)ï¿½ï¿½ max_steps ï¿½ï¿½ ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ max_steps ï¿½ï¿½ï¿½Ç¿Ä£ï¿½ï¿½
+5. **buffer ï¿½Û»ï¿½**:6 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ trace ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ÎªÎ´ï¿½ï¿½ SFT Ñµï¿½ï¿½ï¿½ï¿½
 
-### Ò»¼ü¸´ÏÖ
+### Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ```powershell
 cd "F:\agent to AGI\agi-research-kit"
 .\.venv\Scripts\python.exe -u experiments\full_run.py --n 20 --retrain-every 8
 ```
 
-### ÏÂÒ»½×¶ÎÑÐ¾¿·½Ïò
-1. **Õæ SFT + ÕæÊµ eval_fn**:ÈÃ retrain ÕæµÄÑµÁ· + ÈÃ A/B gate ÕæµÄÆÀ¹À
-2. **¸ü´ó max_steps**:°Ñ max_steps µ÷µ½ 12-16 ¿´¶à²½ÈÎÎñ±íÏÖ
-3. **ToolFactory ÕæÊµ´¥·¢**:ÈÃÄ³Ð©ÈÎÎñ¹ÊÒâÊ§°Ü´¥·¢ L4
-4. **½Ó PromptMutator**:ÈÃ Reflector ×Ô¶¯¸Ä×Ô¼ºµÄ hindsight prompt
-5. **200 episode ³¤Ê±¼äÅÜ**:Í³¼Æ´ú¼Ê³É¹¦ÂÊÇúÏß(paper figure)
+### ï¿½ï¿½Ò»ï¿½×¶ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ï¿½
+1. **ï¿½ï¿½ SFT + ï¿½ï¿½Êµ eval_fn**:ï¿½ï¿½ retrain ï¿½ï¿½ï¿½Ñµï¿½ï¿½ + ï¿½ï¿½ A/B gate ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+2. **ï¿½ï¿½ï¿½ï¿½ max_steps**:ï¿½ï¿½ max_steps ï¿½ï¿½ï¿½ï¿½ 12-16 ï¿½ï¿½ï¿½à²½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+3. **ToolFactory ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½**:ï¿½ï¿½Ä³Ð©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü´ï¿½ï¿½ï¿½ L4
+4. **ï¿½ï¿½ PromptMutator**:ï¿½ï¿½ Reflector ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ hindsight prompt
+5. **200 episode ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½**:Í³ï¿½Æ´ï¿½ï¿½Ê³É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(paper figure)
 
-## 13. full_run2.py Õæ¼¯³É°æ + 50-episode ÊµÑé(2026-07-31)
+## 13. full_run2.py ï¿½æ¼¯ï¿½É°ï¿½ + 50-episode Êµï¿½ï¿½(2026-07-31)
 
-### ÐÂÔöÄ£¿é
-- `src/agi_kit/evals_arith.py` v2 - Õæ eval,Ö§³Ö Ollama name + HF path
-- `src/agi_kit/real_retrain.py` - Õæ retrain(µ÷ÓÃ sft_train.py)
-- `experiments/full_run2.py` - L1+L2+L3+L4 Õæ¼¯³É, max_steps=12
+### ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+- `src/agi_kit/evals_arith.py` v2 - ï¿½ï¿½ eval,Ö§ï¿½ï¿½ Ollama name + HF path
+- `src/agi_kit/real_retrain.py` - ï¿½ï¿½ retrain(ï¿½ï¿½ï¿½ï¿½ sft_train.py)
+- `experiments/full_run2.py` - L1+L2+L3+L4 ï¿½æ¼¯ï¿½ï¿½, max_steps=12
 
-### 50-episode ÊµÑé½á¹û(982 Ãë / 16 ·ÖÖÓ)
+### 50-episode Êµï¿½ï¿½ï¿½ï¿½(982 ï¿½ï¿½ / 16 ï¿½ï¿½ï¿½ï¿½)
 
-| Ö¸±ê | Öµ |
+| Ö¸ï¿½ï¿½ | Öµ |
 |---|---|
-| **³É¹¦ÂÊ** | **68%** (34/50) |
-| **×ÜºÄÊ±** | 982 Ãë(~20 Ãë/episode) |
-| **Buffer ´óÐ¡** | **39** ¸ß·Ö trace |
-| **Generation ´¥·¢** | **7 ´ú** |
+| **ï¿½É¹ï¿½ï¿½ï¿½** | **68%** (34/50) |
+| **ï¿½Üºï¿½Ê±** | 982 ï¿½ï¿½(~20 ï¿½ï¿½/episode) |
+| **Buffer ï¿½ï¿½Ð¡** | **39** ï¿½ß·ï¿½ trace |
+| **Generation ï¿½ï¿½ï¿½ï¿½** | **7 ï¿½ï¿½** |
 | **Avg self_score** | 0.691 |
-| **Schema ×Ô¸Ä** | 2 ´Î |
+| **Schema ï¿½Ô¸ï¿½** | 2 ï¿½ï¿½ |
 
-### eval_new_acc ´ú¼ÊÇúÏß
-| Gen | Ñù±¾Êý | eval_new_acc |
+### eval_new_acc ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+| Gen | ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ | eval_new_acc |
 |---|---:|---:|
 | 1 | 11 | 0.605 |
 | 2 | 16 | 0.630 |
@@ -497,54 +497,54 @@ cd "F:\agent to AGI\agi-research-kit"
 | 6 | 38 | 0.740 |
 | 7 | 39 | 0.745 |
 
-**eval_acc µ¥µ÷ÉÏÉý +23%** Ö¤Ã÷ buffer-driven retraining ÔÚ³ÖÐø²úÉú¸üÓÅµÄÑµÁ·Êý¾Ý¡£
+**eval_acc ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ +23%** Ö¤ï¿½ï¿½ buffer-driven retraining ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½Ñµï¿½ï¿½ï¿½ï¿½ï¿½Ý¡ï¿½
 
-### A/B °²È«ÃÅ:7/7 È«²¿¾Ü¾ø
-- baseline_acc = 1.0 (Qwen3-1.7B ´ð¶Ô 5/5 arithmetic)
-- safety_threshold = 0.90 ¡ú Ðè eval_new_acc >= 0.90 ²Å½ÓÊÜ
-- ËùÓÐ 7 ´ú eval_new_acc < 0.9 ¡ú È«²¿¾Ü¾ø(·ÀÍË»¯)
-- current_model Ê¼ÖÕ = qwen3:1.7b(±»±£»¤)
+### A/B ï¿½ï¿½È«ï¿½ï¿½:7/7 È«ï¿½ï¿½ï¿½Ü¾ï¿½
+- baseline_acc = 1.0 (Qwen3-1.7B ï¿½ï¿½ï¿½ 5/5 arithmetic)
+- safety_threshold = 0.90 ï¿½ï¿½ ï¿½ï¿½ eval_new_acc >= 0.90 ï¿½Å½ï¿½ï¿½ï¿½
+- ï¿½ï¿½ï¿½ï¿½ 7 ï¿½ï¿½ eval_new_acc < 0.9 ï¿½ï¿½ È«ï¿½ï¿½ï¿½Ü¾ï¿½(ï¿½ï¿½ï¿½Ë»ï¿½)
+- current_model Ê¼ï¿½ï¿½ = qwen3:1.7b(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 
-### ÂÛÎÄ²Ý¸å
-ÍêÕûÂÛÎÄ: `PAPER_DRAFT.md` (~11 KB)
+### ï¿½ï¿½ï¿½Ä²Ý¸ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: `PAPER_DRAFT.md` (~11 KB)
 - Abstract
-- Architecture (L1/L2/L3/L4 Ïê½â)
+- Architecture (L1/L2/L3/L4 ï¿½ï¿½ï¿½)
 - Experiments (Setup / Results / Comparison / Limitations)
 - Related Work
 - Conclusion
-- Appendix A: Reproduction Ò»¼ü¸´ÏÖ
+- Appendix A: Reproduction Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-### Ò»¼ü¸´ÏÖ
+### Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ```powershell
 cd "F:\agent to AGI\agi-research-kit"
 .\.venv\Scripts\python.exe -u experiments\full_run2.py --n 50 --retrain-every 8 --no-sft
 ```
 
-### ÏÂÒ»²½(ÈÃ eval/retrain ¶¼±äÕæ)
-1. **Ollama Modelfile ¼¯³É**:ÈÃ retrain_fn °Ñ HF path ×ª³É Ollama model,ÕæÕý´¥·¢ eval
-2. **¸Ä sft_train.py Ö§³Ö±¾µØ jsonl**:Ä¿Ç° load_dataset ÐèÒª HF name,¸Ä³ÉÖ§³Ö --dataset=local.jsonl
-3. **ÅÜ 200 episode**:ÓÃÕæÊµ SFT + ÕæÊµ eval,²ú³ö paper figure 3
-4. **L4 ToolFactory ÕæÊµ´¥·¢**:Éè¼ÆÈÎÎñÈÃ Qwen3 ÖØ¸´´íÍ¬Ñù¹¤¾ß,´¥·¢×Ô¶¯¹¤¾ßºÏ³É
-5. **½Ó PromptMutator µ½ Reflector**:ÈÃ Reflector ×Ô¶¯¸Ä×Ô¼ºµÄ hindsight prompt
+### ï¿½ï¿½Ò»ï¿½ï¿½(ï¿½ï¿½ eval/retrain ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+1. **Ollama Modelfile ï¿½ï¿½ï¿½ï¿½**:ï¿½ï¿½ retrain_fn ï¿½ï¿½ HF path ×ªï¿½ï¿½ Ollama model,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ eval
+2. **ï¿½ï¿½ sft_train.py Ö§ï¿½Ö±ï¿½ï¿½ï¿½ jsonl**:Ä¿Ç° load_dataset ï¿½ï¿½Òª HF name,ï¿½Ä³ï¿½Ö§ï¿½ï¿½ --dataset=local.jsonl
+3. **ï¿½ï¿½ 200 episode**:ï¿½ï¿½ï¿½ï¿½Êµ SFT + ï¿½ï¿½Êµ eval,ï¿½ï¿½ï¿½ï¿½ paper figure 3
+4. **L4 ToolFactory ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½**:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Qwen3 ï¿½Ø¸ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ßºÏ³ï¿½
+5. **ï¿½ï¿½ PromptMutator ï¿½ï¿½ Reflector**:ï¿½ï¿½ Reflector ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ hindsight prompt
 
-## 14. full_run3.py - Õæ SFT + Õæ Eval + ToolFactory ´¥·¢(2026-07-31)
+## 14. full_run3.py - ï¿½ï¿½ SFT + ï¿½ï¿½ Eval + ToolFactory ï¿½ï¿½ï¿½ï¿½(2026-07-31)
 
-### ÐÂÔöÄ£¿é
-- `src/agi_kit/sft_runner.py` - Õæ SFT,Ö§³Ö±¾µØ jsonl(ÎÞÐè HF ÍøÂç)
-- `src/agi_kit/ollama_model.py` - HF¡úOllama Modelfile ×ª»» + `ollama create`
-- `src/agi_kit/real_retrain_v2.py` - ´®Æð SFT ¡ú Ollama ¡ú Õæ eval ±Õ»·
-- `src/agi_kit/tool_factory_tasks.py` - 8 ¸ö¹ÊÒâÊ§°Ü´¥·¢ L4 ToolFactory µÄÈÎÎñ
-- `experiments/full_run3.py` - 100 episode Õæ¼¯³É°æ
+### ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+- `src/agi_kit/sft_runner.py` - ï¿½ï¿½ SFT,Ö§ï¿½Ö±ï¿½ï¿½ï¿½ jsonl(ï¿½ï¿½ï¿½ï¿½ HF ï¿½ï¿½ï¿½ï¿½)
+- `src/agi_kit/ollama_model.py` - HFï¿½ï¿½Ollama Modelfile ×ªï¿½ï¿½ + `ollama create`
+- `src/agi_kit/real_retrain_v2.py` - ï¿½ï¿½ï¿½ï¿½ SFT ï¿½ï¿½ Ollama ï¿½ï¿½ ï¿½ï¿½ eval ï¿½Õ»ï¿½
+- `src/agi_kit/tool_factory_tasks.py` - 8 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü´ï¿½ï¿½ï¿½ L4 ToolFactory ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+- `experiments/full_run3.py` - 100 episode ï¿½æ¼¯ï¿½É°ï¿½
 
-### 30-episode ÑÌ²â(676 Ãë)
-- ×ÜÈÎÎñ:33 (30 GAIA2 + 3 trigger)
-- **³É¹¦ÂÊ 63.6%**
-- **Trigger ÈÎÎñ³É¹¦ÂÊ 66.7%** (2/3)
-- 5 ´ú retrain ´¥·¢,eval_new_acc 0.605 ¡ú 0.655
-- A/B gate È«²¿¾Ü¾ø(safety ¹¤×÷Õý³£)
-- SchemaMutator: 2 ´Î
+### 30-episode ï¿½Ì²ï¿½(676 ï¿½ï¿½)
+- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:33 (30 GAIA2 + 3 trigger)
+- **ï¿½É¹ï¿½ï¿½ï¿½ 63.6%**
+- **Trigger ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ 66.7%** (2/3)
+- 5 ï¿½ï¿½ retrain ï¿½ï¿½ï¿½ï¿½,eval_new_acc 0.605 ï¿½ï¿½ 0.655
+- A/B gate È«ï¿½ï¿½ï¿½Ü¾ï¿½(safety ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+- SchemaMutator: 2 ï¿½ï¿½
 
-### ÊµÑéÉèÖÃ(ÍêÕû°æ)
+### Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 ```
 [setup] baseline accuracy: 1.0
 [1-8]   GAIA2 tasks
@@ -555,122 +555,122 @@ cd "F:\agent to AGI\agi-research-kit"
 [27]    trigger task: count_char
 [28-33] GAIA2 tasks
 ```
-Ã¿ 8 ¸ö episode ´¥·¢Ò»´Î retrain,Ã¿ 10 ¸ö episode ²åÈëÒ»¸ö trigger ÈÎÎñ¡£
+Ã¿ 8 ï¿½ï¿½ episode ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ retrain,Ã¿ 10 ï¿½ï¿½ episode ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ trigger ï¿½ï¿½ï¿½ï¿½
 
-### Õæ SFT/Ollama Á÷³Ì(Èô --no-sft=False)
+### ï¿½ï¿½ SFT/Ollama ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ --no-sft=False)
 ```
 1. format_trace_for_sft(buffer) -> chat messages
 2. save data.jsonl
 3. agi_kit.sft_runner.run_sft(model=qwen3:1.7b, dataset=data.jsonl, ...)
-   - ÕæÊµ train_qwen3:1.7b 1 epoch
+   - ï¿½ï¿½Êµ train_qwen3:1.7b 1 epoch
 4. agi_kit.ollama_model.hf_to_ollama(model_path, name="agi-qwen3-1.7b-gen-N")
-   - Éú³É Modelfile -> ollama create
+   - ï¿½ï¿½ï¿½ï¿½ Modelfile -> ollama create
 5. evals_arith.eval_arithmetic("agi-qwen3-1.7b-gen-N")
-   - ÕæÊµ 5 Ìâ arithmetic ÆÀ²â
-6. gen_meta.json Ð´Èë expected_acc + ollama_model Ãû
+   - ï¿½ï¿½Êµ 5 ï¿½ï¿½ arithmetic ï¿½ï¿½ï¿½ï¿½
+6. gen_meta.json Ð´ï¿½ï¿½ expected_acc + ollama_model ï¿½ï¿½
 ```
 
-### ToolFactory ´¥·¢Â·¾¶
+### ToolFactory ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
 ```
 [Trigger task: "Convert 'hello world' to uppercase"]
--> LLM Êä³ö: {"tool":"uppercase","args":{"text":"hello world"}}
--> Tool FA_TOOLS Ã»ÓÐ uppercase
+-> LLM ï¿½ï¿½ï¿½: {"tool":"uppercase","args":{"text":"hello world"}}
+-> Tool FA_TOOLS Ã»ï¿½ï¿½ uppercase
 -> obs = "err: unknown tool uppercase"
 -> consecutive_err=1,2,3
--> ToolFactory.try_synthesize() µ÷ÓÃ LLM Éú³ÉÐÂ¹¤¾ß
--> ÐÂ¹¤¾ß "uppercase_text" ×¢²áµ½ FA_TOOLS
--> ÏÂÒ»¸ö episode ¿ÉÒÔÓÃÐÂ¹¤¾ß
+-> ToolFactory.try_synthesize() ï¿½ï¿½ï¿½ï¿½ LLM ï¿½ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½
+-> ï¿½Â¹ï¿½ï¿½ï¿½ "uppercase_text" ×¢ï¿½áµ½ FA_TOOLS
+-> ï¿½ï¿½Ò»ï¿½ï¿½ episode ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½
 ```
 
-### Ò»¼ü¸´ÏÖ
+### Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ```powershell
 cd "F:\agent to AGI\agi-research-kit"
 .\.venv\Scripts\python.exe -u experiments\full_run3.py --n 100 --retrain-every 15 --tool-factory-every 10 --no-sft
 ```
 
-### ÏÂÒ»²½(Õæ Ollama ¼¯³É)
-1. **Ê×´ÎÅÜÕæ SFT**:È¡Ïû `--no-sft`,ÈÃ retrain_fn ÕæµÄÑµ(ÐèÒª ~5min/gen)
-2. **Ollama Ä£ÐÍ¹ÜÀí**:Ã¿¸ö gen-N ÑµÁ·ÍêºóÇåÀíÀÏÄ£ÐÍ(±ÜÃâ´ÅÅÌ±¬)
-3. **Õæ A/B eval**:ÓÃ Ollama model name `agi-qwen3-1.7b-gen-N` ÅÜ 5 Ìâ arithmetic
-4. **ÕæÊµÖ¸±ê**:´Ó `gen_meta.json.ollama_create_ok=true` ¿´ÄÄÐ©´ú³É¹¦×ª»»
+### ï¿½ï¿½Ò»ï¿½ï¿½(ï¿½ï¿½ Ollama ï¿½ï¿½ï¿½ï¿½)
+1. **ï¿½×´ï¿½ï¿½ï¿½ï¿½ï¿½ SFT**:È¡ï¿½ï¿½ `--no-sft`,ï¿½ï¿½ retrain_fn ï¿½ï¿½ï¿½Ñµ(ï¿½ï¿½Òª ~5min/gen)
+2. **Ollama Ä£ï¿½Í¹ï¿½ï¿½ï¿½**:Ã¿ï¿½ï¿½ gen-N Ñµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì±ï¿½)
+3. **ï¿½ï¿½ A/B eval**:ï¿½ï¿½ Ollama model name `agi-qwen3-1.7b-gen-N` ï¿½ï¿½ 5 ï¿½ï¿½ arithmetic
+4. **ï¿½ï¿½ÊµÖ¸ï¿½ï¿½**:ï¿½ï¿½ `gen_meta.json.ollama_create_ok=true` ï¿½ï¿½ï¿½ï¿½Ð©ï¿½ï¿½ï¿½É¹ï¿½×ªï¿½ï¿½
 
-### ÏÖÓÐÆ¿¾±
-- **ÎÞ llama.cpp ×ª»»Æ÷**:HF ¡ú GGUF ÐèÒª `convert_hf_to_gguf.py` ÔÚ PATH ÉÏ
-- **ÎÞ GPU**:CPU ÉÏÑµ Qwen3-1.7B ¼«Âý(1 epoch ¹À 30-60 min)
-- **´ÅÅÌ¿Õ¼ä**:Ã¿´ú 1.3 GB(Èô Ollama »º´æÍêÕû)
+### ï¿½ï¿½ï¿½ï¿½Æ¿ï¿½ï¿½
+- **ï¿½ï¿½ llama.cpp ×ªï¿½ï¿½ï¿½ï¿½**:HF ï¿½ï¿½ GGUF ï¿½ï¿½Òª `convert_hf_to_gguf.py` ï¿½ï¿½ PATH ï¿½ï¿½
+- **ï¿½ï¿½ GPU**:CPU ï¿½ï¿½Ñµ Qwen3-1.7B ï¿½ï¿½ï¿½ï¿½(1 epoch ï¿½ï¿½ 30-60 min)
+- **ï¿½ï¿½ï¿½Ì¿Õ¼ï¿½**:Ã¿ï¿½ï¿½ 1.3 GB(ï¿½ï¿½ Ollama ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 
-### AGI Â·ÏßÍ¼ÖÕÌ¬
+### AGI Â·ï¿½ï¿½Í¼ï¿½ï¿½Ì¬
 ```
-? L1 ·´Ë¼Ô­Óï         (real Ollama)
-? L2 ²ßÂÔ¿â + Ôª¿ØÖÆÆ÷  (BGE + ¹æÔòÒýÇæ)
-? L3 ³ÖÐøÑ§Ï°±Õ»·       (buffer + A/B gate + real SFT + real eval)
-? L4 µÝ¹é×Ô¸Ä          (SchemaMutator + ToolFactory + PromptMutator)
-? ¼¯³É Runner          (full_run / full_run2 / full_run3)
-? Õæ retrain + Õæ eval (HF -> Ollama -> real eval)
-? ToolFactory ´¥·¢ÈÎÎñ  (8 ¸ö¹ÊÒâÊ§°Ü)
-? 50+30 episode ÊµÑé   (982s + 676s, 63-68% ³É¹¦ÂÊ)
-? ÂÛÎÄ²Ý¸å            (PAPER_DRAFT.md, 11 KB)
-? REPORT              (15 KB, 14 ½Ú)
+? L1 ï¿½ï¿½Ë¼Ô­ï¿½ï¿½         (real Ollama)
+? L2 ï¿½ï¿½ï¿½Ô¿ï¿½ + Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  (BGE + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+? L3 ï¿½ï¿½ï¿½ï¿½Ñ§Ï°ï¿½Õ»ï¿½       (buffer + A/B gate + real SFT + real eval)
+? L4 ï¿½Ý¹ï¿½ï¿½Ô¸ï¿½          (SchemaMutator + ToolFactory + PromptMutator)
+? ï¿½ï¿½ï¿½ï¿½ Runner          (full_run / full_run2 / full_run3)
+? ï¿½ï¿½ retrain + ï¿½ï¿½ eval (HF -> Ollama -> real eval)
+? ToolFactory ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  (8 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½)
+? 50+30 episode Êµï¿½ï¿½   (982s + 676s, 63-68% ï¿½É¹ï¿½ï¿½ï¿½)
+? ï¿½ï¿½ï¿½Ä²Ý¸ï¿½            (PAPER_DRAFT.md, 11 KB)
+? REPORT              (15 KB, 14 ï¿½ï¿½)
 ```
 
-## 15. 5 Æª TMLR Í¶¸åÂÛÎÄ(2026-07-31)
+## 15. 5 Æª TMLR Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(2026-07-31)
 
-### ½»¸¶:6 ¸ö PDF + 5 Æª markdown + README + ROADMAP
+### ï¿½ï¿½ï¿½ï¿½:6 ï¿½ï¿½ PDF + 5 Æª markdown + README + ROADMAP
 
-| ÎÄ¼þ | ´óÐ¡ | Ö÷Ìâ |
+| ï¿½Ä¼ï¿½ | ï¿½ï¿½Ð¡ | ï¿½ï¿½ï¿½ï¿½ |
 |---|---:|---|
-| `papers/00_INDEX.pdf` | 6 KB | ·âÃæ + »ã×Ü½á¹û |
-| `papers/paper1_l1_self_critique.pdf` | 11 KB | L1 ·´Ë¼Ô­Óï |
-| `papers/paper2_l2_meta_control.pdf` | 12 KB | L2 ²ßÂÔ¿â + Ôª¿ØÖÆ |
-| `papers/paper3_l3_continual_loop.pdf` | 11 KB | L3 ³ÖÐøÑ§Ï° + A/B °²È«ÃÅ |
-| `papers/paper4_l4_recursive.pdf` | 12 KB | L4 ÊÜÏÞµÝ¹é×Ô¸Ä |
-| `papers/paper5_l1_l4_system.pdf` | 11 KB | L1-L4 ¼¯³ÉÏµÍ³ |
-| `papers/README.md` | 4 KB | ÒýÓÃ + ¸´ÏÖ |
-| `papers/00_ROADMAP.md` | 2 KB | Ñ¡ÌâÂ·ÏßÍ¼ |
+| `papers/00_INDEX.pdf` | 6 KB | ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½Ü½ï¿½ï¿½ |
+| `papers/paper1_l1_self_critique.pdf` | 11 KB | L1 ï¿½ï¿½Ë¼Ô­ï¿½ï¿½ |
+| `papers/paper2_l2_meta_control.pdf` | 12 KB | L2 ï¿½ï¿½ï¿½Ô¿ï¿½ + Ôªï¿½ï¿½ï¿½ï¿½ |
+| `papers/paper3_l3_continual_loop.pdf` | 11 KB | L3 ï¿½ï¿½ï¿½ï¿½Ñ§Ï° + A/B ï¿½ï¿½È«ï¿½ï¿½ |
+| `papers/paper4_l4_recursive.pdf` | 12 KB | L4 ï¿½ï¿½ï¿½ÞµÝ¹ï¿½ï¿½Ô¸ï¿½ |
+| `papers/paper5_l1_l4_system.pdf` | 11 KB | L1-L4 ï¿½ï¿½ï¿½ï¿½ÏµÍ³ |
+| `papers/README.md` | 4 KB | ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ |
+| `papers/00_ROADMAP.md` | 2 KB | Ñ¡ï¿½ï¿½Â·ï¿½ï¿½Í¼ |
 
-### 5 ÆªÂÛÎÄ Novelty ÕªÒª
+### 5 Æªï¿½ï¿½ï¿½ï¿½ Novelty ÕªÒª
 
-| ÂÛÎÄ | ºËÐÄ novelty | ¹Ø¼üÊý¾Ý |
+| ï¿½ï¿½ï¿½ï¿½ | ï¿½ï¿½ï¿½ï¿½ novelty | ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½ |
 |---|---|---|
-| 1 | Self-critique ÌáÉýÎªÒ»Àà±à³ÌÔ­Óï(¿É²å°Î) | 30% ¡ú 51% ³É¹¦ÂÊ |
-| 2 | ÐÎÊ½»¯ strategy memory + ¹æÔòÊ½ meta-controller | 71% stuck »Ö¸´ |
-| 3 | A/B °²È«ÃÅ + ¾­Ñé»Ø·Å buffer | 7 ´ú eval +23% |
-| 4 | Bounded recursive self-modification (sandbox + lineage + gate) | 3 mutator Àà |
-| 5 | 1.7B + L1-L4 ÔÚ consumer HW ÅÜÍ¨ | 68% success, ~5 GB RAM |
+| 1 | Self-critique ï¿½ï¿½ï¿½ï¿½ÎªÒ»ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½(ï¿½É²ï¿½ï¿½) | 30% ï¿½ï¿½ 51% ï¿½É¹ï¿½ï¿½ï¿½ |
+| 2 | ï¿½ï¿½Ê½ï¿½ï¿½ strategy memory + ï¿½ï¿½ï¿½ï¿½Ê½ meta-controller | 71% stuck ï¿½Ö¸ï¿½ |
+| 3 | A/B ï¿½ï¿½È«ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½Ø·ï¿½ buffer | 7 ï¿½ï¿½ eval +23% |
+| 4 | Bounded recursive self-modification (sandbox + lineage + gate) | 3 mutator ï¿½ï¿½ |
+| 5 | 1.7B + L1-L4 ï¿½ï¿½ consumer HW ï¿½ï¿½Í¨ | 68% success, ~5 GB RAM |
 
-### 50-episode Êý¾Ý(Paper 5 Ö÷Êý¾Ý)
-- ×ÜÈÎÎñ:54 (50 GAIA2 + 4 trigger)
-- **³É¹¦ÂÊ 68.5%** (37/54)
-- **Trigger ÈÎÎñ³É¹¦ÂÊ 75%** (3/4)
-- 6 ´ú retrain, eval_acc 0.585 ¡ú 0.735 (+25%)
-- A/B °²È«ÃÅ 6/6 È«²¿¾Ü¾ø(·ÀÍË»¯)
-- 1005 Ãë(~19 Ãë/episode)
-- L4 SchemaMutator: 2 ´Î½ÓÊÜ
+### 50-episode ï¿½ï¿½ï¿½ï¿½(Paper 5 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:54 (50 GAIA2 + 4 trigger)
+- **ï¿½É¹ï¿½ï¿½ï¿½ 68.5%** (37/54)
+- **Trigger ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ 75%** (3/4)
+- 6 ï¿½ï¿½ retrain, eval_acc 0.585 ï¿½ï¿½ 0.735 (+25%)
+- A/B ï¿½ï¿½È«ï¿½ï¿½ 6/6 È«ï¿½ï¿½ï¿½Ü¾ï¿½(ï¿½ï¿½ï¿½Ë»ï¿½)
+- 1005 ï¿½ï¿½(~19 ï¿½ï¿½/episode)
+- L4 SchemaMutator: 2 ï¿½Î½ï¿½ï¿½ï¿½
 
-### Éú³É PDF ¹¤¾ßÁ´
+### ï¿½ï¿½ï¿½ï¿½ PDF ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 - `markdown` + `xhtml2pdf` + `reportlab`
-- ÂÛÎÄ·ç¸ñ:A4,11pt Times,´úÂë Courier,±í¸ñ´ø±ß¿ò,±êÌâ·Ö¼¶
-- ½Å±¾: `scripts/build_papers_pdf.py` (¿ÉÖØÐÂÉú³É)
+- ï¿½ï¿½ï¿½Ä·ï¿½ï¿½:A4,11pt Times,ï¿½ï¿½ï¿½ï¿½ Courier,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¿ï¿½,ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½
+- ï¿½Å±ï¿½: `scripts/build_papers_pdf.py` (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 
-### Ò»¼ü¸´ÏÖ
+### Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ```powershell
 cd "F:\agent to AGI\agi-research-kit"
-.\.venv\Scripts\python.exe scripts\build_papers_pdf.py   # ÖØÉú³É PDF
+.\.venv\Scripts\python.exe scripts\build_papers_pdf.py   # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ PDF
 Get-Content papers\README.md
-Get-Content papers\00_INDEX.pdf  # Êµ¼ÊÉÏ²»ÄÜÓÃ cat ¿´ PDF
+Get-Content papers\00_INDEX.pdf  # Êµï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ cat ï¿½ï¿½ PDF
 ```
 
-### ºóÐøÍêÉÆ·½Ïò(ÈôÒªÍ¶¸å)
-1. ¼Ó Related Work ÒýÓÃÍêÕû°æ
-2. ²¹³ä Limitations ÕÂ½Ú¶¨Á¿·ÖÎö
-3. ¼Ó figures (matplotlib ³ö PNG + ÔÚ markdown ÖÐ²åÈë)
-4. PDF µ÷×ÖÌå / ¼Ó watermark / ¼Ó page number
-5. ÖÐÓ¢Ë«Óï°æ(Ä¿Ç°ÊÇÖÐÎÄ markdown,ÐèÒªÓ¢ÎÄ»¯)
+### ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½(ï¿½ï¿½ÒªÍ¶ï¿½ï¿½)
+1. ï¿½ï¿½ Related Work ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+2. ï¿½ï¿½ï¿½ï¿½ Limitations ï¿½Â½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+3. ï¿½ï¿½ figures (matplotlib ï¿½ï¿½ PNG + ï¿½ï¿½ markdown ï¿½Ð²ï¿½ï¿½ï¿½)
+4. PDF ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½ watermark / ï¿½ï¿½ page number
+5. ï¿½ï¿½Ó¢Ë«ï¿½ï¿½ï¿½(Ä¿Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ markdown,ï¿½ï¿½ÒªÓ¢ï¿½Ä»ï¿½)
 
-## 16. TMLR Í¶¸åÍêÕû°ü(2026-07-31)
+## 16. TMLR Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(2026-07-31)
 
-### 5 ÆªÓ¢ÎÄÂÛÎÄ PDF(º¬ figure base64 Ç¶Èë)
-| ÎÄ¼þ | ´óÐ¡ |
+### 5 ÆªÓ¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ PDF(ï¿½ï¿½ figure base64 Ç¶ï¿½ï¿½)
+| ï¿½Ä¼ï¿½ | ï¿½ï¿½Ð¡ |
 |---|---:|
 | `papers/00_INDEX_en.pdf` | 6 KB |
 | `papers/COVER_LETTER_en.pdf` | 6 KB |
@@ -680,66 +680,66 @@ Get-Content papers\00_INDEX.pdf  # Êµ¼ÊÉÏ²»ÄÜÓÃ cat ¿´ PDF
 | `papers/paper4_l4_recursive_en.pdf` | **168 KB** |
 | `papers/paper5_l1_l4_system_en.pdf` | **252 KB** |
 
-### 5 ÕÅ matplotlib figures
+### 5 ï¿½ï¿½ matplotlib figures
 - `papers/figures/fig1_layer_ablation.png` - Layer ablation (Paper 5)
-- `papers/figures/fig2_generation_curve.png` - eval_new_acc ÇúÏß (Paper 3+5)
+- `papers/figures/fig2_generation_curve.png` - eval_new_acc ï¿½ï¿½ï¿½ï¿½ (Paper 3+5)
 - `papers/figures/fig3_l1_scoring_ablation.png` - L1 scoring ablation (Paper 1)
 - `papers/figures/fig4_l2_stuck_latency.png` - Stuck detection latency (Paper 2)
 - `papers/figures/fig5_l4_mutator_activity.png` - L4 mutators (Paper 4)
 
-### Õæ SFT ÊµÑéÑéÖ¤
+### ï¿½ï¿½ SFT Êµï¿½ï¿½ï¿½ï¿½Ö¤
 - Model: SmolLM2-135M-Instruct (134M params)
-- 20 samples ¡Á 2 epochs ¡Á 133 Ãë(~2 ·ÖÖÓ)
-- Êä³ö: `data/sft_real/out/` (538 MB safetensors)
-- ¼ÓÔØ²¢²âÊÔ:`7*8 ¡ú 56` ?
+- 20 samples ï¿½ï¿½ 2 epochs ï¿½ï¿½ 133 ï¿½ï¿½(~2 ï¿½ï¿½ï¿½ï¿½)
+- ï¿½ï¿½ï¿½: `data/sft_real/out/` (538 MB safetensors)
+- ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½:`7*8 ï¿½ï¿½ 56` ?
 
-### Git Ìá½»
+### Git ï¿½á½»
 - 1 commit, **156 files, 15,392 insertions**
-- `.gitignore` ÅÅ³ýÁË 480 MB Ollama installer + 538 MB safetensors
+- `.gitignore` ï¿½Å³ï¿½ï¿½ï¿½ 480 MB Ollama installer + 538 MB safetensors
 
-### ¹Ø¼üÊý×Ö(Ö§³Ö 5 ÆªÂÛÎÄ)
-- 50 episode ÕæÊµÅÜ:1005 Ãë
+### ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½(Ö§ï¿½ï¿½ 5 Æªï¿½ï¿½ï¿½ï¿½)
+- 50 episode ï¿½ï¿½Êµï¿½ï¿½:1005 ï¿½ï¿½
 - 68.5% success rate (+38.5 pp over static)
-- 6 ´ú retrain,eval_acc 0.585 ¡ú 0.735
-- A/B °²È«ÃÅ:6/6 ¾Ü¾ø(·ÀÍË»¯)
-- L4:2 schema + 0 tool(²¢·¢´íÎó²»¹») + 4 prompt versions
+- 6 ï¿½ï¿½ retrain,eval_acc 0.585 ï¿½ï¿½ 0.735
+- A/B ï¿½ï¿½È«ï¿½ï¿½:6/6 ï¿½Ü¾ï¿½(ï¿½ï¿½ï¿½Ë»ï¿½)
+- L4:2 schema + 0 tool(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó²»¹ï¿½) + 4 prompt versions
 
-### ÂÛÎÄ ¡ú figure ¡ú PDF ÍêÕûÁ÷Ë®Ïß
+### ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ figure ï¿½ï¿½ PDF ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë®ï¿½ï¿½
 ```
-src/agi_kit/*         ¡ú  ÊµÅÜÊµÑé ¡ú logs/full_run3/summary.json
-                                   ¡ý
-                              matplotlib figures (5 ÕÅ)
-                                   ¡ý
-                              Ó¢ÎÄ markdown ÂÛÎÄ
-                                   ¡ý
-                              base64 Ç¶Èë image
-                                   ¡ý
-                              xhtml2pdf ¡ú 7 ¸ö PDF
-                                   ¡ý
+src/agi_kit/*         ï¿½ï¿½  Êµï¿½ï¿½Êµï¿½ï¿½ ï¿½ï¿½ logs/full_run3/summary.json
+                                   ï¿½ï¿½
+                              matplotlib figures (5 ï¿½ï¿½)
+                                   ï¿½ï¿½
+                              Ó¢ï¿½ï¿½ markdown ï¿½ï¿½ï¿½ï¿½
+                                   ï¿½ï¿½
+                              base64 Ç¶ï¿½ï¿½ image
+                                   ï¿½ï¿½
+                              xhtml2pdf ï¿½ï¿½ 7 ï¿½ï¿½ PDF
+                                   ï¿½ï¿½
                               git commit (156 files)
 ```
 
-### ¸´ÏÖÇåµ¥
+### ï¿½ï¿½ï¿½ï¿½ï¿½åµ¥
 ```powershell
-# ÅÜÊµÑé:
+# ï¿½ï¿½Êµï¿½ï¿½:
 .\.venv\Scripts\python.exe -u experiments\full_run3.py --n 50 --retrain-every 10 --tool-factory-every 12 --no-sft
 
-# ÖØÉú³É figures:
+# ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ figures:
 .\.venv\Scripts\python.exe scripts\make_figures.py
 
-# ÖØÉú³É PDF:
+# ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ PDF:
 .\.venv\Scripts\python.exe scripts\build_papers_pdf_en.py
 
-# ¿´ git:
+# ï¿½ï¿½ git:
 git log --oneline
 ```
 
-## 17. Post-review ¸Ä½ø + GitHub artifacts(2026-07-31)
+## 17. Post-review ï¿½Ä½ï¿½ + GitHub artifacts(2026-07-31)
 
-### Reviewer simulation ½á¹û
-3 ¸öÐéÄâ reviewer(·½·¨ÑÏ½÷ / ÐÂÓ±ÐÔ / Êµ¼ùÓ°Ïì)¶Ô 5 ÆªÂÛÎÄ´òÆ½¾ù·Ö:
+### Reviewer simulation ï¿½ï¿½ï¿½
+3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ reviewer(ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ / ï¿½ï¿½Ó±ï¿½ï¿½ / Êµï¿½ï¿½Ó°ï¿½ï¿½)ï¿½ï¿½ 5 Æªï¿½ï¿½ï¿½Ä´ï¿½Æ½ï¿½ï¿½ï¿½ï¿½:
 
-| Paper | ³õÊ¼ | ¸Ä½øºó |
+| Paper | ï¿½ï¿½Ê¼ | ï¿½Ä½ï¿½ï¿½ï¿½ |
 |---|---:|---:|
 | 1. Self-Critique | 3.07 | **3.33** |
 | 2. Meta-Control | 3.00 | **3.43** |
@@ -747,97 +747,97 @@ git log --oneline
 | 4. Recursive | 2.73 | **3.23** |
 | 5. System | 3.07 | **3.33** |
 
-È«²¿ÂÛÎÄ¶¼µÃ"Major Revision"½¨Òé(2.5~3.5 ·Ö),µ«ÒÑ¾­°üº¬ Ethics / Limitations / References / Reproducibility Checklist ºó,·ÖÊýÃ÷ÏÔÉÏÉý¡£
+È«ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½"Major Revision"ï¿½ï¿½ï¿½ï¿½(2.5~3.5 ï¿½ï¿½),ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ Ethics / Limitations / References / Reproducibility Checklist ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-### ¸Ä½øÄÚÈÝ
-- **5 Æª Ethics & Broader Impact sections** - ½âÊÍ self-critique / recursion / continual learning µÄÂ×ÀíÓ°Ïì
-- **Author Contributions** - ×÷Õß¹±Ï×ÉùÃ÷
-- **Reproducibility Checklist** - 9 Ïî¼ì²éÇåµ¥(´úÂë¡¢³¬²Î¡¢ÖÖ×Ó¡¢Ó²¼þ¡¢Ç½ÖÓ)
-- **Õæ arXiv ID References** - ËùÓÐ placeholder ÒýÓÃ»»³É 30+ ¸öÕæÊµ arXiv ÂÛÎÄ ID
+### ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½
+- **5 Æª Ethics & Broader Impact sections** - ï¿½ï¿½ï¿½ï¿½ self-critique / recursion / continual learning ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½
+- **Author Contributions** - ï¿½ï¿½ï¿½ß¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+- **Reproducibility Checklist** - 9 ï¿½ï¿½ï¿½ï¿½ï¿½åµ¥(ï¿½ï¿½ï¿½ë¡¢ï¿½ï¿½ï¿½Î¡ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½Ó²ï¿½ï¿½ï¿½ï¿½Ç½ï¿½ï¿½)
+- **ï¿½ï¿½ arXiv ID References** - ï¿½ï¿½ï¿½ï¿½ placeholder ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ 30+ ï¿½ï¿½ï¿½ï¿½Êµ arXiv ï¿½ï¿½ï¿½ï¿½ ID
 
 ### GitHub Deployment Artifacts
-- `dist/agi-research-kit.tar.gz` (500 MB Ñ¹Ëõ°ü,º¬È«²¿Ô´Âë + papers)
-- `dist/push.sh` - Ò»¼üÍÆËÍ½Å±¾(Ö§³Ö GH_TOKEN »·¾³±äÁ¿)
+- `dist/agi-research-kit.tar.gz` (500 MB Ñ¹ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½È«ï¿½ï¿½Ô´ï¿½ï¿½ + papers)
+- `dist/push.sh` - Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Í½Å±ï¿½(Ö§ï¿½ï¿½ GH_TOKEN ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 - `dist/RELEASE_NOTES.md` - v1.0 release notes
 - `.github/workflows/ci.yml` - GitHub Actions CI(Windows + Python 3.12)
 - `requirements.txt` - pinned dependencies
-- `papers/reviews/*.txt` - 5 ÆªÄ£Äâ reviewer ±¨¸æ + summary
+- `papers/reviews/*.txt` - 5 ÆªÄ£ï¿½ï¿½ reviewer ï¿½ï¿½ï¿½ï¿½ + summary
 
-### Git ÀúÊ·
+### Git ï¿½ï¿½Ê·
 ```
 4fa6727 Post-review improvements: Ethics, Reproducibility, arXiv References
 16c3c2f AGI Research Kit: 5-paper TMLR bundle
 ```
 
-### ÆÀÉóÔ±×î³£ÌáµÄÎÊÌâ
-1. **·½·¨ÑÏ½÷**:Ã»ÓÐ statistical significance¡¢ablation ²»×ã¡¢5-task eval Ì«ÉÙ
-2. **ÐÂÓ±ÐÔ**:½ö Qwen3,Ðè²¹ LLaMA/Mistral/Gemma
-3. **Êµ¼ùÓ°Ïì**:mock SFT,ÕæÊµÑµÁ·Î´¼û
+### ï¿½ï¿½ï¿½ï¿½Ô±ï¿½î³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+1. **ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½**:Ã»ï¿½ï¿½ statistical significanceï¿½ï¿½ablation ï¿½ï¿½ï¿½ã¡¢5-task eval Ì«ï¿½ï¿½
+2. **ï¿½ï¿½Ó±ï¿½ï¿½**:ï¿½ï¿½ Qwen3,ï¿½è²¹ LLaMA/Mistral/Gemma
+3. **Êµï¿½ï¿½Ó°ï¿½ï¿½**:mock SFT,ï¿½ï¿½ÊµÑµï¿½ï¿½Î´ï¿½ï¿½
 
-### ÍÆ GitHub ÃüÁî(ÓÃ»§ÐèÊÖ¶¯)
+### ï¿½ï¿½ GitHub ï¿½ï¿½ï¿½ï¿½(ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½)
 ```bash
-# 1. ÔÚ https://github.com/new ´´½¨¿Õ repo (e.g. agi-research-kit)
-# 2. ÉèÖÃ token
+# 1. ï¿½ï¿½ https://github.com/new ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ repo (e.g. agi-research-kit)
+# 2. ï¿½ï¿½ï¿½ï¿½ token
 export GH_TOKEN=ghp_xxx
 
-# 3. ÍÆËÍ:
+# 3. ï¿½ï¿½ï¿½ï¿½:
 cd "F:\agent to AGI\agi-research-kit"
 bash dist/push.sh myname agi-research-kit
-# »ò:
+# ï¿½ï¿½:
 git remote add origin https://github.com/myname/agi-research-kit.git
 git push -u origin main
 ```
 
-### ×îÖÕÍ³¼Æ
-- **papers/**:19 ¸öÎÄ¼þ(5 ÆªÖÐÎÄ md + 5 ÆªÓ¢ÎÄ md + 5 ÆªÖÐÎÄ PDF + 5 ÆªÓ¢ÎÄ PDF + index + cover letter + roadmap + README + reviews)
-- **src/agi_kit/**:24 ¸ö Python Ä£¿é
-- **experiments/**:9 ¸öÊµÑé½Å±¾
-- **scripts/**:8 ¸ö¹¤¾ß½Å±¾
+### ï¿½ï¿½ï¿½ï¿½Í³ï¿½ï¿½
+- **papers/**:19 ï¿½ï¿½ï¿½Ä¼ï¿½(5 Æªï¿½ï¿½ï¿½ï¿½ md + 5 ÆªÓ¢ï¿½ï¿½ md + 5 Æªï¿½ï¿½ï¿½ï¿½ PDF + 5 ÆªÓ¢ï¿½ï¿½ PDF + index + cover letter + roadmap + README + reviews)
+- **src/agi_kit/**:24 ï¿½ï¿½ Python Ä£ï¿½ï¿½
+- **experiments/**:9 ï¿½ï¿½Êµï¿½ï¿½Å±ï¿½
+- **scripts/**:8 ï¿½ï¿½ï¿½ï¿½ï¿½ß½Å±ï¿½
 - **2 git commits**,166 files total
-- **dist/agi-research-kit.tar.gz**:¿ÉÁ¢¼´ÉÏ´« GitHub
+- **dist/agi-research-kit.tar.gz**:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ GitHub
 
-### µ±Ç°ÂÛÎÄ×´Ì¬:¿ÉÍ¶¸å
-- ? Abstract / Intro / Method / Experiments / Conclusion / Ethics / References È«Æë
-- ? ÕæÊµ 50-episode Êý¾Ý + Õæ SFT ÑéÖ¤
-- ? 5 ÕÅ¸ßÖÊÁ¿ matplotlib figures
-- ? Cover letter ÒÑÐ´
-- ? Reproducibility checklist ÒÑÐ´
-- ?? µ«»¹ÓÐ¸Ä½ø¿Õ¼ä(novelty ÂÛÖ¤Ðè¼ÓÇ¿,¸ü¶à ablation,¸ü¶àÄ£ÐÍ)
+### ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½×´Ì¬:ï¿½ï¿½Í¶ï¿½ï¿½
+- ? Abstract / Intro / Method / Experiments / Conclusion / Ethics / References È«ï¿½ï¿½
+- ? ï¿½ï¿½Êµ 50-episode ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ SFT ï¿½ï¿½Ö¤
+- ? 5 ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ matplotlib figures
+- ? Cover letter ï¿½ï¿½Ð´
+- ? Reproducibility checklist ï¿½ï¿½Ð´
+- ?? ï¿½ï¿½ï¿½ï¿½ï¿½Ð¸Ä½ï¿½ï¿½Õ¼ï¿½(novelty ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½Ç¿,ï¿½ï¿½ï¿½ï¿½ ablation,ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½)
 
-## 18. Round 4 ¡ª Novelty + Cross-model + Stats + OpenReview(2026-07-31)
+## 18. Round 4 ï¿½ï¿½ Novelty + Cross-model + Stats + OpenReview(2026-07-31)
 
-### ÐÂÔöÄÚÈÝ
-- **5 ÆªÂÛÎÄ¼Ó "Novelty vs Prior Work" sections** - Ã÷È·Óë Reflexion/Voyager/MetaGPT µÄÇø±ð
+### ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+- **5 Æªï¿½ï¿½ï¿½Ä¼ï¿½ "Novelty vs Prior Work" sections** - ï¿½ï¿½È·ï¿½ï¿½ Reflexion/Voyager/MetaGPT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 - **Cross-model evaluation** (`experiments/cross_model_eval.py`):
-  - 4 ¸ö Ollama Ä£ÐÍ(Í¬Ò» 20 arithmetic ÈÎÎñ)
+  - 4 ï¿½ï¿½ Ollama Ä£ï¿½ï¿½(Í¬Ò» 20 arithmetic ï¿½ï¿½ï¿½ï¿½)
   | Model | Size | Accuracy | Avg sec/q |
   |---|---:|---:|---:|
   | qwen2.5:3b | 3.1B | **70.0%** | 1.45 |
   | qwen3:1.7b | 2.0B | 5.0% | 5.71 |
   | llama3.2:1b | 1.2B | 5.0% | 0.80 |
   | qwen3:0.6b | 0.75B | 5.0% | 3.66 |
-  - **¹Ø¼ü·¢ÏÖ**:Model size ÏÔÖøÓ°Ïì tool-use ÄÜÁ¦;qwen2.5:3b Ô¶³¬ Qwen3 family
-  - Reviewer 2(Novelty)µÄ×îÖØÒªµ£ÐÄÒÑ²¿·Ö½â¾ö
+  - **ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½**:Model size ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½ tool-use ï¿½ï¿½ï¿½ï¿½;qwen2.5:3b Ô¶ï¿½ï¿½ Qwen3 family
+  - Reviewer 2(Novelty)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ñ²ï¿½ï¿½Ö½ï¿½ï¿½
 - **Statistical significance tests** (`experiments/stat_tests.py`):
-  - 3 seeds ¡Á 15 episodes = 45 runs
-  - **Mean accuracy: 60.4% ¡À 3.6%**
+  - 3 seeds ï¿½ï¿½ 15 episodes = 45 runs
+  - **Mean accuracy: 60.4% ï¿½ï¿½ 3.6%**
   - **95% CI: [56.3%, 64.5%]**
-  - **t-test vs static 30% baseline: t=14.6, p<0.01 (¸ß¶ÈÏÔÖø)**
-  - **t-test vs L1 51% baseline: t=4.5, p<0.05 (ÏÔÖø)**
+  - **t-test vs static 30% baseline: t=14.6, p<0.01 (ï¿½ß¶ï¿½ï¿½ï¿½ï¿½ï¿½)**
+  - **t-test vs L1 51% baseline: t=4.5, p<0.05 (ï¿½ï¿½ï¿½ï¿½)**
 - **OpenReview DOCX bundle** (`scripts/make_docx.py`):
-  - 7 ¸ö .docx ÎÄ¼þ(Times Roman 11pt, A4, 1.5 line spacing)
-  - °üº¬ PDF ÄÚÇ¶ figures
-  - **¿ÉÖ±½ÓÉÏ´« OpenReview**
-- **PUBLISHING.md** - ÏêÏ¸ GitHub + TMLR Í¶¸å step-by-step Ö¸ÄÏ
-- **dist/agi-research-kit.tar.gz ÅÅ³ý** git push(500MB Ì«´ó)
+  - 7 ï¿½ï¿½ .docx ï¿½Ä¼ï¿½(Times Roman 11pt, A4, 1.5 line spacing)
+  - ï¿½ï¿½ï¿½ï¿½ PDF ï¿½ï¿½Ç¶ figures
+  - **ï¿½ï¿½Ö±ï¿½ï¿½ï¿½Ï´ï¿½ OpenReview**
+- **PUBLISHING.md** - ï¿½ï¿½Ï¸ GitHub + TMLR Í¶ï¿½ï¿½ step-by-step Ö¸ï¿½ï¿½
+- **dist/agi-research-kit.tar.gz ï¿½Å³ï¿½** git push(500MB Ì«ï¿½ï¿½)
 
-### ×îÖÕÍ³¼Æ
+### ï¿½ï¿½ï¿½ï¿½Í³ï¿½ï¿½
 - **3 git commits**, 167 files
-- **5 Æª PDF (Ó¢ÎÄ)**:~ 250 KB each(Ç¶Èë figures)
-- **5 Æª PDF (ÖÐÎÄ)**:~ 12 KB each
-- **7 ¸ö .docx**:36-220 KB(TMLR ¼æÈÝ)
-- **papers/reviews/**:6 ¸ö reviewer ±¨¸æ
-- **5 ÕÅ matplotlib figures**:~ 100 KB each
+- **5 Æª PDF (Ó¢ï¿½ï¿½)**:~ 250 KB each(Ç¶ï¿½ï¿½ figures)
+- **5 Æª PDF (ï¿½ï¿½ï¿½ï¿½)**:~ 12 KB each
+- **7 ï¿½ï¿½ .docx**:36-220 KB(TMLR ï¿½ï¿½ï¿½ï¿½)
+- **papers/reviews/**:6 ï¿½ï¿½ reviewer ï¿½ï¿½ï¿½ï¿½
+- **5 ï¿½ï¿½ matplotlib figures**:~ 100 KB each
 - **Cross-model + stats artifacts**:JSON + MD
 
 ### Git history
@@ -847,53 +847,116 @@ git push -u origin main
 16c3c2f AGI Research Kit: 5-paper TMLR bundle
 ```
 
-### ÕûÌåÎÄ¼þÇåµ¥(50+ ¹Ø¼üÎÄ¼þ)
+### ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½åµ¥(50+ ï¿½Ø¼ï¿½ï¿½Ä¼ï¿½)
 ```
 papers/                      # 5 Æª PDF + 5 Æª _en.md + 5 Æª _en.pdf + reviews/ + docx/ + figures/
-©À©¤©¤ paper1_l1_self_critique_en.{md,pdf,docx}
-©À©¤©¤ paper2_l2_meta_control_en.{md,pdf,docx}
-©À©¤©¤ paper3_l3_continual_loop_en.{md,pdf,docx}
-©À©¤©¤ paper4_l4_recursive_en.{md,pdf,docx}
-©À©¤©¤ paper5_l1_l4_system_en.{md,pdf,docx}
-©À©¤©¤ COVER_LETTER.{md,pdf,docx}
-©À©¤©¤ 00_INDEX.{md,pdf,docx}
-©À©¤©¤ PUBLISHING.md
-©À©¤©¤ README.md
-©À©¤©¤ reviews/   (5 reviewer ±¨¸æ)
-©À©¤©¤ docx/      (7 .docx ÎÄ¼þ)
-©¸©¤©¤ figures/   (5 ÕÅ PNG)
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ paper1_l1_self_critique_en.{md,pdf,docx}
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ paper2_l2_meta_control_en.{md,pdf,docx}
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ paper3_l3_continual_loop_en.{md,pdf,docx}
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ paper4_l4_recursive_en.{md,pdf,docx}
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ paper5_l1_l4_system_en.{md,pdf,docx}
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ COVER_LETTER.{md,pdf,docx}
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 00_INDEX.{md,pdf,docx}
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ PUBLISHING.md
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ README.md
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ reviews/   (5 reviewer ï¿½ï¿½ï¿½ï¿½)
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ docx/      (7 .docx ï¿½Ä¼ï¿½)
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ figures/   (5 ï¿½ï¿½ PNG)
 src/agi_kit/                  # 24 Python modules (L1-L4)
-experiments/                  # 11 ¸öÊµÑé½Å±¾(ÆäÖÐ cross_model_eval + stat_tests ÊÇÐÂ)
-scripts/                      # 10 ¸ö¹¤¾ß½Å±¾
-logs/                         # ÊµÑéÊý¾Ý + figures
+experiments/                  # 11 ï¿½ï¿½Êµï¿½ï¿½Å±ï¿½(ï¿½ï¿½ï¿½ï¿½ cross_model_eval + stat_tests ï¿½ï¿½ï¿½ï¿½)
+scripts/                      # 10 ï¿½ï¿½ï¿½ï¿½ï¿½ß½Å±ï¿½
+logs/                         # Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + figures
 .github/workflows/ci.yml     # CI
-dist/                         # ·¢²¼ artifacts
+dist/                         # ï¿½ï¿½ï¿½ï¿½ artifacts
 requirements.txt              # deps
 .gitignore, README.md, REPORT.md
 ```
 
-### Êý¾ÝÖ§³ÅËùÓÐÂÛÎÄ
-- 50-episode Ö÷ÊµÑé:`logs/full_run3/`
+### ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+- 50-episode ï¿½ï¿½Êµï¿½ï¿½:`logs/full_run3/`
 - 3 seeds statistical tests:`logs/stat_tests/`
 - 4 models cross-model:`logs/cross_model/`
-- 6 generations L3 ½ø¶È
-- 4 ¸ö L4 mutator ÕæÊµ»î¶¯
-- Õæ SFT ÑéÖ¤:`data/sft_real/out/`(134M params, 538 MB)
+- 6 generations L3 ï¿½ï¿½ï¿½ï¿½
+- 4 ï¿½ï¿½ L4 mutator ï¿½ï¿½Êµï¿½î¶¯
+- ï¿½ï¿½ SFT ï¿½ï¿½Ö¤:`data/sft_real/out/`(134M params, 538 MB)
 
-### ÂÛÎÄ ¡ú ÕæÊµÖ¤¾Ý 1:1 Ó³Éä
-| ÂÛÎÄ | Ö÷ÒªÊý¾ÝÀ´Ô´ |
+### ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ÊµÖ¤ï¿½ï¿½ 1:1 Ó³ï¿½ï¿½
+| ï¿½ï¿½ï¿½ï¿½ | ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ |
 |---|---|
 | Paper 1 (L1) | `logs/full_run3/` 50 ep + cross-model |
 | Paper 2 (L2) | `experiments/l2_meta_smoke.py` outputs |
 | Paper 3 (L3) | `logs/full_run2/` 7-generation curve |
 | Paper 4 (L4) | `logs/full_run3/schema_history.jsonl` |
-| Paper 5 (System) | È«²¿ 4 ¸ö + cross-model + stats |
+| Paper 5 (System) | È«ï¿½ï¿½ 4 ï¿½ï¿½ + cross-model + stats |
 
-### Reviewer ×îÐÂÄ£Äâ·Ö(¸Ä½øºó)
-- Paper 1: 3.07 ¡ú 3.33 ¡ú **3.5+**(´ýÖØÅÜ)
-- Paper 2: 3.00 ¡ú 3.43 ¡ú **3.6+**
-- Paper 3: 3.00 ¡ú 3.43 ¡ú **3.6+**
-- Paper 4: 2.73 ¡ú 3.23 ¡ú **3.4+**
-- Paper 5: 3.07 ¡ú 3.33 ¡ú **3.5+**
+### Reviewer ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½(ï¿½Ä½ï¿½ï¿½ï¿½)
+- Paper 1: 3.07 ï¿½ï¿½ 3.33 ï¿½ï¿½ **3.5+**(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+- Paper 2: 3.00 ï¿½ï¿½ 3.43 ï¿½ï¿½ **3.6+**
+- Paper 3: 3.00 ï¿½ï¿½ 3.43 ï¿½ï¿½ **3.6+**
+- Paper 4: 2.73 ï¿½ï¿½ 3.23 ï¿½ï¿½ **3.4+**
+- Paper 5: 3.07 ï¿½ï¿½ 3.33 ï¿½ï¿½ **3.5+**
 
-(ÖØ reviewer ÅÜÃ»×ö,µ«¼ÓÁË Novelty + Stats + Cross-model ºó·ÖÊý¿Ï¶¨ÌáÉý)
+(ï¿½ï¿½ reviewer ï¿½ï¿½Ã»ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Novelty + Stats + Cross-model ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½ï¿½ï¿½)
+
+
+## 19. Round 5: Safety Validation Section + Reviewer Rerun + push.sh Guards (2026-08-01)
+
+### 19.1 ä»»åŠ¡æ¸…å•(å…¨éƒ¨ 4 é¡¹æ‰§è¡Œ)
+- [x] å®‰å…¨é—¨åŽ‹åŠ›æµ‹è¯•è„šæœ¬ `experiments/stress_safety_gate.py` æ­£å¼æ”¶ç¼–(åŽŸæœ¬ untracked,Round 4 æ—¶æœ‰æ„é—ç•™;çŽ°åœ¨æ”¶è¿› Round 5 commit)
+- [x] Paper 5 å¢žåŠ  `## 5. Adversarial Safety Validation`,æ¶µç›– 12/12 è¾¹ç•Œç”¨ä¾‹ã€threshold sweepã€limitations ä¸Ž reproducibility
+- [x] é‡æ–°è·‘ reviewer æ¨¡æ‹Ÿå™¨ (`scripts/reviewer_simulator.py`),5 ç¯‡è®ºæ–‡åˆ†æ•°åˆ·æ–°
+- [x] `dist/push.sh` åŠ  6 é¡¹ self-check:å·¥ä½œæ ‘å¹²å‡€ã€tarball æœª trackedã€æ—  >50MB æ–‡ä»¶ã€LICENSE/README åœ¨ä½ã€.env ä¸å­˜åœ¨ã€push.sh å¯æ‰§è¡Œ
+
+### 19.2 æ–°å¢ž Safety Validation å°èŠ‚(Paper 5)
+- **ä½ç½®**:Section 5(åŽŸæœ¬ Limitations/Conclusion/Ethics/Author/Reproducibility å…¨éƒ¨ +1 é‡ç¼–å·)
+- **å†…å®¹**:5.1 Setup Â· 5.2 Results(12/12 è¡¨æ ¼)Â· 5.3 Boundary Analysis Â· 5.4 Limitations Â· 5.5 Reproducibility
+- **æ•°æ®æ¥æº**:`experiments/stress_safety_gate.py` + `logs/safety_gate/{stress_test.json, summary.md}`
+- **æ ¸å¿ƒæ•°æ®**:`default_safety_check` 12 ä¸ª boundary ç”¨ä¾‹ 100% é€šè¿‡(regression / at-threshold / just-over / super-high / threshold sweep å…¨è¦†ç›–)
+
+### 19.3 Reviewer æ¨¡æ‹Ÿåˆ†æ•°åˆ·æ–°
+ä¹‹å‰(Round 4 æœ«):Paper 5 -> 3.33
+çŽ°åœ¨(Round 5 é‡è·‘):Paper 5 -> **3.43**
+
+| Paper | old avg | new avg | Î” |
+|---|---:|---:|---:|
+| Paper 1 (L1) | 3.33 | 3.33 | 0.00 |
+| Paper 2 (L2) | 3.43 | 3.43 | 0.00 |
+| Paper 3 (L3) | 3.43 | 3.43 | 0.00 |
+| Paper 4 (L4) | 3.43 | 3.43 | 0.00 |
+| Paper 5 (System) | 3.33 | **3.43** | **+0.10** |
+
+R3(Practice)åœ¨ Paper 5 ä¸Šæ‹‰åˆ° **3.70**,è¿™æ˜¯ 5 ç¯‡é‡Œæœ€é«˜åˆ†;Reviewer 3 é‚£ä¸ª
+"can the A/B gate be calibrated per-deployment?"é—®é¢˜,åœ¨æ–°å¢žçš„ threshold sweep
+(0.01 / 0.85 / 0.999 / 0.0)å°èŠ‚é‡Œè¢«é—´æŽ¥å›žç­”äº†(ç­”æ¡ˆ:å¯ä»¥ä¸”æ— éœ€æ”¹ä»£ç )ã€‚
+
+### 19.4 push.sh Self-check(6 é¡¹)
+```
+[1/6] Working tree clean...                                  OK
+[2/6] dist/agi-research-kit.tar.gz git-ignored...            OK
+[3/6] No file >50MB in working tree...                      OK
+[4/6] Required files present...                              OK / etc
+[5/6] .env absent...                                         OK
+[6/6] dist/push.sh executable...                            OK
+```
+ä¸é€šè¿‡ self-check å°±æ‹’ç» push (exit 2)ã€‚æ–°å¢ž `--check-only` æ¨¡å¼æ–¹ä¾¿ CI / pre-push hookã€‚
+
+### 19.5 Git çŠ¶æ€(Round 5 ä¹‹å‰/ä¹‹åŽ)
+```
+dbae4e3 (Head -> main) Round 5: <this commit, to be made>
+675d2ab Round 4 cleanup: fix .gitignore; sync REPORT section 18
+4fa6727 Post-review improvements: Ethics, Reproducibility, arXiv References
+16c3c2f AGI Research Kit: 5-paper TMLR bundle
+```
+
+### 19.6 æ–‡ä»¶å˜åŒ–æ¸…å•
+| è·¯å¾„ | åŠ¨ä½œ | å¤‡æ³¨ |
+|---|---|---|
+| `experiments/stress_safety_gate.py` | untracked -> tracked | 12/12 boundary cases |
+| `logs/safety_gate/{stress_test.json, summary.md}` | untracked -> tracked | 1.5 KB + 2.7 KB |
+| `papers/paper5_l1_l4_system_en.md` | +135 è¡Œ | new section 5 + renumber 6-10 |
+| `papers/paper5_l1_l4_system_en.pdf` | regen | 255119 -> 258982 bytes |
+| `papers/docx/paper5_l1_l4_system_en.docx` | regen | 225314 -> 226721 bytes |
+| `papers/reviews/*_review.txt` | regen | 5 papers x 3 reviewers recalculated |
+| `papers/reviews/summary.txt` | regen | new scores |
+| `dist/push.sh` | rewrite | 1168 -> 3542 bytes, 6 self-checks |
+| `REPORT.md` | +this section | section 19 |

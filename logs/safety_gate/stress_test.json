@@ -1,0 +1,115 @@
+{
+  "results": [
+    {
+      "name": "regression_severe",
+      "new_acc": 0.1,
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "match": true,
+      "reason": "regressed_below_threshold",
+      "comment": "new=10% vs baseline 100%"
+    },
+    {
+      "name": "regression_mild",
+      "new_acc": 0.5,
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "match": true,
+      "reason": "regressed_below_threshold",
+      "comment": "new=50% vs baseline 100%"
+    },
+    {
+      "name": "just_under",
+      "new_acc": 0.84,
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "match": true,
+      "reason": "regressed_below_threshold",
+      "comment": "new=84% vs threshold 0.85"
+    },
+    {
+      "name": "at_threshold",
+      "new_acc": 0.85,
+      "expected": "ACCEPT",
+      "actual": "ACCEPT",
+      "match": true,
+      "reason": "passed",
+      "comment": "new=85% = threshold"
+    },
+    {
+      "name": "just_over",
+      "new_acc": 0.86,
+      "expected": "ACCEPT",
+      "actual": "ACCEPT",
+      "match": true,
+      "reason": "passed",
+      "comment": "new=86% > threshold 0.85"
+    },
+    {
+      "name": "equal_baseline",
+      "new_acc": 1.0,
+      "expected": "ACCEPT",
+      "actual": "ACCEPT",
+      "match": true,
+      "reason": "passed",
+      "comment": "new=100% = baseline"
+    },
+    {
+      "name": "better_than",
+      "new_acc": 1.2,
+      "expected": "ACCEPT",
+      "actual": "ACCEPT",
+      "match": true,
+      "reason": "passed",
+      "comment": "new=120% of baseline"
+    },
+    {
+      "name": "zero_acc",
+      "new_acc": 0.0,
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "match": true,
+      "reason": "regressed_below_threshold",
+      "comment": "new=0%"
+    },
+    {
+      "name": "super_high",
+      "new_acc": 2.0,
+      "expected": "ACCEPT",
+      "actual": "ACCEPT",
+      "match": true,
+      "reason": "passed",
+      "comment": "new=200% of baseline"
+    },
+    {
+      "name": "low_threshold",
+      "new_acc": 0.05,
+      "expected": "ACCEPT",
+      "actual": "ACCEPT",
+      "match": true,
+      "reason": "passed",
+      "comment": "threshold=0.01, new=5%"
+    },
+    {
+      "name": "high_threshold",
+      "new_acc": 0.99,
+      "expected": "REJECT",
+      "actual": "REJECT",
+      "match": true,
+      "reason": "regressed_below_threshold",
+      "comment": "threshold=0.999, new=99%"
+    },
+    {
+      "name": "zero_threshold",
+      "new_acc": 0.01,
+      "expected": "ACCEPT",
+      "actual": "ACCEPT",
+      "match": true,
+      "reason": "passed",
+      "comment": "threshold=0, new=1%"
+    }
+  ],
+  "n_total": 12,
+  "n_match": 12,
+  "match_rate": 1.0
+}
