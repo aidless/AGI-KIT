@@ -45,6 +45,32 @@ contributions:
    model's accuracy on a small held-out set against the baseline times a
    configurable threshold, defaulting to 0.90.
 
+## 1.5 Novelty vs Prior Work
+
+The closest prior work on safety-gated model deployment is *A/B
+testing* in production ML (Barakat 2021, Huyen 2022). Our contribution
+adapts this to the *self-improving agent* setting, where the A/B gate
+is between consecutive generations of the *same* agent (not just
+between different models).
+
+Three distinctions from prior continual learning work:
+
+*Experience replay* (Mnih et al. 2015) is a structural idea we
+re-purpose, but our loop adds a generation-tracking state and a
+safety gate.
+
+*Catastrophic-forgetting methods* (Kirkpatrick et al. 2017;
+Rolnick et al. 2019) protect a fixed model against new data. Our
+agent *intentionally* retrains on its own data and uses the gate to
+gate the resulting model.
+
+*Online learning theory* (Vovk et al. 2005) provides adaptive
+thresholds (conformal prediction). We use a fixed threshold and
+leave conformal-style adaptation as future work.
+
+Our contribution: a *complete* continual loop with A/B safety gate
+that runs on a 1.7B model on consumer hardware.
+
 ## 2. Related Work
 
 **Continual learning.** Parisi et al. (2019) survey continual learning;

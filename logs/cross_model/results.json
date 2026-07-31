@@ -1,0 +1,758 @@
+{
+  "qwen3:1.7b": {
+    "description": "Qwen3 family, 2.0B params (Q4_K_M)",
+    "n_tasks": 20,
+    "n_correct": 1,
+    "accuracy": 0.05,
+    "avg_seconds": 5.71,
+    "per_task": [
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 17 * 23, then final",
+        "gold": "391",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 11.8
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 256 + 789, then final",
+        "gold": "1045",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.3
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 2**10, then final",
+        "gold": "1024",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.1
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 88 * 88, then final",
+        "gold": "7744",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.4
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 100 % 7, then final",
+        "gold": "2",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.0
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 7*6, then echo the result, then final",
+        "gold": "42",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.0
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 1024-256, then echo, then final",
+        "gold": "768",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.3
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 99*99, then final",
+        "gold": "9801",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 10.4
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 11*11, then final",
+        "gold": "121",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 4.7
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 13*13, then final",
+        "gold": "169",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.1
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 1000-1, then final",
+        "gold": "999",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 4.8
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 3**4, then echo, then final",
+        "gold": "81",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.4
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 100/4, then final",
+        "gold": "25",
+        "pred": "25",
+        "ok": true,
+        "steps": 2,
+        "seconds": 2.5
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 50*40-100, then final",
+        "gold": "1900",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.9
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute (15+5)*3, then final",
+        "gold": "60",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.1
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 9999 - 1234, then final",
+        "gold": "8765",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.4
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 1234 + 5678, then final",
+        "gold": "6912",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.4
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 144 / 12, then final",
+        "gold": "12",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.4
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 2**8, then echo, then final",
+        "gold": "256",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.7
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 100/4, then echo, then final",
+        "gold": "25",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 5.4
+      }
+    ]
+  },
+  "llama3.2:1b": {
+    "description": "LLaMA 3.2 family, 1.2B params (Q8_0)",
+    "n_tasks": 20,
+    "n_correct": 1,
+    "accuracy": 0.05,
+    "avg_seconds": 0.8,
+    "per_task": [
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 17 * 23, then final",
+        "gold": "391",
+        "pred": "□",
+        "ok": false,
+        "steps": 1,
+        "seconds": 5.5
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 256 + 789, then final",
+        "gold": "1045",
+        "pred": "<answer>256 + 789 = 1045</answer>",
+        "ok": false,
+        "steps": 1,
+        "seconds": 0.3
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 2**10, then final",
+        "gold": "1024",
+        "pred": "<2^10=1024>",
+        "ok": false,
+        "steps": 2,
+        "seconds": 1.0
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 88 * 88, then final",
+        "gold": "7744",
+        "pred": "<answer>88*88=7744</answer>",
+        "ok": false,
+        "steps": 1,
+        "seconds": 0.4
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 100 % 7, then final",
+        "gold": "2",
+        "pred": "<answer>100% of 7 is 0.71428571429, rounded to 6 decimal places.</answer>",
+        "ok": false,
+        "steps": 1,
+        "seconds": 0.4
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 7*6, then echo the result, then final",
+        "gold": "42",
+        "pred": "§<calc(7*6)>",
+        "ok": false,
+        "steps": 1,
+        "seconds": 0.3
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 1024-256, then echo, then final",
+        "gold": "768",
+        "pred": "<answer>768</answer>",
+        "ok": false,
+        "steps": 2,
+        "seconds": 1.2
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 99*99, then final",
+        "gold": "9801",
+        "pred": "<answer>99*99=9801</answer>",
+        "ok": false,
+        "steps": 1,
+        "seconds": 0.3
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 11*11, then final",
+        "gold": "121",
+        "pred": "<result> = 121",
+        "ok": false,
+        "steps": 2,
+        "seconds": 0.8
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 13*13, then final",
+        "gold": "169",
+        "pred": "<result>13*13=169</result>",
+        "ok": false,
+        "steps": 2,
+        "seconds": 0.8
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 1000-1, then final",
+        "gold": "999",
+        "pred": "<1000-1=999>",
+        "ok": false,
+        "steps": 1,
+        "seconds": 0.3
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 3**4, then echo, then final",
+        "gold": "81",
+        "pred": "81",
+        "ok": true,
+        "steps": 2,
+        "seconds": 0.9
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 100/4, then final",
+        "gold": "25",
+        "pred": "<result>25</result>",
+        "ok": false,
+        "steps": 1,
+        "seconds": 0.3
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 50*40-100, then final",
+        "gold": "1900",
+        "pred": "<answer>50*40=2000, 2000-100=1900</answer>",
+        "ok": false,
+        "steps": 1,
+        "seconds": 0.4
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute (15+5)*3, then final",
+        "gold": "60",
+        "pred": "<answer>15+5*3=60>",
+        "ok": false,
+        "steps": 1,
+        "seconds": 0.4
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 9999 - 1234, then final",
+        "gold": "8765",
+        "pred": "<result>8765</result>",
+        "ok": false,
+        "steps": 1,
+        "seconds": 0.3
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 1234 + 5678, then final",
+        "gold": "6912",
+        "pred": "<result>1962</result>",
+        "ok": false,
+        "steps": 1,
+        "seconds": 0.3
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 144 / 12, then final",
+        "gold": "12",
+        "pred": "<result>12.0</result>",
+        "ok": false,
+        "steps": 1,
+        "seconds": 0.3
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 2**8, then echo, then final",
+        "gold": "256",
+        "pred": "<answer>2^8=256>",
+        "ok": false,
+        "steps": 2,
+        "seconds": 0.8
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 100/4, then echo, then final",
+        "gold": "25",
+        "pred": "<answer>25.0</answer>",
+        "ok": false,
+        "steps": 2,
+        "seconds": 0.9
+      }
+    ]
+  },
+  "qwen2.5:3b": {
+    "description": "Qwen2.5 family, 3.1B params (Q4_K_M)",
+    "n_tasks": 20,
+    "n_correct": 14,
+    "accuracy": 0.7,
+    "avg_seconds": 1.45,
+    "per_task": [
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 17 * 23, then final",
+        "gold": "391",
+        "pred": "391",
+        "ok": true,
+        "steps": 1,
+        "seconds": 7.9
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 256 + 789, then final",
+        "gold": "1045",
+        "pred": "1045",
+        "ok": true,
+        "steps": 1,
+        "seconds": 0.6
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 2**10, then final",
+        "gold": "1024",
+        "pred": "1024",
+        "ok": true,
+        "steps": 1,
+        "seconds": 0.5
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 88 * 88, then final",
+        "gold": "7744",
+        "pred": "7744",
+        "ok": true,
+        "steps": 1,
+        "seconds": 0.5
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 100 % 7, then final",
+        "gold": "2",
+        "pred": "2",
+        "ok": true,
+        "steps": 1,
+        "seconds": 0.4
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 7*6, then echo the result, then final",
+        "gold": "42",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 2.1
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 1024-256, then echo, then final",
+        "gold": "768",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 1.8
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 99*99, then final",
+        "gold": "9801",
+        "pred": "9801",
+        "ok": true,
+        "steps": 1,
+        "seconds": 0.5
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 11*11, then final",
+        "gold": "121",
+        "pred": "121",
+        "ok": true,
+        "steps": 1,
+        "seconds": 0.5
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 13*13, then final",
+        "gold": "169",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 3.6
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 1000-1, then final",
+        "gold": "999",
+        "pred": "999",
+        "ok": true,
+        "steps": 1,
+        "seconds": 0.4
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 3**4, then echo, then final",
+        "gold": "81",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 3.4
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 100/4, then final",
+        "gold": "25",
+        "pred": "25",
+        "ok": true,
+        "steps": 1,
+        "seconds": 0.5
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 50*40-100, then final",
+        "gold": "1900",
+        "pred": "1900",
+        "ok": true,
+        "steps": 1,
+        "seconds": 0.6
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute (15+5)*3, then final",
+        "gold": "60",
+        "pred": "60",
+        "ok": true,
+        "steps": 1,
+        "seconds": 0.5
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 9999 - 1234, then final",
+        "gold": "8765",
+        "pred": "8765",
+        "ok": true,
+        "steps": 1,
+        "seconds": 0.6
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 1234 + 5678, then final",
+        "gold": "6912",
+        "pred": "6912",
+        "ok": true,
+        "steps": 1,
+        "seconds": 0.6
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 144 / 12, then final",
+        "gold": "12",
+        "pred": "12",
+        "ok": true,
+        "steps": 1,
+        "seconds": 0.5
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 2**8, then echo, then final",
+        "gold": "256",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 1.5
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 100/4, then echo, then final",
+        "gold": "25",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 1.9
+      }
+    ]
+  },
+  "qwen3:0.6b": {
+    "description": "Qwen3 family, 0.75B params (Q4_K_M)",
+    "n_tasks": 20,
+    "n_correct": 1,
+    "accuracy": 0.05,
+    "avg_seconds": 3.66,
+    "per_task": [
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 17 * 23, then final",
+        "gold": "391",
+        "pred": "<answer>391</answer>",
+        "ok": false,
+        "steps": 2,
+        "seconds": 8.3
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 256 + 789, then final",
+        "gold": "1045",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 3.9
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 2**10, then final",
+        "gold": "1024",
+        "pred": "1024",
+        "ok": true,
+        "steps": 3,
+        "seconds": 3.7
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 88 * 88, then final",
+        "gold": "7744",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 4.0
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 100 % 7, then final",
+        "gold": "2",
+        "pred": "7",
+        "ok": false,
+        "steps": 2,
+        "seconds": 2.5
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 7*6, then echo the result, then final",
+        "gold": "42",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 3.9
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 1024-256, then echo, then final",
+        "gold": "768",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 4.0
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 99*99, then final",
+        "gold": "9801",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 4.0
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 11*11, then final",
+        "gold": "121",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 3.8
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 13*13, then final",
+        "gold": "169",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 3.8
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 1000-1, then final",
+        "gold": "999",
+        "pred": "<answer>999</answer>",
+        "ok": false,
+        "steps": 2,
+        "seconds": 2.7
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 3**4, then echo, then final",
+        "gold": "81",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 4.0
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 100/4, then final",
+        "gold": "25",
+        "pred": "<answer>25</answer>",
+        "ok": false,
+        "steps": 1,
+        "seconds": 1.0
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 50*40-100, then final",
+        "gold": "1900",
+        "pred": "<answer>1900</answer>",
+        "ok": false,
+        "steps": 1,
+        "seconds": 1.1
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute (15+5)*3, then final",
+        "gold": "60",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 4.0
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 9999 - 1234, then final",
+        "gold": "8765",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 3.9
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 1234 + 5678, then final",
+        "gold": "6912",
+        "pred": "<answer>6912</answer>",
+        "ok": false,
+        "steps": 2,
+        "seconds": 2.4
+      },
+      {
+        "category": "arithmetic",
+        "question": "Use calculator to compute 144 / 12, then final",
+        "gold": "12",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 4.0
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 2**8, then echo, then final",
+        "gold": "256",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 3.9
+      },
+      {
+        "category": "chained",
+        "question": "Use calculator to compute 100/4, then echo, then final",
+        "gold": "25",
+        "pred": "[max_steps]",
+        "ok": false,
+        "steps": 3,
+        "seconds": 4.3
+      }
+    ]
+  }
+}

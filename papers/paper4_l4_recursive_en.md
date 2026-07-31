@@ -46,6 +46,31 @@ We instantiate these three ingredients in three small classes
 (`SchemaMutator`, `ToolFactory`, `PromptMutator`) and evaluate each on
 GAIA2-style tasks.
 
+## 1.5 Novelty vs Prior Work
+
+Recursive self-modification has been studied in three communities:
+*meta-learning* (Thrun & Pratt 1998), *AutoML* (Zoph & Le 2017; Real
+et al. 2020), and *agent self-improvement* (Reflexion; Voyager). Our
+contribution differs from each:
+
+*Meta-learning* optimizes an outer-loop objective (e.g. learning
+rate schedules) but does not modify the *agent''s own control
+parameters at runtime*. We mutate `MetaControllerConfig` fields
+thresholds, prompts, tools in a closed loop.
+
+*AutoML* mutates *architecture* and *training pipelines*. We mutate
+*agent control* (Schema, Tool, Prompt) and use the agent itself
+(LLM) to perform the mutation. We are closer to *AutoML-Zero''s*
+discovery of algorithms from primitives, but our primitives are
+higher-level (thresholds, prompts, function bodies).
+
+*Agent self-improvement* prior work uses *prompt-based* or
+*fine-tuning-based* self-modification. We add a third option —
+*programmatic* self-modification guarded by sandbox + lineage + gate.
+
+Our contribution: a unified framework for *bounded* recursive
+self-modification with three concrete mutator classes.
+
 ## 2. Related Work
 
 **Meta-learning.** Thrun & Pratt (1998) survey meta-learning; our work

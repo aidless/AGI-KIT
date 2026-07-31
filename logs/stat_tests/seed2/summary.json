@@ -1,0 +1,44 @@
+{
+  "episodes": 16,
+  "tasks_total": 16,
+  "gaia2_tasks": 15,
+  "trigger_tasks": 4,
+  "final_generation": 3,
+  "buffer_size": 66,
+  "playbook_size": 1,
+  "generations": [
+    {
+      "generation": 1,
+      "accepted": true,
+      "train_samples": 63,
+      "eval_new_acc": 0.865,
+      "train_seconds": 0.0,
+      "reason": "passed"
+    },
+    {
+      "generation": 2,
+      "accepted": true,
+      "train_samples": 66,
+      "eval_new_acc": 0.8800000000000001,
+      "train_seconds": 0.0,
+      "reason": "passed"
+    },
+    {
+      "generation": 3,
+      "accepted": true,
+      "train_samples": 66,
+      "eval_new_acc": 0.8800000000000001,
+      "train_seconds": 0.0,
+      "reason": "passed"
+    }
+  ],
+  "current_model": "F:\\agent to AGI\\agi-research-kit\\logs\\stat_tests\\seed2\\gen-3",
+  "success_rate": 0.5625,
+  "trigger_success_rate": 0.0,
+  "avg_score": 0.6479166666666667,
+  "total_seconds": 371.1,
+  "schema_mutations": 2,
+  "tool_factory_attempts": 0,
+  "tool_factory_accepted": 0,
+  "baseline_acc": 1.0
+}

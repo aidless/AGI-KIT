@@ -1,0 +1,44 @@
+{
+  "episodes": 16,
+  "tasks_total": 16,
+  "gaia2_tasks": 15,
+  "trigger_tasks": 4,
+  "final_generation": 3,
+  "buffer_size": 47,
+  "playbook_size": 1,
+  "generations": [
+    {
+      "generation": 1,
+      "accepted": false,
+      "train_samples": 43,
+      "eval_new_acc": 0.765,
+      "train_seconds": 0.0,
+      "reason": "regressed_below_threshold"
+    },
+    {
+      "generation": 2,
+      "accepted": false,
+      "train_samples": 47,
+      "eval_new_acc": 0.785,
+      "train_seconds": 0.0,
+      "reason": "regressed_below_threshold"
+    },
+    {
+      "generation": 3,
+      "accepted": false,
+      "train_samples": 47,
+      "eval_new_acc": 0.785,
+      "train_seconds": 0.0,
+      "reason": "regressed_below_threshold"
+    }
+  ],
+  "current_model": "qwen3:1.7b",
+  "success_rate": 0.625,
+  "trigger_success_rate": 0.0,
+  "avg_score": 0.659375,
+  "total_seconds": 367.1,
+  "schema_mutations": 2,
+  "tool_factory_attempts": 0,
+  "tool_factory_accepted": 0,
+  "baseline_acc": 1.0
+}

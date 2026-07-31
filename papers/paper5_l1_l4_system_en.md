@@ -155,6 +155,26 @@ correctly defers to the previous generation.
 - Eval gate is conservative; aggressive gates may be needed once
   larger training runs are available.
 
+## 4.5 Novelty vs Prior Work
+
+Two prior systems are most comparable to AGI Kit:
+
+*Reflexion* (Shinn et al. 2023) is a GPT-4-class cloud agent with
+verbal reinforcement. AGI Kit differs in three ways: (i) we run on
+a 1.7B model on CPU; (ii) we provide a programmatic L1 layer, not
+prompt tricks; (iii) we integrate L1–L4 with hard safety gating.
+
+*Voyager* (Wang et al. 2023) is a GPT-4 Minecraft agent with a
+skill library. AGI Kit differs in that: (i) our strategy memory is
+semantic, not lexical; (ii) our meta-controller is rule-based, not
+LLM-based; (iii) our continual loop is open-weight (Qwen3-1.7B), not
+closed-API.
+
+Our unique contribution: a *consumer-hardware* self-improving agent
+that runs end-to-end (L1–L4) in <6 GB RAM and finishes a 50-episode
+benchmark in under 17 minutes. Prior self-improving agents require
+cloud-scale compute.
+
 ## 4. Comparison to Prior Work
 
 | System | Model | Success | Self-improve | Hardware |

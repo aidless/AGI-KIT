@@ -47,6 +47,31 @@ as a programmatic abstraction?** We make three contributions.
 3. **Empirical evaluation** on a 50-task GAIA2-style benchmark, showing a
    21-point absolute improvement in success rate at modest overhead.
 
+## 1.5 Novelty vs Prior Work
+
+The closest prior works on agent self-critique are *Self-Refine* (Madaan
+et al. 2023) and *Reflexion* (Shinn et al. 2023). Both embed self-critique
+in the prompt and rely on the same LLM to evaluate its own output.
+Our contribution differs in three ways:
+
+1. **First-class API.** Self-Refine and Reflexion treat critique as a
+   prompt strategy; we treat it as a discrete *module* (`Reflector`)
+   with three named operations. This makes the critique step
+   inspectable, replaceable, and composable.
+
+2. **Two-layer scoring.** Self-Refine and Reflexion rely on a single
+   LLM judgment. Our hybrid scheme (40% rule + 60% LLM) uses a fast
+   heuristic as a prior, making it cheaper and more robust to LLM
+   hallucination.
+
+3. **Persistent logging.** Both prior works discard the critique after
+   one episode. Our Reflector writes every reflection to a JSONL
+   trace, enabling downstream analysis (Paper 2''s StrategyMiner,
+   Paper 4''s PromptMutator).
+
+In short: we move self-critique from *prompt trick* to *programmatic
+abstraction*.
+
 ## 2. Related Work
 
 **Tool-use agents.** ReAct [Yao et al., 2023] interleaves reasoning and

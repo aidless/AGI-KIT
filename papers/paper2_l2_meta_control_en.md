@@ -36,6 +36,28 @@ when to intervene. The combination is small enough to run on CPU with a
 compose with higher layers (L3 continual learning, L4 recursive
 modification) without destabilization.
 
+## 1.5 Novelty vs Prior Work
+
+Three lines of prior work come closest to ours:
+
+*Reflexion* (Shinn et al. 2023) uses verbal reinforcement in the prompt
+but does not separate a *strategy memory* from a *meta-controller* —
+both are entangled in the prompt context. This saturates the context
+window and dies across runs.
+
+*Voyager* (Wang et al. 2023) maintains a skill library in Minecraft,
+tightly coupled to GPT-4 and to Minecraft''s API. Our Playbook is
+language-model-agnostic and task-agnostic, indexed by open-source
+embeddings (BGE-small).
+
+*MetaGPT* (Hong et al. 2024) introduces a meta-controller but operates
+*across* agents, not *within* a single ReAct loop. Our MetaController
+is the first *per-step, single-agent* controller.
+
+Our contribution: a small, fast, deterministic meta-layer that
+operates *within* a single agent''s loop, is fully inspectable, and
+requires no LLM sampling at decision time.
+
 ## 2. Background and Related Work
 
 **Reflexion (Shinn et al. 2023)** uses verbal reinforcement in the
