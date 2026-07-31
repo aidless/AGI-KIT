@@ -39,4 +39,6 @@ Thumbs.db
 # Editor
 .vscode/
 .idea/
-*.swpdist/agi-research-kit.tar.gz
+*.swp
+dist/agi-research-kit.tar.gz
+
