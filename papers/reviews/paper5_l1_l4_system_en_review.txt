@@ -1,0 +1,52 @@
+======================================================================
+REVIEWER REPORT — Paper 5: End-to-End Self-Improving Architecture
+File: paper5_l1_l4_system_en.md
+Word count: 1663
+Has figure: True, Has table: True
+Has ethics: True, Has ablation: True
+Has reproducibility: True
+
+OVERALL: avg score = 3.33 / 5.0
+RECOMMENDATION: Major Revision
+======================================================================
+
+
+Reviewer 1 (Methods rigor) (focus: experimental design, ablations, statistical significance)
+  Score: 3.00/5.0  Severity: MINOR
+  Summary: Methods section is reasonable but lacks depth in a few places.
+  Concerns:
+    - Paper is short (1663 words); methodology section may be terse
+    - Only 4 citation clusters; lacks grounding
+    - Tiny held-out eval (5 arithmetic tasks); variance likely high
+  Questions for authors:
+    ? How sensitive is performance to the alpha=0.4 hybrid weight? Have you tried alpha=0.2 and 0.6?
+    ? What is the variance in eval_new_acc across multiple ContinualLoop runs with different seeds?
+    ? For Paper 3's gate: how is the held-out eval set chosen to be independent of the training distribution?
+
+
+Reviewer 2 (Novelty & positioning) (focus: contribution clarity, related work, claims)
+  Score: 3.30/5.0  Severity: MINOR
+  Summary: Novelty is incremental; many components are well-known in isolation.
+  Concerns:
+    - MetaGPT not cited — closest analog of a meta-controller
+    - Hard to tell from the writeup what is the marginal contribution beyond composing existing ideas
+    - Title says 'first-class abstraction' — but is this just a Python module?
+  Questions for authors:
+    ? What is the smallest experiment that demonstrates the Reflector cannot be replaced by a prompt?
+    ? How does AGI Kit differ from LangChain ReAct + Reflexion wrapper classes?
+    ? Is the SchemaMutator actually doing anything useful, or just renaming hyperparameters?
+
+
+Reviewer 3 (Practical impact) (focus: real-world applicability, deployment, costs)
+  Score: 3.70/5.0  Severity: MINOR
+  Summary: Practical appeal is strong but real-world applicability needs more work.
+  Concerns:
+    - Synthetic GAIA2 tasks are not real GAIA2 — the benchmark is harder than shown
+    - ToolFactory only tested on 3 trigger tasks — what about cross-domain tools?
+  Questions for authors:
+    ? What happens when the agent is deployed on a user-facing task with no safety guardrails?
+    ? How does ToolFactory handle attempted prompt injection in the LLM-generated tool code?
+    ? Can the A/B safety gate be calibrated per-deployment (e.g., stricter in medical, looser in games)?
+
+======================================================================
+END OF REVIEW

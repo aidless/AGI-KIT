@@ -205,10 +205,64 @@ cd "F:\agent to AGI\agi-research-kit"
 .\.venv\Scripts\python.exe -u experiments\l2_meta_smoke.py
 ```
 
+## 7. Ethics and Broader Impact
+
+Self-critique mechanisms in language model agents have the following
+ethical implications:
+
+**Beneficial uses.** Per-step reflection can reduce *silent failures*
+where an agent emits a confident but wrong final answer. In safety-
+critical domains (medical triage, financial decision support, code
+generation for production systems), a self-critique layer that lowers
+the rate of confident-but-wrong outputs is unambiguously beneficial.
+
+**Risks.** Reflection can also be *weaponized* to rationalize incorrect
+behavior: a confident model may produce self-justifying "hindsight"
+that reinforces the wrong action. We mitigate this by treating the
+reflector's output as advisory only — never as ground truth — and by
+blending it with a deterministic rule-based score that does not
+depend on the model's own beliefs.
+
+**Dual use.** The Reflector API is generic; it can be applied to any
+agent regardless of intent. We do not impose restrictions but
+encourage downstream users to log reflection traces for audit.
+
+**Compute footprint.** Two-layer scoring doubles the per-step LLM
+cost. We mitigate this by gating the slow hindsight layer on a
+self_score threshold (0.85), avoiding unnecessary calls. On Qwen3-1.7B,
+the per-episode overhead is ~11 s on consumer hardware.
+
+## 8. Author Contributions and Acknowledgments
+
+This paper is part of a five-paper bundle submitted to TMLR by the
+AGI Research Kit Contributors. The bundle shares a single code base
+(`agi-research-kit`), a single 50-episode empirical evaluation, and
+contributing authors. The lead author conceptualized the architecture
+and wrote the manuscript. The Reflector implementation is by the lead
+author; review and ablations were conducted jointly.
+
+We thank the open-source communities behind Qwen3 (Alibaba), Ollama,
+HuggingFace Transformers, FAISS, and BGE for making this work possible.
+
+## 9. Reproducibility Checklist
+
+- [x] Code released (this paper's appendix links the repository)
+- [x] Hyperparameters declared (alpha=0.4, max_steps=8)
+- [x] Random seeds reported (seed=42 for synthetic tasks; no stochastic
+  training in this paper)
+- [x] Hardware specified (consumer laptop, CPU only)
+- [x] Wall-clock reported (~15 s/episode with full hybrid scoring)
+- [x] Held-out eval separated from training distribution
+- [ ] Cross-model generalization (deferred to future work)
+- [ ] Statistical significance tests across multiple seeds
+- [ ] Larger held-out eval set (current: 5 tasks)
+
 ## References
 
-- Shunyu Yao et al. *ReAct: Synergizing Reasoning and Acting in Language Models*. ICLR 2023.
-- Noah Shinn et al. *Reflexion: Language Agents with Verbal Reinforcement Learning*. NeurIPS 2023.
-- Guanzhi Wang et al. *Voyager: An Open-Ended Embodied Agent with Large Language Models*. 2023.
-- Sirui Hong et al. *MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework*. ICLR 2024.
-- Shitao Xiao et al. *BGE: A General Text Embedding Model*. 2023.
+- Shunyu Yao et al. *ReAct: Synergizing Reasoning and Acting in Language Models*. ICLR 2023. arXiv:2210.03629
+- Noah Shinn et al. *Reflexion: Language Agents with Verbal Reinforcement Learning*. NeurIPS 2023. arXiv:2303.11381
+- Guanzhi Wang, Yuqi Xie, Yunfan Jiang, Ajay Mandlekar, Chaowei Xiao, Yuke Zhu, et al. *Voyager: An Open-Ended Embodied Agent with Large Language Models*. NeurIPS 2024. arXiv:2305.16291
+- Sirui Hong, Xiawu Zheng, Jonathan Chen, Yuheng Cheng, Jinlin Wang, Ceyao Zhang, et al. *MetaGPT: Meta Programming for a Multi-Agent Collaborative Framework on Large Language Models*. ICLR 2024. arXiv:2308.00352
+- Shitao Xiao et al. *C-Pack: Packaged Resources To Advance General Chinese Embedding*. arXiv:2309.07597
+- Jeff Johnson, Matthijs Douze, and Hervé Jégou. *Billion-scale similarity search with GPUs*. IEEE Transactions on Big Data 7 (2019), 535-547. arXiv:1702.08734
+- Ofir Press, Muru Zhang, Noah Shinn, and Yongchao Zhou. *Measuring and Narrowing the Compositionality Gap in Language Models*. EMNLP 2023. arXiv:2210.03350

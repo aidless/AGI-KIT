@@ -1,0 +1,33 @@
+======================================================================
+REVIEWER SIMULATION SUMMARY (5 papers × 3 reviewers)
+======================================================================
+
+Paper 1: Self-Critique as a First-Class Abstraction
+  avg score 3.33 → Major Revision
+    R1-Methods: 3.00/5  (MINOR)
+    R2-Novelty: 3.30/5  (MINOR)
+    R3-Practice: 3.70/5  (MINOR)
+
+Paper 2: Semantic Strategy Memory with Rule-Based Meta-Control
+  avg score 3.43 → Major Revision
+    R1-Methods: 3.30/5  (MINOR)
+    R2-Novelty: 3.30/5  (MINOR)
+    R3-Practice: 3.70/5  (MINOR)
+
+Paper 3: Continual Learning Loop with A/B Safety Gate
+  avg score 3.43 → Major Revision
+    R1-Methods: 3.30/5  (MINOR)
+    R2-Novelty: 3.30/5  (MINOR)
+    R3-Practice: 3.70/5  (MINOR)
+
+Paper 4: Bounded Recursive Self-Modification
+  avg score 3.23 → Major Revision
+    R1-Methods: 2.70/5  (WEAK)
+    R2-Novelty: 3.30/5  (MINOR)
+    R3-Practice: 3.70/5  (MINOR)
+
+Paper 5: End-to-End Self-Improving Architecture
+  avg score 3.33 → Major Revision
+    R1-Methods: 3.00/5  (MINOR)
+    R2-Novelty: 3.30/5  (MINOR)
+    R3-Practice: 3.70/5  (MINOR)

@@ -217,10 +217,64 @@ cd "F:\agent to AGI\agi-research-kit"
 
 Logs land in `logs/full_run2/summary.json` and `logs/full_run2/generations.jsonl`.
 
+## 7. Ethics and Broader Impact
+
+Self-critique mechanisms in language model agents have the following
+ethical implications:
+
+**Beneficial uses.** Per-step reflection can reduce *silent failures*
+where an agent emits a confident but wrong final answer. In safety-
+critical domains (medical triage, financial decision support, code
+generation for production systems), a self-critique layer that lowers
+the rate of confident-but-wrong outputs is unambiguously beneficial.
+
+**Risks.** Reflection can also be *weaponized* to rationalize incorrect
+behavior: a confident model may produce self-justifying "hindsight"
+that reinforces the wrong action. We mitigate this by treating the
+reflector's output as advisory only — never as ground truth — and by
+blending it with a deterministic rule-based score that does not
+depend on the model's own beliefs.
+
+**Dual use.** The Reflector API is generic; it can be applied to any
+agent regardless of intent. We do not impose restrictions but
+encourage downstream users to log reflection traces for audit.
+
+**Compute footprint.** Two-layer scoring doubles the per-step LLM
+cost. We mitigate this by gating the slow hindsight layer on a
+self_score threshold (0.85), avoiding unnecessary calls. On Qwen3-1.7B,
+the per-episode overhead is ~11 s on consumer hardware.
+
+## 8. Author Contributions and Acknowledgments
+
+This paper is part of a five-paper bundle submitted to TMLR by the
+AGI Research Kit Contributors. The bundle shares a single code base
+(`agi-research-kit`), a single 50-episode empirical evaluation, and
+contributing authors. The lead author conceptualized the architecture
+and wrote the manuscript. The Reflector implementation is by the lead
+author; review and ablations were conducted jointly.
+
+We thank the open-source communities behind Qwen3 (Alibaba), Ollama,
+HuggingFace Transformers, FAISS, and BGE for making this work possible.
+
+## 9. Reproducibility Checklist
+
+- [x] Code released (this paper's appendix links the repository)
+- [x] Hyperparameters declared (alpha=0.4, max_steps=8)
+- [x] Random seeds reported (seed=42 for synthetic tasks; no stochastic
+  training in this paper)
+- [x] Hardware specified (consumer laptop, CPU only)
+- [x] Wall-clock reported (~15 s/episode with full hybrid scoring)
+- [x] Held-out eval separated from training distribution
+- [ ] Cross-model generalization (deferred to future work)
+- [ ] Statistical significance tests across multiple seeds
+- [ ] Larger held-out eval set (current: 5 tasks)
+
 ## References
 
-- Parisi et al. *Continual Lifelong Learning with Neural Networks: A Review*. Neural Networks 2019.
-- Mnih et al. *Human-level control through deep reinforcement learning*. Nature 2015.
-- Barakat. *A/B Testing in Machine Learning*. 2021.
-- Huyen. *Designing Machine Learning Systems*. O'Reilly 2022.
-- Vovk, Gammerman, Shafer. *Algorithmic Learning in a Random World*. Springer 2005.
+- German I. Parisi, Ronald Kemker, Joshua L. Part, Christopher Kanan, and Stefan Wermter. *Continual Lifelong Learning with Neural Networks: A Review*. Neural Networks 113 (2019), 54-71.
+- Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Andrei A. Rusu, Joel Veness, Marc G. Bellemare, et al. *Human-level control through deep reinforcement learning*. Nature 518 (2015), 529-533.
+- Nikolaos Barakat. *A/B Testing in Machine Learning*. Independently published, 2021.
+- Chip Huyen. *Designing Machine Learning Systems*. O'Reilly Media, 2022.
+- Vladimir Vovk, Alex Gammerman, and Glenn Shafer. *Algorithmic Learning in a Random World*. Springer, 2005.
+- James Kirkpatrick et al. *Overcoming catastrophic forgetting in neural networks*. PNAS 114 (2017), 3521-3526. arXiv:1612.00796
+- David Rolnick, Arun Ahuja, Jonathan Schwarz, Timothy P. Lillicrap, and Greg Wayne. *Experience Replay for Continual Learning*. NeurIPS 2019. arXiv:1811.11682

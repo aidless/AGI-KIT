@@ -208,11 +208,64 @@ ollama pull qwen3:0.6b
 Logs land in `logs/trace_with.jsonl` (per-step records with hindsight) and
 `logs/l1_smoke.jsonl` (smoke test results).
 
+## 7. Ethics and Broader Impact
+
+Self-critique mechanisms in language model agents have the following
+ethical implications:
+
+**Beneficial uses.** Per-step reflection can reduce *silent failures*
+where an agent emits a confident but wrong final answer. In safety-
+critical domains (medical triage, financial decision support, code
+generation for production systems), a self-critique layer that lowers
+the rate of confident-but-wrong outputs is unambiguously beneficial.
+
+**Risks.** Reflection can also be *weaponized* to rationalize incorrect
+behavior: a confident model may produce self-justifying "hindsight"
+that reinforces the wrong action. We mitigate this by treating the
+reflector's output as advisory only — never as ground truth — and by
+blending it with a deterministic rule-based score that does not
+depend on the model's own beliefs.
+
+**Dual use.** The Reflector API is generic; it can be applied to any
+agent regardless of intent. We do not impose restrictions but
+encourage downstream users to log reflection traces for audit.
+
+**Compute footprint.** Two-layer scoring doubles the per-step LLM
+cost. We mitigate this by gating the slow hindsight layer on a
+self_score threshold (0.85), avoiding unnecessary calls. On Qwen3-1.7B,
+the per-episode overhead is ~11 s on consumer hardware.
+
+## 8. Author Contributions and Acknowledgments
+
+This paper is part of a five-paper bundle submitted to TMLR by the
+AGI Research Kit Contributors. The bundle shares a single code base
+(`agi-research-kit`), a single 50-episode empirical evaluation, and
+contributing authors. The lead author conceptualized the architecture
+and wrote the manuscript. The Reflector implementation is by the lead
+author; review and ablations were conducted jointly.
+
+We thank the open-source communities behind Qwen3 (Alibaba), Ollama,
+HuggingFace Transformers, FAISS, and BGE for making this work possible.
+
+## 9. Reproducibility Checklist
+
+- [x] Code released (this paper's appendix links the repository)
+- [x] Hyperparameters declared (alpha=0.4, max_steps=8)
+- [x] Random seeds reported (seed=42 for synthetic tasks; no stochastic
+  training in this paper)
+- [x] Hardware specified (consumer laptop, CPU only)
+- [x] Wall-clock reported (~15 s/episode with full hybrid scoring)
+- [x] Held-out eval separated from training distribution
+- [ ] Cross-model generalization (deferred to future work)
+- [ ] Statistical significance tests across multiple seeds
+- [ ] Larger held-out eval set (current: 5 tasks)
+
 ## References
 
-- Shunyu Yao et al. *ReAct: Synergizing Reasoning and Acting in Language Models*. ICLR 2023.
-- Noah Shinn et al. *Reflexion: Language Agents with Verbal Reinforcement Learning*. NeurIPS 2023.
-- Aman Madaan et al. *Self-Refine: Iterative Refinement with Self-Feedback*. NeurIPS 2023.
-- Timo Schick et al. *Toolformer: Language Models Can Teach Themselves to Use Tools*. NeurIPS 2023.
-- Yujia Qin et al. *ToolLLM: Facilitating Large Language Models to Master 16000+ Real-world APIs*. 2023.
-- Shitao Xiao et al. *BGE: A General Text Embedding Model*. 2023.
+- Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik R. Narasimhan, and Yuan Cao. *ReAct: Synergizing Reasoning and Acting in Language Models*. ICLR 2023. arXiv:2210.03629
+- Noah Shinn, Federico Cassano, Edward Berman, Ashwin Gopinath, Karthik Narasimhan, and Shunyu Yao. *Reflexion: Language Agents with Verbal Reinforcement Learning*. NeurIPS 2023. arXiv:2303.11381
+- Aman Madaan, Niket Tandon, Prakhar Gupta, Skyler Hallinan, Luyu Gao, Sarah Wiegreffe, et al. *Self-Refine: Iterative Refinement with Self-Feedback*. NeurIPS 2023. arXiv:2303.08181
+- Timo Schick, Jane Dwivedi-Yu, Roberto Dessì, Roberta Raileanu, Maria Lomeli, Luke Zettlemoyer, et al. *Toolformer: Language Models Can Teach Themselves to Use Tools*. NeurIPS 2023. arXiv:2302.04761
+- Yujia Qin, Shihao Liang, Yining Ye, Kunlun Zhu, Lan Lu, Ruisheng Cao, et al. *ToolLLM: Facilitating Large Language Models to Master 16000+ Real-world APIs*. arXiv:2305.18754
+- Shitao Xiao, Zheng Liu, Peitian Zhang, and Niklas Muennighoff. *C-Pack: Packaged Resources To Advance General Chinese Embedding*. arXiv:2309.07597
+- Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter, Fei Xia, et al. *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*. NeurIPS 2022. arXiv:2201.11903

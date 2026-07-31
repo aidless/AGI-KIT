@@ -666,3 +666,70 @@ Get-Content papers\00_INDEX.pdf  # 实际上不能用 cat 看 PDF
 3. 加 figures (matplotlib 出 PNG + 在 markdown 中插入)
 4. PDF 调字体 / 加 watermark / 加 page number
 5. 中英双语版(目前是中文 markdown,需要英文化)
+
+## 16. TMLR 投稿完整包(2026-07-31)
+
+### 5 篇英文论文 PDF(含 figure base64 嵌入)
+| 文件 | 大小 |
+|---|---:|
+| `papers/00_INDEX_en.pdf` | 6 KB |
+| `papers/COVER_LETTER_en.pdf` | 6 KB |
+| `papers/paper1_l1_self_critique_en.pdf` | **243 KB** |
+| `papers/paper2_l2_meta_control_en.pdf` | **107 KB** |
+| `papers/paper3_l3_continual_loop_en.pdf` | **157 KB** |
+| `papers/paper4_l4_recursive_en.pdf` | **168 KB** |
+| `papers/paper5_l1_l4_system_en.pdf` | **252 KB** |
+
+### 5 张 matplotlib figures
+- `papers/figures/fig1_layer_ablation.png` - Layer ablation (Paper 5)
+- `papers/figures/fig2_generation_curve.png` - eval_new_acc 曲线 (Paper 3+5)
+- `papers/figures/fig3_l1_scoring_ablation.png` - L1 scoring ablation (Paper 1)
+- `papers/figures/fig4_l2_stuck_latency.png` - Stuck detection latency (Paper 2)
+- `papers/figures/fig5_l4_mutator_activity.png` - L4 mutators (Paper 4)
+
+### 真 SFT 实验验证
+- Model: SmolLM2-135M-Instruct (134M params)
+- 20 samples × 2 epochs × 133 秒(~2 分钟)
+- 输出: `data/sft_real/out/` (538 MB safetensors)
+- 加载并测试:`7*8 → 56` ?
+
+### Git 提交
+- 1 commit, **156 files, 15,392 insertions**
+- `.gitignore` 排除了 480 MB Ollama installer + 538 MB safetensors
+
+### 关键数字(支持 5 篇论文)
+- 50 episode 真实跑:1005 秒
+- 68.5% success rate (+38.5 pp over static)
+- 6 代 retrain,eval_acc 0.585 → 0.735
+- A/B 安全门:6/6 拒绝(防退化)
+- L4:2 schema + 0 tool(并发错误不够) + 4 prompt versions
+
+### 论文 → figure → PDF 完整流水线
+```
+src/agi_kit/*         →  实跑实验 → logs/full_run3/summary.json
+                                   ↓
+                              matplotlib figures (5 张)
+                                   ↓
+                              英文 markdown 论文
+                                   ↓
+                              base64 嵌入 image
+                                   ↓
+                              xhtml2pdf → 7 个 PDF
+                                   ↓
+                              git commit (156 files)
+```
+
+### 复现清单
+```powershell
+# 跑实验:
+.\.venv\Scripts\python.exe -u experiments\full_run3.py --n 50 --retrain-every 10 --tool-factory-every 12 --no-sft
+
+# 重生成 figures:
+.\.venv\Scripts\python.exe scripts\make_figures.py
+
+# 重生成 PDF:
+.\.venv\Scripts\python.exe scripts\build_papers_pdf_en.py
+
+# 看 git:
+git log --oneline
+```

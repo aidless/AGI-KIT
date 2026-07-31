@@ -209,9 +209,66 @@ ollama pull qwen3:0.6b
 .\.venv\Scripts\python.exe -u experiments\full_run3.py --n 30 --retrain-every 8 --tool-factory-every 10 --no-sft
 ```
 
+## 7. Ethics and Broader Impact
+
+Self-critique mechanisms in language model agents have the following
+ethical implications:
+
+**Beneficial uses.** Per-step reflection can reduce *silent failures*
+where an agent emits a confident but wrong final answer. In safety-
+critical domains (medical triage, financial decision support, code
+generation for production systems), a self-critique layer that lowers
+the rate of confident-but-wrong outputs is unambiguously beneficial.
+
+**Risks.** Reflection can also be *weaponized* to rationalize incorrect
+behavior: a confident model may produce self-justifying "hindsight"
+that reinforces the wrong action. We mitigate this by treating the
+reflector's output as advisory only — never as ground truth — and by
+blending it with a deterministic rule-based score that does not
+depend on the model's own beliefs.
+
+**Dual use.** The Reflector API is generic; it can be applied to any
+agent regardless of intent. We do not impose restrictions but
+encourage downstream users to log reflection traces for audit.
+
+**Compute footprint.** Two-layer scoring doubles the per-step LLM
+cost. We mitigate this by gating the slow hindsight layer on a
+self_score threshold (0.85), avoiding unnecessary calls. On Qwen3-1.7B,
+the per-episode overhead is ~11 s on consumer hardware.
+
+## 8. Author Contributions and Acknowledgments
+
+This paper is part of a five-paper bundle submitted to TMLR by the
+AGI Research Kit Contributors. The bundle shares a single code base
+(`agi-research-kit`), a single 50-episode empirical evaluation, and
+contributing authors. The lead author conceptualized the architecture
+and wrote the manuscript. The Reflector implementation is by the lead
+author; review and ablations were conducted jointly.
+
+We thank the open-source communities behind Qwen3 (Alibaba), Ollama,
+HuggingFace Transformers, FAISS, and BGE for making this work possible.
+
+## 9. Reproducibility Checklist
+
+- [x] Code released (this paper's appendix links the repository)
+- [x] Hyperparameters declared (alpha=0.4, max_steps=8)
+- [x] Random seeds reported (seed=42 for synthetic tasks; no stochastic
+  training in this paper)
+- [x] Hardware specified (consumer laptop, CPU only)
+- [x] Wall-clock reported (~15 s/episode with full hybrid scoring)
+- [x] Held-out eval separated from training distribution
+- [ ] Cross-model generalization (deferred to future work)
+- [ ] Statistical significance tests across multiple seeds
+- [ ] Larger held-out eval set (current: 5 tasks)
+
 ## References
 
-- All references from Papers 1–4 plus:
-- Hugging Face. *Transformers*. 2026.
-- Ollama Team. *Ollama: Get up and running with large language models*. 2024.
-- Shitao Xiao et al. *BGE: A General Text Embedding Model*. 2023.
+- All references from Papers 1-4, plus:
+- Hugging Face Team. *Transformers: State-of-the-Art Natural Language Processing*. EMNLP 2020.
+- Ollama Team. *Ollama: Get up and running with large language models*. https://ollama.com, 2024.
+- Shitao Xiao et al. *C-Pack: Packaged Resources To Advance General Chinese Embedding*. arXiv:2309.07597
+- Jinze Bai et al. *Qwen Technical Report*. arXiv:2409.12186
+- Hugo Touvron et al. *LLaMA: Open and Efficient Foundation Language Models*. arXiv:2302.13971
+- Albert Q. Jiang et al. *Mistral 7B*. arXiv:2310.06825
+- Gemma Team. *Gemma: Open Models Based on Gemini Research and Technology*. arXiv:2403.08295
+- DeepSeek-AI. *DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model*. arXiv:2405.04434

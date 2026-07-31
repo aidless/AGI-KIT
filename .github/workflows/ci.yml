@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Create venv
+        run: |
+          python -m venv .venv
+          .\.venv\Scripts\python.exe -m pip install --upgrade pip
+
+      - name: Install dependencies
+        run: |
+          .\.venv\Scripts\pip.exe install -r requirements.txt || \
+          .\.venv\Scripts\pip.exe install transformers torch accelerate safetensors \
+            huggingface_hub datasets tokenizers openai httpx rich pydantic \
+            gradio pyyaml tiktoken ollama litellm sentence-transformers \
+            rank-bm25 faiss-cpu pypdf markdown xhtml2pdf matplotlib structlog
+
+      - name: Smoke test L1
+        run: |
+          .\.venv\Scripts\python.exe -m py_compile src/agi_kit/reflect.py
+
+      - name: Smoke test L2
+        run: |
+          .\.venv\Scripts\python.exe -m py_compile src/agi_kit/playbook.py
+          .\.venv\Scripts\python.exe -m py_compile src/agi_kit/meta.py
+
+      - name: Smoke test L3
+        run: |
+          .\.venv\Scripts\python.exe -m py_compile src/agi_kit/loop.py
+
+      - name: Smoke test L4
+        run: |
+          .\.venv\Scripts\python.exe -m py_compile src/agi_kit/recursive.py
+
+      - name: Build PDFs
+        run: |
+          .\.venv\Scripts\python.exe scripts/make_figures.py
+          .\.venv\Scripts\python.exe scripts/build_papers_pdf_en.py
+
+      - name: Upload PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: papers-pdf
+          path: papers/*_en.pdf

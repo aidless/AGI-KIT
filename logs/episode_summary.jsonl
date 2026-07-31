@@ -1,0 +1,5 @@
+{"episode_id": "28f11669d97a", "task": "Calculate 2**10 + 3*4 using calculator tool.", "total_steps": 0, "avg_self_score": 0.0, "final_verdict": "success", "lesson": "", "key_takeaways": []}
+{"episode_id": "3e05a360fe60", "task": "Calculate (17*23 + 144/12) using calculator tool.", "total_steps": 0, "avg_self_score": 0.0, "final_verdict": "success", "lesson": "", "key_takeaways": []}
+{"episode_id": "0744adc8fb53", "task": "Use calculator to compute 99*99 - 1, then echo the result.", "total_steps": 2, "avg_self_score": 0.84, "final_verdict": "success", "lesson": "", "key_takeaways": []}
+{"episode_id": "a2b8422e64f5", "task": "Read the file at C:/Windows/win.ini (limit 80 chars), then echo the first line.", "total_steps": 2, "avg_self_score": 0.84, "final_verdict": "success", "lesson": "", "key_takeaways": []}
+{"episode_id": "81175f6c34d1", "task": "Calculate 7*8 with calculator.", "total_steps": 0, "avg_self_score": 0.0, "final_verdict": "success", "lesson": "", "key_takeaways": []}

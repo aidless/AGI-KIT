@@ -1,0 +1,9 @@
+[sft] model: HuggingFaceTB/SmolLM2-135M-Instruct
+[sft] dataset: HuggingFaceTB/smoltalk config: smol-magpie-ultra
+[sft] max_samples: 500
+[sft] model loaded: 134.5 M params
+[sft] loading dataset...
+[sft] collected 500 samples
+[sft] formatted 500 training texts
+[sft] tokenized
+[sft] start training...
