@@ -61,6 +61,9 @@ big_files=$(find . -type f -size +50M \
     -not -path "./data/sft_real/*" \
     -not -path "./logs/*/gen-*" \
     -not -path "./logs/*/samples.jsonl" \
+    -not -path "./models/ollama/*" \
+    -not -path "./models/.ollama/*" \
+    -not -path "./tools/OllamaSetup.exe" \
     -not -path "./dist/agi-research-kit.tar.gz" 2>/dev/null)
 if [ -n "$big_files" ]; then
     warn "files >50 MB found (excluding tarball):"
