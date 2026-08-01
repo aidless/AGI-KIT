@@ -4,41 +4,41 @@
   "gaia2_tasks": 15,
   "trigger_tasks": 4,
   "final_generation": 3,
-  "buffer_size": 57,
+  "buffer_size": 118,
   "playbook_size": 1,
   "generations": [
     {
       "generation": 1,
-      "accepted": false,
-      "train_samples": 53,
-      "eval_new_acc": 0.8150000000000001,
-      "train_seconds": 0.0,
-      "reason": "regressed_below_threshold"
+      "accepted": true,
+      "train_samples": 113,
+      "eval_new_acc": 1.1150000000000002,
+      "train_seconds": 0.01,
+      "reason": "passed"
     },
     {
       "generation": 2,
-      "accepted": false,
-      "train_samples": 57,
-      "eval_new_acc": 0.8350000000000001,
-      "train_seconds": 0.0,
-      "reason": "regressed_below_threshold"
+      "accepted": true,
+      "train_samples": 118,
+      "eval_new_acc": 1.1400000000000001,
+      "train_seconds": 0.01,
+      "reason": "passed"
     },
     {
       "generation": 3,
-      "accepted": false,
-      "train_samples": 57,
-      "eval_new_acc": 0.8350000000000001,
+      "accepted": true,
+      "train_samples": 118,
+      "eval_new_acc": 1.1400000000000001,
       "train_seconds": 0.01,
-      "reason": "regressed_below_threshold"
+      "reason": "passed"
     }
   ],
-  "current_model": "qwen3:1.7b",
-  "success_rate": 0.625,
+  "current_model": "F:\\agent to AGI\\agi-research-kit\\logs\\stat_tests\\seed1\\gen-3",
+  "success_rate": 0.6875,
   "trigger_success_rate": 0.0,
-  "avg_score": 0.659375,
-  "total_seconds": 353.5,
-  "schema_mutations": 2,
+  "avg_score": 0.7197916666666667,
+  "total_seconds": 1095.2,
+  "schema_mutations": 4,
   "tool_factory_attempts": 0,
   "tool_factory_accepted": 0,
-  "baseline_acc": 1.0
+  "baseline_acc": 0.0
 }

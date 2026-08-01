@@ -14,7 +14,7 @@
         "text": "201",
         "emitted": true,
         "correct": true,
-        "sec": 34.22
+        "sec": 16.13
       },
       {
         "task": "Compute 112*5+27. Output just the number.",
@@ -23,7 +23,7 @@
         "text": "587",
         "emitted": true,
         "correct": true,
-        "sec": 28.59
+        "sec": 11.69
       },
       {
         "task": "Compute 76*3+85. Output just the number.",
@@ -32,7 +32,7 @@
         "text": "313",
         "emitted": true,
         "correct": true,
-        "sec": 34.7
+        "sec": 15.41
       },
       {
         "task": "Compute 158*2+13. Output just the number.",
@@ -41,7 +41,7 @@
         "text": "329",
         "emitted": true,
         "correct": true,
-        "sec": 25.91
+        "sec": 13.23
       },
       {
         "task": "Compute 73*5+39. Output just the number.",
@@ -50,7 +50,7 @@
         "text": "404",
         "emitted": true,
         "correct": true,
-        "sec": 21.84
+        "sec": 13.38
       }
     ]
   },
@@ -69,7 +69,7 @@
         "text": "{\"final\":\"201\"}",
         "emitted": true,
         "correct": true,
-        "sec": 24.68
+        "sec": 8.76
       },
       {
         "task": "Compute 112*5+27. Output just the number.",
@@ -78,7 +78,7 @@
         "text": "{\"final\":\"587\"}",
         "emitted": true,
         "correct": true,
-        "sec": 14.92
+        "sec": 6.28
       },
       {
         "task": "Compute 76*3+85. Output just the number.",
@@ -87,7 +87,7 @@
         "text": "{\"final\":\"313\"}",
         "emitted": true,
         "correct": true,
-        "sec": 7.42
+        "sec": 9.37
       },
       {
         "task": "Compute 158*2+13. Output just the number.",
@@ -96,7 +96,7 @@
         "text": "{\"final\":\"329\"}",
         "emitted": true,
         "correct": true,
-        "sec": 14.15
+        "sec": 15.05
       },
       {
         "task": "Compute 73*5+39. Output just the number.",
@@ -105,7 +105,7 @@
         "text": "{\"final\":\"404\"}",
         "emitted": true,
         "correct": true,
-        "sec": 16.37
+        "sec": 14.25
       }
     ]
   },
@@ -124,7 +124,7 @@
         "text": "{\"final\":\"201\"}",
         "emitted": true,
         "correct": true,
-        "sec": 13.59
+        "sec": 17.22
       },
       {
         "task": "Compute 112*5+27. Output just the number.",
@@ -133,7 +133,7 @@
         "text": "{\"final\":\"587\"}",
         "emitted": true,
         "correct": true,
-        "sec": 14.68
+        "sec": 16.46
       },
       {
         "task": "Compute 76*3+85. Output just the number.",
@@ -142,7 +142,7 @@
         "text": "{\"final\":\"313\"}",
         "emitted": true,
         "correct": true,
-        "sec": 15.42
+        "sec": 16.15
       },
       {
         "task": "Compute 158*2+13. Output just the number.",
@@ -151,7 +151,7 @@
         "text": "{\"final\":\"329\"}",
         "emitted": true,
         "correct": true,
-        "sec": 10.83
+        "sec": 11.62
       },
       {
         "task": "Compute 73*5+39. Output just the number.",
@@ -160,7 +160,7 @@
         "text": "{\"final\":\"404\"}",
         "emitted": true,
         "correct": true,
-        "sec": 13.98
+        "sec": 13.57
       }
     ]
   }

@@ -1,0 +1,66 @@
+[
+  {
+    "gen": "gen-5",
+    "task": "Compute 859+381 with calculator, then echo it, then also compute 859*381, then final should include both.",
+    "vals": [
+      1240,
+      327279
+    ]
+  },
+  {
+    "gen": "gen-5",
+    "task": "Compute 617+716 with calculator, then echo it, then also compute 617*716, then final should include both.",
+    "vals": [
+      1333,
+      441772
+    ]
+  },
+  {
+    "gen": "gen-5",
+    "task": "Compute 194+489 with calculator, then echo it, then also compute 194*489, then final should include both.",
+    "vals": [
+      683,
+      94866
+    ]
+  },
+  {
+    "gen": "gen-5",
+    "task": "Compute 718+370 with calculator, then echo it, then also compute 718*370, then final should include both.",
+    "vals": [
+      1088,
+      265660
+    ]
+  },
+  {
+    "gen": "gen-6",
+    "task": "Compute 859+381 with calculator, then echo it, then also compute 859*381, then final should include both.",
+    "vals": [
+      1240,
+      327279
+    ]
+  },
+  {
+    "gen": "gen-6",
+    "task": "Compute 617+716 with calculator, then echo it, then also compute 617*716, then final should include both.",
+    "vals": [
+      1333,
+      441772
+    ]
+  },
+  {
+    "gen": "gen-6",
+    "task": "Compute 194+489 with calculator, then echo it, then also compute 194*489, then final should include both.",
+    "vals": [
+      683,
+      94866
+    ]
+  },
+  {
+    "gen": "gen-6",
+    "task": "Compute 718+370 with calculator, then echo it, then also compute 718*370, then final should include both.",
+    "vals": [
+      1088,
+      265660
+    ]
+  }
+]

@@ -8,6 +8,7 @@ If layers matter, we expect L1-L4 to improve over bare.
 """
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import sys
@@ -53,13 +54,23 @@ TASKS = [
 
 
 def main():
-    out_dir = ROOT / "logs" / "cross_model_layers"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--model", default="qwen3:1.7b",
+                        help="primary model (also used as scorer if --scorer not set)")
+    parser.add_argument("--scorer", default="qwen3:0.6b",
+                        help="scorer model for L1 Reflector")
+    parser.add_argument("--max-steps", type=int, default=6)
+    parser.add_argument("--out", default="logs/cross_model_layers",
+                        help="output directory for summary.json")
+    args = parser.parse_args()
+
+    out_dir = ROOT / args.out
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    model_name = "qwen3:1.7b"
+    model_name = args.model
     print("Loading " + model_name + "...")
     llm = OllamaBackend(model=model_name)
-    fast_llm = OllamaBackend(model="qwen3:0.6b")
+    fast_llm = OllamaBackend(model=args.scorer)
 
     # Full pipeline run
     print("\n=== FULL L1-L4 on 20 hard arithmetic tasks ===")
@@ -78,7 +89,7 @@ def main():
     run_episode_fn = make_real_run_episode(
         playbook=pb, meta=meta, reflector=reflector,
         strategy_miner_llm=None, tool_factory=None,
-        fa_tools=FA_TOOLS, max_steps=6,
+        fa_tools=FA_TOOLS, max_steps=args.max_steps,
     )
 
     full_results = []
@@ -103,6 +114,8 @@ def main():
 
     summary = {
         "model": model_name,
+        "scorer_model": args.scorer,
+        "max_steps": args.max_steps,
         "n_tasks": len(TASKS),
         "bare_known_from_logs_cross_model": {
             "correct": bare_correct,
@@ -120,6 +133,7 @@ def main():
 
     with (out_dir / "summary.json").open("w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2, ensure_ascii=False)
+    print("Wrote " + str(out_dir / "summary.json"))
 
     print("\n=== SUMMARY ===")
     print("Bare (known, no layers):  " + str(bare_correct) + "/" + str(len(TASKS)) + " = " + str(bare_acc * 100) + "%")

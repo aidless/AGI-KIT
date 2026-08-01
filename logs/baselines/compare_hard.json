@@ -1,0 +1,296 @@
+[
+  {
+    "name": "Static one-shot",
+    "n": 8,
+    "n_emission": 8,
+    "n_correct": 8,
+    "emission_rate": 1.0,
+    "correctness_rate": 1.0,
+    "rows": [
+      {
+        "gen": "gen-5",
+        "expected": [
+          1240,
+          327279
+        ],
+        "text": "1240,327279",
+        "emitted": true,
+        "correct": true,
+        "sec": 72.5
+      },
+      {
+        "gen": "gen-5",
+        "expected": [
+          1333,
+          441772
+        ],
+        "text": "1333,441772",
+        "emitted": true,
+        "correct": true,
+        "sec": 34.5
+      },
+      {
+        "gen": "gen-5",
+        "expected": [
+          683,
+          94866
+        ],
+        "text": "683,94866",
+        "emitted": true,
+        "correct": true,
+        "sec": 117.5
+      },
+      {
+        "gen": "gen-5",
+        "expected": [
+          1088,
+          265660
+        ],
+        "text": "1088,265660",
+        "emitted": true,
+        "correct": true,
+        "sec": 56.5
+      },
+      {
+        "gen": "gen-6",
+        "expected": [
+          1240,
+          327279
+        ],
+        "text": "1240,327279",
+        "emitted": true,
+        "correct": true,
+        "sec": 77.0
+      },
+      {
+        "gen": "gen-6",
+        "expected": [
+          1333,
+          441772
+        ],
+        "text": "1333,441772",
+        "emitted": true,
+        "correct": true,
+        "sec": 62.2
+      },
+      {
+        "gen": "gen-6",
+        "expected": [
+          683,
+          94866
+        ],
+        "text": "683,94866",
+        "emitted": true,
+        "correct": true,
+        "sec": 66.0
+      },
+      {
+        "gen": "gen-6",
+        "expected": [
+          1088,
+          265660
+        ],
+        "text": "1088,265660",
+        "emitted": true,
+        "correct": true,
+        "sec": 25.9
+      }
+    ]
+  },
+  {
+    "name": "ReAct JSON one-shot",
+    "n": 8,
+    "n_emission": 8,
+    "n_correct": 3,
+    "emission_rate": 1.0,
+    "correctness_rate": 0.375,
+    "rows": [
+      {
+        "gen": "gen-5",
+        "expected": [
+          1240,
+          327279
+        ],
+        "text": "{\"final\": \"1240327279\"}",
+        "emitted": true,
+        "correct": false,
+        "sec": 29.5
+      },
+      {
+        "gen": "gen-5",
+        "expected": [
+          1333,
+          441772
+        ],
+        "text": "{\"final\": \"1333,441772\"}",
+        "emitted": true,
+        "correct": true,
+        "sec": 40.7
+      },
+      {
+        "gen": "gen-5",
+        "expected": [
+          683,
+          94866
+        ],
+        "text": "{\"final\": \"68394866\"}",
+        "emitted": true,
+        "correct": false,
+        "sec": 75.3
+      },
+      {
+        "gen": "gen-5",
+        "expected": [
+          1088,
+          265660
+        ],
+        "text": "{\"final\": \"1088265660\"}",
+        "emitted": true,
+        "correct": false,
+        "sec": 29.9
+      },
+      {
+        "gen": "gen-6",
+        "expected": [
+          1240,
+          327279
+        ],
+        "text": "{\"final\": \"1240,327279\"}",
+        "emitted": true,
+        "correct": true,
+        "sec": 28.3
+      },
+      {
+        "gen": "gen-6",
+        "expected": [
+          1333,
+          441772
+        ],
+        "text": "{\"final\": \"1333441772\"}",
+        "emitted": true,
+        "correct": false,
+        "sec": 44.8
+      },
+      {
+        "gen": "gen-6",
+        "expected": [
+          683,
+          94866
+        ],
+        "text": "{\"final\": \"68394866\"}",
+        "emitted": true,
+        "correct": false,
+        "sec": 15.6
+      },
+      {
+        "gen": "gen-6",
+        "expected": [
+          1088,
+          265660
+        ],
+        "text": "{\"final\": \"1088,265660\"}",
+        "emitted": true,
+        "correct": true,
+        "sec": 25.3
+      }
+    ]
+  },
+  {
+    "name": "Reflexion-style CoT",
+    "n": 8,
+    "n_emission": 8,
+    "n_correct": 7,
+    "emission_rate": 1.0,
+    "correctness_rate": 0.875,
+    "rows": [
+      {
+        "gen": "gen-5",
+        "expected": [
+          1240,
+          327279
+        ],
+        "text": "{\"final\": \"1240,327279\"}",
+        "emitted": true,
+        "correct": true,
+        "sec": 25.4
+      },
+      {
+        "gen": "gen-5",
+        "expected": [
+          1333,
+          441772
+        ],
+        "text": "{\"final\": \"1333,441772\"}",
+        "emitted": true,
+        "correct": true,
+        "sec": 31.5
+      },
+      {
+        "gen": "gen-5",
+        "expected": [
+          683,
+          94866
+        ],
+        "text": "{\"final\": \"683,94866\"}",
+        "emitted": true,
+        "correct": true,
+        "sec": 25.8
+      },
+      {
+        "gen": "gen-5",
+        "expected": [
+          1088,
+          265660
+        ],
+        "text": "{\"final\": \"1088265660\"}",
+        "emitted": true,
+        "correct": false,
+        "sec": 36.1
+      },
+      {
+        "gen": "gen-6",
+        "expected": [
+          1240,
+          327279
+        ],
+        "text": "{\"final\": \"1240,327279\"}",
+        "emitted": true,
+        "correct": true,
+        "sec": 28.3
+      },
+      {
+        "gen": "gen-6",
+        "expected": [
+          1333,
+          441772
+        ],
+        "text": "{\"final\": \"1333,441772\"}",
+        "emitted": true,
+        "correct": true,
+        "sec": 36.7
+      },
+      {
+        "gen": "gen-6",
+        "expected": [
+          683,
+          94866
+        ],
+        "text": "{\"final\": \"683,94866\"}",
+        "emitted": true,
+        "correct": true,
+        "sec": 22.6
+      },
+      {
+        "gen": "gen-6",
+        "expected": [
+          1088,
+          265660
+        ],
+        "text": "{\"final\": \"1088 265660\"}",
+        "emitted": true,
+        "correct": true,
+        "sec": 38.0
+      }
+    ]
+  }
+]
