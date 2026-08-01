@@ -1,16 +1,16 @@
-# Cover Letter �� TMLR Submission (with arXiv as fallback)
+# Cover Letter — TMLR Submission (with arXiv as fallback)
 
 **To:** TMLR Action Editor
 **From:** AGI Research Kit Contributors
 **Date:** 2026-08-01
 **Re:** Single-paper submission (replaces a prior 5-paper bundle that has been archived)
 
----
+—-
 
 Dear Editor,
 
 We are pleased to submit our manuscript, *"AGI Kit: An End-to-End
-Self-Improving Tool-Use Pipeline on Consumer Hardware �� Empirical
+Self-Improving Tool-Use Pipeline on Consumer Hardware — Empirical
 Observations"*, for consideration at TMLR. The submission is a single
 unified preprint; a prior 5-paper bundle has been archived at
 `papers/_deprecated/` and may be inspected for audit but is no longer
@@ -37,7 +37,7 @@ head-to-head baselines against Voyager/MetaGPT/Reflexion on identical
 hardware are deferred to the supplementary repository; full GAIA2
 benchmark coverage is deferred until the per-app bridges for the
 remaining 7 of 10 apps are implemented. Both are flagged as future
-work in ��8 Limitations.
+work in —8 Limitations.
 
 The work is reproducible on the target hardware. Source code,
 scripts, real SFT checkpoint (SmolLM2-135M, 2 min CPU training time),

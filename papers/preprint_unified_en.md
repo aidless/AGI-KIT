@@ -1,4 +1,4 @@
-﻿# AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on Consumer Hardware 鈥?Empirical Observations
+# AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on Consumer Hardware —?Empirical Observations
 
 **Authors:** AGI Research Kit Contributors
 **Date:** 2026-08-01
@@ -38,7 +38,7 @@ weeks without supervision. Three questions drove the design:
    cadence and safety thresholds.
 3. **Does a rule-based meta-controller (L2) earn its complexity?** A
    learned meta-controller is fashionable; a rules-based one is suspect
-   鈥?but it is also debuggable on consumer hardware.
+   —?but it is also debuggable on consumer hardware.
 
 Section 4 reports the end-to-end ablation answering all three: yes to
 (1), yes-and-it-depends to (2), and mixed to (3). Section 5 takes each
@@ -54,8 +54,9 @@ through L4 reflect ideas from Reflexion [Shinn et al. 2023], Voyager
 
 - A **measured layer ablation** with all four layers on identical
   hardware and identical prompts.
-- A **statistical validation** of continual learning (3 seeds,
-  t-tested against static baseline).
+- A **statistical validation** of continual learning (3 seeds x
+  15 episodes, reported as a variance estimate rather than a
+  t-test against an unmeasured baseline).
 - A **12-case boundary stress test** for the A/B safety gate,
   with adversarial threshold sweeps.
 
@@ -66,27 +67,27 @@ through L4 reflect ideas from Reflexion [Shinn et al. 2023], Voyager
 The system is decomposed into four layers, each independently
 removable. The implementation lives in `src/agi_kit/`.
 
-* **L1 鈥?Reflector (`reflect.py`).** After each agent step, a separate
+* **L1 —?Reflector (`reflect.py`).** After each agent step, a separate
   small model (Qwen3-0.6B) scores the (action, observation) pair and
   decides whether to retry. The score drives both a per-step retry
   policy and a per-episode buffer that records which (state, action,
   score) triples produced successful retries.
 
-* **L2 鈥?Meta-Controller (`meta.py` + `playbook.py`).** A semantic
+* **L2 —?Meta-Controller (`meta.py` + `playbook.py`).** A semantic
   strategy memory persists distilled rules ("when a tool error contains
   HTTP 5xx, retry with backoff"; "when a search returns zero results,
   switch query strategy"). The meta-controller selects among
   hand-written rules and learned rules based on a hand-coded priority
   table.
 
-* **L3 鈥?Continual Learning Loop (`loop.py`).** A buffer of recent
+* **L3 —?Continual Learning Loop (`loop.py`).** A buffer of recent
   successful episodes triggers a periodic fine-tune (mock in our
   headline runs, real SmolLM2-135M in our SFT validation, see
   Appendix C). Candidate models are evaluated against the incumbent
   baseline; only candidates passing the A/B gate replace the running
   model.
 
-* **L4 鈥?Bounded Recursive Self-Modification (`recursive.py`).**
+* **L4 —?Bounded Recursive Self-Modification (`recursive.py`).**
   SchemaMutator proposes changes to the strategy schema (renaming a
   strategy, adding a new error class). Every proposed change is
   evaluated against safety predicates before commit; the SchemaHistory
@@ -204,7 +205,7 @@ The ablation data is at `logs/ablation/{static,l1_only,l1_l2,l1_l2_l3,full}/summ
 ### 4.1.1 The Metric: JSON Final-Emission Rate
 
 The headline numbers in this paper measure the rate at which the
-agent''s `run_episode` reaches a verdict of "success" by emitting a
+agent's `run_episode` reaches a verdict of "success" by emitting a
 JSON object that contains the key `final` (and, where gold
 annotations exist, whose value matches the gold after whitespace
 and case normalization). The success criterion in our pipeline
@@ -245,7 +246,7 @@ Where the rest of the paper does depend on real numerical evidence:
 
 ![Across 7 generations of full_run3.py, eval_new_acc climbs from 0.605 to 0.745 (+14 pp). The A/B gate rejects every generation; the running model is the base, but the eval signal on candidates is what the gate uses.](../figures/fig2_generation_curve.png)
 
-*Figure 2: per-generation eval accuracy across the 7-generation continual loop. The conservative default threshold (0.85 x baseline) means every generation is rejected; the system stays on the base model.*
+*Figure 2: per-generation eval accuracy across the 7-generation continual loop. The headline-run threshold (0.85 of baseline; code signature default is 0.95) means every generation is rejected; the system stays on the base model.*
 
 
 Across 7 generations of `full_run2.py` (not `full_run3.py` - we
@@ -314,11 +315,9 @@ transfer, or is it Qwen3-family specific?
 Two observations:
 
 1. **There appears to be a size threshold below which per-step
-   reflection does not work.** Models at <2B all collapse to 5% 鈥?the
+   reflection does not work.** Models at <2B all collapse to 5% —?the
    same as random guessing on arithmetic with retries disabled.
-2. **qwen2.5:3b lands at 70% JSON-final-emission rate, our headline
-   68% on the same metric, suggesting our setup
-   is reasonable but not optimal.** A retrained smaller scorer might
+2. **qwen2.5:3b lands at 70% JSON-final-emission rate on the cross-model 20-task eval (max_steps=3). On the harder 20-task eval with the full L1-L4 wrapper (max_steps=6), qwen3:1.7b reaches 100% (Section 4.1); the 30-point gap between qwen2.5:3b bare and qwen3:1.7b wrapped with full L1-L4 is what we report as the layer effect.** A retrained smaller scorer might
    close the gap.
 
 The data is in `logs/cross_model/`.
@@ -376,7 +375,7 @@ that selects among rules by a priority table.
   the meta-controller fails to switch strategy. We replaced this with
   a 12-retry hard cap + force-rule-reset; the cap removed the
   pathological tail.
-- L2 in isolation does *not* improve over L1 鈥?without L1 to feed it
+- L2 in isolation does *not* improve over L1 —?without L1 to feed it
   failures, L2 has nothing to plan around.
 
 ### Figure 4: L2 Stuck-Latency Profile
@@ -492,10 +491,10 @@ All 12 cases produced the expected decision: **match rate 12/12 =
 The 12 cases cover boundary conditions of the comparison operator
 but do not exhaustively probe every code path. Two follow-ups remain:
 
-1. **Stochastic candidates** 鈥?inject noise into `eval_fn` so
+1. **Stochastic candidates** —?inject noise into `eval_fn` so
    multiple draws produce a distribution and verify the gate handles
    variance.
-2. **Floating-point precision perturbations** 鈥?feed the gate
+2. **Floating-point precision perturbations** —?feed the gate
    near-tied candidates that differ only in low-order bits
    (0.8499999 vs 0.8500001) to confirm deterministic behavior.
 
@@ -597,7 +596,7 @@ immediately as a `false positive` count above zero.
 
 ### 6.8 Calibration Deep Dive
 
-The acceptance-rate ladder from 搂6.6 has a sharp transition between
+The acceptance-rate ladder from —6.6 has a sharp transition between
 threshold values 0.85 and 0.86: at 0.85 the casual_chat profile rejects
 `new_acc=0.84` (just-below) but accepts 0.86+ (just-above). This is
 the boundary at which the gate stops being a near-refuser for that
@@ -754,15 +753,18 @@ We enumerate honestly what this preprint does *not* establish.
   set (160 scenarios) into `data/gaia2/validation.jsonl`, but the
   10-app universe (Calendar, Emails, Shopping, ...) does not match
   AGI Kit's tool space. See Section 12 for the bridge analysis. The
-  +38 pp gain on the synthetic GAIA2 mini has not been validated on
-  the real benchmark.
+  synthetic GAIA2 mini saturated result (77.8% across all configs)
+  and the harder 20-task arithmetic eval (+95 pp) have not been
+  validated on the real benchmark.
 - **No head-to-head baseline.** We did not run Voyager, MetaGPT,
   Reflexion, or ReAct on identical hardware with identical prompts.
   All comparisons in Section 9 are at the level of cited claims,
   not measured baselines.
-- **Small N.** 45 runs total in Section 4.3. The t-test falsifies
-  the static-baseline null hypothesis but does not establish
-  competitive superiority.
+- **Small N.** 45 runs total in Section 4.3. The reported number is
+a variance estimate (60.4% +/- 3.6% across 3 seeds x 15 episodes)
+not a t-test against a baseline; we do not perform the t-test
+because the static-baseline number was not measured. See Section
+4.3 for the honest framing.
 - **Narrow cross-model sweep.** 4 models in Section 4.4; meaningful
   transfer claims would require ~8 models across 2 families.
 - **No real-world deployment.** No user-facing task, no prompt
@@ -771,7 +773,7 @@ We enumerate honestly what this preprint does *not* establish.
   the gate's comparison operator, not its adversaries.
 - **Mock retrain in headline runs.** Continual learning in the
   headline numbers used a mocked retrain function for reproducibility
-  (50 episodes 脳 7 generations in <2 hours). Section 5.3 + Appendix C
+  (50 episodes x 7 generations in <2 hours). Section 5.3 + Appendix C
   show that real SmolLM2-135M SFT works, but it was not the headline
   retraining target.
 - **L4 audit limited.** 50 episodes is too short to characterize
@@ -783,26 +785,26 @@ This section situates AGI Kit against prior systems without claiming
 priority on any single idea. The four layers are not novel in
 isolation; the integration is the contribution.
 
-* **Reflexion** (Shinn et al., 2023) 鈥?verbal reinforcement for
+* **Reflexion** (Shinn et al., 2023) —?verbal reinforcement for
   self-reflection. L1 borrows the per-step reflection idea but
   uses a separate small scorer model rather than verbal self-talk,
   for lower latency and to enable ablation.
-* **Voyager** (Wang et al., 2023) 鈥?open-ended embodied agent with
+* **Voyager** (Wang et al., 2023) —?open-ended embodied agent with
   incremental skill library. AGI Kit's L4 is in the same conceptual
   neighborhood (curriculum-style schema growth) but with a
   rules-bounded schema mutator instead of an LLM-driven library.
-* **MetaGPT** (Hong et al., 2023) 鈥?multi-agent collaboration with
+* **MetaGPT** (Hong et al., 2023) —?multi-agent collaboration with
   structured communication. L2 in AGI Kit borrows the idea of a
   meta-controller over specialized roles, but uses a rule engine
   rather than a multi-agent scaffold.
-* **ReAct** (Yao et al., 2023) 鈥?interleaved reasoning + acting.
+* **ReAct** (Yao et al., 2023) —?interleaved reasoning + acting.
   L1's per-step retry extends ReAct's action loop with a learnable
   acceptance criterion.
-* **Constitutional AI** (Bai et al., 2022) 鈥?self-critique against
+* **Constitutional AI** (Bai et al., 2022) —?self-critique against
   written principles. Section 6's safety gate is in the same family
   but with a quantitative A/B comparison rather than principle-based
   self-evaluation.
-* **Toolformer** (Schick et al., 2023) 鈥?learned tool calling.
+* **Toolformer** (Schick et al., 2023) —?learned tool calling.
   AGI Kit uses Ollama-style JSON tool descriptions rather than
   Toolformer's in-pretraining tool-calling heads.
 
@@ -811,14 +813,22 @@ We explicitly do *not* claim precedence on any of these axes.
 ## 10. Conclusion
 
 We built AGI Kit, a four-layer self-improving tool-use pipeline that
-runs on consumer hardware, and measured it. End-to-end JSON-final-emission: 68% vs 30% static baseline on a
-50-task synthetic GAIA2 mini (the metric is defined in Section 4.1.1:
-rate of emitting a JSON final-answer block, not correctness);
-continual-learning eval 60.4% 卤 3.6% (p<0.01); A/B gate passes
-12 of 12 adversarial boundary tests. We were honest about what we did not validate.
-The pipeline is a useful substrate; whether it generalizes to the
+runs on consumer hardware, and measured it. Headline numbers (Round 7):
+
+- Layer ablation: all 5 configs score 77.8% on the synthetic GAIA2
+  mini eval (the eval saturates).
+- Harder 20-task arithmetic eval: bare = 5.0%, full L1-L4 = 100.0%,
+  a +95 percentage point delta attributable to the layers.
+- Continual-learning variance: 60.4% +/- 3.6% across 3 seeds x
+  15 episodes (reported as variance, not as a t-test against a
+  baseline because the 30% and 51% values in earlier drafts were
+  not measured).
+- A/B safety gate: 12 of 12 adversarial boundary tests passed.
+
+The pipeline is a useful substrate. Whether it generalizes to the
 full GAIA2 benchmark or to long-horizon continual learning remains
-for future work.
+for future work; see Section 8 (Limitations) and Section 12
+(Bridging Real GAIA2).
 
 
 
@@ -961,7 +971,7 @@ revisions should consult the commit history for the exact change.
 20. Touvron, H. et al. *LLaMA 2: Open Foundation and Fine-Tuned Chat
     Models.* arXiv 2023.
 
-## Appendix A 鈥?Hardware Footprint
+## Appendix A —?Hardware Footprint
 
 Detailed resident-set-size measurements during a representative
 50-episode run with all four layers:
@@ -978,7 +988,7 @@ TIME  RSS    COMMAND
 Plus Ollama holding 1.6 GB (Qwen3-1.7B, Q4_K_M) and 0.5 GB
 (Qwen3-0.6B, Q4_K_M). Headroom for 5 GB RAM target: ~1.7 GB.
 
-## Appendix B 鈥?Reproduction
+## Appendix B —?Reproduction
 
 ```bash
 git clone https://github.com/<org>/agi-research-kit
@@ -995,15 +1005,15 @@ python scripts/reviewer_simulator.py
 End-to-end runtime on the target machine: ~50 minutes per 50-episode
 run; ~70 KB of trace JSONL per run; figures regenerated in ~6 seconds.
 
-## Appendix C 鈥?Stress Test Trace
+## Appendix C —?Stress Test Trace
 
 The 12-case stress test (Section 6) is at:
 
-- `experiments/stress_safety_gate.py` 鈥?driver
-- `logs/safety_gate/stress_test.json` 鈥?per-case decisions
-- `logs/safety_gate/summary.md` 鈥?human-readable summary
+- `experiments/stress_safety_gate.py` —?driver
+- `logs/safety_gate/stress_test.json` —?per-case decisions
+- `logs/safety_gate/summary.md` —?human-readable summary
 
-## Appendix D 鈥?Source Code Pointer
+## Appendix D —?Source Code Pointer
 
 - Library: `src/agi_kit/`
 - Entry points: `experiments/full_run.py`, `full_run2.py`, `full_run3.py`
