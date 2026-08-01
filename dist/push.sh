@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env bash
+#!/usr/bin/env bash
 # push.sh - push AGI Research Kit to GitHub, with self-checks
 #
 # Prerequisites:
