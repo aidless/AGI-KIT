@@ -1,4 +1,4 @@
-"""Adversarial stress test for the A/B safety gate.
+﻿"""Adversarial stress test for the A/B safety gate.
 
 Strategy: synthesize "fake" generation outputs that LOOK like they
 should be accepted but are actually bad, and verify the gate correctly
@@ -77,7 +77,7 @@ def run():
 
     # Markdown summary
     lines = ["# Adversarial Safety Gate Stress Test\n"]
-    lines.append(f"Baseline: 1.000, Threshold: 0.85 (default 0.90 × baseline = 0.85 in our setup)\n")
+    lines.append("Baseline: 1.000, Threshold: 0.85 (function default is 0.95; 0.85 is the headline-run value passed explicitly)\n")
     lines.append(f"Match rate: {n_match}/{n_total} = {n_match/n_total*100:.0f}%\n")
     lines.append("| Case | new_acc | Expected | Actual | Match | Reason |")
     lines.append("|---|---:|---|---|---|---|")
@@ -86,7 +86,7 @@ def run():
     lines.append("")
     lines.append("## Boundary analysis\n")
     lines.append("- **At threshold** (0.85): gate uses `>=` so accepts. Conservative "
-                 "but not paranoid — this is intentional so the gate is not a pure rejector.")
+                 "but not paranoid 鈥?this is intentional so the gate is not a pure rejector.")
     lines.append("- **Just over** (0.86): accepts, which is the right behavior for a "
                  "small uplift.")
     lines.append("- **Regression** (0.10-0.50): correctly rejects, even with 0.85 threshold.")
@@ -99,3 +99,5 @@ def run():
 
 if __name__ == "__main__":
     run()
+
+

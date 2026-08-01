@@ -1,6 +1,6 @@
 # AGI Kit Artifact Checklist
 
-Generated: 2026-08-01T11:34:12.231038
+Generated: 2026-08-01T11:58:14.235893
 
 This is an honest inventory. No score is calculated.
 Each artifact is either present on disk or missing.
@@ -12,9 +12,9 @@ which calibrated a rubric to award 4.5) with this checklist.
 
 | # | Item | Expected path | Status |
 |---|---|---|---|
-| 1 | Preprint (markdown) | `papers/preprint_unified_en.md` | PRESENT (47873 bytes) |
-| 2 | Preprint (PDF) | `papers/preprint_unified_en.pdf` | PRESENT (40807 bytes) |
-| 3 | Preprint (DOCX) | `papers/docx/preprint_unified_en.docx` | PRESENT (54378 bytes) |
+| 1 | Preprint (markdown) | `papers/preprint_unified_en.md` | PRESENT (49517 bytes) |
+| 2 | Preprint (PDF) | `papers/preprint_unified_en.pdf` | PRESENT (46231 bytes) |
+| 3 | Preprint (DOCX) | `papers/docx/preprint_unified_en.docx` | PRESENT (56510 bytes) |
 | 4 | Paper INDEX | `papers/00_INDEX_en.pdf` | PRESENT (3062 bytes) |
 | 5 | Cover letter | `papers/COVER_LETTER.md` | PRESENT (3190 bytes) |
 | 6 | Publishing guide | `papers/PUBLISHING.md` | PRESENT (4490 bytes) |
@@ -24,7 +24,7 @@ which calibrated a rubric to award 4.5) with this checklist.
 | 10 | Figure 4 - L2 stuck latency | `papers/figures/fig4_l2_stuck_latency.png` | PRESENT (83524 bytes) |
 | 11 | Figure 5 - L4 mutator activity | `papers/figures/fig5_l4_mutator_activity.png` | PRESENT (131547 bytes) |
 | 12 | A/B safety gate boundary tests | `logs/safety_gate/stress_test.json` | PRESENT (2772 bytes) |
-| 13 | A/B safety gate summary | `logs/safety_gate/summary.md` | PRESENT (1485 bytes) |
+| 13 | A/B safety gate summary | `logs/safety_gate/summary.md` | PRESENT (1515 bytes) |
 | 14 | L4 red-team trace | `logs/redteam/l4_redteam.jsonl` | PRESENT (10388 bytes) |
 | 15 | L4 red-team summary | `logs/redteam/l4_redteam_summary.md` | PRESENT (2058 bytes) |
 | 16 | Gate calibration grid | `logs/calibration/gate_calibration.json` | PRESENT (10702 bytes) |
@@ -51,7 +51,7 @@ which calibrated a rubric to award 4.5) with this checklist.
 | 37 | L2 Meta-Controller | `src/agi_kit/meta.py` | PRESENT (6484 bytes) |
 | 38 | L3 Continual Loop + safety gate | `src/agi_kit/loop.py` | PRESENT (15431 bytes) |
 | 39 | L4 Recursive Modifier | `src/agi_kit/recursive.py` | PRESENT (11184 bytes) |
-| 40 | Safety gate boundary test driver | `experiments/stress_safety_gate.py` | PRESENT (4674 bytes) |
+| 40 | Safety gate boundary test driver | `experiments/stress_safety_gate.py` | PRESENT (4712 bytes) |
 | 41 | L4 red-team test driver | `experiments/redteam/l4_redteam.py` | PRESENT (5263 bytes) |
 | 42 | Gate calibration test driver | `experiments/gate_calibration.py` | PRESENT (3180 bytes) |
 

@@ -31,20 +31,9 @@
       406.1
     ]
   },
-  "vs_baseline_30pct": {
-    "t_stat": 14.6,
-    "df": 2,
-    "p_value": "< 0.01 (df=2, |t|=14.6)",
-    "significant_at_0.05": true,
-    "interpretation": "Highly significant improvement over 30% static baseline"
-  },
-  "vs_baseline_50pct": {
-    "t_stat": 4.52,
-    "df": 2,
-    "p_value": "< 0.05 (df=2, |t|=4.5)",
-    "significant_at_0.05": true,
-    "interpretation": "Significant improvement over 51% L1 baseline"
-  },
+  "vs_baseline_30pct": null,
+  "vs_baseline_50pct": null,
+  "note": "No baseline comparison: the 30% and 51% values from earlier drafts were not measured.",
   "raw_runs": [
     {
       "episodes": 16,

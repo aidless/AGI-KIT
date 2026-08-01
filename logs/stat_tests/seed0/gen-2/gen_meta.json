@@ -1,8 +1,8 @@
 {
-  "base_model": "qwen3:1.7b",
-  "train_samples": 47,
+  "base_model": "F:\\agent to AGI\\agi-research-kit\\logs\\stat_tests\\seed0\\gen-1",
+  "train_samples": 107,
   "trained": false,
   "ollama_model": "agi-qwen3-1.7b-gen-2",
-  "expected_acc": 0.785,
-  "ts": "2026-07-31T11:55:47Z"
+  "expected_acc": 1.085,
+  "ts": "2026-08-01T04:08:12Z"
 }

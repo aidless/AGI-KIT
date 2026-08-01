@@ -20,17 +20,11 @@ The paper reports what we built and what we measured: a four-layer
 self-improving tool-use pipeline (per-step reflection, semantic
 strategy memory, continual learning with an A/B safety gate, and
 bounded recursive self-modification) running entirely on consumer
-hardware (CPU-only, ~5 GB RAM) with a Qwen3-1.7B base model. Headline
-numbers:
+hardware (CPU-only, ~5 GB RAM) with a Qwen3-1.7B base model. Headline numbers (Round 7 ablation, n=8-20 episodes per configuration):
 
-- End-to-end JSON-final emission: **100%** on full_run3 with all four layers; correctness on the arithmetic subset: **77.6%** (Sections 4.1.1-4.1.2; the 30% static baseline is the JSON-final emission rate of the bare Qwen3-1.7B on the same 50-task synthetic set)
-- Continual-learning eval: **60.4% �� 3.6%** across 3 seeds
-  (t-test vs static, t=14.6, **p<0.01**)
-- A/B safety gate: **12/12** adversarial boundary tests passed
-- L4 prompt-injection red team: **18/18** malicious blocked,
-  **0 false positives** on 30 attack vectors
-- Gate calibration across 5 deployment profiles: **60/60** trials
-  with monotonic acceptance-rate response
+- Layer ablation: all 5 configs score 77.8% on synthetic GAIA2 mini (eval saturates). On the harder 20-task arithmetic eval, bare scores **5.0%** and full L1-L4 scores **100.0%** - a **+95 percentage point** delta attributable to the layers (Section 4.1).
+- Continual-learning variance: **60.4% +/- 3.6%** across 3 seeds x 15 episodes. We do NOT report a t-test against a hardcoded baseline because the 30% and 51% values in earlier drafts were not measured; the number is reported as a variance estimate only (Section 4.3).
+- A/B safety gate: **12/12** adversarial boundary tests passed (Section 6.1).
 
 A prior version of this work was prepared as a 5-paper TMLR
 submission bundle. Internal reviewer simulation rated the bundle at

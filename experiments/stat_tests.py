@@ -1,8 +1,8 @@
-"""Statistical significance: run the same eval 3 times with different seeds.
+﻿"""Statistical significance: run the same eval 3 times with different seeds.
 
 Outputs:
   logs/stat_tests/results.json   - per-seed accuracy
-  logs/stat_tests/summary.md     - mean ± std + paired t-test
+  logs/stat_tests/summary.md     - mean 卤 std + paired t-test
 """
 from __future__ import annotations
 
@@ -77,12 +77,10 @@ def main():
     mean_score = statistics.mean(scores)
     std_score = statistics.stdev(scores) if len(scores) > 1 else 0
     mean_time = statistics.mean(times)
-    # Paired t-test against baseline (30% from static Qwen3-1.7B)
-    try:
-        from statistics import ttest_1samp
-        t_stat, p_val = ttest_1samp(accs, 0.30)
-    except Exception as e:
-        t_stat, p_val = float("nan"), float("nan")
+    # No baseline t-test: the 30% and 51% baselines in earlier drafts
+    # were not measured. Section 4.3 of the paper describes the variance
+    # estimate only.
+    t_stat, p_val = float("nan"), float("nan")
 
     summary = {
         "n_seeds": len(accs),
@@ -111,16 +109,9 @@ def main():
         "vs_baseline_50pct": {},
         "raw_runs": results,
     }
-    # Second t-test vs 50% (Paper 1 L1 baseline)
-    if len(accs) > 1:
-        try:
-            t2, p2 = ttest_1samp(accs, 0.51)
-            summary["vs_baseline_50pct"] = {
-                "t_stat": round(t2, 3), "p_value": round(p2, 4),
-                "significant_at_0.05": p2 < 0.05,
-            }
-        except Exception:
-            pass
+    # No second t-test: the 30% and 51% baselines were not measured.
+    # Section 4.3 of the paper describes the variance estimate only.
+    pass
 
     out_file2 = LOG_DIR / "summary.json"
     with out_file2.open("w", encoding="utf-8") as f:
@@ -128,20 +119,20 @@ def main():
 
     # Markdown summary
     lines = ["# Statistical Significance Tests\n"]
-    lines.append(f"3 seeds × {N} episodes per seed (full L1-L4 pipeline)\n")
+    lines.append(f"3 seeds 脳 {N} episodes per seed (full L1-L4 pipeline)\n")
     lines.append("| Seed | Accuracy | avg_score | wall_seconds |")
     lines.append("|---:|---:|---:|---:|")
     for r in results:
         lines.append(f"| {r['seed']} | {r['success_rate']*100:.1f}% | {r['avg_score']:.3f} | {r['wall_seconds']:.0f} |")
     lines.append("")
-    lines.append(f"**Mean accuracy**: {mean_acc*100:.1f}% ± {std_acc*100:.1f}% (n={len(accs)})")
-    lines.append(f"**Mean avg_score**: {mean_score:.3f} ± {std_score:.3f}")
+    lines.append(f"**Mean accuracy**: {mean_acc*100:.1f}% 卤 {std_acc*100:.1f}% (n={len(accs)})")
+    lines.append(f"**Mean avg_score**: {mean_score:.3f} 卤 {std_score:.3f}")
     lines.append(f"**Mean wall time**: {mean_time:.0f} s/seed")
     lines.append("")
-    lines.append("## Statistical Tests (1-sample t-test)")
-    lines.append(f"vs static baseline (30%): t={summary['vs_baseline_30pct']['t_stat']}, p={summary['vs_baseline_30pct']['p_value']}, significant @ 0.05: {summary['vs_baseline_30pct']['significant_at_0.05']}")
-    if summary["vs_baseline_50pct"]:
-        lines.append(f"vs L1 baseline (51%): t={summary['vs_baseline_50pct']['t_stat']}, p={summary['vs_baseline_50pct']['p_value']}, significant @ 0.05: {summary['vs_baseline_50pct']['significant_at_0.05']}")
+    lines.append("## Note on Baseline Comparisons")
+    lines.append("The 30% and 51% baselines referenced in earlier drafts of the paper")
+    lines.append("were NOT measured. This script reports only the variance across seeds.")
+    lines.append("See Section 4.3 of the paper for the honest framing.")
     lines.append("")
     lines.append("## 95% Confidence Interval")
     lines.append(f"Accuracy: [{summary['accuracy']['95_ci'][0]*100:.1f}%, {summary['accuracy']['95_ci'][1]*100:.1f}%]")
@@ -149,9 +140,9 @@ def main():
 
     print()
     print("=== Statistical Summary ===")
-    print(f"Mean accuracy: {mean_acc*100:.1f}% ± {std_acc*100:.1f}%")
+    print(f"Mean accuracy: {mean_acc*100:.1f}% 卤 {std_acc*100:.1f}%")
     print(f"95% CI: [{summary['accuracy']['95_ci'][0]*100:.1f}%, {summary['accuracy']['95_ci'][1]*100:.1f}%]")
-    print(f"vs 30% baseline: p={summary['vs_baseline_30pct']['p_value']}, sig={summary['vs_baseline_30pct']['significant_at_0.05']}")
+    print("Note: no hardcoded baseline comparison (see paper Section 4.3)")
 
 
 if __name__ == "__main__":

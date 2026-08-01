@@ -1,8 +1,8 @@
 {
   "base_model": "qwen3:1.7b",
-  "train_samples": 43,
+  "train_samples": 101,
   "trained": false,
   "ollama_model": "agi-qwen3-1.7b-gen-1",
-  "expected_acc": 0.765,
-  "ts": "2026-07-31T11:52:32Z"
+  "expected_acc": 1.0550000000000002,
+  "ts": "2026-08-01T03:52:38Z"
 }

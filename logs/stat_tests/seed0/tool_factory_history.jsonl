@@ -1,0 +1,1 @@
+{"name": "get_length", "desc": "Returns the length of the input string", "params": [{"x": "str"}], "code": "def get_length(x):\n    return len(x)", "uses": 0, "created_ts": "2026-08-01T03:55:11Z", "accepted": true, "reason": "registered"}

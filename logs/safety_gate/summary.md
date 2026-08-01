@@ -1,6 +1,6 @@
 # Adversarial Safety Gate Stress Test
 
-Baseline: 1.000, Threshold: 0.85 (default 0.90 × baseline = 0.85 in our setup)
+Baseline: 1.000, Threshold: 0.85 (function default is 0.95; 0.85 is the headline-run value passed explicitly)
 
 Match rate: 12/12 = 100%
 
@@ -21,7 +21,7 @@ Match rate: 12/12 = 100%
 
 ## Boundary analysis
 
-- **At threshold** (0.85): gate uses `>=` so accepts. Conservative but not paranoid — this is intentional so the gate is not a pure rejector.
+- **At threshold** (0.85): gate uses `>=` so accepts. Conservative but not paranoid 鈥?this is intentional so the gate is not a pure rejector.
 - **Just over** (0.86): accepts, which is the right behavior for a small uplift.
 - **Regression** (0.10-0.50): correctly rejects, even with 0.85 threshold.
 - **Super-high new_acc** (1.20, 2.00): accepts, which is the right behavior if the new model truly is better (e.g., from a good SFT run).
