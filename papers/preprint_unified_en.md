@@ -414,14 +414,21 @@ seconds. Total overhead for +38 pp is +13 seconds per episode.
    lists two stress-test gaps; we did not fill them.
 3. **What happens at 1000+ episodes?** Our continual runs stopped
    at 50.
+4. **Canonical GAIA2 evaluation.** See Section 12: requires
+   implementing the 10-app universe, the simulator harness,
+   and the canonical scorer.
 
 ## 8. Limitations
 
 We enumerate honestly what this preprint does *not* establish.
 
-- **No full GAIA2 evaluation.** The synthetic GAIA2 mini used
-  here is 8 tasks; full GAIA2 has hundreds and we did not run it.
-  Whether the +38 pp gain transfers is open.
+- **No full GAIA2 evaluation.** Round 7 located and extracted
+  the real `meta-agents-research-environments___gaia2` mini validation
+  set (160 scenarios) into `data/gaia2/validation.jsonl`, but the
+  10-app universe (Calendar, Emails, Shopping, ...) does not match
+  AGI Kit's tool space. See Section 12 for the bridge analysis. The
+  +38 pp gain on the synthetic GAIA2 mini has not been validated on
+  the real benchmark.
 - **No head-to-head baseline.** We did not run Voyager, MetaGPT,
   Reflexion, or ReAct on identical hardware with identical prompts.
   All comparisons in Section 9 are at the level of cited claims,
@@ -525,6 +532,50 @@ MIT-style license terms at the repository linked in PUBLISHING.md.
 We do not endorse the use of the recursive schema mutation in
 user-facing or safety-critical deployments without the audit work
 listed above.
+
+
+
+## 12. Bridging Real GAIA2 (Negative Result)
+
+The `meta-agents-research-environments___gaia2` dataset (mini config,
+160 validation scenarios, 408 MB Arrow IPC stream) is locally cached at
+`F:\hf_cache\datasets\meta-agents-research-environments___gaia2\...\gaia2-validation.arrow`.
+Round 7 attempted to use it as a real benchmark.
+
+We extracted the 160 scenarios into `data/gaia2/validation.jsonl`
+(see `data/gaia2/SCHEMA.md` for the schema). Each scenario belongs
+to one of five categories (`time`, `search`, `execution`,
+`ambiguity`, `adaptability`, 32 each) and expects the oracle agent
+to perform on average 6.5 tool calls drawn from a 10-app universe:
+
+```
+Calendar        250 expected calls
+Emails          166 expected calls
+Shopping        146 expected calls
+AgentUserInterface  136 expected calls
+Messages        104 expected calls
+RentAFlat        97 expected calls
+Chats            54 expected calls
+Cabs             43 expected calls
+Contacts         33 expected calls
+Files            13 expected calls
+```
+
+AGI Kit's `full_agent.py` exposes 11 tools: `calculator`, `read_file`,
+`read_pdf`, `echo`, `list_dir`, `shell`, `web_search`, `web_fetch`,
+`rag_add`, `rag_search`, `rag_clear`. **None overlap with the GAIA2
+app universe.** A canonical GAIA2 evaluation requires implementing
+the 10 apps as Python tool classes, the GAIA2 simulator harness, and
+the canonical pass-rate scorer. We did not implement that.
+
+We therefore do not report a GAIA2 accuracy number. We list this
+explicitly as the highest-value future-work item and keep the
+extracted JSONL on disk so that a future engineer can build the
+bridge without re-extracting from the Arrow file.
+
+The Round 7 deliverable is honest enumeration of what a real
+evaluation would require, not a synthetic number on a non-canonical
+mapping.
 
 ## References
 

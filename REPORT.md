@@ -1034,3 +1034,93 @@ dbae4e3 Round 4 cleanup: fix .gitignore to exclude 500MB tarball; sync REPORT §
 4fa6727 Post-review improvements: Ethics, Reproducibility, arXiv References
 16c3c2f AGI Research Kit: 5-paper TMLR bundle
 ```
+
+
+## 21. Round 7: Bridging Real GAIA2 (Negative Result, 2026-08-01)
+
+### 21.1 Why this round
+
+User requested path 1 of the +0.5 menu: "do real full GAIA2 evaluation".
+
+### 21.2 What we found
+
+Round 7 discovered that the **real GAIA2 dataset** (mini config,
+`meta-agents-research-environments___gaia2` mini validation) is already
+locally cached at `F:\hf_cache\datasets\meta-agents-research-environments___gaia2\`.
+160 validation scenarios across 5 categories (32 each: `time`, `search`,
+`execution`, `ambiguity`, `adaptability`).
+
+### 21.3 Why a real eval is not feasible this round
+
+The dataset expects an agent to operate a 10-app universe:
+Calendar / Emails / Shopping / AgentUserInterface / Messages / RentAFlat
+/ Chats / Cabs / Contacts / Files (150-250 expected calls each).
+
+AGI Kit's `full_agent.py` exposes 11 generic tools
+(calculator, read_file, ..., rag_clear). **Zero overlap.**
+
+Eval-blocking work:
+1. Implement each of the 10 apps as Python tool classes
+2. Implement the GAIA2 simulator harness
+3. Implement the canonical scorer (full-scenario pass rate)
+4. Run the full pipeline
+
+Estimated effort: 1-2 weeks of focused engineering. **Not feasible in
+this 1-session round.**
+
+### 21.4 What we did instead (the honest path)
+
+1. Extracted all 160 scenarios to `data/gaia2/validation.jsonl` (~140 KB),
+   one JSON record per scenario, with schema that captures expected
+   actions and available apps.
+2. Wrote `data/gaia2/SCHEMA.md` documenting the dataset format and the
+   bridge gap.
+3. Added Section 12 to `papers/preprint_unified_en.md` titled
+   "Bridging Real GAIA2 (Negative Result)" listing the 10 apps, the
+   expected call counts, and why we cannot evaluate without implementing
+   them.
+4. Cross-linked from `Limitations` (§8) and `Discussion open questions`
+   (§7.3) to Section 12.
+
+### 21.5 Score impact
+
+| Round | Content | Score |
+|---|---|---:|
+| Round 5 (5-paper bundle) | had the 5 papers | 3.43 |
+| Round 6 (unified preprint v1, no ethics) | consolidated bundle | 3.30 |
+| Round 6 (+ethics) | + §11 Ethics | 3.43 |
+| **Round 7 (+§12 GAIA2 negative)** | + honest GAIA2 bridge | **3.43** |
+
+**Score did not move.** Honest enumeration of an evaluation we cannot
+do is the right kind of "no improvement" - the Limitations section
+becomes more credible and a future engineer inherits the bridge gap
+mapped out.
+
+### 21.6 Files added/changed in Round 7
+
+| Path | Action | Note |
+|---|---|---|
+| `data/gaia2/validation.jsonl` | created | 160 records, expected actions + apps |
+| `data/gaia2/SCHEMA.md` | created | format + bridge notes |
+| `scripts/load_gaia2.py` | created | Arrow -> JSONL extractor |
+| `papers/preprint_unified_en.{md,pdf,docx}` | modified | +Section 12 + cross-links |
+| `papers/reviews/preprint_unified_en_review.txt` | regen | unchanged content, score stable |
+| `REPORT.md` | + this section | §21 |
+
+### 21.7 Realistic next steps (still hard)
+
+If user wants the actual GAIA2 number, options are:
+  A. Implement the 10-app universe and simulator harness (1-2 weeks
+     of focused engineering - real cost, real score, real risk)
+  B. Build a minimal bridge: re-implement the most common 3 apps
+     (Calendar, Emails, Shopping) and report score on the subset
+     that uses only those apps (~160 / 1042 = 15% of expected calls,
+     covering maybe 50-60 of 160 scenarios). Estimated 2-3 days.
+  C. Move on. Accept that the paper is an "empirical system report",
+     not a benchmark-beating contribution. Submit to arXiv as-is.
+  D. Pivot to a different benchmark that does fit our tool space
+     (e.g. a subset of ToolBench, or a synthetic-but-larger GAIA2-like
+     suite we author ourselves).
+
+Option C is what we'd recommend for "ship now, write more later". Option
+B is what a serious follow-up looks like.
