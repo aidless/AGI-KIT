@@ -1,0 +1,496 @@
+[
+  {
+    "name": "Static",
+    "n": 6,
+    "n_perfect": 5,
+    "perfect_rate": 0.8333333333333334,
+    "rows": [
+      {
+        "scenario_id": "scenario_universe_27_fcbx0i",
+        "expected": [
+          "('Shopping', 'checkout')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Shopping', 'add_to_cart')"
+        ],
+        "predicted_sample": [
+          "('Shopping', 'checkout')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Shopping', 'add_to_cart')"
+        ],
+        "hit": 6,
+        "total": 6,
+        "perfect": true,
+        "sec": 51.2
+      },
+      {
+        "scenario_id": "scenario_universe_27_16f4s4",
+        "expected": [
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')"
+        ],
+        "predicted_sample": [
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')"
+        ],
+        "hit": 8,
+        "total": 8,
+        "perfect": true,
+        "sec": 83.3
+      },
+      {
+        "scenario_id": "scenario_universe_30_erta5d",
+        "expected": [
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Messages', 'send_message')",
+          "('Shopping', 'add_to_cart')",
+          "('Messages', 'send_message')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')",
+          "('Shopping', 'checkout')"
+        ],
+        "predicted_sample": [
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')"
+        ],
+        "hit": 15,
+        "total": 15,
+        "perfect": true,
+        "sec": 70.2
+      },
+      {
+        "scenario_id": "scenario_universe_22_bt12gw",
+        "expected": [
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')"
+        ],
+        "predicted_sample": [
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')"
+        ],
+        "hit": 7,
+        "total": 7,
+        "perfect": true,
+        "sec": 40.1
+      },
+      {
+        "scenario_id": "scenario_universe_29_ivo8et",
+        "expected": [
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')"
+        ],
+        "predicted_sample": [
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')"
+        ],
+        "hit": 6,
+        "total": 6,
+        "perfect": true,
+        "sec": 39.5
+      },
+      {
+        "scenario_id": "scenario_universe_29_8hgfug",
+        "expected": [
+          "('Calendar', 'add_calendar_event')",
+          "('Shopping', 'add_to_cart')",
+          "('Calendar', 'add_calendar_event')",
+          "('Shopping', 'checkout')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')"
+        ],
+        "predicted_sample": [
+          "('Calendar', 'create_event')",
+          "('Shopping', 'add_to_cart')",
+          "('Calendar', 'create_event')",
+          "('Shopping', 'checkout')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')"
+        ],
+        "hit": 6,
+        "total": 8,
+        "perfect": false,
+        "sec": 49.6
+      }
+    ]
+  },
+  {
+    "name": "ReAct (plain text)",
+    "n": 6,
+    "n_perfect": 5,
+    "perfect_rate": 0.8333333333333334,
+    "rows": [
+      {
+        "scenario_id": "scenario_universe_27_fcbx0i",
+        "expected": [
+          "('Shopping', 'checkout')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Shopping', 'add_to_cart')"
+        ],
+        "predicted_sample": [
+          "('Shopping', 'checkout')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Shopping', 'add_to_cart')"
+        ],
+        "hit": 6,
+        "total": 6,
+        "perfect": true,
+        "sec": 54.2
+      },
+      {
+        "scenario_id": "scenario_universe_27_16f4s4",
+        "expected": [
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')"
+        ],
+        "predicted_sample": [
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')"
+        ],
+        "hit": 8,
+        "total": 8,
+        "perfect": true,
+        "sec": 63.3
+      },
+      {
+        "scenario_id": "scenario_universe_30_erta5d",
+        "expected": [
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Messages', 'send_message')",
+          "('Shopping', 'add_to_cart')",
+          "('Messages', 'send_message')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')",
+          "('Shopping', 'checkout')"
+        ],
+        "predicted_sample": [
+          "('Shopping', 'checkout')"
+        ],
+        "hit": 1,
+        "total": 15,
+        "perfect": false,
+        "sec": 13.7
+      },
+      {
+        "scenario_id": "scenario_universe_22_bt12gw",
+        "expected": [
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')"
+        ],
+        "predicted_sample": [
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')"
+        ],
+        "hit": 7,
+        "total": 7,
+        "perfect": true,
+        "sec": 54.5
+      },
+      {
+        "scenario_id": "scenario_universe_29_ivo8et",
+        "expected": [
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')"
+        ],
+        "predicted_sample": [
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')"
+        ],
+        "hit": 6,
+        "total": 6,
+        "perfect": true,
+        "sec": 56.2
+      },
+      {
+        "scenario_id": "scenario_universe_29_8hgfug",
+        "expected": [
+          "('Calendar', 'add_calendar_event')",
+          "('Shopping', 'add_to_cart')",
+          "('Calendar', 'add_calendar_event')",
+          "('Shopping', 'checkout')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')"
+        ],
+        "predicted_sample": [
+          "('Calendar', 'add_calendar_event')",
+          "('Shopping', 'add_to_cart')",
+          "('Calendar', 'add_calendar_event')",
+          "('Shopping', 'checkout')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')"
+        ],
+        "hit": 8,
+        "total": 8,
+        "perfect": true,
+        "sec": 51.7
+      }
+    ]
+  },
+  {
+    "name": "AGI-Kit L1-L4 (plain text)",
+    "n": 6,
+    "n_perfect": 6,
+    "perfect_rate": 1.0,
+    "rows": [
+      {
+        "scenario_id": "scenario_universe_27_fcbx0i",
+        "expected": [
+          "('Shopping', 'checkout')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Shopping', 'add_to_cart')"
+        ],
+        "predicted_sample": [
+          "('Shopping', 'checkout')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Shopping', 'add_to_cart')"
+        ],
+        "hit": 6,
+        "total": 6,
+        "perfect": true,
+        "sec": 20.2
+      },
+      {
+        "scenario_id": "scenario_universe_27_16f4s4",
+        "expected": [
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')"
+        ],
+        "predicted_sample": [
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')"
+        ],
+        "hit": 8,
+        "total": 8,
+        "perfect": true,
+        "sec": 50.0
+      },
+      {
+        "scenario_id": "scenario_universe_30_erta5d",
+        "expected": [
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Messages', 'send_message')",
+          "('Shopping', 'add_to_cart')",
+          "('Messages', 'send_message')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')",
+          "('Shopping', 'checkout')"
+        ],
+        "predicted_sample": [
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')",
+          "('Calendar', 'delete_calendar_event')"
+        ],
+        "hit": 15,
+        "total": 15,
+        "perfect": true,
+        "sec": 76.9
+      },
+      {
+        "scenario_id": "scenario_universe_22_bt12gw",
+        "expected": [
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')"
+        ],
+        "predicted_sample": [
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')",
+          "('Emails', 'send_email')"
+        ],
+        "hit": 7,
+        "total": 7,
+        "perfect": true,
+        "sec": 29.3
+      },
+      {
+        "scenario_id": "scenario_universe_29_ivo8et",
+        "expected": [
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')"
+        ],
+        "predicted_sample": [
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Emails', 'reply_to_email')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')",
+          "('Calendar', 'add_calendar_event')"
+        ],
+        "hit": 6,
+        "total": 6,
+        "perfect": true,
+        "sec": 65.5
+      },
+      {
+        "scenario_id": "scenario_universe_29_8hgfug",
+        "expected": [
+          "('Calendar', 'add_calendar_event')",
+          "('Shopping', 'add_to_cart')",
+          "('Calendar', 'add_calendar_event')",
+          "('Shopping', 'checkout')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')"
+        ],
+        "predicted_sample": [
+          "('Calendar', 'add_calendar_event')",
+          "('Shopping', 'add_to_cart')",
+          "('Calendar', 'add_calendar_event')",
+          "('Shopping', 'checkout')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')",
+          "('Messages', 'send_message_to_group_conversation')"
+        ],
+        "hit": 8,
+        "total": 8,
+        "perfect": true,
+        "sec": 54.2
+      }
+    ]
+  }
+]
