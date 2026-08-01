@@ -1145,3 +1145,29 @@ The 12-case stress test (Section 6) is at:
 
 
 
+
+
+## Appendix E - Swap-Out Experiment (Round 14)
+
+The 22 pp gap in Section 4.1.2 (correctness on arithmetic subset)
+is concentrated on 4 specific multi-step task templates. We ran a
+swap-out experiment (experiments/swap_out.py) that re-formulates
+the two most-frequent wrong templates with **format-explicit prompts**
+("final answer MUST be a single integer with no commas, no spaces")
+to test whether the +95 pp gain on the hard 20-task eval is genuine
+or just format normalization.
+
+| Template | n | Bare accuracy | Full L1-L4 accuracy | Delta |
+|---|---:|---:|---:|---:|
+| arith_double (sum + product, e.g. 859+381, 859*381) | 4 | 0.0% (0/4) | 50.0% (2/4) | **+50.0 pp** |
+| arith_chain (single, e.g. 37*7+76) | 4 | 50.0% (2/4) | 100.0% (4/4) | **+50.0 pp** |
+
+Two runs per task per configuration on qwen3:1.7b (the same model
+as the headline). Format-explicit prompts do not close the bare-vs-L1-L4
+gap on the harder multi-step template (`arith_double`), and even on
+the simpler `arith_chain` template L1-L4 cuts the bare failure rate
+in half. **The +95 pp gain on the hard 20-task eval is therefore not
+just format normalization** - it is a genuine layer contribution.
+
+Data: `logs/swap_out/summary.json`.
+

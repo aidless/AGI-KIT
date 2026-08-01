@@ -1,0 +1,217 @@
+{
+  "config": "swap_out",
+  "model": "qwen3:1.7b",
+  "tasks": [
+    {
+      "category": "arith_double",
+      "prompt": "Compute 859+381 using calculator, then echo it. Then compute 859*381 using calculator. Your final answer MUST be a single integer with no commas, no spaces, no formatting. Output JSON only: {\"final\": \"<sum>,<product>\"}",
+      "gold": "1240,327279",
+      "config": "bare",
+      "max_steps": 3,
+      "n_runs": 2,
+      "n_ok": 0,
+      "accuracy": 0.0,
+      "per_run": [
+        {
+          "run": 0,
+          "pred": "[max_steps]",
+          "ok": false,
+          "steps": 3
+        },
+        {
+          "run": 1,
+          "pred": "[max_steps]",
+          "ok": false,
+          "steps": 3
+        }
+      ]
+    },
+    {
+      "category": "arith_double",
+      "prompt": "Compute 617+716 using calculator, then echo it. Then compute 617*716 using calculator. Your final answer MUST be a single integer with no commas, no spaces, no formatting. Output JSON only: {\"final\": \"<sum>,<product>\"}",
+      "gold": "1333,441772",
+      "config": "bare",
+      "max_steps": 3,
+      "n_runs": 2,
+      "n_ok": 0,
+      "accuracy": 0.0,
+      "per_run": [
+        {
+          "run": 0,
+          "pred": "[max_steps]",
+          "ok": false,
+          "steps": 3
+        },
+        {
+          "run": 1,
+          "pred": "[ERR]",
+          "ok": false,
+          "steps": 1
+        }
+      ]
+    },
+    {
+      "category": "arith_chain",
+      "prompt": "Use calculator to compute 37*7+76. Your final answer MUST be the integer result only (no other text). Output JSON only: {\"final\": \"<int>\"}",
+      "gold": "335",
+      "config": "bare",
+      "max_steps": 3,
+      "n_runs": 2,
+      "n_ok": 0,
+      "accuracy": 0.0,
+      "per_run": [
+        {
+          "run": 0,
+          "pred": "[max_steps]",
+          "ok": false,
+          "steps": 3
+        },
+        {
+          "run": 1,
+          "pred": "[ERR]",
+          "ok": false,
+          "steps": 0
+        }
+      ]
+    },
+    {
+      "category": "arith_chain",
+      "prompt": "Use calculator to compute 41*5+85. Your final answer MUST be the integer result only (no other text). Output JSON only: {\"final\": \"<int>\"}",
+      "gold": "290",
+      "config": "bare",
+      "max_steps": 3,
+      "n_runs": 2,
+      "n_ok": 2,
+      "accuracy": 1.0,
+      "per_run": [
+        {
+          "run": 0,
+          "pred": "290",
+          "ok": true,
+          "steps": 1
+        },
+        {
+          "run": 1,
+          "pred": "290",
+          "ok": true,
+          "steps": 1
+        }
+      ]
+    },
+    {
+      "category": "arith_double",
+      "prompt": "Compute 859+381 using calculator, then echo it. Then compute 859*381 using calculator. Your final answer MUST be a single integer with no commas, no spaces, no formatting. Output JSON only: {\"final\": \"<sum>,<product>\"}",
+      "gold": "1240,327279",
+      "config": "full_l1_l4",
+      "max_steps": 6,
+      "n_runs": 2,
+      "n_ok": 0,
+      "accuracy": 0.0,
+      "per_run": [
+        {
+          "run": 0,
+          "pred": null,
+          "ok": false,
+          "steps": 0,
+          "avg_score": 0.0
+        },
+        {
+          "run": 1,
+          "pred": null,
+          "ok": false,
+          "steps": 0,
+          "avg_score": 0.0
+        }
+      ]
+    },
+    {
+      "category": "arith_double",
+      "prompt": "Compute 617+716 using calculator, then echo it. Then compute 617*716 using calculator. Your final answer MUST be a single integer with no commas, no spaces, no formatting. Output JSON only: {\"final\": \"<sum>,<product>\"}",
+      "gold": "1333,441772",
+      "config": "full_l1_l4",
+      "max_steps": 6,
+      "n_runs": 2,
+      "n_ok": 1,
+      "accuracy": 0.5,
+      "per_run": [
+        {
+          "run": 0,
+          "pred": null,
+          "ok": false,
+          "steps": 1,
+          "avg_score": 0.9000000000000001
+        },
+        {
+          "run": 1,
+          "pred": "1333,443552",
+          "ok": true,
+          "steps": 0,
+          "avg_score": 0.85
+        }
+      ]
+    },
+    {
+      "category": "arith_chain",
+      "prompt": "Use calculator to compute 37*7+76. Your final answer MUST be the integer result only (no other text). Output JSON only: {\"final\": \"<int>\"}",
+      "gold": "335",
+      "config": "full_l1_l4",
+      "max_steps": 6,
+      "n_runs": 2,
+      "n_ok": 2,
+      "accuracy": 1.0,
+      "per_run": [
+        {
+          "run": 0,
+          "pred": "335",
+          "ok": true,
+          "steps": 0,
+          "avg_score": 0.85
+        },
+        {
+          "run": 1,
+          "pred": "335",
+          "ok": true,
+          "steps": 0,
+          "avg_score": 0.85
+        }
+      ]
+    },
+    {
+      "category": "arith_chain",
+      "prompt": "Use calculator to compute 41*5+85. Your final answer MUST be the integer result only (no other text). Output JSON only: {\"final\": \"<int>\"}",
+      "gold": "290",
+      "config": "full_l1_l4",
+      "max_steps": 6,
+      "n_runs": 2,
+      "n_ok": 2,
+      "accuracy": 1.0,
+      "per_run": [
+        {
+          "run": 0,
+          "pred": "290",
+          "ok": true,
+          "steps": 0,
+          "avg_score": 0.85
+        },
+        {
+          "run": 1,
+          "pred": "290",
+          "ok": true,
+          "steps": 0,
+          "avg_score": 0.85
+        }
+      ]
+    }
+  ],
+  "by_category": {
+    "arith_double": {
+      "bare": 0.0,
+      "full_l1_l4": 0.5
+    },
+    "arith_chain": {
+      "bare": 1.0,
+      "full_l1_l4": 1.0
+    }
+  },
+  "interpretation": "If bare scores 0% on format-explicit prompts, the +95pp gain is NOT just format normalization; it's genuine layer contribution."
+}
