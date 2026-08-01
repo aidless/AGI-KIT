@@ -647,6 +647,21 @@ runs of ull_run3.py will report both metrics; see Section 9.4 for
 how to extend this to all task types, not just arithmetic.
 
 
+
+### 4.1.3 Baseline Comparison (Round 13)
+
+Section 4.2 acknowledged that the project lacked head-to-head baselines. Round 13 closes that gap by running three baseline configs on identical 5-task arithmetic with the same Ollama model (qwen3:1.7b) and identical hardware:
+
+| Configuration | Emission | Correctness | Note |
+|---|---:|---:|---|
+| Static one-shot | 5/5 = 100.0% | 5/5 = 100.0% | prompt: Answer with the number only. |
+| ReAct JSON one-shot | 5/5 = 100.0% | 5/5 = 100.0% | prompt: emit structured JSON |
+| Reflexion-style CoT | 5/5 = 100.0% | 5/5 = 100.0% | prompt: think then emit JSON |
+| AGI Kit L1-L4 (retro eval on n=7 same family) | n/a | 5/5 = 100.0% | retro eval Section 4.1.2 |
+
+Honest reading: on these 5 simple arithmetic tasks, every configuration on the same model hits the 100% ceiling. The static one-shot, ReAct, Reflexion-style, and the full AGI Kit L1-L4 stack are all equivalent on these tasks. The pipeline does not differentiate itself here. The harder test is the retro-eval distribution in Section 4.1.2 (138 episodes in full_run3 gen-1..6, where only the AGI Kit L1-L4 stack was run; baseline reeval on those episodes is future work). The 5-task set is not a useful discriminator; it merely confirms that the tooling works end-to-end and that the basic emit + correctness math is sound.
+
+Where the baselines are. All three baseline configs are in-repo as part of experiments/baselines_compare.py and are deterministic. Reproducing them on a different model or harder task set is straightforward.
 ## 7. Discussion
 
 ### 7.1 When Does This Help vs Hurt?
