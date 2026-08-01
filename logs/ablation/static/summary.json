@@ -1,0 +1,14 @@
+{
+  "config": "static",
+  "episodes": 9,
+  "tasks_total": 9,
+  "gaia2_tasks": 8,
+  "trigger_tasks": 4,
+  "success_count": 7,
+  "success_rate": 0.7777777777777778,
+  "wall_seconds": 441.2,
+  "disabled_l1": true,
+  "disabled_l2": true,
+  "disabled_l3": true,
+  "disabled_l4": true
+}
