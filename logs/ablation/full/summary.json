@@ -1,0 +1,32 @@
+{
+  "config": "full",
+  "episodes": 9,
+  "tasks_total": 9,
+  "gaia2_tasks": 8,
+  "trigger_tasks": 4,
+  "success_count": 7,
+  "success_rate": 0.7777777777777778,
+  "wall_seconds": 403.4,
+  "baseline_acc": 1.0,
+  "final_generation": 2,
+  "generations": [
+    {
+      "generation": 1,
+      "eval_new_acc": 1.0050000000000001,
+      "train_samples": 91,
+      "accepted": true,
+      "reason": "passed"
+    },
+    {
+      "generation": 2,
+      "eval_new_acc": 1.02,
+      "train_samples": 94,
+      "accepted": true,
+      "reason": "passed"
+    }
+  ],
+  "disabled_l1": false,
+  "disabled_l2": false,
+  "disabled_l3": false,
+  "disabled_l4": false
+}

@@ -1461,3 +1461,6 @@ dbae4e3 Round 4 cleanup: .gitignore fix
 4fa6727 Post-review improvements
 16c3c2f 5-paper TMLR bundle (initial)
 ```
+## 26. Round 12: Honest Retrospective
+
+See commit message Round 12. Key changes: real_reviewer.py removed; artifact_checklist.py added (no scoring); 68% redefined as JSON-final-emission rate; retroactive gold-based correctness check via experiments/reeval_with_gold.py reports 77.6% on the arithmetic subset (n=85) vs 100% emission rate (n=138) across full_run3 gen-1..6; cover letter and paper Section 4.1.1 + Section 4.1.2 updated to honest dual metrics; Section 8 Limitations expanded.

@@ -1,0 +1,62 @@
+# AGI Kit Artifact Checklist
+
+Generated: 2026-08-01T11:34:12.231038
+
+This is an honest inventory. No score is calculated.
+Each artifact is either present on disk or missing.
+
+Round 11 replaced a self-dealing scoring tool (real_reviewer.py,
+which calibrated a rubric to award 4.5) with this checklist.
+
+## Items
+
+| # | Item | Expected path | Status |
+|---|---|---|---|
+| 1 | Preprint (markdown) | `papers/preprint_unified_en.md` | PRESENT (47873 bytes) |
+| 2 | Preprint (PDF) | `papers/preprint_unified_en.pdf` | PRESENT (40807 bytes) |
+| 3 | Preprint (DOCX) | `papers/docx/preprint_unified_en.docx` | PRESENT (54378 bytes) |
+| 4 | Paper INDEX | `papers/00_INDEX_en.pdf` | PRESENT (3062 bytes) |
+| 5 | Cover letter | `papers/COVER_LETTER.md` | PRESENT (3190 bytes) |
+| 6 | Publishing guide | `papers/PUBLISHING.md` | PRESENT (4490 bytes) |
+| 7 | Figure 1 - layer ablation | `papers/figures/fig1_layer_ablation.png` | PRESENT (168426 bytes) |
+| 8 | Figure 2 - generation curve | `papers/figures/fig2_generation_curve.png` | PRESENT (120874 bytes) |
+| 9 | Figure 3 - L1 scoring | `papers/figures/fig3_l1_scoring_ablation.png` | PRESENT (118806 bytes) |
+| 10 | Figure 4 - L2 stuck latency | `papers/figures/fig4_l2_stuck_latency.png` | PRESENT (83524 bytes) |
+| 11 | Figure 5 - L4 mutator activity | `papers/figures/fig5_l4_mutator_activity.png` | PRESENT (131547 bytes) |
+| 12 | A/B safety gate boundary tests | `logs/safety_gate/stress_test.json` | PRESENT (2772 bytes) |
+| 13 | A/B safety gate summary | `logs/safety_gate/summary.md` | PRESENT (1485 bytes) |
+| 14 | L4 red-team trace | `logs/redteam/l4_redteam.jsonl` | PRESENT (10388 bytes) |
+| 15 | L4 red-team summary | `logs/redteam/l4_redteam_summary.md` | PRESENT (2058 bytes) |
+| 16 | Gate calibration grid | `logs/calibration/gate_calibration.json` | PRESENT (10702 bytes) |
+| 17 | Gate calibration summary | `logs/calibration/gate_calibration_summary.md` | PRESENT (4300 bytes) |
+| 18 | Statistical tests summary | `logs/stat_tests/summary.md` | PRESENT (1425 bytes) |
+| 19 | Cross-model summary | `logs/cross_model/summary.md` | PRESENT (3251 bytes) |
+| 20 | Arithmetic eval JSON | `logs/seeds_arith/arith_qwen3_1_7b_n10.json` | PRESENT (1437 bytes) |
+| 21 | Real GAIA2-mini scenarios | `data/gaia2/validation.jsonl` | PRESENT (385865 bytes) |
+| 22 | GAIA2 schema notes | `data/gaia2/SCHEMA.md` | PRESENT (3885 bytes) |
+| 23 | GAIA2 app shim - Calendar | `src/agi_kit/apps/gaia2/calendar.py` | PRESENT (1674 bytes) |
+| 24 | GAIA2 app shim - Emails | `src/agi_kit/apps/gaia2/emails.py` | PRESENT (1685 bytes) |
+| 25 | GAIA2 app shim - Shopping | `src/agi_kit/apps/gaia2/shopping.py` | PRESENT (1845 bytes) |
+| 26 | Ablation - static | `logs/ablation/static` | PRESENT (1 child file(s)) |
+| 27 | Ablation - l1_only | `logs/ablation/l1_only` | PRESENT (2 child file(s)) |
+| 28 | Ablation - l1_l2 | `logs/ablation/l1_l2` | PRESENT (2 child file(s)) |
+| 29 | Ablation - l1_l2_l3 | `logs/ablation/l1_l2_l3` | PRESENT (5 child file(s)) |
+| 30 | LICENSE | `LICENSE` | PRESENT (743 bytes) |
+| 31 | Project README | `README.md` | PRESENT (3893 bytes) |
+| 32 | Papers README | `papers/README.md` | PRESENT (3825 bytes) |
+| 33 | Tarball (off-band) | `dist/agi-research-kit.tar.gz` | PRESENT (500603969 bytes) |
+| 34 | GitHub Actions CI | `.github/workflows/ci.yml` | PRESENT (1794 bytes) |
+| 35 | push.sh with self-checks | `dist/push.sh` | PRESENT (3920 bytes) |
+| 36 | L1 Reflector | `src/agi_kit/reflect.py` | PRESENT (9123 bytes) |
+| 37 | L2 Meta-Controller | `src/agi_kit/meta.py` | PRESENT (6484 bytes) |
+| 38 | L3 Continual Loop + safety gate | `src/agi_kit/loop.py` | PRESENT (15431 bytes) |
+| 39 | L4 Recursive Modifier | `src/agi_kit/recursive.py` | PRESENT (11184 bytes) |
+| 40 | Safety gate boundary test driver | `experiments/stress_safety_gate.py` | PRESENT (4674 bytes) |
+| 41 | L4 red-team test driver | `experiments/redteam/l4_redteam.py` | PRESENT (5263 bytes) |
+| 42 | Gate calibration test driver | `experiments/gate_calibration.py` | PRESENT (3180 bytes) |
+
+## Summary
+
+Total items: 42
+Present:    42
+Missing:    0

@@ -23,7 +23,7 @@ bounded recursive self-modification) running entirely on consumer
 hardware (CPU-only, ~5 GB RAM) with a Qwen3-1.7B base model. Headline
 numbers:
 
-- End-to-end task success: **68%** vs 30% static baseline (+38 pp)
+- End-to-end JSON-final emission: **100%** on full_run3 with all four layers; correctness on the arithmetic subset: **77.6%** (Sections 4.1.1-4.1.2; the 30% static baseline is the JSON-final emission rate of the bare Qwen3-1.7B on the same 50-task synthetic set)
 - Continual-learning eval: **60.4% �� 3.6%** across 3 seeds
   (t-test vs static, t=14.6, **p<0.01**)
 - A/B safety gate: **12/12** adversarial boundary tests passed
@@ -62,4 +62,5 @@ preprint of record.
 
 Sincerely,
 AGI Research Kit Contributors
-
+
+

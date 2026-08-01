@@ -183,11 +183,11 @@ def run_ablation(args):
             "gaia2_tasks": len(gaia_tasks),
             "trigger_tasks": len(trigger_tasks),
             "success_count": sum(1 for e in result["episodes"] if e.get("verdict") == "success"),
-            "success_rate": result["success_rate"],
+            "success_rate": sum(1 for e in result["episodes"] if e.get("verdict") == "success") / max(len(result["episodes"]), 1),
             "wall_seconds": round(wall, 1),
             "baseline_acc": baseline_acc,
             "final_generation": result.get("final_generation"),
-            "generations": result.get("generations", []),
+            "generations": [{k: getattr(g, k, None) for k in ["generation", "eval_new_acc", "train_samples", "accepted", "reason"]} for g in result.get("generations", [])],
             "disabled_l1": args.disable_l1,
             "disabled_l2": args.disable_l2,
             "disabled_l3": args.disable_l3,
@@ -246,3 +246,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+

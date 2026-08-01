@@ -1,0 +1,3 @@
+Total items: 42
+Present:    42
+Missing:    0

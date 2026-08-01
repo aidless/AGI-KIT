@@ -1,0 +1,7 @@
+{
+  "total_samples": 138,
+  "emission_rate": 1.0,
+  "n_arith": 85,
+  "n_arith_correct": 66,
+  "correctness_rate_on_arith": 0.7764705882352941
+}

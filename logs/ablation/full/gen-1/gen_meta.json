@@ -1,0 +1,7 @@
+{
+  "base_model": "qwen3:1.7b",
+  "train_samples": 91,
+  "trained": false,
+  "expected_acc": 1.0050000000000001,
+  "ts": "2026-08-01T02:52:47Z"
+}

@@ -1,0 +1,7 @@
+{
+  "base_model": "F:\\agent to AGI\\agi-research-kit\\logs\\ablation\\l1_l2_l3\\gen-1",
+  "train_samples": 87,
+  "trained": false,
+  "expected_acc": 0.9850000000000001,
+  "ts": "2026-08-01T02:48:27Z"
+}
