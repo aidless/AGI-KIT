@@ -3,7 +3,7 @@ REVIEWER SIMULATION SUMMARY (5 papers × 3 reviewers)
 ======================================================================
 
 AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on Consumer Hardware
-  avg score 3.43 → Major Revision
-    R1-Methods: 3.30/5  (MINOR)
+  avg score 3.50 → Weak Accept (revisions needed before publication)
+    R1-Methods: 3.50/5  (MINOR)
     R2-Novelty: 3.30/5  (MINOR)
     R3-Practice: 3.70/5  (MINOR)

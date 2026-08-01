@@ -1,21 +1,20 @@
 ======================================================================
 REVIEWER REPORT — AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on Consumer Hardware
 File: preprint_unified_en.md
-Word count: 4785
-Has figure: False, Has table: True
+Word count: 6084
+Has figure: True, Has table: True
 Has ethics: True, Has ablation: True
 Has reproducibility: True
 
-OVERALL: avg score = 3.43 / 5.0
-RECOMMENDATION: Major Revision
+OVERALL: avg score = 3.50 / 5.0
+RECOMMENDATION: Weak Accept (revisions needed before publication)
 ======================================================================
 
 
 Reviewer 1 (Methods rigor) (focus: experimental design, ablations, statistical significance)
-  Score: 3.30/5.0  Severity: MINOR
+  Score: 3.50/5.0  Severity: MINOR
   Summary: Methods section is reasonable but lacks depth in a few places.
   Concerns:
-    - Paper is short (4785 words); methodology section may be terse
     - Tiny held-out eval (5 arithmetic tasks); variance likely high
   Questions for authors:
     ? How sensitive is performance to the alpha=0.4 hybrid weight? Have you tried alpha=0.2 and 0.6?

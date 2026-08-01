@@ -3,78 +3,78 @@
   "n": 10,
   "correct": 10,
   "accuracy": 1.0,
-  "wall_clock_sec": 324.39,
-  "avg_sec_per_q": 32.44,
+  "wall_clock_sec": 344.2,
+  "avg_sec_per_q": 34.42,
   "per_question": [
     {
       "expr": "91*3+56",
       "gold": 329,
       "pred": "329",
       "correct": true,
-      "sec": 15.95
+      "sec": 29.44
     },
     {
       "expr": "45*5+107",
       "gold": 332,
       "pred": "332",
       "correct": true,
-      "sec": 21.23
+      "sec": 39.09
     },
     {
       "expr": "27*3+189",
       "gold": 270,
       "pred": "270",
       "correct": true,
-      "sec": 35.68
+      "sec": 58.96
     },
     {
       "expr": "21*8+58",
       "gold": 226,
       "pred": "226",
       "correct": true,
-      "sec": 48.08
+      "sec": 37.21
     },
     {
       "expr": "13*3+105",
       "gold": 144,
       "pred": "144",
       "correct": true,
-      "sec": 43.97
+      "sec": 39.85
     },
     {
       "expr": "39*2+193",
       "gold": 271,
       "pred": "271",
       "correct": true,
-      "sec": 46.02
+      "sec": 27.51
     },
     {
       "expr": "35*8+106",
       "gold": 386,
       "pred": "386",
       "correct": true,
-      "sec": 23.72
+      "sec": 26.05
     },
     {
       "expr": "67*6+51",
       "gold": 453,
       "pred": "453",
       "correct": true,
-      "sec": 33.15
+      "sec": 31.87
     },
     {
       "expr": "30*8+137",
       "gold": 377,
       "pred": "377",
       "correct": true,
-      "sec": 29.91
+      "sec": 32.09
     },
     {
       "expr": "45*4+105",
       "gold": 285,
       "pred": "285",
       "correct": true,
-      "sec": 26.67
+      "sec": 22.12
     }
   ]
 }
