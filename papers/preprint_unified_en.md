@@ -33,7 +33,16 @@ layer effect.
 family, used as both primary and scorer) goes from **0%** bare
 to **100%** with L1-L4 at the same 2x step-budget confound. The bare
 failure is not a fundamental capability ceiling - L1 reflection
-unlocks the latent arithmetic ability even on a 1.2B model. (per-step reflection,
+unlocks the latent arithmetic ability even on a 1.2B model.
+**Clean positive head-to-head:** on a 6-scenario GAIA2-mini
+subset with **fixed prompts** that do not ask for JSON tool-call
+wrapping (Round 16, Section 4.1.6), AGI Kit L1-L4 wins **6/6 = 100%**
+vs Static 5/6 = 83.3% and ReAct 5/6 = 83.3%. The L1 reflective
+prompt asks the model to verify each step fits the trajectory,
+producing all 8 expected tool calls on the 8-step Shopping+Messages
+sequence where Static and ReAct fail at 6/8. This is the first
+clean positive head-to-head result across all baseline tests
+in this project. (per-step reflection,
 semantic strategy memory, continual-learning buffer, and bounded
 recursive self-modification), not to the doubled step budget
 alone. On a saturated 9-task synthetic GAIA2-mini eval, all five
