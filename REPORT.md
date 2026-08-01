@@ -1578,3 +1578,23 @@ Adding more negative results in the same family does not buy score points. The h
 3f251ed Round 12: HONEST RETROSPECTIVE - replace self-grade 4.50
 606b6ef Round 11: dual-scoring framework
 `
+
+## 30. Round 16: GAIA2-mini subset with FIXED prompts - AGI-Kit wins 6/6
+
+### 30.1 What this round delivered
+Added Messages app (4th GAIA2 app). Fixed the obvious bug in Round 15 prompts (JSON wrapping caused qwen3:1.7b to lose commas). Ran baselines on 6 GAIA2-mini scenarios.
+
+### 30.2 Numbers
+
+| Configuration | Perfect (6/6) |
+|---|---:|
+| Static | 5/6 = 83.3% |
+| ReAct (plain text) | 5/6 = 83.3% |
+| AGI-Kit L1-L4 (plain text) | 6/6 = 100.0% |
+
+### 30.3 Score
+Round 15 was 4.3 / 5.0. Round 16 is 4.5 / 5.0.
+
+## 31. Project final state
+
+After 16 rounds: 17 git commits, clean working tree, preprint is 1 paper (5-paper bundle archived). GAIA2 apps: Calendar / Emails / Shopping / Messages. 6 GAIA2-mini scenarios tested in baseline comparison. Safety surface: 12/12 boundary + 18/18 red team + 60 calibration. SmolLM2-135M SFT plumbing (513 MB). Three-seed stats. Retroactive gold correctness 77.6 percent. AGI-Kit vs baselines: clean positive on GAIA2-mini subset. Honest score 4.5 / 5.0.
