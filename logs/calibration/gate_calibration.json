@@ -1,0 +1,482 @@
+[
+  {
+    "profile": "medical",
+    "new_acc": 0.1,
+    "threshold": 0.99,
+    "recommended_threshold": 0.999,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "medical",
+    "new_acc": 0.3,
+    "threshold": 0.99,
+    "recommended_threshold": 0.999,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "medical",
+    "new_acc": 0.5,
+    "threshold": 0.99,
+    "recommended_threshold": 0.999,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "medical",
+    "new_acc": 0.7,
+    "threshold": 0.99,
+    "recommended_threshold": 0.999,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "medical",
+    "new_acc": 0.84,
+    "threshold": 0.99,
+    "recommended_threshold": 0.999,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "medical",
+    "new_acc": 0.86,
+    "threshold": 0.99,
+    "recommended_threshold": 0.999,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "medical",
+    "new_acc": 0.95,
+    "threshold": 0.99,
+    "recommended_threshold": 0.999,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "medical",
+    "new_acc": 1.0,
+    "threshold": 0.99,
+    "recommended_threshold": 0.999,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "medical",
+    "new_acc": 1.1,
+    "threshold": 0.99,
+    "recommended_threshold": 0.999,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "medical",
+    "new_acc": 1.2,
+    "threshold": 0.99,
+    "recommended_threshold": 0.999,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "medical",
+    "new_acc": 1.5,
+    "threshold": 0.99,
+    "recommended_threshold": 0.999,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "medical",
+    "new_acc": 2.0,
+    "threshold": 0.99,
+    "recommended_threshold": 0.999,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "finance",
+    "new_acc": 0.1,
+    "threshold": 0.95,
+    "recommended_threshold": 0.999,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "finance",
+    "new_acc": 0.3,
+    "threshold": 0.95,
+    "recommended_threshold": 0.999,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "finance",
+    "new_acc": 0.5,
+    "threshold": 0.95,
+    "recommended_threshold": 0.999,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "finance",
+    "new_acc": 0.7,
+    "threshold": 0.95,
+    "recommended_threshold": 0.999,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "finance",
+    "new_acc": 0.84,
+    "threshold": 0.95,
+    "recommended_threshold": 0.999,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "finance",
+    "new_acc": 0.86,
+    "threshold": 0.95,
+    "recommended_threshold": 0.999,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "finance",
+    "new_acc": 0.95,
+    "threshold": 0.95,
+    "recommended_threshold": 0.999,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "finance",
+    "new_acc": 1.0,
+    "threshold": 0.95,
+    "recommended_threshold": 0.999,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "finance",
+    "new_acc": 1.1,
+    "threshold": 0.95,
+    "recommended_threshold": 0.999,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "finance",
+    "new_acc": 1.2,
+    "threshold": 0.95,
+    "recommended_threshold": 0.999,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "finance",
+    "new_acc": 1.5,
+    "threshold": 0.95,
+    "recommended_threshold": 0.999,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "finance",
+    "new_acc": 2.0,
+    "threshold": 0.95,
+    "recommended_threshold": 0.999,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "casual_chat",
+    "new_acc": 0.1,
+    "threshold": 0.85,
+    "recommended_threshold": 0.85,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "casual_chat",
+    "new_acc": 0.3,
+    "threshold": 0.85,
+    "recommended_threshold": 0.85,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "casual_chat",
+    "new_acc": 0.5,
+    "threshold": 0.85,
+    "recommended_threshold": 0.85,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "casual_chat",
+    "new_acc": 0.7,
+    "threshold": 0.85,
+    "recommended_threshold": 0.85,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "casual_chat",
+    "new_acc": 0.84,
+    "threshold": 0.85,
+    "recommended_threshold": 0.85,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "casual_chat",
+    "new_acc": 0.86,
+    "threshold": 0.85,
+    "recommended_threshold": 0.85,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "casual_chat",
+    "new_acc": 0.95,
+    "threshold": 0.85,
+    "recommended_threshold": 0.85,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "casual_chat",
+    "new_acc": 1.0,
+    "threshold": 0.85,
+    "recommended_threshold": 0.85,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "casual_chat",
+    "new_acc": 1.1,
+    "threshold": 0.85,
+    "recommended_threshold": 0.85,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "casual_chat",
+    "new_acc": 1.2,
+    "threshold": 0.85,
+    "recommended_threshold": 0.85,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "casual_chat",
+    "new_acc": 1.5,
+    "threshold": 0.85,
+    "recommended_threshold": 0.85,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "casual_chat",
+    "new_acc": 2.0,
+    "threshold": 0.85,
+    "recommended_threshold": 0.85,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "code_review",
+    "new_acc": 0.1,
+    "threshold": 0.5,
+    "recommended_threshold": 0.5,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "code_review",
+    "new_acc": 0.3,
+    "threshold": 0.5,
+    "recommended_threshold": 0.5,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "code_review",
+    "new_acc": 0.5,
+    "threshold": 0.5,
+    "recommended_threshold": 0.5,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "code_review",
+    "new_acc": 0.7,
+    "threshold": 0.5,
+    "recommended_threshold": 0.5,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "code_review",
+    "new_acc": 0.84,
+    "threshold": 0.5,
+    "recommended_threshold": 0.5,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "code_review",
+    "new_acc": 0.86,
+    "threshold": 0.5,
+    "recommended_threshold": 0.5,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "code_review",
+    "new_acc": 0.95,
+    "threshold": 0.5,
+    "recommended_threshold": 0.5,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "code_review",
+    "new_acc": 1.0,
+    "threshold": 0.5,
+    "recommended_threshold": 0.5,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "code_review",
+    "new_acc": 1.1,
+    "threshold": 0.5,
+    "recommended_threshold": 0.5,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "code_review",
+    "new_acc": 1.2,
+    "threshold": 0.5,
+    "recommended_threshold": 0.5,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "code_review",
+    "new_acc": 1.5,
+    "threshold": 0.5,
+    "recommended_threshold": 0.5,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "code_review",
+    "new_acc": 2.0,
+    "threshold": 0.5,
+    "recommended_threshold": 0.5,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "customer_service",
+    "new_acc": 0.1,
+    "threshold": 0.95,
+    "recommended_threshold": 0.95,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "customer_service",
+    "new_acc": 0.3,
+    "threshold": 0.95,
+    "recommended_threshold": 0.95,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "customer_service",
+    "new_acc": 0.5,
+    "threshold": 0.95,
+    "recommended_threshold": 0.95,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "customer_service",
+    "new_acc": 0.7,
+    "threshold": 0.95,
+    "recommended_threshold": 0.95,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "customer_service",
+    "new_acc": 0.84,
+    "threshold": 0.95,
+    "recommended_threshold": 0.95,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "customer_service",
+    "new_acc": 0.86,
+    "threshold": 0.95,
+    "recommended_threshold": 0.95,
+    "accepted": false,
+    "reason": "regressed_below_threshold"
+  },
+  {
+    "profile": "customer_service",
+    "new_acc": 0.95,
+    "threshold": 0.95,
+    "recommended_threshold": 0.95,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "customer_service",
+    "new_acc": 1.0,
+    "threshold": 0.95,
+    "recommended_threshold": 0.95,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "customer_service",
+    "new_acc": 1.1,
+    "threshold": 0.95,
+    "recommended_threshold": 0.95,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "customer_service",
+    "new_acc": 1.2,
+    "threshold": 0.95,
+    "recommended_threshold": 0.95,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "customer_service",
+    "new_acc": 1.5,
+    "threshold": 0.95,
+    "recommended_threshold": 0.95,
+    "accepted": true,
+    "reason": "passed"
+  },
+  {
+    "profile": "customer_service",
+    "new_acc": 2.0,
+    "threshold": 0.95,
+    "recommended_threshold": 0.95,
+    "accepted": true,
+    "reason": "passed"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "purchases": [
+    {
+      "product": {
+        "product_id": "p_001",
+        "name": "Notebook",
+        "price": 4.99
+      },
+      "qty": 2
+    }
+  ]
+}

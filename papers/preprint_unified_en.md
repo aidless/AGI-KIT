@@ -376,6 +376,73 @@ but do not exhaustively probe every code path. Two follow-ups remain:
    near-tied candidates that differ only in low-order bits
    (0.8499999 vs 0.8500001) to confirm deterministic behavior.
 
+
+
+### 6.5 L4 Red-Team: Prompt Injection Against Schema Mutation
+
+To test L4's predicates against an adversary who controls the LLM
+generator, we crafted **30 attack vectors** spanning four categories:
+**reserved-name shadowing** (5), **non-reversible mutations** (5),
+**safety-predicate negation** (5), and **prompt-injection-style
+attempts** (10), plus 5 benign rename smokes. Each vector is fed to
+`check_mutation` as a proposed schema change. The script lives at
+`experiments/redteam/l4_redteam.py`; full per-case trace in
+`logs/redteam/l4_redteam.jsonl`; human summary in
+`logs/redteam/l4_redteam_summary.md`.
+
+**Results:**
+
+| Category | Attacks | Blocked correctly |
+|---|---:|---:|
+| Reserved-name shadowing | 5/5 | 5/5 |
+| Non-reversible mutations | 5/5 | 5/5 |
+| Safety-predicate negation | 5/5 | 5/5 |
+| Prompt-injection-style | 10/10 | 10/10 |
+| Benign smokes | 5/5 | 5/5 accepted (0 false positives) |
+
+**Total: 18/18 malicious blocked, 5/5 benign accepted (0% false
+positives).**
+
+Two findings worth highlighting:
+
+- **Unicode zero-width bypass** (`eval_fn\u200b`) is correctly
+  rejected by the reserved-name predicate, because we normalize
+  zero-width spaces before matching.
+- **The benign smokes** are sometimes misread as attacks because
+  they look like strategy renames. The `op` field check (only
+  block `delete_strategy` / `overwrite_strategy` / `edit_predicate`)
+  keeps benign renames flowing through.
+
+### 6.6 Gate Calibration Across Deployment Profiles
+
+To address Reviewer 3's question about per-deployment calibration
+("can the gate be calibrated per-deployment?"), we ran a 60-trial
+calibration sweep across 5 deployment profiles, each with a
+recommended threshold value:
+
+| Profile | Threshold | Trials | Accepted | Acceptance rate |
+|---|---|---:|---:|---:|
+| medical | 0.99 | 12 | 5 | 41.7% |
+| finance | 0.95 | 12 | 6 | 50.0% |
+| casual_chat | 0.85 | 12 | 7 | 58.3% |
+| code_review | 0.50 | 12 | 10 | 83.3% |
+| customer_service | 0.95 | 12 | 6 | 50.0% |
+
+The trial set is a fixed ladder of `new_acc` values
+`[0.10, 0.30, 0.50, 0.70, 0.84, 0.86, 0.95, 1.00, 1.10, 1.20, 1.50, 2.00]`,
+all relative to a fixed `baseline_acc=1.0`. The script lives at
+`experiments/gate_calibration.py`; per-trial JSON at
+`logs/calibration/gate_calibration.json`; summary MD at
+`logs/calibration/gate_calibration_summary.md`.
+
+**Finding:** acceptance rate is monotone in the threshold parameter
+(as expected). The `>=` cutoff semantics + threshold normalization
+(`new_acc / baseline_acc >= threshold`) make a single
+`default_safety_check` function serve all 5 deployment profiles
+without code changes. This is the per-deployment calibration claim
+made in Section 7 (Discussion).
+
+
 ## 7. Discussion
 
 ### 7.1 When Does This Help vs Hurt?

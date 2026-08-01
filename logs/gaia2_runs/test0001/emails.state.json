@@ -1,0 +1,9 @@
+{
+  "emails": [
+    {
+      "to": "alice",
+      "subject": "hi",
+      "body": "test"
+    }
+  ]
+}
