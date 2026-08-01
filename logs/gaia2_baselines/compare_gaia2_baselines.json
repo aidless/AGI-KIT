@@ -1,0 +1,146 @@
+[
+  {
+    "scenario_id": "scenario_universe_27_fcbx0i",
+    "expected": [
+      [
+        "Shopping",
+        "checkout"
+      ],
+      [
+        "Calendar",
+        "add_calendar_event"
+      ],
+      [
+        "Emails",
+        "reply_to_email"
+      ],
+      [
+        "Emails",
+        "reply_to_email"
+      ],
+      [
+        "Emails",
+        "reply_to_email"
+      ],
+      [
+        "Shopping",
+        "add_to_cart"
+      ]
+    ],
+    "Static_hit": 6,
+    "Static_total": 6,
+    "Static_perfect": true,
+    "Static_sec": 28.2,
+    "Static_sample": "[('Shopping', 'checkout'), ('Calendar', 'add_calendar_event'), ('Emails', 'reply_to_email'), ('Emails', 'reply_to_email'), ('Emails', 'reply_to_email')]",
+    "ReAct_hit": 0,
+    "ReAct_total": 6,
+    "ReAct_perfect": false,
+    "ReAct_sec": 53.9,
+    "ReAct_sample": "[]",
+    "AGI-Kit_hit": 0,
+    "AGI-Kit_total": 6,
+    "AGI-Kit_perfect": false,
+    "AGI-Kit_sec": 42.4,
+    "AGI-Kit_sample": "[]"
+  },
+  {
+    "scenario_id": "scenario_universe_27_16f4s4",
+    "expected": [
+      [
+        "Calendar",
+        "delete_calendar_event"
+      ],
+      [
+        "Calendar",
+        "delete_calendar_event"
+      ],
+      [
+        "Calendar",
+        "delete_calendar_event"
+      ],
+      [
+        "Calendar",
+        "delete_calendar_event"
+      ],
+      [
+        "Emails",
+        "reply_to_email"
+      ],
+      [
+        "Calendar",
+        "add_calendar_event"
+      ],
+      [
+        "Calendar",
+        "add_calendar_event"
+      ],
+      [
+        "Emails",
+        "reply_to_email"
+      ]
+    ],
+    "Static_hit": 8,
+    "Static_total": 8,
+    "Static_perfect": true,
+    "Static_sec": 50.7,
+    "Static_sample": "[('Calendar', 'delete_calendar_event'), ('Calendar', 'delete_calendar_event'), ('Calendar', 'delete_calendar_event'), ('Calendar', 'delete_calendar_event'), ('Emails', 'reply_to_email')]",
+    "ReAct_hit": 0,
+    "ReAct_total": 8,
+    "ReAct_perfect": false,
+    "ReAct_sec": 43.5,
+    "ReAct_sample": "[]",
+    "AGI-Kit_hit": 0,
+    "AGI-Kit_total": 8,
+    "AGI-Kit_perfect": false,
+    "AGI-Kit_sec": 49.4,
+    "AGI-Kit_sample": "[]"
+  },
+  {
+    "scenario_id": "scenario_universe_22_bt12gw",
+    "expected": [
+      [
+        "Emails",
+        "reply_to_email"
+      ],
+      [
+        "Calendar",
+        "add_calendar_event"
+      ],
+      [
+        "Emails",
+        "reply_to_email"
+      ],
+      [
+        "Emails",
+        "reply_to_email"
+      ],
+      [
+        "Emails",
+        "send_email"
+      ],
+      [
+        "Emails",
+        "send_email"
+      ],
+      [
+        "Emails",
+        "send_email"
+      ]
+    ],
+    "Static_hit": 0,
+    "Static_total": 7,
+    "Static_perfect": false,
+    "Static_sec": 0,
+    "Static_sample": "[]",
+    "ReAct_hit": 0,
+    "ReAct_total": 7,
+    "ReAct_perfect": false,
+    "ReAct_sec": 42.4,
+    "ReAct_sample": "[]",
+    "AGI-Kit_hit": 0,
+    "AGI-Kit_total": 7,
+    "AGI-Kit_perfect": false,
+    "AGI-Kit_sec": 49.5,
+    "AGI-Kit_sample": "[]"
+  }
+]

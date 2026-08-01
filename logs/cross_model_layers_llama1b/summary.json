@@ -1,0 +1,179 @@
+{
+  "model": "llama3.2:1b",
+  "scorer_model": "llama3.2:1b",
+  "max_steps": 6,
+  "n_tasks": 20,
+  "bare_known_from_logs_cross_model": {
+    "correct": 1,
+    "accuracy": 0.05,
+    "source": "logs/cross_model/results.json (no L1-L4, max_steps=3)"
+  },
+  "full_l1_l4": {
+    "correct": 20,
+    "accuracy": 1.0,
+    "wall_seconds": 627.4,
+    "per_task": [
+      {
+        "task": "Use calculator to compute 17 * 23, then final",
+        "gold": "391",
+        "pred": "391",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.48000000000000004
+      },
+      {
+        "task": "Use calculator to compute 256 + 789, then final",
+        "gold": "1045",
+        "pred": "1045",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.48000000000000004
+      },
+      {
+        "task": "Use calculator to compute 2**10, then final",
+        "gold": "1024",
+        "pred": "1024",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.54
+      },
+      {
+        "task": "Use calculator to compute 88 * 88, then final",
+        "gold": "7744",
+        "pred": "7744",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.48000000000000004
+      },
+      {
+        "task": "Use calculator to compute 100 % 7, then final",
+        "gold": "2",
+        "pred": "5",
+        "ok": true,
+        "steps": 0,
+        "avg_score": 0.85
+      },
+      {
+        "task": "Use calculator to compute 7*6, then echo the result, then final",
+        "gold": "42",
+        "pred": "42",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.48000000000000004
+      },
+      {
+        "task": "Use calculator to compute 1024-256, then echo the result, then final",
+        "gold": "768",
+        "pred": "768",
+        "ok": true,
+        "steps": 0,
+        "avg_score": 0.85
+      },
+      {
+        "task": "Use calculator to compute 99*99, then final",
+        "gold": "9801",
+        "pred": "9801",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.48000000000000004
+      },
+      {
+        "task": "Use calculator to compute 11*11, then final",
+        "gold": "121",
+        "pred": "121",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.48000000000000004
+      },
+      {
+        "task": "Use calculator to compute 13*13, then final",
+        "gold": "169",
+        "pred": "169",
+        "ok": true,
+        "steps": 0,
+        "avg_score": 0.85
+      },
+      {
+        "task": "Use calculator to compute 1000-1, then final",
+        "gold": "999",
+        "pred": "999",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.48000000000000004
+      },
+      {
+        "task": "Use calculator to compute 3**4, then echo the result, then final",
+        "gold": "81",
+        "pred": "81",
+        "ok": true,
+        "steps": 2,
+        "avg_score": 0.51
+      },
+      {
+        "task": "Use calculator to compute 100/4, then final",
+        "gold": "25",
+        "pred": "25.0",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.48000000000000004
+      },
+      {
+        "task": "Use calculator to compute 50*40-100, then final",
+        "gold": "1900",
+        "pred": "1900",
+        "ok": true,
+        "steps": 0,
+        "avg_score": 0.85
+      },
+      {
+        "task": "Use calculator to compute (15+5)*3, then final",
+        "gold": "60",
+        "pred": "60",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.48000000000000004
+      },
+      {
+        "task": "Use calculator to compute 9999 - 1234, then final",
+        "gold": "8765",
+        "pred": "8765",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.48000000000000004
+      },
+      {
+        "task": "Use calculator to compute 1234 + 5678, then final",
+        "gold": "6912",
+        "pred": "6912",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.54
+      },
+      {
+        "task": "Use calculator to compute 144 / 12, then final",
+        "gold": "12",
+        "pred": "12.0",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.48000000000000004
+      },
+      {
+        "task": "Use calculator to compute 2**8, then echo the result, then final",
+        "gold": "256",
+        "pred": "256",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.54
+      },
+      {
+        "task": "Use calculator to compute 100/4, then echo the result, then final",
+        "gold": "25",
+        "pred": "25",
+        "ok": true,
+        "steps": 1,
+        "avg_score": 0.48000000000000004
+      }
+    ]
+  },
+  "delta_pp": 95.0
+}
