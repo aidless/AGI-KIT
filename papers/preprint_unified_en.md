@@ -17,20 +17,23 @@ layer contributes and stress-test the safety gate adversarially.
 20-task arithmetic eval (Qwen3-1.7B): the bare model with
 `max_steps=3` scores **5.0%** (1/20); the same model wrapped in the
 full L1-L4 pipeline with `max_steps=6` scores **100.0%** (20/20).
-**Honest confound:** this +95 pp gap is confounded with a 2x
-step-budget doubling (3 -> 6). A controlled Round 14 baseline test
-(Section 4.1.4) shows that a **Static one-shot** baseline with
-appropriate prompting reaches 8/8 = 100% on the multi-step
-arithmetic chains where AGI Kit L1-L4 scores ~77.6%, so the layer
-contribution alone is bounded above by the prompt-engineering
-contribution. The +95 pp gain reflects **layers + step budget +
-prompt structure**, not layers in isolation.
+**Step-budget control:** we ran a controlled comparison at matched
+step budget on the same 20 tasks: bare qwen3:1.7b with
+`max_steps=6` scores **35.0%** (7/20). The +95 pp total gain
+decomposes into **+30 pp** from step-budget doubling (3 -> 6 steps)
+and **+65 pp** from the L1-L4 layers (35 -> 100% at matched budget).
+A further Round 14 baseline test (Section 4.1.4) shows a **Static
+one-shot** baseline with appropriate prompting reaches 8/8 = 100%
+on multi-step arithmetic chains where AGI Kit L1-L4 scores ~77.6%,
+so the **layer-only contribution is bounded above by the
+prompt-engineering contribution**. We therefore report the +95 pp
+headline as a *layers + step-budget + prompt* effect, not a pure
+layer effect.
 **Cross-model-family check:** Llama-3.2-1B (a different model
 family, used as both primary and scorer) goes from **0%** bare
 to **100%** with L1-L4 at the same 2x step-budget confound. The bare
 failure is not a fundamental capability ceiling - L1 reflection
-unlocks the latent arithmetic ability even on a 1.2B model.
-The +95 pp gain is attributable to the four layers (per-step reflection,
+unlocks the latent arithmetic ability even on a 1.2B model. (per-step reflection,
 semantic strategy memory, continual-learning buffer, and bounded
 recursive self-modification), not to the doubled step budget
 alone. On a saturated 9-task synthetic GAIA2-mini eval, all five
@@ -232,9 +235,16 @@ between AGI Kit L1-L4 and Static one-shot is therefore small
 | Configuration on hard 20-task eval | JSON final-emission rate | vs Static |
 |---|---:|---:|
 | Static Qwen3-1.7B (bare, max_steps=3) | 5.0% | - |
-| Full L1-L4 (max_steps=6) | 100.0% | +95.0 pp |
+| **Bare Qwen3-1.7B (max_steps=6)** - step-budget controlled | **35.0%** | +30 pp |
+| Full L1-L4 on Qwen3-1.7B (max_steps=6) | 100.0% | +95 pp |
+| **Pure layer contribution (Qwen3-1.7B, matched budget)** | - | **+65 pp** (35 -> 100) |
 | Static Llama-3.2-1B (bare, max_steps=3) | 0.0% (0/20) | -4 pp vs Qwen |
 | Full L1-L4 on Llama-3.2-1B (max_steps=6) | 100.0% (20/20) | +100 pp vs its bare |
+
+The 35% bare baseline at max_steps=6 (logs/cross_model_bare_qwen1.7b_max6/summary.json)
+controls for the step-budget confound: with matched step budget, the layers
+contribute **+65 pp** of the **+95 pp** total gain (the remaining +30 pp
+comes from the 2x step-budget doubling).
 
 The Llama-3.2-1B run uses the same model for both primary and scorer
 (no separate scorer model); all 20 tasks are run; data is in

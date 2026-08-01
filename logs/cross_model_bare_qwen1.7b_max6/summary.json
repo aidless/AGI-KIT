@@ -1,0 +1,150 @@
+{
+  "model": "qwen3:1.7b",
+  "max_steps": 6,
+  "n_tasks": 20,
+  "correct": 7,
+  "accuracy": 0.35,
+  "wall_seconds": 784.5,
+  "per_task": [
+    {
+      "task": "Use calculator to compute 17 * 23, then final",
+      "gold": "391",
+      "pred": "[ERR]",
+      "ok": false,
+      "steps": 1
+    },
+    {
+      "task": "Use calculator to compute 256 + 789, then final",
+      "gold": "1045",
+      "pred": "[max_steps]",
+      "ok": false,
+      "steps": 6
+    },
+    {
+      "task": "Use calculator to compute 2**10, then final",
+      "gold": "1024",
+      "pred": "1024",
+      "ok": true,
+      "steps": 4
+    },
+    {
+      "task": "Use calculator to compute 88 * 88, then final",
+      "gold": "7744",
+      "pred": "7744",
+      "ok": true,
+      "steps": 5
+    },
+    {
+      "task": "Use calculator to compute 100 % 7, then final",
+      "gold": "2",
+      "pred": "2",
+      "ok": true,
+      "steps": 3
+    },
+    {
+      "task": "Use calculator to compute 7*6, then echo the result, then final",
+      "gold": "42",
+      "pred": "[max_steps]",
+      "ok": false,
+      "steps": 6
+    },
+    {
+      "task": "Use calculator to compute 1024-256, then echo the result, then final",
+      "gold": "768",
+      "pred": "[max_steps]",
+      "ok": false,
+      "steps": 6
+    },
+    {
+      "task": "Use calculator to compute 99*99, then final",
+      "gold": "9801",
+      "pred": "9801",
+      "ok": true,
+      "steps": 4
+    },
+    {
+      "task": "Use calculator to compute 11*11, then final",
+      "gold": "121",
+      "pred": "<answer>121</answer>",
+      "ok": false,
+      "steps": 5
+    },
+    {
+      "task": "Use calculator to compute 13*13, then final",
+      "gold": "169",
+      "pred": "169",
+      "ok": true,
+      "steps": 5
+    },
+    {
+      "task": "Use calculator to compute 1000-1, then final",
+      "gold": "999",
+      "pred": "999",
+      "ok": true,
+      "steps": 5
+    },
+    {
+      "task": "Use calculator to compute 3**4, then echo the result, then final",
+      "gold": "81",
+      "pred": "[max_steps]",
+      "ok": false,
+      "steps": 6
+    },
+    {
+      "task": "Use calculator to compute 100/4, then final",
+      "gold": "25",
+      "pred": "[max_steps]",
+      "ok": false,
+      "steps": 6
+    },
+    {
+      "task": "Use calculator to compute 50*40-100, then final",
+      "gold": "1900",
+      "pred": "[max_steps]",
+      "ok": false,
+      "steps": 6
+    },
+    {
+      "task": "Use calculator to compute (15+5)*3, then final",
+      "gold": "60",
+      "pred": "60",
+      "ok": true,
+      "steps": 2
+    },
+    {
+      "task": "Use calculator to compute 9999 - 1234, then final",
+      "gold": "8765",
+      "pred": "[max_steps]",
+      "ok": false,
+      "steps": 6
+    },
+    {
+      "task": "Use calculator to compute 1234 + 5678, then final",
+      "gold": "6912",
+      "pred": "[max_steps]",
+      "ok": false,
+      "steps": 6
+    },
+    {
+      "task": "Use calculator to compute 144 / 12, then final",
+      "gold": "12",
+      "pred": "[max_steps]",
+      "ok": false,
+      "steps": 6
+    },
+    {
+      "task": "Use calculator to compute 2**8, then echo the result, then final",
+      "gold": "256",
+      "pred": "[max_steps]",
+      "ok": false,
+      "steps": 6
+    },
+    {
+      "task": "Use calculator to compute 100/4, then echo the result, then final",
+      "gold": "25",
+      "pred": "[max_steps]",
+      "ok": false,
+      "steps": 6
+    }
+  ]
+}

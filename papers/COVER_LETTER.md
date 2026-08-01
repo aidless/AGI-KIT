@@ -22,7 +22,7 @@ strategy memory, continual learning with an A/B safety gate, and
 bounded recursive self-modification) running entirely on consumer
 hardware (CPU-only, ~5 GB RAM) with a Qwen3-1.7B base model. Headline numbers (Round 7 + Round 14 ablation):
 
-- Layer ablation: all 5 configs score 77.8% on synthetic GAIA2 mini (eval saturates). On the harder 20-task arithmetic eval, bare scores **5.0%** and full L1-L4 scores **100.0%** - a **+95 percentage point** delta attributable to the layers (Section 4.1).
+- Layer ablation: all 5 configs score 77.8% on synthetic GAIA2 mini (eval saturates). On the harder 20-task arithmetic eval, bare (max_steps=3) = **5.0%**, full L1-L4 (max_steps=6) = **100.0%** - a **+95 percentage point** delta. We decomposed this into **+30 pp from step-budget doubling** and **+65 pp from L1-L4 at matched budget** (Section 4.1); a separate Round 14 baseline test shows Static one-shot with appropriate prompting is competitive with AGI Kit L1-L4 on multi-step tasks.
 - Cross-model-family check: Llama-3.2-1B (a different model family, used as both primary and scorer) goes from **0.0%** bare to **100.0%** with L1-L4 - the +95 pp gain transfers across model families (Section 4.4).
 - Swap-out experiment: format-explicit prompts do not close the bare-vs-L1-L4 gap on the harder multi-step template; the +95 pp gain is genuine layer contribution, not just format normalization (Appendix E).
 - Continual-learning variance: **60.4% +/- 3.6%** across 3 seeds x 15 episodes. We do NOT report a t-test against a hardcoded baseline because the 30% and 51% values in earlier drafts were not measured; the number is reported as a variance estimate only (Section 4.3).
