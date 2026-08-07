@@ -73,10 +73,10 @@ vllm = ["vllm>=0.7"]
 training = ["trl>=0.12", "peft>=0.13", "accelerate>=1.0"]
 
 [project.urls]
-Homepage = "https://github.com/your-org/agi-kit"
+Homepage = "https://github.com/aidless/AGI-KIT"
 Documentation = "https://agi-kit.readthedocs.io"
-Repository = "https://github.com/your-org/agi-kit"
-Issues = "https://github.com/your-org/agi-kit/issues"
+Repository = "https://github.com/aidless/AGI-KIT"
+Issues = "https://github.com/aidless/AGI-KIT/issues"
 
 [project.scripts]
 agi-kit = "agi_kit.cli.main:app"

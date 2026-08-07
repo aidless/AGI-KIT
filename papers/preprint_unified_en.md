@@ -1314,7 +1314,7 @@ Plus Ollama holding 1.6 GB (Qwen3-1.7B, Q4_K_M) and 0.5 GB
 ## Appendix B - Reproduction
 
 ```powershell
-git clone https://github.com/<org>/agi-research-kit
+git clone https://github.com/aidless/AGI-KIT
 cd agi-research-kit
 .\scripts\setup_env.ps1
 ollama pull qwen3:1.7b
