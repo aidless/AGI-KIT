@@ -14,17 +14,18 @@
 ## Abstract
 
 We report on **AGI Kit**, a four-layer self-improving tool-use
-pipeline that runs entirely on consumer hardware (CPU only, ~5 GB
-RAM) on small open-weight models (Qwen3-1.7B primary, Qwen3-0.6B
-scorer). Our contribution is **empirical**: we characterize the
-pipeline under several small evaluation regimes and stress-test the
-safety gate adversarially.
+pipeline that runs on CPU-only consumer hardware (no GPU) on small
+open-weight models (Qwen3-1.7B primary, Qwen3-0.6B scorer); Section 2.3
+reports the measured memory footprint. Our contribution is
+**empirical**: we characterize the pipeline under several small
+evaluation regimes and stress-test the safety gate adversarially.
 
 On a 20-task arithmetic evaluation, the bare Qwen3-1.7B model with
-`max_steps=3` scores **5.0%** (1/20); the same model wrapped in the
-full L1-L4 pipeline with `max_steps=6` records **100.0% structural
-completion**, but an independent gold recheck finds **95.0% correctness
-(19/20)** because one prediction (`5`) mismatches the gold answer (`2`).
+`max_steps=3` scores **5.0%** (1/20; exact 95% CI [0.1%, 24.9%]); the
+same model wrapped in the full L1-L4 pipeline with `max_steps=6`
+records **100.0% structural completion** (20/20; [83.2%, 100%]), but an
+independent gold recheck finds **95.0% correctness (19/20)** because one
+prediction (`5`) mismatches the gold answer (`2`).
 **Step-budget control:** we ran a controlled comparison at matched
 step budget on the same 20 tasks: bare qwen3:1.7b with
 `max_steps=6` scores **35.0%** (7/20). Performance changes by
@@ -34,8 +35,10 @@ six steps. Because their prompts and control flow also differ, the
 latter is not an isolated causal estimate of the layers.
 A further Round 14 baseline test (Section 7.3) shows a **Static
 one-shot** baseline with appropriate prompting reaches 8/8 = 100%
-on multi-step arithmetic chains where AGI Kit L1-L4 scores ~77.6%,
-so prompt design is a material confound. We therefore report the
+on a small multi-step arithmetic chain set, while AGI Kit L1-L4
+scores ~77.6% on a different, larger historical arithmetic subset
+(the two samples are not directly comparable); prompt design is
+therefore a material confound. We therefore report the
 +90 pp gold-correctness difference as a *configuration* effect involving layers, step
 budget, and prompt structure, not a pure layer effect.
 **Cross-model-family check:** Llama-3.2-1B (a different model
@@ -106,8 +109,11 @@ contribution.
 
 The dominant narrative around autonomous LLM agents assumes GPU clouds
 and 70B+ parameter models. We started from the opposite constraint:
-5 GB of RAM, no GPU, and an obligation to keep the system running for
-weeks without supervision. Three questions drove the design:
+a target of 5 GB of RAM, no GPU, and an obligation to keep the system
+running for weeks without supervision. Section 2.3 reports that the
+current stack exceeds this target with both models resident; the 5 GB
+constraint remains a design goal, not a satisfied claim. Three
+questions drove the design:
 
 1. **Is per-step reflection (L1) doing what we think it is, or is it
    just prompting?** We needed an ablation that would expose whether
@@ -188,18 +194,28 @@ shows the 12-case stress test against this function.
 End-to-end stack (Qwen3-1.7B + Qwen3-0.6B scorer + Ollama runtime +
 Python interpreter + experiments harness):
 
-| Component | Resident Set Size |
+| Component (representative 50-episode run, Windows 11, no GPU) | Resident Set Size |
 |---|---:|
-| Ollama + Qwen3-1.7B (Q4_K_M) | ~1.6 GB |
-| Ollama + Qwen3-0.6B (Q4_K_M) | ~0.5 GB |
-| Python process + experiments | ~0.8 GB |
-| Working buffers, trace JSONL | ~0.4 GB |
-| **Total RSS** | **~3.3 GB** |
+| Ollama runtime + Qwen3-1.7B (Q4_K_M), loaded | ~1.6 GB |
+| Ollama runtime + Qwen3-0.6B (Q4_K_M), loaded | ~0.5 GB |
+| Python `full_run3.py` harness (peak of 5 samples) | ~3.3 GB |
+| Working buffers, trace JSONL (estimate) | ~0.4 GB |
+| **Total, both models resident** | **~5.8 GB** |
 
-Disk: ~3.2 GB of weights plus ~600 MB per continual generation. We
-measured this on Windows 11 Pro, 64 GB physical RAM, no GPU. The
-hardware we *target* is 5 GB RAM, no GPU; the system is over-engineered
-for that target by ~2x headroom, which we treat as a safety margin.
+These are per-process RSS figures; the Python number is the peak of
+five samples during a representative 50-episode run (Appendix A), and
+shared pages can be counted more than once across processes. Disk
+usage is ~3.2 GB of weights plus ~600 MB per continual generation.
+Measured on Windows 11 Pro, 64 GB physical RAM, no GPU.
+
+**The stack does not currently fit a 5 GB RAM budget.** With both
+models resident the measured total is ~5.4 GB (3.3 GB harness + 2.1 GB
+Ollama), plus an estimated ~0.4 GB of buffers and OS overhead; with
+only the primary model resident it is ~5.3 GB. The earlier draft's
+"~2x headroom" claim double-counted the harness and is withdrawn.
+Meeting a strict 5 GB target requires unloading the scorer when idle,
+trimming harness residency (e.g., embedding/FAISS preloads), or raising
+the target to ~6 GB.
 
 ## 3. Experimental Setup
 
@@ -235,8 +251,18 @@ paired weight (Section 4.5) are reported with exact 95% Clopper-Pearson
 confidence intervals, and paired comparisons use two-sided exact
 McNemar tests. Purely descriptive or deterministic tables state rates
 without intervals. Sample-size figures are two-proportion
-normal-approximation calculations (alpha=0.05, 80% power) and are
-labeled as design guidance, not observed evidence.
+normal-approximation calculations with the pooled-variance formula
+(alpha=0.05, 80% power) and are labeled as design guidance, not
+observed evidence.
+
+**Interpreting p-values under deterministic protocols.** Every
+McNemar/binomial p-value in this paper is an exact probability under
+an assumed Bernoulli sampling model (each trial independent and
+identically distributed). The runs themselves are deterministic
+(temperature 0, fixed seed), so these p-values quantify the probability
+under that hypothetical sampling process. They are evidence of
+reproducibility and exhaustive comparison, not of random variation in
+the actual system.
 
 ## 4. End-to-End Results
 
@@ -267,13 +293,16 @@ The saturation reading is quantitative, not impressionistic. With 9
 tasks and 7 successes, the observed rate is 77.8% with an exact 95%
 confidence interval of [40.0%, 97.2%] (Clopper-Pearson); the interval
 spans more than half of the probability range. A two-proportion design
-with 80% power at alpha=0.05 would require roughly 415 tasks per
-configuration to detect a 10 percentage-point difference from 77.8%,
-and roughly 113 per configuration for a 20-point difference. The
-9-task ablation therefore cannot discriminate any layer effect smaller
-than tens of points. We report the flat 77.8% result as an
-uninformative comparison rather than as evidence that the layers are
-inert.
+using the pooled-variance normal approximation (two-sided alpha=0.05,
+80% power; n/arm = ((z_(1-alpha/2) + z_0.80)^2 * 2*p_bar*(1-p_bar)) /
+(p1-p2)^2, with p_bar = (p1+p2)/2) requires roughly **224 tasks per
+configuration** to detect a 10 percentage-point difference from 77.8%,
+and roughly **42 per configuration** for a 20-point difference. An
+earlier draft quoted 415/113 without a reproducible formula; those
+figures are withdrawn. The 9-task ablation therefore cannot
+discriminate any layer effect smaller than tens of points. We report
+the flat 77.8% result as an uninformative comparison rather than as
+evidence that the layers are inert.
 
 The same 20-task arithmetic eval (Section 4.4) tells the opposite
 story. On the harder 20-task set with `max_steps=3` and no layers,
@@ -293,8 +322,11 @@ not measured in this round, and prompt structure remains uncontrolled.
 | **Bare Qwen3-1.7B (max_steps=6)** - step-budget controlled | **35.0%** | +30 pp |
 | Full L1-L4 on Qwen3-1.7B (max_steps=6) | 95.0% (19/20) | +90 pp |
 | **Matched-step configuration gap (Qwen3-1.7B)** | - | **+60 pp** (35 -> 95) |
-| Static Llama-3.2-1B (bare, max_steps=3) | 0.0% (0/20) | -4 pp vs Qwen |
+| Static Llama-3.2-1B (bare, max_steps=3) | 0.0% (0/20) | -5 pp vs Qwen |
 | Full L1-L4 on Llama-3.2-1B (max_steps=6) | 95.0% (19/20) | +95 pp vs its bare |
+
+The bare 1/20 rate has exact 95% CI [0.1%, 24.9%], and the structural
+20/20 completion rate has [83.2%, 100%].
 
 The 35% bare baseline at max_steps=6 (logs/cross_model_bare_qwen1.7b_max6/summary.json)
 controls only the step-budget confound. At matched step budget, the
@@ -381,7 +413,8 @@ self-check over its own tool evidence, not a post-hoc gold-answer hint.
 The sole discordant task was `ca020`: Static emitted a final that did
 not match its calculator output, while L1 received the mismatch
 message and corrected it on the next step. With one L1 win and zero
-losses, the two-sided exact McNemar/binomial p-value is **1.0**. The
+losses, the two-sided exact McNemar/binomial p-value is **1.0** (under
+the Bernoulli sampling model described in Section 3.3). The
 arm-level exact 95% intervals are 19/20 = 95.0% [75.1%, 99.9%] for
 Static and 20/20 = 100.0% [83.2%, 100.0%] for L1; they overlap
 heavily, and the paired estimate is the only one we interpret. The
@@ -484,7 +517,12 @@ Two observations:
    parameter count, prompt, and step budget, so we do not interpret the
    30-point difference causally.
 
-The data is in `logs/cross_model/`.
+The data is in `logs/cross_model/`. The full wrapper was not run on
+qwen2.5:3b or qwen3:0.6b: the wrapper evaluations anchor on qwen3:1.7b
+(primary) and llama3.2:1b (cross-family check); running the remaining
+two models would not change the claims here and was deferred. Their
+`n/a` entries mean "full wrapper not executed", not a zero or failed
+result.
 
 ### 4.5 Claim-Versus-Evidence Ledger
 
@@ -500,6 +538,7 @@ carries no inferential interpretation.
 |---|---|---|---|
 | L1 reflection corrects a tool-evidence mismatch | Section 4.1.2, 20 paired held-out tasks, Llama-3.2-3B | Controlled single intervention; underpowered | Static 19/20 [75.1, 99.9]; L1 20/20 [83.2, 100]; McNemar p=1.0 (1 discordant pair) |
 | Full L1-L4 configuration exceeds bare at matched step budget | Section 4.1, 20-task hard arithmetic, Qwen3-1.7B | Configuration-level (prompt and control flow differ) | Bare 35.0% [15.4, 59.2]; full 95.0% [75.1, 99.9] |
+| Bare Qwen3-1.7B at three steps is near chance on the hard eval | Section 4.1, 20 tasks, single run | Descriptive/underpowered | 1/20 = 5.0% [0.1, 24.9] |
 | Layers add no measurable effect on synthetic GAIA2-mini | Section 4.1, 9-task x 5-config ablation | Uninformative (saturated; CI spans 57 pp) | 7/9 = 77.8% [40.0, 97.2] |
 | Full wrapper changes bare Llama-3.2-1B behavior | Section 4.4, 20 tasks, single run | Configuration-level; no cross-model claim | Bare 0/20 [0.0, 16.8]; full 19/20 [75.1, 99.9] |
 | Corrected SFT can learn the narrow calculator protocol | Section 8.4, frozen 80-task test | Strong paired evidence; **not** a deployed L3 update | 80/80 [95.5, 100] vs 0/80 [0.0, 4.5]; McNemar p=1.65e-24 |
@@ -561,9 +600,14 @@ here we describe behavior we observed but did *not* headline:
 - **The headline 0.85 threshold rejects 100% of our generations.** (Note: the function signature default is 0.95; the headline runs pass 0.85 explicitly.)
   Every generation underperformed the existing model. This sounds
   like failure but is the *intended* behavior: when a candidate is
-  worse, the system stays on the incumbent. We lowered the
-  threshold to 0.5 in a side experiment and observed two rejected
-  candidates in seven that outperformed; we kept the default.
+  worse, the system stays on the incumbent. A 60-trial threshold sweep
+  across five deployment profiles (`logs/calibration/`) shows acceptance
+  rising monotonically as the threshold falls (41.7% at 0.99, 50.0% at
+  0.95, 58.3% at 0.85, 83.3% at 0.5); at threshold 0.5 the only two
+  rejections had new_acc 0.1 and 0.3, both below baseline. An earlier
+  draft's claim that two outperforming candidates were rejected at
+  threshold 0.5 is inaccurate and is withdrawn; we kept the conservative
+  0.85 default.
 
 **Acceptance protocol (proposed, not retroactive).** To make the
 fail-closed behavior falsifiable, we define what we will count as a
@@ -1025,7 +1069,8 @@ was used only to decide whether to run the frozen test. On the frozen
 obtained 80/80 normalized-correct finals, versus 0/80 for the untouched
 base checkpoint under the same three-step Agent budget. There were 80
 candidate-only wins and no base-only wins (two-sided exact McNemar
-\(p=1.65\\times10^{-24}\)); arm-level exact 95% intervals are
+\(p=1.65\\times10^{-24}\); interpretation under the Bernoulli sampling
+model, see Section 3.3). Arm-level exact 95% intervals are
 80/80 = 100.0% [95.5%, 100.0%] and 0/80 = 0.0% [0.0%, 4.5%]. All data
 splits, per-task outputs, and the decision record are in
 `data/sft_round20/` and `logs/sft_round20/`.
@@ -1308,8 +1353,15 @@ TIME  RSS    COMMAND
 09:20 3.22G  python full_run3.py --episodes 50
 ```
 
-Plus Ollama holding 1.6 GB (Qwen3-1.7B, Q4_K_M) and 0.5 GB
-(Qwen3-0.6B, Q4_K_M). Headroom for 5 GB RAM target: ~1.7 GB.
+Ollama adds ~1.6 GB (Qwen3-1.7B, Q4_K_M) and ~0.5 GB (Qwen3-0.6B,
+Q4_K_M) when the models are resident. Total with both models resident
+is therefore ~5.4 GB of measured process RSS (3.3 GB Python + 2.1 GB
+Ollama), plus an estimated ~0.4 GB of working buffers and OS overhead.
+The stack exceeds the 5 GB target with both models resident (headroom
+approximately -0.8 GB including the buffer estimate); with only the
+primary model resident it is ~5.3 GB and still above 5 GB. This
+corrects the earlier draft's "~1.7 GB headroom" figure, which
+double-counted the harness.
 
 ## Appendix B - Reproduction
 

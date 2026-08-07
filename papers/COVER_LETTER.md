@@ -10,8 +10,9 @@ Dear Editor,
 
 We submit the manuscript *"AGI Kit: An End-to-End Self-Improving
 Tool-Use Pipeline on Consumer Hardware - Empirical Observations"* for
-consideration at TMLR. The repository URL will be inserted before
-submission.
+consideration at TMLR. The public repository is
+https://github.com/aidless/AGI-KIT; an anonymized mirror can be
+prepared if the venue requires it.
 
 The manuscript reports a four-layer tool-use pipeline comprising
 per-step reflection, semantic strategy memory, continual learning with

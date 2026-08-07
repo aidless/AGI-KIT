@@ -48,7 +48,7 @@ python scripts\build_papers_pdf_en.py
 python scripts\make_docx.py
 ```
 
-Inspect every PDF and DOCX page. Confirm that Figures 1, 2, and 5 render,
+Inspect every PDF and DOCX page. Confirm that Figures 1 and 5 render,
 tables are present and readable, no corrupted punctuation, replacement glyphs, internal
 self-scores, stale five-paper text, or placeholder URLs remain.
 

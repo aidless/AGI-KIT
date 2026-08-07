@@ -1754,8 +1754,9 @@ existing artifacts):
   labeled controlled / configuration-level / descriptive with exact 95%
   Clopper-Pearson intervals and paired tests.
 - Section 4.1 sensitivity analysis: 9-task ablation rate 77.8% has CI
-  [40.0, 97.2]; 415 tasks/arm would be needed to detect a 10 pp effect at
-  80% power, making the saturation claim quantitative.
+  [40.0, 97.2]; 224 tasks/arm would be needed to detect a 10 pp effect at
+  80% power (pooled-variance two-proportion formula; the earlier 415
+  figure was withdrawn), making the saturation claim quantitative.
 - Section 5.3 acceptance protocol: five criteria a future candidate must
   satisfy to count as a deployed L3 update; Round 18 fails 1-3, Round 20
   fails 1/4/5 (recorded `not_accepted`).
