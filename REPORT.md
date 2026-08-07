@@ -1740,3 +1740,39 @@ empirical work item.
   and DOCX verified by preflight.
 - Git: Round 17-20 revision committed; worktree clean (large SFT weights stay
   gitignored).
+
+## 38. Round 21: Review-Driven Statistical and Attribution Pass (2026-08-07)
+
+Trigger: the Round 16 TMLR-style review (all three reviewers 6/10, minor)
+repeated four concerns: causal attribution of the headline gain, saturated
+ablation, no accepted continual-learning update, and reproducibility gaps.
+
+Manuscript changes (no new experiments; quantitative restatements of
+existing artifacts):
+
+- New Section 4.5 claim-versus-evidence ledger: every headline result is
+  labeled controlled / configuration-level / descriptive with exact 95%
+  Clopper-Pearson intervals and paired tests.
+- Section 4.1 sensitivity analysis: 9-task ablation rate 77.8% has CI
+  [40.0, 97.2]; 415 tasks/arm would be needed to detect a 10 pp effect at
+  80% power, making the saturation claim quantitative.
+- Section 5.3 acceptance protocol: five criteria a future candidate must
+  satisfy to count as a deployed L3 update; Round 18 fails 1-3, Round 20
+  fails 1/4/5 (recorded `not_accepted`).
+- Abstract corrected to reflect Round 18/20 real-SFT state (a trained
+  checkpoint exists; no candidate completed the deployed path).
+- Sections 3.3 / 4.1.2 / 7.5 / 8.4 / 9: exact CIs added for all
+  inferential proportions; underpowered designs explicitly labeled.
+- Appendix B provenance ledger: seed control, gold tagging, runner
+  preservation per experiment; Round 16's missing runner flagged.
+- Review-addressment log: `papers/reviews/REVIEW_ADDRESSMENT_2026-08-07.md`.
+
+Validation: preflight passes, 43/43 unit tests pass, in-repo heuristic
+simulator rerun and artifacts rebuilt (PDF/DOCX).
+
+Honest caveat: the in-repo `reviewer_simulator.py` is a fixed heuristic with
+base scores capped at 3.50/5 and is not a useful post-revision signal; the
+substantive signal remains the TMLR-style multi-review record, whose open
+items now have an explicit addressment log. Items requiring new evidence
+(canonical GAIA2, accepted L3 update, architecture-level baselines) remain
+open.

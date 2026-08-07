@@ -63,15 +63,24 @@ ablation configurations (Static / L1 / L1+L2 / L1+L2+L3 / Full)
 score **77.8%** - the eval is too easy for the base model to
 discriminate layer contributions.
 
+Key proportions that carry inferential or paired weight are reported
+with exact 95% Clopper-Pearson intervals, and Section 4.5 provides a
+claim-versus-evidence ledger that labels every headline result as
+controlled, configuration-level, or descriptive.
+
 **Two negative results** bound the contribution. First, we do not
 have a real deployed continual-learning update. The historical
 generation curves used mock or non-executable candidates, whose
 reported candidate scores are not valid performance evidence. A real
-SmolLM2 checkpoint is present, but it has not been converted into an
-executable candidate; the hardened gate now rejects such a candidate
-as `candidate_not_executable` before evaluation. The gate policy is
-tested at its numerical boundary, but self-improvement performance is
-not established.
+SmolLM2 checkpoint has been trained and executed through a real
+fine-tuning cycle, but no candidate has completed the full deployed
+path (conversion to the incumbent deployment backend, held-out eval,
+gate accept, audited swap). The hardened gate rejects non-executable
+candidates as `candidate_not_executable`; the strongest candidate
+(80/80 on a frozen protocol-learning test) ran through a
+non-deployed Transformers path and was therefore recorded as
+`not_accepted`. The gate policy is tested at its numerical boundary,
+but self-improvement performance is not established.
 Second, on the GAIA2-mini eval the synthetic tasks lack canonical
 gold; re-evaluating 138 emitted finals against extracted arithmetic
 gold gives **77.6% correctness on the arithmetic subset** (vs 100%
@@ -156,7 +165,7 @@ removable. The implementation lives in `src/agi_kit/`.
 * **L3 - Continual Learning Loop (`loop.py`).** A buffer of recent
   successful episodes triggers a periodic fine-tune (mock in our
   headline runs, real SmolLM2-135M in our SFT validation, see
-  Appendix C). Candidate models are evaluated against the incumbent
+  Section 8.4). Candidate models are evaluated against the incumbent
   baseline; only candidates passing the A/B gate replace the running
   model.
 
@@ -221,6 +230,14 @@ for that target by ~2x headroom, which we treat as a safety margin.
 - Continual runs: 50 episodes for headline numbers; 7 generations per
   cycle for the curve.
 
+**Statistical conventions.** Proportions that carry inferential or
+paired weight (Section 4.5) are reported with exact 95% Clopper-Pearson
+confidence intervals, and paired comparisons use two-sided exact
+McNemar tests. Purely descriptive or deterministic tables state rates
+without intervals. Sample-size figures are two-proportion
+normal-approximation calculations (alpha=0.05, 80% power) and are
+labeled as design guidance, not observed evidence.
+
 ## 4. End-to-End Results
 
 ### 4.1 Layer Ablation (Round 7: empirically measured)
@@ -245,6 +262,18 @@ already produces correct JSON final answers on ~78% of the
 synthetic GAIA2 mini tasks. Adding reflection, playbook hints,
 continual-learning retraining, or schema mutation does not move
 the needle on tasks the base model already solves.
+
+The saturation reading is quantitative, not impressionistic. With 9
+tasks and 7 successes, the observed rate is 77.8% with an exact 95%
+confidence interval of [40.0%, 97.2%] (Clopper-Pearson); the interval
+spans more than half of the probability range. A two-proportion design
+with 80% power at alpha=0.05 would require roughly 415 tasks per
+configuration to detect a 10 percentage-point difference from 77.8%,
+and roughly 113 per configuration for a 20-point difference. The
+9-task ablation therefore cannot discriminate any layer effect smaller
+than tens of points. We report the flat 77.8% result as an
+uninformative comparison rather than as evidence that the layers are
+inert.
 
 The same 20-task arithmetic eval (Section 4.4) tells the opposite
 story. On the harder 20-task set with `max_steps=3` and no layers,
@@ -353,6 +382,9 @@ The sole discordant task was `ca020`: Static emitted a final that did
 not match its calculator output, while L1 received the mismatch
 message and corrected it on the next step. With one L1 win and zero
 losses, the two-sided exact McNemar/binomial p-value is **1.0**. The
+arm-level exact 95% intervals are 19/20 = 95.0% [75.1%, 99.9%] for
+Static and 20/20 = 100.0% [83.2%, 100.0%] for L1; they overlap
+heavily, and the paired estimate is the only one we interpret. The
 estimate is therefore descriptive and deliberately not presented as a
 significant accuracy gain. It does, however, demonstrate that L1 is
 now causally active in a prompt-, tool-, budget-, and seed-matched
@@ -454,6 +486,30 @@ Two observations:
 
 The data is in `logs/cross_model/`.
 
+### 4.5 Claim-Versus-Evidence Ledger
+
+This table is the paper's central interpretive tool. The first column
+states the claim in the words we use elsewhere; the second points to
+the evidence; the third is the strongest causal label the evidence
+supports; the fourth reports the exact 95% confidence interval or
+paired test. A claim labeled *controlled* isolates one intervention;
+*configuration-level* changes several things at once; *descriptive*
+carries no inferential interpretation.
+
+| Claim | Evidence source | Causal status | Exact 95% CI / test |
+|---|---|---|---|
+| L1 reflection corrects a tool-evidence mismatch | Section 4.1.2, 20 paired held-out tasks, Llama-3.2-3B | Controlled single intervention; underpowered | Static 19/20 [75.1, 99.9]; L1 20/20 [83.2, 100]; McNemar p=1.0 (1 discordant pair) |
+| Full L1-L4 configuration exceeds bare at matched step budget | Section 4.1, 20-task hard arithmetic, Qwen3-1.7B | Configuration-level (prompt and control flow differ) | Bare 35.0% [15.4, 59.2]; full 95.0% [75.1, 99.9] |
+| Layers add no measurable effect on synthetic GAIA2-mini | Section 4.1, 9-task x 5-config ablation | Uninformative (saturated; CI spans 57 pp) | 7/9 = 77.8% [40.0, 97.2] |
+| Full wrapper changes bare Llama-3.2-1B behavior | Section 4.4, 20 tasks, single run | Configuration-level; no cross-model claim | Bare 0/20 [0.0, 16.8]; full 19/20 [75.1, 99.9] |
+| Corrected SFT can learn the narrow calculator protocol | Section 8.4, frozen 80-task test | Strong paired evidence; **not** a deployed L3 update | 80/80 [95.5, 100] vs 0/80 [0.0, 4.5]; McNemar p=1.65e-24 |
+| Safety gate behaves correctly at numeric boundaries | Section 6.1-6.2, 12 hand-crafted cases | Deterministic policy check | 12/12 [73.5, 100] |
+| SchemaMutator blocks invalid changes, accepts valid controls | Section 6.5, 30 cases | Deterministic policy check | 18/18 [81.5, 100]; 12/12 [73.5, 100] |
+| Step-verification prompt may help call-plan completeness | Section 7.5, 6 GAIA2-mini scenarios | Exploratory; one discordant pair; runner not preserved | 6/6 [54.1, 100] vs 5/6 [35.9, 99.6] |
+| Historical repeated-run emission rate is about 60% | Section 4.3, 3 runs x 16 episodes | Descriptive only; clustered runs | No CI computed by design |
+
+Any future revision that adds a number must also update this ledger.
+
 ## 5. Per-Layer Findings (Distilled)
 
 This section condenses what each layer contributes in isolation.
@@ -508,6 +564,31 @@ here we describe behavior we observed but did *not* headline:
   worse, the system stays on the incumbent. We lowered the
   threshold to 0.5 in a side experiment and observed two rejected
   candidates in seven that outperformed; we kept the default.
+
+**Acceptance protocol (proposed, not retroactive).** To make the
+fail-closed behavior falsifiable, we define what we will count as a
+deployed L3 self-improvement update in future rounds. A candidate must
+satisfy all five criteria:
+
+1. **Executable** - the candidate runs through the same Ollama
+   deployment path as the incumbent; Transformers-only execution is
+   insufficient.
+2. **Frozen held-out eval** - evaluated on a disjoint manifest with
+   the same prompt, parser, tool schema, and step budget as the
+   incumbent, with per-task traces and manifest hashes recorded.
+3. **Statistically qualified** - a two-sided exact McNemar p < 0.05 on
+   at least 80 paired tasks, or a pre-specified delta of +10 pp
+   normalized-correct with a sample size sufficient to detect it.
+4. **Gate accepted** - `default_safety_check` returns `accepted` for
+   the candidate's held-out estimate against the incumbent's.
+5. **Audited swap** - the swap is logged with candidate and manifest
+   hashes, seeds, prompts, and the decision record.
+
+No candidate in this paper satisfies all five. Round 18 fails criteria
+1-3; Round 20 satisfies 2-3 numerically (80 paired tasks, p=1.65e-24)
+but fails 1, 4, and 5 and is therefore recorded as `not_accepted`.
+The protocol is a commitment for future work, not a post-hoc
+relabeling of existing results.
 
 ### 5.4 L4: Bounded Recursive Self-Modification
 
@@ -838,7 +919,9 @@ not provide statistical evidence of superiority. The exact runner
 script was not preserved in the repository; only the result JSON is
 available. We retain the result as exploratory evidence that explicit
 step verification may help call-plan completeness, not as a headline
-architecture result.
+architecture result. The arm-level exact 95% intervals overlap
+heavily: Static 5/6 = 83.3% [35.9%, 99.6%] and step-verification
+6/6 = 100.0% [54.1%, 100.0%].
 ## 8. Discussion
 
 ### 8.1 When Does This Help vs Hurt?
@@ -942,8 +1025,10 @@ was used only to decide whether to run the frozen test. On the frozen
 obtained 80/80 normalized-correct finals, versus 0/80 for the untouched
 base checkpoint under the same three-step Agent budget. There were 80
 candidate-only wins and no base-only wins (two-sided exact McNemar
-\(p=1.65\\times10^{-24}\)). All data splits, per-task outputs, and the
-decision record are in `data/sft_round20/` and `logs/sft_round20/`.
+\(p=1.65\\times10^{-24}\)); arm-level exact 95% intervals are
+80/80 = 100.0% [95.5%, 100.0%] and 0/80 = 0.0% [0.0%, 4.5%]. All data
+splits, per-task outputs, and the decision record are in
+`data/sft_round20/` and `logs/sft_round20/`.
 This is strong evidence that the corrected SFT can learn this narrow
 calculator protocol; it is **not** evidence of broad agent improvement.
 The candidate is executable through Transformers but has not passed the
@@ -993,9 +1078,20 @@ We enumerate honestly what this preprint does *not* establish.
   boundaries, not adaptive adversaries.
 - **Mock retrain in headline runs.** Continual learning in the
   headline numbers used a mocked retrain function for reproducibility
-  (50 episodes x 7 generations in <2 hours). Section 5.3 + Appendix C
-  show that real SmolLM2-135M SFT works, but it was not the headline
-  retraining target.
+  (50 episodes x 7 generations in <2 hours). Sections 5.3, 8.4 and
+  Appendix C show that real SmolLM2-135M SFT works and that a frozen
+  80-task protocol-learning test passes, but no candidate has completed
+  the full deployed acceptance protocol defined in Section 5.3.
+- **No accepted L3 update.** None of the real SFT candidates (Round 18,
+  Round 20) satisfies the five-criterion acceptance protocol in Section
+  5.3. The strongest positive result (80/80 protocol learning) is not a
+  deployed self-improvement update and is reported as such.
+- **Underpowered small-sample designs.** Exact 95% intervals are wide
+  wherever n is small: the 9-task ablation CI spans [40.0%, 97.2%], the
+  controlled L1 check has one discordant pair with p=1.0, and the
+  6-scenario prompt comparison has one discordant scenario. These
+  designs are labeled descriptive or underpowered in Section 4.5 rather
+  than treated as confirmatory.
 - **L4 audit limited.** 50 episodes is too short to characterize
   the long-tail of schema-mutation behavior.
 
@@ -1233,6 +1329,22 @@ python scripts/reviewer_simulator.py
 
 End-to-end runtime on the target machine: ~50 minutes per 50-episode
 run; ~70 KB of trace JSONL per run; figures regenerated in ~6 seconds.
+
+### Provenance ledger
+
+| Experiment | Runner / artifact | Seed-controlled | Gold-tagged | Runner preserved |
+|---|---|---|---|---|
+| Layer ablation (9 tasks x 5 configs) | `experiments/ablation_run.py`; `logs/ablation/` | yes (deterministic) | no (emission metric) | yes |
+| Hard 20-task arithmetic | `experiments/cross_model_with_layers.py`; `logs/cross_model_layers/` | partial (Ollama seed) | independent gold recheck | yes |
+| Controlled L1 check | `experiments/controlled_arithmetic_eval.py`; `logs/controlled_arithmetic/run-llama3b-20260802/` | yes (paired, call-level repeatability) | yes | yes |
+| GAIA2-mini prompt comparison (Round 16) | `logs/gaia2_baselines/compare_gaia2_v2.json` | n/a | n/a (expected-action match) | **no** (result JSON only) |
+| SFT Round 20 | `experiments/eval_round20_sft.py`; `data/sft_round20/`, `logs/sft_round20/` | yes (deterministic) | yes | yes |
+| Safety gate | `experiments/stress_safety_gate.py`; `logs/safety_gate/` | deterministic | n/a | yes |
+| L4 policy | `experiments/redteam/l4_redteam.py`; `logs/redteam/` | deterministic | n/a | yes |
+
+The ledger in Section 4.5 and this table are the provenance summary.
+Entries marked "no" or "n/a" are retained as exploratory or descriptive
+only and are not used for inferential claims.
 
 ## Appendix C - Stress Test Trace
 

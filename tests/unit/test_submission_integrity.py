@@ -34,7 +34,9 @@ def test_historical_repeated_runs_are_described_as_non_inferential():
     assert [row["episodes"] for row in rows] == [16, 16, 16]
     manuscript = (ROOT / "papers/preprint_unified_en.md").read_text(encoding="utf-8")
     assert "Historical Repeated-Run Summary (Descriptive Only)" in manuscript
-    assert "95% confidence interval" not in manuscript
+    hist_section = manuscript.split("### 4.3 Historical Repeated-Run Summary (Descriptive Only)")[1]
+    hist_section = hist_section.split("\n### 4.4", 1)[0]
+    assert "95% confidence interval" not in hist_section
     assert "3 seeds x 15 episodes" not in manuscript
 
 
