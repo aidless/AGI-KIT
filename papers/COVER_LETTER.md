@@ -1,16 +1,17 @@
 # Cover Letter - TMLR Submission Draft
 
 **To:** TMLR Action Editor  
-**From:** AGI Research Kit Contributors  
+**From:** Zewen Liu (刘泽文)  
 **Date:** 2026-08-02  
+**ORCID:** https://orcid.org/0009-0003-2981-9888  
 **Re:** Single-paper submission
 
 Dear Editor,
 
 We submit the manuscript *"AGI Kit: An End-to-End Self-Improving
 Tool-Use Pipeline on Consumer Hardware - Empirical Observations"* for
-consideration at TMLR. The author names, affiliations, and repository
-URL will be inserted before submission.
+consideration at TMLR. The repository URL will be inserted before
+submission.
 
 The manuscript reports a four-layer tool-use pipeline comprising
 per-step reflection, semantic strategy memory, continual learning with
@@ -63,4 +64,4 @@ We have no conflicts of interest to declare.
 
 Sincerely,
 
-AGI Research Kit Contributors
+Zewen Liu

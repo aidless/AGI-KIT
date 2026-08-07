@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Enterprise-grade AGI research platform: agents, tools, RAG, evals, training, and serving"
 readme = "README.md"
 license = { text = "Apache-2.0" }
-authors = [{ name = "AGI Kit Authors" }]
+authors = [{ name = "Zewen Liu" }]
 requires-python = ">=3.10"
 keywords = ["agent", "rag", "llm", "agi", "tool-use", "evaluation"]
 classifiers = [

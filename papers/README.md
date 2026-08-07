@@ -49,5 +49,6 @@ unmeasured baselines, significance claim, or internal self-score.
 
 ## Publication Status
 
-The draft has not been submitted. Final author metadata and the public
-repository URL remain required before arXiv or TMLR submission.
+The draft has not been submitted. Author metadata is set (Zewen Liu,
+independent researcher); the public repository URL remains required
+before arXiv or TMLR submission.

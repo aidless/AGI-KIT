@@ -2,9 +2,13 @@
 
 ## AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on Consumer Hardware - Empirical Observations
 
-**Authors:** AGI Research Kit Contributors  
+**Authors:** Zewen Liu (刘泽文)  
 **Date:** 2026-08-02  
 **Status:** Submission draft; not yet submitted
+
+**Affiliation:** Independent researcher
+
+**ORCID:** https://orcid.org/0009-0003-2981-9888
 
 ## Evidence Summary
 
