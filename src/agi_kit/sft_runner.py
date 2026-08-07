@@ -110,7 +110,13 @@ def run_sft(model: str,
     train_ds = Dataset.from_dict({"text": texts})
     def tok_fn(batch):
         out = tok(batch["text"], truncation=True, max_length=max_len, padding="max_length")
-        out["labels"] = [list(ids) for ids in out["input_ids"]]
+        # Padding must not contribute to the causal-LM loss.  In particular,
+        # SmolLM uses EOS as its pad token, so supervising padding teaches a
+        # degenerate "emit EOS" policy rather than the tool protocol.
+        out["labels"] = [
+            [token if mask else -100 for token, mask in zip(ids, attention)]
+            for ids, attention in zip(out["input_ids"], out["attention_mask"])
+        ]
         return out
     train_ds = train_ds.map(tok_fn, batched=True, batch_size=100, remove_columns=["text"])
 
@@ -120,6 +126,7 @@ def run_sft(model: str,
                 "n_params_M": n_params, "src": src}
 
     from transformers import TrainingArguments, Trainer
+    use_fp16 = bool(torch.cuda.is_available())
     targs = TrainingArguments(
         output_dir=str(out_path),
         num_train_epochs=epochs,
@@ -130,7 +137,7 @@ def run_sft(model: str,
         logging_steps=20,
         save_strategy="no",
         save_total_limit=1,
-        fp16=False,
+        fp16=use_fp16,
         report_to="none",
         remove_unused_columns=False,
     )

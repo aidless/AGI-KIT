@@ -1,0 +1,130 @@
+{
+  "round": 20,
+  "split": "dev",
+  "model": "F:\\hf_cache\\hub\\models--HuggingFaceTB--SmolLM2-135M-Instruct\\snapshots\\12fd25f77366fa6b3b4b768ec3050bf629380bac",
+  "label": "base_dev20",
+  "n": 20,
+  "correct": 0,
+  "rows": [
+    {
+      "id": "r20-dev-0000",
+      "gold": "11801",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0001",
+      "gold": "39690",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0002",
+      "gold": "43364",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0003",
+      "gold": "560",
+      "pred": "149",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0004",
+      "gold": "3365",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0005",
+      "gold": "178038",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0006",
+      "gold": "11783",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0007",
+      "gold": "324",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0008",
+      "gold": "34719",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0009",
+      "gold": "23958",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0010",
+      "gold": "5339",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0011",
+      "gold": "121",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0012",
+      "gold": "15846",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0013",
+      "gold": "18518",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0014",
+      "gold": "82873",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0015",
+      "gold": "530",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0016",
+      "gold": "1335",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0017",
+      "gold": "122268",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0018",
+      "gold": "11705",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0019",
+      "gold": "96",
+      "pred": "[agent] max steps",
+      "correct": false
+    }
+  ]
+}

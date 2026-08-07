@@ -13,6 +13,7 @@ import json
 import os
 import sys
 import time
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
@@ -51,6 +52,14 @@ TASKS = [
     ("chained",    "Use calculator to compute 2**8, then echo the result, then final", "256"),
     ("chained",    "Use calculator to compute 100/4, then echo the result, then final", "25"),
 ]
+
+
+def answers_equal(pred, gold):
+    """Compare numeric answers without trusting the structural verdict."""
+    try:
+        return Decimal(str(pred).strip()) == Decimal(str(gold).strip())
+    except (InvalidOperation, ValueError):
+        return str(pred).strip().casefold() == str(gold).strip().casefold()
 
 
 def main():
@@ -96,15 +105,18 @@ def main():
     t0 = time.time()
     for i, (cat, q, gold) in enumerate(TASKS):
         r = run_episode_fn(q, gold=gold)
-        ok = (r["verdict"] == "success")
+        emitted = r["verdict"] == "success"
+        ok = answers_equal(r["final"], gold)
         full_results.append({"task": q, "gold": gold, "pred": r["final"],
-                            "ok": ok, "steps": len(r["steps"]), "avg_score": r["avg_score"]})
+                            "emitted": emitted, "ok": ok,
+                            "steps": len(r["steps"]), "avg_score": r["avg_score"]})
         mark = "OK" if ok else "X "
         print("  [" + str(i + 1) + "/20 " + cat + "] " + mark +
               " steps=" + str(len(r["steps"])) +
               " verdict=" + r["verdict"] +
               " pred=" + str(r["final"])[:30])
     full_correct = sum(1 for r in full_results if r["ok"])
+    full_emitted = sum(1 for r in full_results if r["emitted"])
     full_acc = full_correct / len(TASKS)
     full_wall = time.time() - t0
 
@@ -125,6 +137,8 @@ def main():
         "full_l1_l4": {
             "correct": full_correct,
             "accuracy": round(full_acc, 3),
+            "structural_completed": full_emitted,
+            "structural_completion_rate": round(full_emitted / len(TASKS), 3),
             "wall_seconds": round(full_wall, 1),
             "per_task": full_results,
         },

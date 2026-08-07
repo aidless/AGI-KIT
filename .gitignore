@@ -35,6 +35,7 @@ models/
 # OS
 .DS_Store
 Thumbs.db
+Microsoft/Windows/PowerShell/ModuleAnalysisCache
 
 # Editor
 .vscode/

@@ -1,0 +1,248 @@
+{
+  "model": "C:\\Users\\Administrator\\.cache\\huggingface\\hub\\models--HuggingFaceTB--SmolLM2-135M-Instruct\\snapshots\\12fd25f77366fa6b3b4b768ec3050bf629380bac",
+  "label": "base_gpu_heldout40",
+  "n": 40,
+  "correct": 0,
+  "rows": [
+    {
+      "id": "r19-120",
+      "gold": "424",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-121",
+      "gold": "1042",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-122",
+      "gold": "1885",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-123",
+      "gold": "2882",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-124",
+      "gold": "367",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-125",
+      "gold": "1343",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-126",
+      "gold": "2402",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-127",
+      "gold": "3686",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-128",
+      "gold": "852",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-129",
+      "gold": "337",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-130",
+      "gold": "775",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-131",
+      "gold": "1367",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-132",
+      "gold": "2042",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-133",
+      "gold": "498",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-134",
+      "gold": "1223",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-135",
+      "gold": "2102",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-136",
+      "gold": "3135",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-137",
+      "gold": "491",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-138",
+      "gold": "1503",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-139",
+      "gold": "2669",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-140",
+      "gold": "518",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-141",
+      "gold": "120",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-142",
+      "gold": "369",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-143",
+      "gold": "843",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-144",
+      "gold": "1471",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-145",
+      "gold": "2253",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-146",
+      "gold": "651",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-147",
+      "gold": "1412",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-148",
+      "gold": "2256",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-149",
+      "gold": "3325",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-150",
+      "gold": "694",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-151",
+      "gold": "1742",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-152",
+      "gold": "2944",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-153",
+      "gold": "580",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-154",
+      "gold": "124",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-155",
+      "gold": "480",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-156",
+      "gold": "990",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-157",
+      "gold": "1654",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-158",
+      "gold": "2472",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-159",
+      "gold": "741",
+      "pred": "[agent] max steps",
+      "correct": false
+    }
+  ]
+}

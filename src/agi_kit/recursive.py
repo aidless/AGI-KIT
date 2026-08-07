@@ -11,9 +11,11 @@ All mutations are version-controlled and guarded by:
 """
 from __future__ import annotations
 
+import ast
 import copy
 import hashlib
 import json
+import math
 import os
 import re
 import time
@@ -73,8 +75,36 @@ class SchemaMutator:
     def _hash(self, d):
         return hashlib.md5(json.dumps(d, sort_keys=True).encode()).hexdigest()[:10]
 
+    @staticmethod
+    def _validate_change(field_name, new_value):
+        bounds = {
+            "confidence_window": (int, 1, 100),
+            "low_conf_threshold": ((int, float), 0.0, 1.0),
+            "tool_error_threshold": (int, 1, 100),
+            "stuck_obs_threshold": (int, 1, 100),
+            "max_strategy_switches": (int, 0, 100),
+        }
+        if field_name not in bounds:
+            return False, "field_not_mutable"
+        expected_type, lower, upper = bounds[field_name]
+        if isinstance(new_value, bool) or not isinstance(new_value, expected_type):
+            return False, "invalid_type"
+        if isinstance(new_value, float) and not math.isfinite(new_value):
+            return False, "non_finite"
+        if not lower <= new_value <= upper:
+            return False, "out_of_bounds"
+        return True, None
+
     def propose(self, field_name, new_value, reason):
         """Propose a change. Does not apply until accept() is called."""
+        valid, validation_reason = self._validate_change(field_name, new_value)
+        if not valid:
+            return {
+                "accepted": False,
+                "reason_final": validation_reason,
+                "field": field_name,
+                "new": new_value,
+            }
         old = getattr(self.config, field_name, None)
         if old == new_value:
             return {"accepted": False, "reason": "no_change",
@@ -166,13 +196,64 @@ class ToolFactory:
 
     def _exec_safely(self, code, name):
         """Compile and exec the proposed tool, returning a callable."""
-        # Restrict globals for safety
-        allowed_globals = {"__builtins__": __builtins__}
-        namespace = {}
+        if not isinstance(code, str) or len(code) > 4000:
+            return None, "code_too_long"
+        if not re.fullmatch(r"[a-z][a-z0-9_]{0,29}", str(name)):
+            return None, "invalid_name"
         try:
-            exec(code, allowed_globals, namespace)
+            tree = ast.parse(code, mode="exec")
         except SyntaxError as e:
             return None, "syntax_error: " + str(e)
+        if len(tree.body) != 1 or not isinstance(tree.body[0], ast.FunctionDef):
+            return None, "single_function_required"
+        function = tree.body[0]
+        if function.name != name or function.decorator_list:
+            return None, "function_name_mismatch"
+
+        denied = (
+            ast.Import, ast.ImportFrom, ast.ClassDef, ast.Lambda, ast.Global,
+            ast.Nonlocal, ast.With, ast.AsyncWith, ast.Try, ast.Raise,
+            ast.Delete, ast.While, ast.For, ast.AsyncFor, ast.ListComp,
+            ast.SetComp, ast.DictComp, ast.GeneratorExp, ast.Await, ast.Yield,
+            ast.YieldFrom,
+        )
+        safe_builtin_names = {
+            "abs", "all", "any", "bool", "dict", "enumerate", "float",
+            "int", "len", "list", "max", "min", "range", "round",
+            "set", "sorted", "str", "sum", "tuple", "zip",
+        }
+        safe_methods = {
+            "capitalize", "casefold", "endswith", "find", "format",
+            "isalnum", "isalpha", "isdigit", "join", "lower", "lstrip",
+            "replace", "rstrip", "split", "startswith", "strip", "title",
+            "upper",
+        }
+        for node in ast.walk(tree):
+            if isinstance(node, denied):
+                return None, "unsafe_syntax: " + type(node).__name__
+            if isinstance(node, ast.Name) and node.id.startswith("_"):
+                return None, "private_name"
+            if isinstance(node, ast.Attribute) and (
+                node.attr.startswith("_") or node.attr not in safe_methods
+            ):
+                return None, "unsafe_attribute"
+            if isinstance(node, ast.Call):
+                if isinstance(node.func, ast.Name) and node.func.id not in safe_builtin_names:
+                    return None, "unsafe_call"
+                if isinstance(node.func, ast.Attribute) and node.func.attr not in safe_methods:
+                    return None, "unsafe_call"
+
+        safe_builtins = {
+            name_: __builtins__[name_] if isinstance(__builtins__, dict)
+            else getattr(__builtins__, name_)
+            for name_ in safe_builtin_names
+        }
+        allowed_globals = {"__builtins__": safe_builtins}
+        namespace = {}
+        try:
+            exec(compile(tree, "<generated-tool>", "exec"), allowed_globals, namespace)
+        except Exception as e:
+            return None, "exec_error: " + str(e)
         if name not in namespace:
             return None, "name_not_in_code"
         fn = namespace[name]

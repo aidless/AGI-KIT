@@ -1,6 +1,25 @@
 ﻿# AGI 研究完整套装 (AGI Research Kit)
 
-> 本地小机器 + Agent 研究 + AGI 兴趣 —— 30 GB 一站式研究工作台
+> 本地小机器 + Agent 研究 + AGI 兴趣 - 一站式研究工作台
+
+AGI Research Kit is a CPU-oriented research prototype for tool-use
+agents with reflection, semantic strategy memory, a continual-learning
+safety gate, and bounded schema mutation.
+
+**Publication status:** the unified manuscript is a submission draft
+and has not been submitted. See `papers/preprint_unified_en.md`,
+`papers/00_INDEX_en.md`, and `papers/PUBLISHING.md`. The historical
+three-run result is descriptive only; do not reuse the superseded
+`p<0.01`, 30% static-baseline, or internal 4.5-score claims.
+
+The current controlled L1 evaluation uses a fixed 30-task manifest
+(20 held-out test tasks), identical prompts/tools/budgets/seeds across
+arms, raw JSONL traces, and exact paired analysis. It demonstrates one
+auditable tool-evidence correction (19/20 Static versus 20/20 L1) but
+does not support a general superiority claim from one discordant pair.
+
+The source code is licensed under the Apache License 2.0. Model weights
+and external datasets retain their own licenses.
 
 ## 目录结构
 
@@ -47,7 +66,11 @@ cd "F:\agent to AGI\agi-research-kit"
 ollama serve
 
 # 2. 拉模型(首次,会下载到 C:\Users\<你>\.ollama)
+# 完整复现实验前必须先拉取下列四个 Ollama 模型。
 ollama pull qwen3:1.7b
+ollama pull qwen3:0.6b
+ollama pull qwen2.5:3b
+ollama pull llama3.2:1b
 
 # 3. 跑 ReAct Agent
 .venv\Scripts\python.exe experiments\hello_agent.py --backend ollama --model qwen3:1.7b

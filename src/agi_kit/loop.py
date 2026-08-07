@@ -65,6 +65,7 @@ class GenerationRecord:
     accepted: bool
     reason: str = ""
     ts: str = ""
+    evaluation: dict = field(default_factory=dict)
 
 
 # ============================================================
@@ -208,24 +209,30 @@ def default_safety_check(new_model_dir: str,
                          baseline_acc: float,
                          eval_fn: Optional[Callable] = None,
                          threshold: float = 0.95) -> dict:
-    """Run a tiny eval to decide whether new model replaces baseline.
+    """Evaluate a candidate before it can replace the current model.
 
     Returns: {"accepted": bool, "new_acc": float, "reason": str}
+
+    A candidate is never accepted without an evaluator.  The caller should
+    provide an evaluator over a fixed, held-out task set; silently treating a
+    missing evaluator as a pass would turn an unverified checkpoint into a
+    deployment decision.
     """
     if eval_fn is None:
-        # Without an eval_fn, accept by default (caller's responsibility)
-        return {"accepted": True, "new_acc": baseline_acc,
-                "reason": "no_eval_fn_passed"}
+        return {"accepted": False, "new_acc": 0.0,
+                "reason": "eval_fn_required"}
     try:
         new_acc = eval_fn(new_model_dir)
     except Exception as e:
         return {"accepted": False, "new_acc": 0.0,
-                "reason": "eval_failed: " + str(e)}
+                "reason": "eval_failed: " + str(e),
+                "evaluation": {}}
     accepted = new_acc >= baseline_acc * threshold
     return {
         "accepted": accepted,
         "new_acc": new_acc,
         "reason": ("passed" if accepted else "regressed_below_threshold"),
+        "evaluation": getattr(eval_fn, "last_result", {}),
     }
 
 
@@ -243,6 +250,7 @@ class ContinualLoop:
                  buffer: Optional[ExperienceBuffer] = None,
                  retrain_fn: Optional[Callable] = None,  # retrain_fn(samples, base_model, out_dir) -> {"out_dir", "samples", "seconds"}
                  eval_fn: Optional[Callable] = None,    # eval_fn(model_dir) -> accuracy (0..1)
+                 paired_eval_fn: Optional[Callable] = None,
                  safety_threshold: float = 0.95,
                  retrain_every: int = 5,                # episodes per generation
                  retrain_min_buffer: int = 5,
@@ -255,6 +263,7 @@ class ContinualLoop:
         self.buffer = buffer or ExperienceBuffer()
         self.retrain_fn = retrain_fn
         self.eval_fn = eval_fn
+        self.paired_eval_fn = paired_eval_fn
         self.safety_threshold = safety_threshold
         self.retrain_every = retrain_every
         self.retrain_min_buffer = retrain_min_buffer
@@ -315,6 +324,7 @@ class ContinualLoop:
     def retrain(self, baseline_acc=1.0):
         if self.retrain_fn is None:
             return None
+        base_model_before = self.current_model
         samples = self.buffer.sample(n=min(self.buffer.size(), 200))
         sft_examples = [format_trace_for_sft(r) for r in samples]
         sft_examples = [e for e in sft_examples if e]
@@ -324,33 +334,45 @@ class ContinualLoop:
         t0 = time.time()
         info = self.retrain_fn(
             samples=sft_examples,
-            base_model=self.current_model,
+            base_model=base_model_before,
             out_dir=str(out_dir),
         )
         train_seconds = round(time.time() - t0, 2)
-        # A/B safety gate
-        gate = default_safety_check(
-            new_model_dir=str(out_dir),
-            baseline_acc=baseline_acc,
-            eval_fn=self.eval_fn,
-            threshold=self.safety_threshold,
-        )
+        # A checkpoint path is not a deployable candidate. Only a model name
+        # returned by the retraining backend may reach the A/B safety gate.
+        candidate_model = info.get("ollama_model")
+        if not candidate_model:
+            gate = {
+                "accepted": False,
+                "new_acc": 0.0,
+                "reason": "candidate_not_executable",
+            }
+        elif self.paired_eval_fn is not None:
+            gate = self.paired_eval_fn(base_model_before, str(candidate_model))
+        else:
+            gate = default_safety_check(
+                new_model_dir=str(candidate_model),
+                baseline_acc=baseline_acc,
+                eval_fn=self.eval_fn,
+                threshold=self.safety_threshold,
+            )
         accepted = gate["accepted"]
-        new_model_path = str(out_dir)
+        new_model_path = str(candidate_model or out_dir)
         if accepted:
             self.current_model = new_model_path
         gen_record = GenerationRecord(
             generation=self.generation,
-            base_model=self.current_model if accepted else self.current_model,
+            base_model=base_model_before,
             new_model=new_model_path,
             episodes_used=len(self.history) - self._last_retrain_at,
             train_samples=len(sft_examples),
             train_seconds=train_seconds,
-            eval_baseline_acc=baseline_acc,
+            eval_baseline_acc=gate.get("baseline_acc", baseline_acc),
             eval_new_acc=gate["new_acc"],
             accepted=accepted,
             reason=gate["reason"],
             ts=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            evaluation=gate.get("evaluation", {}),
         )
         self.generations.append(gen_record)
         self._last_retrain_at = len(self.history)

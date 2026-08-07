@@ -1,0 +1,21 @@
+{
+  "round": 20,
+  "protocol": "frozen 80-task arithmetic tool-use test; same Agent prompt, parser, and 3-step budget",
+  "candidate": {
+    "backend": "transformers",
+    "correct": 80,
+    "n": 80
+  },
+  "base": {
+    "backend": "transformers",
+    "correct": 0,
+    "n": 80
+  },
+  "paired": {
+    "candidate_wins": 80,
+    "candidate_losses": 0,
+    "two_sided_exact_mcnemar_p": 1.6543612251060553e-24
+  },
+  "deployment_decision": "not_accepted",
+  "reason": "candidate is executable through Transformers but has not passed the required Ollama deployment path; do not treat this as a deployed continual-learning update"
+}

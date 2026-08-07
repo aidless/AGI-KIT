@@ -1,0 +1,38 @@
+{
+  "model": "C:\\Users\\Administrator\\.cache\\huggingface\\hub\\models--HuggingFaceTB--SmolLM2-135M-Instruct\\snapshots\\12fd25f77366fa6b3b4b768ec3050bf629380bac",
+  "label": "base_smoke",
+  "n": 5,
+  "correct": 0,
+  "rows": [
+    {
+      "id": "r19-120",
+      "gold": "424",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-121",
+      "gold": "1042",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-122",
+      "gold": "1885",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-123",
+      "gold": "2882",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-124",
+      "gold": "367",
+      "pred": "[agent] max steps",
+      "correct": false
+    }
+  ]
+}

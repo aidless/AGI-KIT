@@ -1,48 +1,53 @@
 # AGI Research Kit: Unified Preprint v2
 
-## AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on Consumer Hardware �� Empirical Observations
+## AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on Consumer Hardware - Empirical Observations
 
-**Authors:** AGI Research Kit Contributors
-**Date:** 2026-08-01
-**Status:** Round 9 finalized. Reviewer-sim **3.50 / 5.0 (Weak Accept)**. Pre-print ready for arXiv; TMLR submission also prepared.
+**Authors:** AGI Research Kit Contributors  
+**Date:** 2026-08-02  
+**Status:** Submission draft; not yet submitted
 
----
+## Evidence Summary
 
-## Headline Numbers (Round 8 / 9)
+- Five synthetic ablation configurations: **77.8% final-emission for
+  every configuration**; the evaluation is saturated and does not
+  identify component effects.
+- Hard 20-task arithmetic evaluation: bare Qwen3-1.7B scores **5.0%**
+  at three steps and **35.0%** at six steps; the full configuration
+  records 100.0% structural completion and **95.0% correctness** after
+  an independent gold recheck. The 60-point matched-step difference
+  remains confounded by prompt structure and control flow.
+- Controlled L1 check: on a separate fixed 20-task held-out split with
+  matched prompt/tool/budget/model-seed settings, Static scores
+  **19/20** and L1 reflection-and-verification scores **20/20**. The
+  only discordant pair is an auditable correction, but exact p=1.0;
+  this is not a general superiority claim.
+- Retroactive gold re-evaluation: **77.6% correctness** on the
+  85-episode arithmetic subset of 138 historical episodes.
+- Safety gate: **12/12** deterministic boundary cases passed.
+- Production SchemaMutator policy test: **18/18** invalid changes
+  blocked and **12/12** valid in-range controls accepted.
+- Historical repeated-run result: 62.5%, 62.5%, and 56.2% over three
+  16-episode runs. This result is descriptive only because seed control
+  and artifact provenance are incomplete.
 
-- End-to-end task success: **68%** vs 30% static baseline (+38 pp)
-- Continual-learning eval: **60.4% +/- 3.6%**, **p<0.01** vs static baseline
-- A/B safety gate: **12/12** adversarial boundary tests passed
-- L4 prompt-injection red team: **18/18** malicious blocked, 0 false positives
-- Gate calibration: 60-trial grid across 5 deployment profiles (medical / finance / casual / code review / customer service)
-- Real SFT validation: SmolLM2-135M In-struct, 2 min CPU training, plumbing confirmed
-- Cross-model: qwen2.5:3b 70%, qwen3:1.7b 5%; <2B models collapse on per-step reflection
+## Primary Files
 
-## Companion Artifacts
+- `preprint_unified_en.md`: manuscript source
+- `preprint_unified_en.pdf`: PDF build
+- `docx/preprint_unified_en.docx`: editable submission draft
+- `COVER_LETTER.md`: TMLR cover-letter draft
+- `PUBLISHING.md`: submission preflight and workflow
+- `figures/`: generated plots; the manuscript embeds only Figures 1
+  and 5. Historical figures are retained for audit but not used as
+  submission-level performance evidence.
+- `reviews/artifact_checklist.txt`: disk-presence audit, not a quality score
 
-- Source: `src/agi_kit/`, `experiments/`, `scripts/`
-- Logs: `logs/{cross_model, stat_tests, safety_gate, full_run*, continual, l4, redteam, calibration, seeds_arith}/`
-- Real SFT validation: `data/sft_real/` (SmolLM2-135M, 2 min on CPU)
-- Figures: `papers/figures/` (5 matplotlib PNGs at 200 DPI, embedded in PDF/DOCX)
-- GAIA2 bridge: `src/agi_kit/apps/gaia2/` (3 of 10 apps covered)
-- Tarball: `dist/agi-research-kit.tar.gz` (~488 MB, supplementary bundle)
+## Submission Blockers
 
-## Why One Preprint Instead of Five?
+Before external submission, supply final author names and affiliations,
+replace repository URL placeholders, run a clean repeated experiment
+with explicit seeds and isolated output directories, and pass
+`python scripts/preflight_submission.py` from a clean Git worktree.
 
-The 5-paper TMLR bundle achieved an average reviewer score of 3.43 / 5.0
-(Major Revision), driven by structural issues that additional polishing
-could not resolve: synthetic GAIA2 eval, no head-to-head baselines,
-small N. We honestly consolidated the bundle into a single preprint
-that frames the work as an empirical system report rather than a
-benchmark-beating contribution. The Round 9 paper-only expansion
-reached 3.50 / 5.0 (the simulator paper-only ceiling); further
-movement requires the LLM-bound Stream A and B experiments.
-
-## Submission Targets
-
-1. **Primary:** TMLR (with arXiv available as fallback)
-2. **Fallback:** arXiv cs.AI / cs.LG preprint
-3. **Submission prep:** `papers/COVER_LETTER.md` (TMLR), `papers/PUBLISHING.md` (workflow), `dist/push.sh` (with 6 self-check guards)
-
-See `papers/preprint_unified_en.md` (and `.pdf` / `.docx`) for the full paper. The original 5-paper assets are preserved unchanged at `papers/_deprecated/`.
-
+The predecessor five-paper bundle is retained in `_deprecated/` for
+history only and is not the submission of record.

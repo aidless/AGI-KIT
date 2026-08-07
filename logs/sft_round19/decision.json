@@ -1,0 +1,22 @@
+{
+  "base_model": "SmolLM2-135M-Instruct",
+  "candidate": "candidate24e1",
+  "training": {
+    "train_examples": 24,
+    "epochs": 1,
+    "learning_rate": 0.00002,
+    "seed": 42,
+    "seconds": 51.743
+  },
+  "held_out_protocol": {
+    "n_tasks": 5,
+    "max_steps": 4,
+    "agent_prompt": "full_agent.TransformersBackend"
+  },
+  "results": {
+    "base_correct": 0,
+    "candidate_correct": 0
+  },
+  "decision": "reject",
+  "reason": "candidate did not improve on the held-out tool-use smoke and neither model reliably emitted the required tool protocol"
+}

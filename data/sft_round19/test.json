@@ -1,0 +1,1082 @@
+[
+  {
+    "id": "r19-120",
+    "expression": "(50*7)+74",
+    "gold": "424",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (50*7)+74. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(50*7)+74\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 424"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"424\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-121",
+    "expression": "(57*18)+16",
+    "gold": "1042",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (57*18)+16. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(57*18)+16\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 1042"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"1042\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-122",
+    "expression": "(64*29)+29",
+    "gold": "1885",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (64*29)+29. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(64*29)+29\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 1885"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"1885\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-123",
+    "expression": "(71*40)+42",
+    "gold": "2882",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (71*40)+42. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(71*40)+42\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 2882"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"2882\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-124",
+    "expression": "(78*4)+55",
+    "gold": "367",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (78*4)+55. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(78*4)+55\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 367"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"367\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-125",
+    "expression": "(85*15)+68",
+    "gold": "1343",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (85*15)+68. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(85*15)+68\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 1343"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"1343\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-126",
+    "expression": "(92*26)+10",
+    "gold": "2402",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (92*26)+10. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(92*26)+10\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 2402"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"2402\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-127",
+    "expression": "(99*37)+23",
+    "gold": "3686",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (99*37)+23. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(99*37)+23\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 3686"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"3686\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-128",
+    "expression": "(17*48)+36",
+    "gold": "852",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (17*48)+36. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(17*48)+36\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 852"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"852\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-129",
+    "expression": "(24*12)+49",
+    "gold": "337",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (24*12)+49. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(24*12)+49\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 337"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"337\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-130",
+    "expression": "(31*23)+62",
+    "gold": "775",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (31*23)+62. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(31*23)+62\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 775"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"775\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-131",
+    "expression": "(38*34)+75",
+    "gold": "1367",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (38*34)+75. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(38*34)+75\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 1367"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"1367\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-132",
+    "expression": "(45*45)+17",
+    "gold": "2042",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (45*45)+17. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(45*45)+17\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 2042"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"2042\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-133",
+    "expression": "(52*9)+30",
+    "gold": "498",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (52*9)+30. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(52*9)+30\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 498"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"498\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-134",
+    "expression": "(59*20)+43",
+    "gold": "1223",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (59*20)+43. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(59*20)+43\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 1223"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"1223\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-135",
+    "expression": "(66*31)+56",
+    "gold": "2102",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (66*31)+56. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(66*31)+56\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 2102"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"2102\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-136",
+    "expression": "(73*42)+69",
+    "gold": "3135",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (73*42)+69. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(73*42)+69\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 3135"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"3135\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-137",
+    "expression": "(80*6)+11",
+    "gold": "491",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (80*6)+11. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(80*6)+11\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 491"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"491\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-138",
+    "expression": "(87*17)+24",
+    "gold": "1503",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (87*17)+24. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(87*17)+24\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 1503"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"1503\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-139",
+    "expression": "(94*28)+37",
+    "gold": "2669",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (94*28)+37. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(94*28)+37\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 2669"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"2669\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-140",
+    "expression": "(12*39)+50",
+    "gold": "518",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (12*39)+50. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(12*39)+50\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 518"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"518\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-141",
+    "expression": "(19*3)+63",
+    "gold": "120",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (19*3)+63. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(19*3)+63\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 120"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"120\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-142",
+    "expression": "(26*14)+5",
+    "gold": "369",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (26*14)+5. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(26*14)+5\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 369"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"369\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-143",
+    "expression": "(33*25)+18",
+    "gold": "843",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (33*25)+18. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(33*25)+18\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 843"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"843\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-144",
+    "expression": "(40*36)+31",
+    "gold": "1471",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (40*36)+31. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(40*36)+31\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 1471"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"1471\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-145",
+    "expression": "(47*47)+44",
+    "gold": "2253",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (47*47)+44. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(47*47)+44\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 2253"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"2253\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-146",
+    "expression": "(54*11)+57",
+    "gold": "651",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (54*11)+57. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(54*11)+57\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 651"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"651\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-147",
+    "expression": "(61*22)+70",
+    "gold": "1412",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (61*22)+70. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(61*22)+70\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 1412"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"1412\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-148",
+    "expression": "(68*33)+12",
+    "gold": "2256",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (68*33)+12. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(68*33)+12\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 2256"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"2256\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-149",
+    "expression": "(75*44)+25",
+    "gold": "3325",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (75*44)+25. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(75*44)+25\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 3325"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"3325\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-150",
+    "expression": "(82*8)+38",
+    "gold": "694",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (82*8)+38. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(82*8)+38\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 694"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"694\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-151",
+    "expression": "(89*19)+51",
+    "gold": "1742",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (89*19)+51. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(89*19)+51\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 1742"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"1742\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-152",
+    "expression": "(96*30)+64",
+    "gold": "2944",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (96*30)+64. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(96*30)+64\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 2944"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"2944\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-153",
+    "expression": "(14*41)+6",
+    "gold": "580",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (14*41)+6. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(14*41)+6\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 580"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"580\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-154",
+    "expression": "(21*5)+19",
+    "gold": "124",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (21*5)+19. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(21*5)+19\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 124"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"124\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-155",
+    "expression": "(28*16)+32",
+    "gold": "480",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (28*16)+32. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(28*16)+32\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 480"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"480\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-156",
+    "expression": "(35*27)+45",
+    "gold": "990",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (35*27)+45. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(35*27)+45\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 990"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"990\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-157",
+    "expression": "(42*38)+58",
+    "gold": "1654",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (42*38)+58. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(42*38)+58\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 1654"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"1654\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-158",
+    "expression": "(49*49)+71",
+    "gold": "2472",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (49*49)+71. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(49*49)+71\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 2472"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"2472\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r19-159",
+    "expression": "(56*13)+13",
+    "gold": "741",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a tool-use assistant. Output exactly one fenced JSON object. Use calculator with {\"tool\":\"calculator\",\"args\":{\"expr\":\"...\"}}, then return {\"final\":\"<answer>\"}."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (56*13)+13. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(56*13)+13\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 741"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"741\"}\n```"
+      }
+    ]
+  }
+]

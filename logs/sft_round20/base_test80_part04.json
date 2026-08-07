@@ -1,0 +1,131 @@
+{
+  "round": 20,
+  "split": "test",
+  "start": 60,
+  "model": "F:\\hf_cache\\hub\\models--HuggingFaceTB--SmolLM2-135M-Instruct\\snapshots\\12fd25f77366fa6b3b4b768ec3050bf629380bac",
+  "label": "base_test80_part04",
+  "n": 20,
+  "correct": 0,
+  "rows": [
+    {
+      "id": "r20-test-0060",
+      "gold": "2149",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0061",
+      "gold": "82082",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0062",
+      "gold": "-322",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0063",
+      "gold": "429",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0064",
+      "gold": "11626",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0065",
+      "gold": "101140",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0066",
+      "gold": "83590",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0067",
+      "gold": "348",
+      "pred": "2160.5",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0068",
+      "gold": "59032",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0069",
+      "gold": "119006",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0070",
+      "gold": "16814",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0071",
+      "gold": "530",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0072",
+      "gold": "52396",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0073",
+      "gold": "91217",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0074",
+      "gold": "36017",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0075",
+      "gold": "352",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0076",
+      "gold": "20586",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0077",
+      "gold": "96624",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0078",
+      "gold": "42194",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0079",
+      "gold": "285",
+      "pred": "[agent] max steps",
+      "correct": false
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "round": 20,
+  "split": "dev",
+  "model": "logs\\sft_round20\\candidate120e3_fp16_retry",
+  "label": "candidate120e3_fp16_retry_dev10",
+  "n": 10,
+  "correct": 8,
+  "rows": [
+    {
+      "id": "r20-dev-0000",
+      "gold": "11801",
+      "pred": "11801",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0001",
+      "gold": "39690",
+      "pred": "39690",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0002",
+      "gold": "43364",
+      "pred": "43364",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0003",
+      "gold": "560",
+      "pred": "560.0",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0004",
+      "gold": "3365",
+      "pred": "3365",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0005",
+      "gold": "178038",
+      "pred": "178038",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0006",
+      "gold": "11783",
+      "pred": "11783",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0007",
+      "gold": "324",
+      "pred": "324.0",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0008",
+      "gold": "34719",
+      "pred": "34719",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0009",
+      "gold": "23958",
+      "pred": "23958",
+      "correct": true
+    }
+  ]
+}

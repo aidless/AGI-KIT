@@ -1,0 +1,33 @@
+{
+  "run_name": "logs\\controlled_arithmetic\\smoke-qwen25-20260802T1222",
+  "model": "qwen2.5:1.5b",
+  "seed": 20260802,
+  "max_steps": 4,
+  "timeout_s": 90.0,
+  "split": "test",
+  "n_tasks": 1,
+  "manifest_sha256": "499b7835c2fbeb2036759e5ee6eb9c44a922af0ed6629939c2f50f2f85b47fe1",
+  "system_prompt_sha256": "d78f9a94bbe1a40204c48515c0e37f49592f1708c75c14fef0e6bf2b0c411a0d",
+  "configs": {
+    "static": {
+      "correct": 1,
+      "normalized_transport_completed": 1,
+      "strict_fenced_completed": 0,
+      "mean_steps": 2.0,
+      "reflection_retries": 0
+    },
+    "l1_reflection": {
+      "correct": 1,
+      "normalized_transport_completed": 1,
+      "strict_fenced_completed": 0,
+      "mean_steps": 2.0,
+      "reflection_retries": 0
+    }
+  },
+  "paired_comparison": {
+    "l1_wins": 0,
+    "l1_losses": 0,
+    "discordant": 0,
+    "note": "Exact paired inference requires the full held-out run; smoke runs are descriptive only."
+  }
+}

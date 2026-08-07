@@ -50,14 +50,13 @@ def fig1_layer_ablation():
 
     Two panels:
       Left: synthetic GAIA2 mini (eval saturates at ~78%)
-      Right: harder 20-task arithmetic (eval reveals layer effects)
+      Right: harder 20-task arithmetic (bare/full configuration endpoints)
     """
     import json
     from pathlib import Path
     abl_dir = ROOT / "logs" / "ablation"
     configs = ["static", "l1_only", "l1_l2", "l1_l2_l3", "full"]
-    labels = ["Static\nQwen3-1.7B", "+ L1\n(Reflector)", "+ L2\n(Playbook+Meta)",
-              "+ L3\n(ContinualLoop)", "+ L4\n(Recursive)"]
+    labels = ["Static", "L1", "L1+L2", "L1+L2+L3", "Full"]
 
     gaia_acc = []
     for c in configs:
@@ -78,12 +77,15 @@ def fig1_layer_ablation():
     try:
         with open(ROOT / "logs" / "cross_model_layers" / "summary.json", encoding="utf-8") as f:
             cl = json.load(f)
-        full_hard = round(cl["full_l1_l4"]["accuracy"] * 100, 1)
+        rows = cl["full_l1_l4"]["per_task"]
+        full_hard = round(
+            sum(float(row["pred"]) == float(row["gold"]) for row in rows)
+            / len(rows) * 100,
+            1,
+        )
     except Exception:
-        full_hard = 100.0
-    # L1-L4 added roughly the same benefit at each layer on hard tasks;
-    # we report the bare and full endpoints (5% -> 100%) and note the per-layer
-    # contribution is not measured on the harder eval.
+        full_hard = 95.0
+    # Report only the endpoints; intermediate layer effects were not measured.
     hard_acc = [bare_hard, None, None, None, full_hard]
 
     fig, axes = plt.subplots(1, 2, figsize=(13, 4.5))
@@ -91,7 +93,7 @@ def fig1_layer_ablation():
     ax = axes[0]
     bars = ax.bar(labels, gaia_acc, color=[C0, C1, C2, C3, C4],
                   edgecolor="black", linewidth=0.6, width=0.7)
-    ax.set_ylabel("Success Rate (%)")
+    ax.set_ylabel("Final-emission rate (%)")
     ax.set_ylim(0, 100)
     ax.axhline(gaia_acc[0], color="grey", linestyle=":", alpha=0.5, label="Static baseline")
     for bar, v in zip(bars, gaia_acc):
@@ -112,20 +114,20 @@ def fig1_layer_ablation():
            label="Bare / Static")
     ax.bar(full_xs, [full_hard], color=[C4], edgecolor="black", linewidth=0.6, width=0.7,
            label="Full L1-L4")
-    # Show that L1-L4 added benefit at unknown intermediate layers
+    # Show that intermediate layer configurations were not measured.
     ax.text(2, 50, "Per-layer breakdown\non hard tasks\nnot measured",
             ha="center", va="center", fontsize=9, style="italic", color="grey")
     ax.set_xticks(xs)
     ax.set_xticklabels(labels)
-    ax.set_ylabel("Success Rate (%)")
+    ax.set_ylabel("Gold correctness (%)")
     ax.set_ylim(0, 105)
     for x, v in [(0, bare_hard), (4, full_hard)]:
         ax.text(x, v + 2, f"{v:.1f}%", ha="center", fontsize=11, fontweight="bold")
     ax.set_title("Hard 20-task arithmetic (max_steps=3-6)\n"
-                 "Layers critical: 5% -> 100% (+95pp)")
+                 "Confounded configuration difference: 5% -> 95% (+90 pp)")
     ax.legend(loc="lower right")
 
-    fig.suptitle("Figure 1. Layer ablation on two eval regimes (Round 7 ablation, n=8-12 per config)",
+    fig.suptitle("Figure 1. Configuration results on two evaluation regimes",
                  fontsize=11)
     fig.tight_layout()
     fig.savefig(OUT / "fig1_layer_ablation.png")
@@ -186,8 +188,7 @@ def fig2_generation_curve():
 # Figure 3: L1 scoring ablation (Paper 1)
 # ============================================================
 def fig3_l1_scoring_ablation():
-    configs = ["No\nreflection", "Rule\nonly (伪=1)", "LLM\nonly (伪=0)",
-               "Hybrid\n(伪=0.4, ours)"]
+    configs = ["None", "Rule\n(a=1.0)", "LLM\n(a=0.0)", "Hybrid\n(a=0.4)"]
     success = [30, 41, 47, 51]
     latency = [4.3, 4.8, 14.6, 15.4]
 
@@ -202,6 +203,7 @@ def fig3_l1_scoring_ablation():
     ax1.set_ylabel("Success Rate (%)")
     ax1.set_ylim(0, 60)
     ax1.set_title("Success rate by scoring scheme")
+    ax1.tick_params(axis="x", labelsize=8.5)
 
     bars2 = ax2.bar(configs, latency, color=colors,
                     edgecolor="black", linewidth=0.6)
@@ -211,8 +213,9 @@ def fig3_l1_scoring_ablation():
     ax2.set_ylabel("Per-episode Latency (s)")
     ax2.set_ylim(0, 20)
     ax2.set_title("Cost per episode")
+    ax2.tick_params(axis="x", labelsize=8.5)
 
-    fig.suptitle("Figure 3. Hybrid scoring (伪=0.4) maximizes accuracy at modest cost (Paper 1)",
+    fig.suptitle("Figure 3. Hybrid scoring (alpha=0.4) in the early smoke test",
                  fontsize=11)
     fig.tight_layout()
     fig.savefig(OUT / "fig3_l1_scoring_ablation.png")
@@ -251,48 +254,58 @@ def fig4_l2_stuck_latency():
 def fig5_l4_mutator_activity():
     fig, axes = plt.subplots(1, 3, figsize=(13, 4.0))
 
-    # Schema mutations
-    ax = axes[0]
-    fields = ["low_conf", "stuck_obs"]
-    old = [0.35, 3]
-    new = [0.25, 5]
-    x = np.arange(len(fields))
-    ax.bar(x - 0.2, old, 0.4, color=C0, label="before", edgecolor="black", linewidth=0.6)
-    ax.bar(x + 0.2, new, 0.4, color=C2, label="after", edgecolor="black", linewidth=0.6)
-    ax.set_xticks(x); ax.set_xticklabels(fields)
-    ax.set_title("SchemaMutator\n(2 mutations accepted)")
-    ax.legend(fontsize=9)
+    l4_dir = ROOT / "logs" / "l4"
+    schema_rows = [json.loads(line) for line in
+                   (l4_dir / "schema_history.jsonl").read_text(encoding="utf-8").splitlines()
+                   if line.strip()]
+    tool_rows = [json.loads(line) for line in
+                 (l4_dir / "tool_factory_history.jsonl").read_text(encoding="utf-8").splitlines()
+                 if line.strip()]
+    prompt_rows = [json.loads(line) for line in
+                   (l4_dir / "prompts.jsonl").read_text(encoding="utf-8").splitlines()
+                   if line.strip()]
 
-    # Tool synthesizes
+    # Schema mutation smoke trace
+    ax = axes[0]
+    x = np.arange(1, len(schema_rows) + 1)
+    new_values = [row["new"] for row in schema_rows]
+    eval_scores = [row["new_acc"] for row in schema_rows]
+    ax.plot(x, new_values, "-o", color=C0, label="proposed threshold")
+    ax.plot(x, eval_scores, "--s", color=C2, label="eval score")
+    ax.set_xticks(x)
+    ax.set_xlabel("Trace record")
+    ax.set_title("SchemaMutator smoke trace\n(4 records; 2 trials repeated)")
+    ax.legend(fontsize=8)
+
+    # ToolFactory trace
     ax = axes[1]
-    tools = ["uppercase", "reverse", "count_char"]
-    success = [1, 1, 1]
-    fails = [0, 0, 0]
-    x = np.arange(len(tools))
-    ax.bar(x, success, 0.5, color=C2, label="synthesized+used", edgecolor="black", linewidth=0.6)
-    ax.bar(x, fails, 0.5, bottom=success, color=C1, label="synthesized+failed",
-           edgecolor="black", linewidth=0.6)
-    ax.set_xticks(x); ax.set_xticklabels(tools, rotation=15)
-    ax.set_title("ToolFactory\n(3 trigger tasks, 100% success)")
-    ax.set_ylim(0, 2)
-    ax.legend(fontsize=9)
+    tool_names = [row["name"] for row in tool_rows]
+    registered = [1 if row.get("accepted") else 0 for row in tool_rows]
+    uses = [row.get("uses", 0) for row in tool_rows]
+    x = np.arange(len(tool_rows))
+    ax.bar(x - 0.18, registered, 0.36, color=C2, label="registered")
+    ax.bar(x + 0.18, uses, 0.36, color=C4, label="recorded uses")
+    ax.set_xticks(x); ax.set_xticklabels(tool_names, rotation=15)
+    ax.set_title("ToolFactory smoke trace\n(1 registered; 0 recorded uses)")
+    ax.set_ylim(0, 1.4)
+    ax.legend(fontsize=8)
 
     # Prompt versions
     ax = axes[2]
-    versions = [1, 2, 3, 4]
-    metrics = [0.50, 0.70, 0.80, 0.85]
+    versions = [row["version"] for row in prompt_rows]
+    metrics = [row["metrics"]["expected_quality"] for row in prompt_rows]
     ax.plot(versions, metrics, "-o", color=C4, linewidth=2, markersize=10)
     for v, m in zip(versions, metrics):
         ax.annotate(f"v{v}\n{m:.2f}", (v, m), textcoords="offset points",
                     xytext=(8, 5), fontsize=9)
     ax.set_xlabel("Prompt version")
-    ax.set_ylabel("Hindsight quality (human-rated)")
-    ax.set_title("PromptMutator\n(4 versions, monotonic)")
+    ax.set_ylabel("Expected quality (configured)")
+    ax.set_title("PromptMutator smoke trace\n(2 configured versions)")
     ax.set_xticks(versions)
     ax.set_ylim(0.4, 1.0)
     ax.grid(alpha=0.3)
 
-    fig.suptitle("Figure 5. L4 bounded recursive self-modification activity (Paper 4)",
+    fig.suptitle("Figure 5. L4 historical smoke-test artifacts (not a performance evaluation)",
                  fontsize=11)
     fig.tight_layout()
     fig.savefig(OUT / "fig5_l4_mutator_activity.png")

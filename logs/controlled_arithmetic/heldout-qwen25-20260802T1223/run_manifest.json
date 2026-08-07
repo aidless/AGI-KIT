@@ -1,0 +1,11 @@
+{
+  "run_name": "logs\\controlled_arithmetic\\heldout-qwen25-20260802T1223",
+  "model": "qwen2.5:1.5b",
+  "seed": 20260802,
+  "max_steps": 4,
+  "timeout_s": 90.0,
+  "split": "test",
+  "n_tasks": 20,
+  "manifest_sha256": "499b7835c2fbeb2036759e5ee6eb9c44a922af0ed6629939c2f50f2f85b47fe1",
+  "system_prompt_sha256": "d78f9a94bbe1a40204c48515c0e37f49592f1708c75c14fef0e6bf2b0c411a0d"
+}

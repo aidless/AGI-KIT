@@ -1,0 +1,130 @@
+{
+  "round": 20,
+  "split": "dev",
+  "model": "logs\\sft_round20\\candidate120e3_fp16_retry",
+  "label": "candidate120e3_fp16_retry_dev20",
+  "n": 20,
+  "correct": 20,
+  "rows": [
+    {
+      "id": "r20-dev-0000",
+      "gold": "11801",
+      "pred": "11801",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0001",
+      "gold": "39690",
+      "pred": "39690",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0002",
+      "gold": "43364",
+      "pred": "43364",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0003",
+      "gold": "560",
+      "pred": "560.0",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0004",
+      "gold": "3365",
+      "pred": "3365",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0005",
+      "gold": "178038",
+      "pred": "178038",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0006",
+      "gold": "11783",
+      "pred": "11783",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0007",
+      "gold": "324",
+      "pred": "324.0",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0008",
+      "gold": "34719",
+      "pred": "34719",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0009",
+      "gold": "23958",
+      "pred": "23958",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0010",
+      "gold": "5339",
+      "pred": "5339",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0011",
+      "gold": "121",
+      "pred": "121.0",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0012",
+      "gold": "15846",
+      "pred": "15846",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0013",
+      "gold": "18518",
+      "pred": "18518",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0014",
+      "gold": "82873",
+      "pred": "82873",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0015",
+      "gold": "530",
+      "pred": "530.0",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0016",
+      "gold": "1335",
+      "pred": "1335",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0017",
+      "gold": "122268",
+      "pred": "122268",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0018",
+      "gold": "11705",
+      "pred": "11705",
+      "correct": true
+    },
+    {
+      "id": "r20-dev-0019",
+      "gold": "96",
+      "pred": "96.0",
+      "correct": true
+    }
+  ]
+}

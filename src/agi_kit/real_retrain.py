@@ -93,15 +93,11 @@ def real_retrain(samples,
         r = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
         dt = time.time() - t0
         ok = (r.returncode == 0)
-        # Determine expected acc from sample count
-        baseline = 0.55
-        uplift_per_sample = 0.005
-        expected_acc = min(0.95, baseline + len(samples) * uplift_per_sample)
         meta = {
             "base_model": str(base_model),
             "train_samples": len(samples),
             "trained": ok,
-            "expected_acc": expected_acc if ok else baseline,
+            "eval_status": "not_executable",
             "train_seconds": round(dt, 1),
             "rc": r.returncode,
             "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
@@ -111,7 +107,7 @@ def real_retrain(samples,
         return {
             "out_dir": str(out), "samples": len(samples),
             "seconds": round(dt, 1), "trained": ok,
-            "expected_acc": expected_acc,
+            "eval_status": "not_executable",
             "stdout_tail": r.stdout[-300:],
             "stderr_tail": r.stderr[-300:],
             "rc": r.returncode,
@@ -133,18 +129,15 @@ def mock_retrain(samples, base_model, out_dir, **kwargs) -> dict:
     with (out / "samples.jsonl").open("w", encoding="utf-8") as f:
         for s in samples:
             f.write(json.dumps(s, ensure_ascii=False) + "\n")
-    baseline = 0.55
-    uplift = 0.005
-    expected_acc = min(0.95, baseline + len(samples) * uplift)
     meta = {
         "base_model": str(base_model),
         "train_samples": len(samples),
         "trained": False,
-        "expected_acc": expected_acc,
+        "eval_status": "mock_not_deployable",
         "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     }
     with (out / "gen_meta.json").open("w", encoding="utf-8") as f:
         json.dump(meta, f, indent=2)
     return {"out_dir": str(out), "samples": len(samples),
             "seconds": 0.05, "trained": False,
-            "expected_acc": expected_acc}
+            "eval_status": "mock_not_deployable"}

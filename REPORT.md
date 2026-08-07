@@ -1598,3 +1598,145 @@ Round 15 was 4.3 / 5.0. Round 16 is 4.5 / 5.0.
 ## 31. Project final state
 
 After 16 rounds: 17 git commits, clean working tree, preprint is 1 paper (5-paper bundle archived). GAIA2 apps: Calendar / Emails / Shopping / Messages. 6 GAIA2-mini scenarios tested in baseline comparison. Safety surface: 12/12 boundary + 18/18 red team + 60 calibration. SmolLM2-135M SFT plumbing (513 MB). Three-seed stats. Retroactive gold correctness 77.6 percent. AGI-Kit vs baselines: clean positive on GAIA2-mini subset. Honest score 4.5 / 5.0.
+
+## 32. Round 17: Controlled L1 Reflection-and-Verification Check (2026-08-02)
+
+### 32.1 What this round delivered
+A new versioned 30-task arithmetic manifest (`data/controlled_arithmetic_v1.json`)
+with a 20-task held-out test split and a 10-task development split. The runner
+(`experiments/controlled_arithmetic_eval.py`) runs Static and L1 arms with the
+same task text, system prompt, calculator, model (llama3.2:3b-instruct-q8_0),
+Ollama generation seed, and `max_steps=6`; each arm writes JSONL with raw
+responses, tool observations, and prompt/manifest hashes.
+
+The L1 intervention is narrow: only when a proposed final numerically
+conflicts with the latest successful calculator observation does the model
+receive one reflection message and the remaining budget to correct it. This
+makes L1 a causally active, executable self-check over its own tool evidence
+rather than a post-hoc gold hint.
+
+### 32.2 Numbers (real, just produced)
+
+| Configuration | Gold correct | Normalized complete JSON | Mean steps | Tool-evidence retries |
+|---|---:|---:|---:|---:|
+| Static | 19/20 (95.0%) | 20/20 | 2.00 | 0 |
+| L1 evidence-check | 20/20 (100.0%) | 20/20 | 2.05 | 1 |
+
+The sole discordant task (`ca020`): Static emitted a final that did not match
+its own calculator output; L1 received the mismatch message and corrected it.
+Two-sided exact McNemar/binomial p = 1.0, so the result is descriptive and not
+presented as a significant accuracy gain.
+
+### 32.3 Additional confound detection
+The same protocol on qwen3:0.6b produced five discordant pairs (1 L1 win, 4 L1
+losses, p = 0.375) even though the L1 intervention never activated. This
+exposes model-service non-determinism as a confound and is recorded in
+`logs/controlled_arithmetic/run-qwen0.6b-20260802/paired_analysis.json`. The
+paper does not use this run as causal evidence.
+
+### 32.4 Files added
+- `data/controlled_arithmetic_v1.json`, `experiments/controlled_arithmetic_eval.py`
+- `scripts/analyze_controlled_arithmetic.py`
+- `logs/controlled_arithmetic/` (manifest hashes, per-task JSONL, summaries, paired analyses)
+- `papers/preprint_unified_en.{md,pdf,docx}`: new Section 4.1.2
+
+## 33. Round 18: Executable-Candidate Check - Negative (2026-08-02)
+
+### 33.1 What this round delivered
+The saved SmolLM2-135M checkpoint was imported into an isolated Ollama model
+(`agi-sft-smollm2-validation:round18`, Modelfile in `experiments/modelfiles/`).
+The import completed, but deployment execution failed because the selected
+runner could not load `nvrtc-builtins64_130.dll`. Independent Transformers CPU
+execution ran but returned `429` for `17 * 23` (gold `391`) on the first
+tool-use smoke task.
+
+### 33.2 Decision
+`deployment_decision = reject` on both deployability and quality grounds. The
+full record is `logs/sft_validation/round18.json`. This is a real failed
+deployment attempt, not an accepted L3 self-improvement update; the paper
+hardened the gate to reject unconverted candidates as
+`candidate_not_executable` before evaluation.
+
+## 34. Round 19: SFT Training Runs on SmolLM2-135M (2026-08-02)
+
+### 34.1 What this round delivered
+Two real SFT runs using `experiments/prepare_round19_sft.py` and
+`experiments/sft_train.py`:
+
+| Candidate | Data / epochs | Runtime | Held-out protocol | Base | Candidate | Decision |
+|---|---:|---:|---:|---:|---:|---:|
+| candidate24e1 | 24 examples / 1 epoch | CPU 51.7 s | 5 tasks, 4 steps | 0 | 0 | reject |
+| candidate120e3_gpu | 120 examples / 3 epochs | RTX 3060 Laptop GPU 47.0 s | 40 tasks, 4 steps | 0 | 0 | reject |
+
+Both candidates failed the held-out tool-use protocol: the base model never
+emitted the required tool protocol, and the candidates either did the same or
+repeatedly produced invalid calculator argument schemas.
+
+### 34.2 Files added
+- `experiments/prepare_round19_sft.py`, `experiments/eval_round19_sft.py`
+- `data/sft_round19/`, `logs/sft_round19/` (training configs, smoke/held-out eval, decisions)
+
+## 35. Round 20: Frozen 80-Task SFT Protocol-Learning Test (2026-08-02)
+
+### 35.1 What this round delivered
+After Round 19 identified that the earlier trainer supervised padding/EOS
+tokens, `experiments/prepare_round20_sft.py` corrected the loss mask and
+trained SmolLM2-135M for three epochs on 120 deterministic tool-use traces
+using the exact deployed Agent system prompt, calculator schema, and parser.
+A disjoint 20-task development set was used only to decide whether to run the
+frozen test.
+
+### 35.2 Numbers (real, just produced)
+Frozen 80-task arithmetic tool-use test, same Agent prompt, parser, and
+three-step budget:
+
+| Backend | Normalized-correct finals |
+|---|---:|
+| Candidate (Transformers) | 80/80 |
+| Base (Transformers) | 0/80 |
+
+Paired comparison: 80 candidate-only wins, 0 base-only wins; two-sided exact
+McNemar p = 1.65e-24. All splits, per-task outputs, and decision records are in
+`data/sft_round20/` and `logs/sft_round20/`.
+
+### 35.3 Honest interpretation
+This is strong evidence that corrected SFT can learn the narrow calculator
+protocol; it is not evidence of broad agent improvement. The candidate runs
+through Transformers but has not passed the required Ollama deployment path,
+so `deployment_decision = not_accepted`; Round 20 is not counted as a deployed
+L3 self-improvement update. Paper Section 8.4 reports the result with that
+limitation.
+
+## 36. GAIA2 Official and Routed Dev Attempts (2026-08-02/03)
+
+### 36.1 Official harness attempts
+The official GAIA2 mini harness was run against qwen3:1.7b and qwen2.5:7b
+(local and OpenAI-compatible providers). Every validated run scored 0/1:
+the models emitted zero tool calls under the official tool protocol
+(`logs/gaia2_official_*/benchmark_stats.json`). These runs are retained as
+evidence of the harness bridge, not as paper results.
+
+### 36.2 Routed development probe
+`experiments/gaia2_routed_dev.py` is a development-only probe that narrows the
+action schema and exposes only selected visible app state, then scores against
+the oracle sequence. Three scenarios were probed (indexes 0-2); none matched
+the exact oracle sequence (0/3 exact; scenario 1 reached 3/7 step matches but
+added duplicate Messages). Outputs are marked `development_only` in
+`logs/gaia2_routed_dev/`. No dev-probe number enters the manuscript.
+
+### 36.3 Paper status
+The manuscript retains its explicit limitation: no canonical end-to-end GAIA2
+harness. Getting a positive canonical GAIA2 result remains the main open
+empirical work item.
+
+## 37. Round 17-20 Release State (2026-08-07)
+
+- Manuscript: v2 submission draft; date updated; Sections 4.1.2, 8.4, 9
+  cover the new controlled and SFT evidence with explicit limitations.
+- Submission preflight: `scripts/preflight_submission.py` new; all checks pass
+  with `--allow-placeholders` (final author metadata still user-supplied).
+- Unit tests: `tests/` new; 43/43 pass.
+- Integrity: safety gate 12/12, red-team 18/18 + 12/12 valid controls, figures
+  and DOCX verified by preflight.
+- Git: Round 17-20 revision committed; worktree clean (large SFT weights stay
+  gitignored).

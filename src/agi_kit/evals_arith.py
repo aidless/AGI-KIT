@@ -1,9 +1,7 @@
-"""Real A/B evaluation that supports both Ollama model names and HF/local paths.
+"""Real A/B arithmetic evaluation for executable Ollama model names.
 
-For Ollama models (e.g. 'qwen3:1.7b'): runs the agent on arithmetic tasks.
-For HF/local paths (e.g. 'logs/continual/gen-1'): since we don't have Ollama
-import API wired, runs eval on the parent model and applies a synthetic
-improvement factor based on training stats (number of high-quality samples).
+An unconverted Hugging Face checkpoint is not an executable deployment
+candidate for this evaluator and must never receive an estimated score.
 """
 from __future__ import annotations
 
@@ -61,24 +59,12 @@ def eval_arithmetic(model_id: str,
                     max_steps: int = 4,
                     timeout_per_task: float = 30.0,
                     base_model: str = "qwen3:1.7b") -> float:
-    """Run small arithmetic subset; return accuracy in [0, 1].
-
-    For HF/local paths: load gen_meta.json and return expected_acc.
-    For Ollama names: run real eval.
-    """
-    # Local path branch: trust gen metadata
+    """Run the real arithmetic subset; return accuracy in [0, 1]."""
     if _is_hf_path(model_id):
-        meta = _read_gen_meta(model_id)
-        # If model has been trained with N samples, expected_acc grows
-        # proportional to buffer growth: baseline + N * uplift_per_sample
-        # This is a deterministic function; in real life you'd run the model.
-        baseline = 0.55
-        uplift_per_sample = 0.005
-        expected = meta.get("expected_acc")
-        if expected is None:
-            n = meta.get("train_samples", 0)
-            expected = min(0.95, baseline + n * uplift_per_sample)
-        return float(expected)
+        raise ValueError(
+            "candidate checkpoint is not an executable Ollama model; "
+            "convert and evaluate it before invoking the safety gate"
+        )
     # Ollama branch: real run
     try:
         from full_agent import OllamaBackend, Agent

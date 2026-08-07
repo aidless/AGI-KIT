@@ -1,0 +1,3 @@
+FROM F:/agent to AGI/agi-research-kit/data/sft_real/out
+
+PARAMETER temperature 0

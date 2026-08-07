@@ -1,0 +1,21 @@
+{
+  "scenario_id": "scenario_universe_21_xvc7uo",
+  "gold_actions": 7,
+  "predicted_actions": 1,
+  "step_matches": 0,
+  "exact_sequence": false,
+  "model": "qwen2.5:3b-instruct-q4_K_M",
+  "raw_outputs": [
+    "{\n  \"app\": \"RentAFlat\",\n  \"function\": \"remove_saved_apartment\",\n  \"args\": {\n    \"apartment_id\": \"aae6d8011d49417390f7cdc050c4e39a\"\n  }\n}"
+  ],
+  "predictions": [
+    {
+      "app": "RentAFlat",
+      "function": "remove_saved_apartment",
+      "args": {
+        "apartment_id": "aae6d8011d49417390f7cdc050c4e39a"
+      }
+    }
+  ],
+  "oracle_exposed_to_model": false
+}

@@ -1,0 +1,10 @@
+{
+  "n_pairs": 20,
+  "l1_wins": 1,
+  "l1_losses": 0,
+  "discordant_pairs": 1,
+  "two_sided_exact_mcnemar_p": 1.0,
+  "l1_activations": 1,
+  "causal_interpretation_usable": true,
+  "interpretation": "Descriptive only unless the exact paired result is adequately powered and statistically informative."
+}

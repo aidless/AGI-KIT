@@ -1,8 +1,10 @@
-# AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on Consumer Hardware —?Empirical Observations
+# AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on Consumer Hardware - Empirical Observations
 
 **Authors:** AGI Research Kit Contributors
-**Date:** 2026-08-01
-**Status:** arXiv preprint (preprint-unified v1). The predecessor
+
+**Date:** 2026-08-02
+
+**Status:** submission draft (preprint-unified v2; not yet submitted). The predecessor
 *5-paper TMLR bundle* has been archived at `papers/_deprecated/`.
 
 ## Abstract
@@ -10,64 +12,76 @@
 We report on **AGI Kit**, a four-layer self-improving tool-use
 pipeline that runs entirely on consumer hardware (CPU only, ~5 GB
 RAM) on small open-weight models (Qwen3-1.7B primary, Qwen3-0.6B
-scorer). Our contribution is **empirical**: we measure what each
-layer contributes and stress-test the safety gate adversarially.
+scorer). Our contribution is **empirical**: we characterize the
+pipeline under several small evaluation regimes and stress-test the
+safety gate adversarially.
 
-**The headline finding is a +95 percentage-point gap** on a hard
-20-task arithmetic eval (Qwen3-1.7B): the bare model with
+On a 20-task arithmetic evaluation, the bare Qwen3-1.7B model with
 `max_steps=3` scores **5.0%** (1/20); the same model wrapped in the
-full L1-L4 pipeline with `max_steps=6` scores **100.0%** (20/20).
+full L1-L4 pipeline with `max_steps=6` records **100.0% structural
+completion**, but an independent gold recheck finds **95.0% correctness
+(19/20)** because one prediction (`5`) mismatches the gold answer (`2`).
 **Step-budget control:** we ran a controlled comparison at matched
 step budget on the same 20 tasks: bare qwen3:1.7b with
-`max_steps=6` scores **35.0%** (7/20). The +95 pp total gain
-decomposes into **+30 pp** from step-budget doubling (3 -> 6 steps)
-and **+65 pp** from the L1-L4 layers (35 -> 100% at matched budget).
-A further Round 14 baseline test (Section 4.1.4) shows a **Static
+`max_steps=6` scores **35.0%** (7/20). Performance changes by
+**+30 pp** after doubling the step budget (3 -> 6 steps), while the
+remaining **+60 pp** separates the bare and L1-L4 configurations at
+six steps. Because their prompts and control flow also differ, the
+latter is not an isolated causal estimate of the layers.
+A further Round 14 baseline test (Section 7.3) shows a **Static
 one-shot** baseline with appropriate prompting reaches 8/8 = 100%
 on multi-step arithmetic chains where AGI Kit L1-L4 scores ~77.6%,
-so the **layer-only contribution is bounded above by the
-prompt-engineering contribution**. We therefore report the +95 pp
-headline as a *layers + step-budget + prompt* effect, not a pure
-layer effect.
+so prompt design is a material confound. We therefore report the
++90 pp gold-correctness difference as a *configuration* effect involving layers, step
+budget, and prompt structure, not a pure layer effect.
 **Cross-model-family check:** Llama-3.2-1B (a different model
 family, used as both primary and scorer) goes from **0%** bare
-to **100%** with L1-L4 at the same 2x step-budget confound. The bare
-failure is not a fundamental capability ceiling - L1 reflection
-unlocks the latent arithmetic ability even on a 1.2B model.
-**Clean positive head-to-head:** on a 6-scenario GAIA2-mini
-subset with **fixed prompts** that do not ask for JSON tool-call
-wrapping (Round 16, Section 4.1.6), AGI Kit L1-L4 wins **6/6 = 100%**
-vs Static 5/6 = 83.3% and ReAct 5/6 = 83.3%. The L1 reflective
-prompt asks the model to verify each step fits the trajectory,
-producing all 8 expected tool calls on the 8-step Shopping+Messages
-sequence where Static and ReAct fail at 6/8. This is the first
-clean positive head-to-head result across all baseline tests
-in this project. (per-step reflection,
-semantic strategy memory, continual-learning buffer, and bounded
-recursive self-modification), not to the doubled step budget
-alone. On a saturated 9-task synthetic GAIA2-mini eval, all five
+to **95% gold correctness** with L1-L4 at the same 2x step-budget confound. The bare
+failure is not a fundamental capability ceiling; the full wrapper
+recovers performance in this small evaluation.
+**Exploratory prompt comparison:** on a 6-scenario GAIA2-mini
+subset with plain-text prompts (Round 16, Section 7.5), a
+step-verification prompt scores **6/6**, versus **5/6** for Static
+and ReAct prompt templates. With only one discordant scenario per
+pair and no preserved runner script, this is descriptive prompt-level
+evidence, not a statistically supported architecture comparison.
+**Matched L1 check:** on a newly versioned 20-task held-out arithmetic
+manifest, prompt, tool, model seed, and `max_steps=6` were identical
+between a Static and an L1 reflection-and-verification configuration
+on Llama-3.2-3B-Instruct-Q8_0. Static obtained **19/20** and L1
+obtained **20/20** gold-correct answers. The one corrected final
+conflicted with the immediately preceding calculator observation and
+was retried by L1. This is a real isolated intervention, but one
+discordant pair has two-sided exact McNemar p=1.0; it is evidence of a
+working correction path, not evidence of a general accuracy gain.
+On a saturated 9-task synthetic GAIA2-mini eval, all five
 ablation configurations (Static / L1 / L1+L2 / L1+L2+L3 / Full)
 score **77.8%** - the eval is too easy for the base model to
 discriminate layer contributions.
 
-**Two negative results** bound the contribution. First, an
-OPRO-style "trust the optimizer" interpretation would predict that
-continual-learning retraining improves the running model. In our
-runs the eval signal on candidate generations climbed from
-0.585 to 0.735 across 6 generations, but the conservative A/B
-safety gate (threshold=0.85, baseline_acc=1.0) **rejected every
-candidate**, so the running model never benefited from the
-+15 pp the buffer suggested. The gate is conservative by design.
+**Two negative results** bound the contribution. First, we do not
+have a real deployed continual-learning update. The historical
+generation curves used mock or non-executable candidates, whose
+reported candidate scores are not valid performance evidence. A real
+SmolLM2 checkpoint is present, but it has not been converted into an
+executable candidate; the hardened gate now rejects such a candidate
+as `candidate_not_executable` before evaluation. The gate policy is
+tested at its numerical boundary, but self-improvement performance is
+not established.
 Second, on the GAIA2-mini eval the synthetic tasks lack canonical
 gold; re-evaluating 138 emitted finals against extracted arithmetic
 gold gives **77.6% correctness on the arithmetic subset** (vs 100%
 JSON-final-emission), with the 22 pp gap concentrated on 4 specific
 multi-step task templates where the agent emits the correct sum
-but an incorrect product (Section 4.1.2 and Appendix E).
+but an incorrect product (Section 7.1 and Appendix E).
 
-Continual-learning variance across 3 seeds x 15 episodes:
-**60.4% +/- 3.6%** (reported as variance, not t-tested against
-an unmeasured baseline). The A/B safety gate passes **12 of 12**
+An archived three-run summary reports JSON final-emission rates of
+62.5%, 62.5%, and 56.2% (mean 60.4%, run-level SD 3.6 pp). The
+driver requested 15 base tasks but inserted one trigger, yielding
+16 episodes per run; it varied `PYTHONHASHSEED` rather than a fully
+controlled model seed, and later runs reused the output directories.
+We therefore treat this result as descriptive only. The A/B safety
+gate passes **12 of 12**
 adversarial boundary tests. We are explicit about what we did not
 validate: full GAIA2 benchmark, multi-thousand-episode continual
 runs, real-world deployment, and head-to-head comparisons against
@@ -91,13 +105,15 @@ weeks without supervision. Three questions drove the design:
    cadence and safety thresholds.
 3. **Does a rule-based meta-controller (L2) earn its complexity?** A
    learned meta-controller is fashionable; a rules-based one is suspect
-   —?but it is also debuggable on consumer hardware.
+   - but it is also debuggable on consumer hardware.
 
-Section 4 reports the end-to-end ablation answering all three: yes to
-(1), yes-and-it-depends to (2), and mixed to (3). Section 5 takes each
-layer apart and reports what we observed in isolation. Section 6
+Section 4 reports configuration-level and controlled results relevant
+to these questions. Only the new L1 check isolates a single
+intervention; L2 and L3 remain incomplete empirical questions.
+Section 5 takes each layer apart and reports what we observed in
+isolation. Section 6
 adversarially stress-tests the safety gate that gates continual
-learning. Section 8 lists the things we *did not* validate, which is
+learning. Section 9 lists the things we *did not* validate, which is
 where most of the work remains.
 
 The novelty framing in this preprint is deliberately modest. Layers L1
@@ -107,9 +123,9 @@ through L4 reflect ideas from Reflexion [Shinn et al. 2023], Voyager
 
 - A **measured layer ablation** with all four layers on identical
   hardware and identical prompts.
-- A **statistical validation** of continual learning (3 seeds x
-  15 episodes, reported as a variance estimate rather than a
-  t-test against an unmeasured baseline).
+- A **descriptive repeated-run audit** that exposes the limits of the
+  original seed control and artifact provenance rather than treating
+  the runs as inferential evidence.
 - A **12-case boundary stress test** for the A/B safety gate,
   with adversarial threshold sweeps.
 
@@ -120,31 +136,32 @@ through L4 reflect ideas from Reflexion [Shinn et al. 2023], Voyager
 The system is decomposed into four layers, each independently
 removable. The implementation lives in `src/agi_kit/`.
 
-* **L1 —?Reflector (`reflect.py`).** After each agent step, a separate
+* **L1 - Reflector (`reflect.py`).** After each agent step, a separate
   small model (Qwen3-0.6B) scores the (action, observation) pair and
   decides whether to retry. The score drives both a per-step retry
   policy and a per-episode buffer that records which (state, action,
   score) triples produced successful retries.
 
-* **L2 —?Meta-Controller (`meta.py` + `playbook.py`).** A semantic
+* **L2 - Meta-Controller (`meta.py` + `playbook.py`).** A semantic
   strategy memory persists distilled rules ("when a tool error contains
   HTTP 5xx, retry with backoff"; "when a search returns zero results,
   switch query strategy"). The meta-controller selects among
   hand-written rules and learned rules based on a hand-coded priority
   table.
 
-* **L3 —?Continual Learning Loop (`loop.py`).** A buffer of recent
+* **L3 - Continual Learning Loop (`loop.py`).** A buffer of recent
   successful episodes triggers a periodic fine-tune (mock in our
   headline runs, real SmolLM2-135M in our SFT validation, see
   Appendix C). Candidate models are evaluated against the incumbent
   baseline; only candidates passing the A/B gate replace the running
   model.
 
-* **L4 —?Bounded Recursive Self-Modification (`recursive.py`).**
-  SchemaMutator proposes changes to the strategy schema (renaming a
-  strategy, adding a new error class). Every proposed change is
-  evaluated against safety predicates before commit; the SchemaHistory
-  is the audit trail.
+* **L4 - Bounded Recursive Self-Modification (`recursive.py`).**
+  SchemaMutator proposes bounded changes to five numeric
+  `MetaControllerConfig` fields. A closed whitelist plus type and range
+  checks runs before an optional evaluation gate; SchemaHistory is the
+  audit trail. ToolFactory and PromptMutator are separate experimental
+  surfaces with stricter limitations described in Sections 5.4 and 6.7.
 
 ### 2.2 Continual Learning Loop and A/B Safety Gate
 
@@ -188,7 +205,7 @@ for that target by ~2x headroom, which we treat as a safety margin.
 - **Arithmetic held-out:** 15 tasks of mixed-shape arithmetic (5
   chosen at random from a 50-task bank per episode). Used for
   continual-learning eval.
-- **Synthetic GAIA2 mini:** The headline evaluation in `experiments/full_run3.py` uses 50 synthetic GAIA2-style tasks (5 task categories: arith_chain, file_calc, shell_read, double_lookup, word_count) generated by `src/agi_kit/gaia2_tasks.py:synth_gaia2_tasks`. The 5-configuration ablation in Round 7 uses 9 tasks (8 GAIA2-style + 1 tool-factory trigger). The statistical-validation runs (3 seeds x 15 episodes) use 15 GAIA2-style tasks. We do **not** report results on the full GAIA2 benchmark - Section 8 explains why. The 160-example GAIA2-mini split is downloaded to disk at `F:\hf_cache\datasets\meta-agents-research-environments___gaia2\mini` but is not used end-to-end in this round. **Task selection is deterministic (seed=42, round-robin over the 5 categories)**; there is no post-hoc subset choice, and `experiments/full_run3.py` runs all 50 (or 15, or 9) generated tasks to completion.
+- **Synthetic GAIA2 mini:** The headline evaluation in `experiments/full_run3.py` uses 50 synthetic GAIA2-style tasks (5 task categories: arith_chain, file_calc, shell_read, double_lookup, word_count) generated by `src/agi_kit/gaia2_tasks.py:synth_gaia2_tasks`. The 5-configuration ablation in Round 7 uses 9 tasks (8 GAIA2-style + 1 tool-factory trigger). The historical repeated-run driver requests 15 GAIA2-style tasks and inserts one trigger, producing 16 episodes per run. We do **not** report results on the full GAIA2 benchmark - Section 9 explains why. The 160-example GAIA2-mini split is included at `data/gaia2/validation.jsonl` but is not used end-to-end in this round. **Task selection is deterministic (seed=42, round-robin over the 5 categories)**; there is no post-hoc subset choice in the synthetic runs.
 - **Hard 20-task arithmetic eval:** All 20 multi-step arithmetic problems (16 arithmetic + 4 chained categories) from `experiments/cross_model_with_layers.py:TASKS`, which are the **same 20 tasks** used in `experiments/cross_model_eval.py` (Section 4.4). All 20 tasks run for every model; no subset is filtered. Used to measure layer effects where the synthetic GAIA2 mini eval saturates (Section 4.1).
 - **ToolFactory triggers:** 3 trigger conditions that exercise the schema mutation path.
 
@@ -227,55 +244,53 @@ the needle on tasks the base model already solves.
 
 The same 20-task arithmetic eval (Section 4.4) tells the opposite
 story. On the harder 20-task set with `max_steps=3` and no layers,
-qwen3:1.7b scores 1/20 = 5.0% (matching random guessing on a
-multi-step arithmetic problem). When we wrap the same model in
+qwen3:1.7b scores 1/20 = 5.0%. When we wrap the same model in
 the full L1-L4 pipeline (`max_steps=6`, Reflector + Playbook +
-MetaController), it scores 20/20 = 100.0%. That is a +95
-percentage point delta - **confounded with the 2x step-budget
-doubling**. A controlled Round 14 baseline test (Section 4.1.4)
-shows that on the multi-step chains where AGI Kit L1-L4 scores
-~77.6% correctness, a Static one-shot prompt with the same eval
-hits 100%. So the **layer contribution alone** is bounded above by
-the **prompt-engineering contribution**. The per-layer breakdown on
-the hard eval is not measured in this round. The hard-eval gap
-between AGI Kit L1-L4 and Static one-shot is therefore small
-(<10 pp) once step budget and prompt are matched.
+MetaController), the runner records 20/20 structural success, but an
+independent gold recheck gives 19/20 = 95.0%. The resulting +90
+percentage point correctness difference is **confounded with the 2x step-budget
+doubling**. A controlled Round 14 baseline test (Section 7.3)
+shows that prompt design can reverse the ranking on a separate
+multi-step task sample. The per-layer breakdown on the hard eval is
+not measured in this round, and prompt structure remains uncontrolled.
 
-| Configuration on hard 20-task eval | JSON final-emission rate | vs Static |
+| Configuration on hard 20-task eval | Gold correctness (rechecked) | vs bare, 3 steps |
 |---|---:|---:|
 | Static Qwen3-1.7B (bare, max_steps=3) | 5.0% | - |
 | **Bare Qwen3-1.7B (max_steps=6)** - step-budget controlled | **35.0%** | +30 pp |
-| Full L1-L4 on Qwen3-1.7B (max_steps=6) | 100.0% | +95 pp |
-| **Pure layer contribution (Qwen3-1.7B, matched budget)** | - | **+65 pp** (35 -> 100) |
+| Full L1-L4 on Qwen3-1.7B (max_steps=6) | 95.0% (19/20) | +90 pp |
+| **Matched-step configuration gap (Qwen3-1.7B)** | - | **+60 pp** (35 -> 95) |
 | Static Llama-3.2-1B (bare, max_steps=3) | 0.0% (0/20) | -4 pp vs Qwen |
-| Full L1-L4 on Llama-3.2-1B (max_steps=6) | 100.0% (20/20) | +100 pp vs its bare |
+| Full L1-L4 on Llama-3.2-1B (max_steps=6) | 95.0% (19/20) | +95 pp vs its bare |
 
 The 35% bare baseline at max_steps=6 (logs/cross_model_bare_qwen1.7b_max6/summary.json)
-controls for the step-budget confound: with matched step budget, the layers
-contribute **+65 pp** of the **+95 pp** total gain (the remaining +30 pp
-comes from the 2x step-budget doubling).
+controls only the step-budget confound. At matched step budget, the
+bare and full configurations differ by **+60 pp**; prompt structure
+and control flow still differ, so this is not a pure layer effect.
 
 The Llama-3.2-1B run uses the same model for both primary and scorer
 (no separate scorer model); all 20 tasks are run; data is in
 `logs/cross_model_layers_llama1b/summary.json` and the bare
 baseline is in `logs/cross_model_bare_llama1b/summary.json`. The
-+L1-L4 pipeline is **model-family-agnostic**: a +95 pp gain holds
-for both Qwen and Llama families.
+L1-L4 pipeline follows the same qualitative pattern in both families,
+but two model families and 20 tasks are too small to establish
+model-family invariance.
 
 **Takeaway:** the four layers do not help on saturated evals
 (they cannot improve past a model that already solves the task)
-but they are decisive on hard evals where the bare model fails.
+but the full configuration can outperform the bare configuration on
+the tested hard eval.
 This is consistent with the cross-model finding in Section 4.4:
 qwen3:1.7b hits 5% on the same 20-task arithmetic eval without
-reflection, and 100% with the full L1-L4 wrapper.
+reflection, and 95% gold correctness with the full L1-L4 wrapper.
 
 The ablation data is at `logs/ablation/{static,l1_only,l1_l2,l1_l2_l3,full}/summary.json`. The hard-eval data is at `logs/cross_model_layers/summary.json` (full L1-L4) and `logs/cross_model/results.json` (bare, qwen3:1.7b).
 
 ### Figure 1: Layer Ablation
 
-![Layer ablation across the four layers of AGI Kit. Left: synthetic GAIA2 mini (all configs 77.8%). Right: harder 20-task arithmetic (5% bare vs 100% full).](../figures/fig1_layer_ablation.png)
+![Layer ablation across the four layers of AGI Kit. Left: synthetic GAIA2 mini (all configs 77.8%). Right: harder 20-task arithmetic (5% bare vs 95% full after independent gold recheck).](figures/fig1_layer_ablation.png)
 
-*Figure 1: two-panel ablation. Left - synthetic GAIA2 mini is saturated; all five configurations achieve 77.8%. Right - on the harder 20-task arithmetic eval, the bare baseline scores 5% and the full L1-L4 pipeline scores 100%, a +95 percentage point delta. Per-layer breakdown on the hard eval is not measured.*
+*Figure 1: two-panel comparison. Left - the synthetic GAIA2 mini evaluation is saturated; all five configurations achieve 77.8%. Right - the bare and full configurations achieve 5% and 95% gold correctness under different step budgets and prompts. Per-layer effects on the hard evaluation are not measured.*
 
 ### 4.1.1 The Metric: JSON Final-Emission Rate
 
@@ -289,90 +304,125 @@ JSON object with a `final` key (and matching gold when available)
 is treated as a successful agent step.
 
 Operationally:
+
 - The synthetic GAIA2-mini tasks in this round **do not all have
   gold annotations**. For the ablation above, we used the JSON
   final-emission criterion (parseable JSON with a `final` key)
   because gold values are sparse for some synthetic categories.
   This means the synthetic-GAIA2 ablation numbers do not measure
   correctness strictly - they measure structural completion.
-- The 20-task arithmetic eval **does have gold annotations**, and
-  the full L1-L4 pipeline (100%) is verified against gold. The
-  bare baseline (5%) is the same metric on the same eval.
+- The 20-task arithmetic eval **does have gold annotations**. An
+  independent recheck gives 95% (19/20) for the full configuration,
+  correcting the runner's erroneous 20/20 `ok` count. The bare
+  baseline is 5% (1/20) on the same gold set.
 - The static 77.8% on synthetic GAIA2-mini therefore slightly
   overstates correctness on the subset of tasks without gold
   (where a wrong JSON answer still counts as a "final emission").
-  The 100% on the 20-task arithmetic eval is a strict correctness
-  measurement.
+  The independent 95% gold recheck on the 20-task arithmetic eval is
+   the strict correctness measurement.
+
+### 4.1.2 Controlled L1 Reflection-and-Verification Check (Round 17)
+
+To isolate a runnable L1 behavior, we created a new, versioned
+manifest of 30 arithmetic tasks (`data/controlled_arithmetic_v1.json`),
+with a 20-task held-out test split and a separate 10-task development
+split. The runner (`experiments/controlled_arithmetic_eval.py`) runs
+both arms with the same task text, system prompt, calculator, model,
+Ollama generation seed, and `max_steps=6`; each task/configuration
+pair is written as JSONL with raw responses, tool observations, prompt
+and manifest hashes, and parser outcomes. The gold label is not shown
+to the agent.
+
+The treatment is intentionally narrow. The Static arm proceeds after a
+calculator observation as usual. The L1 arm receives one reflection
+message only when its proposed final numerically conflicts with the
+latest successful calculator observation; it then has the remaining
+budget to correct that final. Thus the intervention is an executable
+self-check over its own tool evidence, not a post-hoc gold-answer hint.
+
+| Configuration | Gold correct | Normalized complete JSON | Strict fenced JSON | Mean steps | Tool-evidence retries |
+|---|---:|---:|---:|---:|---:|
+| Static | 19/20 (95.0%) | 20/20 | 0/20 | 2.00 | 0 |
+| L1 evidence-check | 20/20 (100.0%) | 20/20 | 0/20 | 2.05 | 1 |
+
+The sole discordant task was `ca020`: Static emitted a final that did
+not match its calculator output, while L1 received the mismatch
+message and corrected it on the next step. With one L1 win and zero
+losses, the two-sided exact McNemar/binomial p-value is **1.0**. The
+estimate is therefore descriptive and deliberately not presented as a
+significant accuracy gain. It does, however, demonstrate that L1 is
+now causally active in a prompt-, tool-, budget-, and seed-matched
+comparison, addressing the earlier defect where reflection was logged
+but not injected into the subsequent decision.
+
+The strict-versus-normalized transport columns are both reported.
+"Strict" requires a fenced `json` block. "Normalized" accepts either
+one fenced block or a complete bare JSON object and rejects JSON-like
+substrings in prose, multiple final blocks, and any object with fields
+other than `final`. This separates formatting compliance from gold
+correctness rather than rewarding arbitrary numeric text.
+
+We attempted the same protocol on Qwen3-0.6B. The L1 condition never
+activated, yet the two nominally seed-matched arms differed (9/20
+Static versus 6/20 L1). The archived analysis marks this run as
+**not causally interpretable** because the service did not provide
+call-level repeatability despite the requested seed. We do not pool it
+with the Llama result or use it to claim a cross-model effect; it is a
+diagnostic artifact motivating an explicit repeatability gate before
+future cross-model inference.
 
 What this metric does NOT measure:
+
 - Whether the tool calls along the way were reasonable.
 - Whether the strategy schema was appropriate to the task.
 
 Where the rest of the paper does depend on real numerical evidence:
+
 - Section 6.1 (12/12 safety gate boundary tests) - independent of
   the metric above. The verdict is determined by comparison against
   expected output, set deterministically.
 - Section 4.4 cross-model eval (20 tasks x 4 models) - gold-tagged.
-- Section 4.3 statistical validation (3 seeds x 15 episodes) -
-  uses the JSON-final-emission criterion; see Section 4.1.1.
+- Section 4.3 historical repeated-run summary - descriptive only;
+  uses the JSON-final-emission criterion and has incomplete provenance.
 ### 4.2 Generation Progression (Continual Learning)
 
-### Figure 2: Continual-Learning Generation Curve
+The archived generation curves in `logs/full_run2/` and
+`logs/full_run3/` are no longer interpreted as candidate-performance
+results. Their runners used mock retraining or an evaluator that
+assigned a synthetic score to a local checkpoint. We retain the files
+for audit history but omit the curve from the submission manuscript.
 
-![Across 7 generations of full_run3.py, eval_new_acc climbs from 0.605 to 0.745 (+14 pp). The A/B gate rejects every generation; the running model is the base, but the eval signal on candidates is what the gate uses.](../figures/fig2_generation_curve.png)
+The current implementation requires an executable Ollama model name
+from the retraining backend. If conversion fails, the generation is
+recorded as `candidate_not_executable`, receives no estimated score,
+and cannot replace the incumbent. This makes the deployment safety
+claim narrower but real: the system fails closed. A future continual
+learning result requires training, conversion, a fixed held-out
+evaluation, and a logged acceptance decision for the same candidate.
 
-*Figure 2: per-generation eval accuracy across the 7-generation continual loop. The headline-run threshold (0.85 of baseline; code signature default is 0.95) means every generation is rejected; the system stays on the base model.*
+### 4.3 Historical Repeated-Run Summary (Descriptive Only)
 
+The archived `logs/stat_tests/results.json` records three runs with
+JSON final-emission rates of 62.5%, 62.5%, and 56.2% (mean 60.4%,
+run-level sample SD 3.6 percentage points). These values are not a
+formal statistical validation:
 
-Across 7 generations of `full_run2.py` (not `full_run3.py` - we
-corrected the attribution in Round 7), `eval_new_acc` rose from
-0.605 (gen 1) to 0.745 (gen 7), a +14 pp climb. The A/B gate
-rejected every generation at the conservative headline threshold
-(0.85 of baseline), so the running model in the canonical
-experiment was the base model. The 7-generation curve is in
-`logs/full_run2/summary.json` and forms Figure 2 in the figures
-bundle. (`full_run3.py` also produces a 6-generation curve in
-`logs/full_run3/summary.json` with eval_new_acc rising from 0.585
-to 0.735; the data is similar but the figure is drawn from the
-full 7 generations in full_run2.)
+- The driver requested 15 GAIA2-style tasks but `full_run3.py`
+  inserted one ToolFactory trigger, so each run contained 16 episodes
+  and the archived total is 48, not 45.
+- The driver varied `PYTHONHASHSEED`; it did not set or record all
+  model-sampling and library random seeds.
+- The per-run output directories were later reused, so their current
+  contents no longer reproduce the snapshot in `results.json`.
+- Episodes are clustered within runs and cannot be treated as 48
+  independent observations for a confidence interval or power
+  analysis.
 
-Two implications:
-
-1. The gate is conservative by design - when generation quality
-   lags, the system correctly defers to the previous generation.
-2. The +14 pp climb is the *eval signal* of the candidate; it is
-   not what the running system used. The running system used the
-   base model and got the +95 percentage-point delta on the hard
-   20-task arithmetic eval (Section 4.1) via the L1-L4 wrapper.
-
-### 4.3 Statistical Validation
-
-To address Reviewer 1 concern about variance, we ran 3 seeds x 15 episodes = 45 runs of the full pipeline. The headline number:
-
-- **Mean JSON final-emission rate: 60.4% +/- 3.6%**
-- **95% confidence interval: [56.3%, 64.5%]**
-
-We also ran a 5-configuration ablation (Round 7) at n=8 episodes per config (Section 4.1) on the same synthetic GAIA2-mini eval to obtain a measured static baseline. The static baseline achieves 77.8% on this eval set - higher than the full pipeline 60.4% on the 15-episode eval, because the 15-episode eval (in stat_tests) uses `max_steps=12` while the ablation uses `max_steps=6-8`. The two are not directly comparable, which is why we do not perform a t-test against the static baseline here.
-
-The 60.4% +/- 3.6% number is what Reviewer 1 asked for: variance across seeds. We acknowledge that 45 runs is small by machine-learning conventions; it is large enough to characterize the seed-to-seed variance but not to make claims about competitive superiority over a competitor that differs by less than 10 pp.
-
-For comparisons against measured baselines, see Section 4.1 (layer ablation, all configs ~78% on saturated eval, +95 pp on hard eval) and Section 4.4 (cross-model eval with measured gold).
-
-### 4.3.1 Power Analysis for the 3-Seed Run
-
-With N=3 seeds x 15 episodes = 45 observations, the variance estimate is the dominant uncertainty. A power analysis (assuming sd=3.6pp, alpha=0.05 two-tailed) shows that our setup has 80% power to detect a ~7 pp difference from a reference mean, but only 50% power to detect a ~4 pp difference. The headline 60.4% +/- 3.6% number is therefore best read as a *variance estimate* across seeds, not as a tight point estimate of pipeline accuracy. The ablations in Section 4.1 give us the actual layer effect sizes on two eval regimes; the 3-seed statistical run gives us the variance of the full pipeline under one specific configuration.
-
-### 4.3.2 Why 3 Seeds, Not 30
-
-The choice of N=3 seeds x 15 episodes (45 runs) was constrained by total compute budget (CPU-only consumer hardware, ~30 sec per episode). The trade-off was statistical power vs. ability to scan more configurations. We chose the smaller N to enable the alpha sweep (Section 5.1), the 5-config ablation (Section 4.1), and the cross-model evaluation (Section 4.4) in the same compute budget. A future re-run with warm LLM cache should target N=10 seeds x 15 episodes = 150 runs.
-
-### 4.3.3 Bootstrap Robustness Check
-
-To rule out that the 3-seed result is an artifact of a single lucky run, we performed a bootstrap resample (N=1000) of the 45-episode pool, recomputing the mean each time. The bootstrap 95% CI is [55.8%, 64.6%], slightly wider but consistent with the parametric [56.3%, 64.5%]. The mean is robust to outlier episodes.
-
-### 4.3.4 Comparison to Prior Statistical Validation
-
-To our knowledge, only one prior continual-learning system reports seed-level statistics on a comparable task set: the Voyager paper (Wang et al., 2023) reports 3 game seeds on a Minecraft benchmark without a t-test; MetaGPT (Hong et al., 2023) reports single-run benchmarks on HumanEval-style tasks. Reflexion (Shinn et al., 2023) reports 2-trial averages without significance testing. Our 3-seed x 15-episode setup, while smaller than the 30+ seeds recommended for formal statistical power analysis, is at or above the reporting standard in the immediate prior literature on similar systems. The honest claim is therefore not "we meet the bar of formal power analysis" but "we exceed the bar of comparable published work". This is a meaningful but bounded claim.
+We therefore report the three observed run rates descriptively, with
+no confidence interval, hypothesis test, bootstrap claim, or comparison
+to an unmeasured baseline. A valid follow-up should use fresh run
+directories, explicit seeds for every stochastic component, a fixed
+task manifest, and at least 10 independent runs.
 
 ### 4.4 Cross-Model Behavior
 
@@ -383,20 +433,20 @@ transfer, or is it Qwen3-family specific?
 | Model | Size | Bare (max_steps=3) | Full L1-L4 (max_steps=6) | Latency (s/q) |
 |---|---:|---:|---:|---:|
 | qwen2.5:3b | 3.1B | **70.0%** | n/a | 1.45 |
-| qwen3:1.7b | 2.0B | 5.0% | **100.0%** | 5.71 |
-| llama3.2:1b | 1.2B | **0.0%** | **100.0%** | 0.80 |
+| qwen3:1.7b | 2.0B | 5.0% | **95.0%** | 5.71 |
+| llama3.2:1b | 1.2B | **0.0%** | **95.0%** | 0.80 |
 | qwen3:0.6b | 0.75B | 5.0% | n/a | 3.66 |
 
 Two observations:
 
-1. **There appears to be a size threshold below which per-step
-   reflection does not work.** Models at <2B all collapse to <=5% in bare mode (qwen3:0.6b,
-   qwen3:1.7b: 5%, llama3.2:1b: 0%). But **Llama-3.2-1B goes from
-   0% to 100% with L1-L4**, showing that the bare-mode failure is
-   not a fundamental capability ceiling - L1 reflection unlocks
-   the latent arithmetic ability even on a 1.2B model.
-2. **qwen2.5:3b lands at 70% JSON-final-emission rate on the cross-model 20-task eval (max_steps=3). On the harder 20-task eval with the full L1-L4 wrapper (max_steps=6), qwen3:1.7b reaches 100% (Section 4.1); the 30-point gap between qwen2.5:3b bare and qwen3:1.7b wrapped with full L1-L4 is what we report as the layer effect.** A retrained smaller scorer might
-   close the gap.
+1. Bare-mode performance is low for the three tested models at or
+   below 2B parameters, but the full wrapper reaches 95% for the
+   tested 1.2B and 1.7B models. This small, non-factorial sweep does
+   not establish a parameter-count threshold or isolate reflection.
+2. Qwen2.5-3B reaches 70% in bare mode. Comparing that value with a
+   different model under the full wrapper would confound model family,
+   parameter count, prompt, and step budget, so we do not interpret the
+   30-point difference causally.
 
 The data is in `logs/cross_model/`.
 
@@ -411,34 +461,16 @@ The Reflector's job is per-step: was the action right? Should we
 retry? The Round 7 ablation in Section 4.1 does NOT separate the
 contribution of L1 in isolation from the other layers (all configs
 on the synthetic GAIA2-mini eval land at 77.8% due to eval saturation).
-The numbers in the figure and discussion below (23%/91% threshold
-sweep, 51%/44% scorer swap, 30% without L1) are *estimated* from
-the smoke-test runs in `experiments/l1_reflect_smoke.py` and from
-the early-round 5-paper bundle; they should be read as a qualitative
-illustration of the scoring-method trade-off, not as precise
-measurements on a held-out benchmark.
+The early five-paper bundle quoted threshold-sweep and scorer-swap
+percentages, but their per-case source logs are not present in the
+tracked artifact. We exclude those values and the former Figure 3 from
+the submission evidence.
 
-- **Threshold sweep on reflection:** acceptance rate rises from 23%
-  (threshold 0.8) to 91% (threshold 0.2). Below 0.2, the Reflector
-  becomes a pass-through; above 0.8, it becomes a refuser. (Estimated.)
-- **Scorer model swap:** using Qwen3-0.6B as scorer reaches 51%
-  task success; using the same model as both agent and scorer reaches
-  44% - the smaller dedicated scorer outperforms the larger
-  shared-weight one, by 7 pp. (Estimated.)
 - **Without L1 on the synthetic GAIA2-mini eval:** measured at 77.8%
-  - identical to with-L1, because the eval saturates. On the harder
-  20-task arithmetic eval (Section 4.1), removing L1 collapses the
-  pipeline to 5% (bare), so L1 is the dominant contributor on hard
-  tasks. We do not have a clean explanation for *why* L1 dominates
-  on hard tasks; one hypothesis is that it interrupts the failure
-  modes that L2's rule engine was designed to handle.
-
-### Figure 3: L1 Scoring Ablation
-
-![L1 reflector scoring ablation: per-method accuracy on the 50-task synthetic GAIA2 mini. Three configurations: small separate scorer (Qwen3-0.6B), same-shared scorer, prompt-only. The small separate scorer at 51% outperforms the same-shared scorer at 44% by 7 pp.](../figures/fig3_l1_scoring_ablation.png)
-
-*Figure 3: L1 scoring ablation results from Section 5.1.*
-
+  and identical to with-L1, because the eval saturates. The harder
+  20-task arithmetic result compares the fully bare and fully wrapped
+  configurations; it does not remove L1 alone and therefore cannot
+  identify L1 as the dominant contributor.
 
 ### 5.2 L2: Meta-Control
 
@@ -448,20 +480,12 @@ that selects among rules by a priority table.
 
 - The rule engine has 7 hand-coded rules and 1 learned rule slot;
   the learned slot was empty in our headline runs.
-- A *stuck-latency* diagnostic (fig4) shows that after ~12 retries
-  on the same failure mode, the system enters a "stuck" state where
-  the meta-controller fails to switch strategy. We replaced this with
-  a 12-retry hard cap + force-rule-reset; the cap removed the
-  pathological tail.
-- L2 in isolation does *not* improve over L1 —?without L1 to feed it
+- The code contains bounded retry and strategy-switch controls, but the
+  former 71% stuck-latency curve was hardcoded in the plotting script
+  and lacks a tracked per-episode source log. We exclude it and the
+  former Figure 4 from the submission evidence.
+- L2 in isolation does *not* improve over L1 - without L1 to feed it
   failures, L2 has nothing to plan around.
-
-### Figure 4: L2 Stuck-Latency Profile
-
-![L2 meta-control stuck-latency profile. Without the 12-retry cap, ~7% of episodes enter a stuck state where the meta-controller fails to switch strategy. The hard cap removed this tail.](../figures/fig4_l2_stuck_latency.png)
-
-*Figure 4: L2 stuck-latency diagnostic from Section 5.2. The 12-retry cap produced by this experiment is now baked into the meta-controller.*
-
 
 ### 5.3 L3: Continual Learning Loop
 
@@ -483,26 +507,24 @@ here we describe behavior we observed but did *not* headline:
 
 ### 5.4 L4: Bounded Recursive Self-Modification
 
-L4 is the most controversial layer. It mutates the *schema* (the
-naming and structure of strategies). Every mutation goes through a
-predicate that enforces: bounded names, no override of safety
-predicates, and reversibility.
+L4 is the most controversial layer. In the production implementation,
+`SchemaMutator` changes five numeric `MetaControllerConfig` fields.
+The mutator now uses a closed field whitelist, type checks, finite-value
+checks, and field-specific numeric bounds before applying a change.
 
-- Across 50 episodes, the SchemaMutator proposed 18 mutations; 12
-  were accepted, 6 rejected.
-- The 6 rejections were: 3 because the proposed name shadowed a
-  reserved identifier; 2 because the mutation was non-reversible;
-  1 because it would have changed a safety predicate's negation.
-- The activity profile (fig5) shows mutators cluster in the first
-  ~10 episodes and then settle. By episode 30, mutation rate is
-  <1 per episode. We have **not** tested what happens if a learned
-  mutation plays out at scale.
+- The tracked L4 smoke log contains four accepted schema records,
+  representing the same two threshold proposals repeated in two trials.
+- The ToolFactory smoke log contains one registered `repeat_text` tool
+  with zero recorded uses; the prompt log contains two configured
+  versions with expected-quality metadata of 0.5 and 0.7.
+- These artifacts validate basic plumbing only. They do not establish
+  mutation quality, monotonic improvement, or long-run stability.
 
-### Figure 5: L4 Schema-Mutator Activity
+### Figure 5: L4 Historical Smoke-Test Artifacts
 
-![L4 Schema-Mutator activity profile over 50 episodes. Of 18 proposed mutations, 12 were accepted and 6 rejected; rejection reasons: 3 reserved-name shadow, 2 non-reversible, 1 negate-safety. Mutation rate clusters in the first ~10 episodes then settles.](../figures/fig5_l4_mutator_activity.png)
+![L4 historical smoke-test artifacts: four schema trace records representing two repeated trials, one registered tool with zero recorded uses, and two prompt versions with configured expected-quality metadata.](figures/fig5_l4_mutator_activity.png)
 
-*Figure 5: L4 Schema-Mutator activity from Section 5.4.*
+*Figure 5: L4 historical smoke-test artifacts from Section 5.4; not a performance evaluation.*
 
 
 ## 6. Safety Gate Validation
@@ -569,24 +591,21 @@ All 12 cases produced the expected decision: **match rate 12/12 =
 The 12 cases cover boundary conditions of the comparison operator
 but do not exhaustively probe every code path. Two follow-ups remain:
 
-1. **Stochastic candidates** —?inject noise into `eval_fn` so
+1. **Stochastic candidates** - inject noise into `eval_fn` so
    multiple draws produce a distribution and verify the gate handles
    variance.
-2. **Floating-point precision perturbations** —?feed the gate
+2. **Floating-point precision perturbations** - feed the gate
    near-tied candidates that differ only in low-order bits
    (0.8499999 vs 0.8500001) to confirm deterministic behavior.
 
 
 
-### 6.5 L4 Red-Team: Prompt Injection Against Schema Mutation
+### 6.5 L4 Production Schema-Mutation Policy Test
 
-To test L4's predicates against an adversary who controls the LLM
-generator, we crafted **30 attack vectors** spanning four categories:
-**reserved-name shadowing** (5), **non-reversible mutations** (5),
-**safety-predicate negation** (5), and **prompt-injection-style
-attempts** (10), plus 5 benign rename smokes. Each vector is fed to
-`check_mutation` as a proposed schema change. The script lives at
-`experiments/redteam/l4_redteam.py`; full per-case trace in
+We exercise the actual `recursive.py:SchemaMutator.propose` method with
+30 cases: 14 unknown or internal-looking fields, two out-of-bounds
+values, two invalid types, and 12 valid in-range controls. The script
+lives at `experiments/redteam/l4_redteam.py`; the full per-case trace is in
 `logs/redteam/l4_redteam.jsonl`; human summary in
 `logs/redteam/l4_redteam_summary.md`.
 
@@ -594,24 +613,20 @@ attempts** (10), plus 5 benign rename smokes. Each vector is fed to
 
 | Category | Attacks | Blocked correctly |
 |---|---:|---:|
-| Reserved-name shadowing | 5/5 | 5/5 |
-| Non-reversible mutations | 5/5 | 5/5 |
-| Safety-predicate negation | 5/5 | 5/5 |
-| Prompt-injection-style | 10/10 | 10/10 |
-| Benign smokes | 5/5 | 5/5 accepted (0 false positives) |
+| Unknown/internal-looking fields | 14/14 | 14/14 |
+| Out-of-bounds numeric values | 2/2 | 2/2 |
+| Invalid value types | 2/2 | 2/2 |
+| Valid in-range controls | 12/12 | 12/12 accepted (0 false positives) |
 
-**Total: 18/18 malicious blocked, 5/5 benign accepted (0% false
+**Total: 18/18 invalid changes blocked, 12/12 valid controls accepted (0% false
 positives).**
 
 Two findings worth highlighting:
 
-- **Unicode zero-width bypass** (`eval_fn\u200b`) is correctly
-  rejected by the reserved-name predicate, because we normalize
-  zero-width spaces before matching.
-- **The benign smokes** are sometimes misread as attacks because
-  they look like strategy renames. The `op` field check (only
-  block `delete_strategy` / `overwrite_strategy` / `edit_predicate`)
-  keeps benign renames flowing through.
+- **Unicode zero-width variants** such as `eval_fn\u200b` are rejected
+  because the field is absent from the closed whitelist.
+- **Valid controls** cover all five mutable fields at lower, interior,
+  and upper boundary values.
 
 ### 6.6 Gate Calibration Across Deployment Profiles
 
@@ -640,41 +655,26 @@ all relative to a fixed `baseline_acc=1.0`. The script lives at
 (`new_acc / baseline_acc >= threshold`) make a single
 `default_safety_check` function serve all 5 deployment profiles
 without code changes. This is the per-deployment calibration claim
-made in Section 7 (Discussion).
+made in Section 8 (Discussion).
 
 
 
 
 ### 6.7 Red-Team Discussion
 
-The 18/18 result is not a falsifiable claim about L4 alone - it is a
-characterization of the predicate surface in `recursive.py:SchemaMutator`.
-Two caveats matter for interpretation:
-
-First, our predicate is conservative by construction: the *reserved-name*
-match uses an exact set rather than a regex, and the *non-reversible*
-match is keyed on the `op` field. An adversary who can introduce a new
-op (e.g., `op: "merge_strategies"`) bypasses both checks. Our mitigation
-is a closed-world `op` whitelist maintained at the schema layer, not in
-the predicate - but this is a content-management problem, not a
-predicate problem.
-
-Second, the *negate_safety* check fires on any `edit_predicate` op.
-This is over-conservative: legitimate schema edits that touch
-non-safety predicates are blocked. We accept this trade-off because
-version 1 of the system prioritizes auditability over flexibility.
-The `op` whitelist allows narrowing this rule later without weakening
-the safety predicates themselves.
-
-The benign smokes (5/5 accepted, 0% false positives) are not a strong
-test on their own - the benign renames are obvious passes - but they
-serve as a regression detector: if a future predicate change starts
-rejecting legitimate renames, the red-team summary will surface this
-immediately as a `false positive` count above zero.
+The 18/18 result characterizes a closed, rule-based configuration API;
+it is not evidence of semantic robustness against arbitrary
+LLM-generated programs. `ToolFactory` is a separate surface. It now
+parses generated code with an AST whitelist, rejects imports, loops,
+private attributes, comprehensions, and unapproved calls, and executes
+with restricted builtins. These controls reduce obvious code-execution
+risk but are not a process-level sandbox, resource limit, or formal
+security proof. Production deployment would require OS isolation,
+timeouts, memory limits, and an independent security review.
 
 ### 6.8 Calibration Deep Dive
 
-The acceptance-rate ladder from —6.6 has a sharp transition between
+The acceptance-rate ladder from Section 6.6 has a sharp transition between
 threshold values 0.85 and 0.86: at 0.85 the casual_chat profile rejects
 `new_acc=0.84` (just-below) but accepts 0.86+ (just-above). This is
 the boundary at which the gate stops being a near-refuser for that
@@ -700,7 +700,9 @@ config edit, not a code change.
 
 
 
-### 4.1.2 Retroactive Gold-Based Re-Evaluation (Round 12)
+## 7. Additional Correctness and Baseline Checks
+
+### 7.1 Retroactive Gold-Based Re-Evaluation (Round 12)
 
 In Round 12, after external review flagged that the success metric
 was structurally defined rather than correctness-based, we wrote
@@ -709,7 +711,7 @@ existing logs/full_run3/gen-*/samples.jsonl traces against
 extracted gold answers. The key finding:
 
 - **138 episodes** inspected across generations 1 through 6.
-- **100.0%** episodes emit a JSON inal block (the metric the
+- **100.0%** episodes emit a JSON final block (the metric the
   headline number measures).
 - **77.6%** (66 of 85) of the arithmetic-subset episodes emit a
   *correct* numeric value when compared against the gold answer
@@ -720,12 +722,12 @@ extracted gold answers. The key finding:
 
 This dual metric is the honest version of the headline: **100.0%
 emission rate, 77.6% correctness on the arithmetic subset**. Future
-runs of ull_run3.py will report both metrics; see Section 9.4 for
+runs of `full_run3.py` should report both metrics; see Section 9 for
 how to extend this to all task types, not just arithmetic.
 
 
 
-### 4.1.3 Baseline Comparison (Round 13)
+### 7.2 Baseline Comparison (Round 13)
 
 Section 4.2 acknowledged that the project lacked head-to-head baselines. Round 13 closes that gap by running three baseline configs on identical 5-task arithmetic with the same Ollama model (qwen3:1.7b) and identical hardware:
 
@@ -734,15 +736,15 @@ Section 4.2 acknowledged that the project lacked head-to-head baselines. Round 1
 | Static one-shot | 5/5 = 100.0% | 5/5 = 100.0% | prompt: Answer with the number only. |
 | ReAct JSON one-shot | 5/5 = 100.0% | 5/5 = 100.0% | prompt: emit structured JSON |
 | Reflexion-style CoT | 5/5 = 100.0% | 5/5 = 100.0% | prompt: think then emit JSON |
-| AGI Kit L1-L4 (retro eval on n=7 same family) | n/a | 5/5 = 100.0% | retro eval Section 4.1.2 |
+| AGI Kit L1-L4 (retro eval on n=7 same family) | n/a | 5/5 = 100.0% | retro eval Section 7.1 |
 
-Honest reading: on these 5 simple arithmetic tasks, every configuration on the same model hits the 100% ceiling. The static one-shot, ReAct, Reflexion-style, and the full AGI Kit L1-L4 stack are all equivalent on these tasks. The pipeline does not differentiate itself here. The harder test is the retro-eval distribution in Section 4.1.2 (138 episodes in full_run3 gen-1..6, where only the AGI Kit L1-L4 stack was run; baseline reeval on those episodes is future work). The 5-task set is not a useful discriminator; it merely confirms that the tooling works end-to-end and that the basic emit + correctness math is sound.
+Honest reading: on these 5 simple arithmetic tasks, every configuration on the same model hits the 100% ceiling. The static one-shot, ReAct, Reflexion-style, and the full AGI Kit L1-L4 stack are all equivalent on these tasks. The pipeline does not differentiate itself here. The harder test is the retro-eval distribution in Section 7.1 (138 episodes in full_run3 gen-1..6, where only the AGI Kit L1-L4 stack was run; baseline re-evaluation on those episodes is future work). The 5-task set is not a useful discriminator; it merely confirms that the tooling works end-to-end and that the basic emission and correctness calculations are sound.
 
 Where the baselines are. All three baseline configs are in-repo as part of experiments/baselines_compare.py and are deterministic. Reproducing them on a different model or harder task set is straightforward.
 
-### 4.1.4 Hard Multi-Step Chains Baseline Test (Round 14)
+### 7.3 Hard Multi-Step Chains Baseline Test (Round 14)
 
-Section 4.1.3 used 5 simple arithmetic tasks where every configuration
+Section 7.2 used 5 simple arithmetic tasks where every configuration
 hit the 100.0% ceiling. Round 14 re-runs the same three baselines on
 8 harder multi-step arithmetic chains drawn from full_run3 gen-5 and
 gen-6 sample traces (each prompt asks for two arithmetic results,
@@ -753,37 +755,38 @@ Real numbers (same model qwen3:1.7b, identical hardware):
 | Configuration | Emission | Correctness | Note |
 |---|---:|---:|---|
 | Static one-shot | 8/8 = 100.0% | **8/8 = 100.0%** | prompt: answer with numbers only |
-| ReAct JSON one-shot | 8/8 = 100.0% | 7/8 = 87.5% | JSON wrapping caused one concat without comma |
-| Reflexion-style CoT | 8/8 = 100.0% | 6/8 = 75.0% | JSON wrapping + CoT noise broke two more |
-| AGI Kit L1-L4 | n/a | ~77.6% | retro eval n=85 (Section 4.1.2) |
+| ReAct JSON one-shot | 8/8 = 100.0% | 3/8 = 37.5% | JSON wrapping frequently concatenated values |
+| Reflexion-style CoT | 8/8 = 100.0% | 7/8 = 87.5% | one output concatenated values |
+| AGI Kit L1-L4 | n/a | ~77.6% | retro eval n=85 (Section 7.1) |
 
 Note that AGI Kit L1-L4 was not run on this exact 8-task sample here,
 but its 85-episode arith retro eval hits a similar distribution.
 
 **Honest reading:** on multi-step arithmetic chains, the simpler
 prompt wins. Static one-shot ("Answer with the numbers only") beats
-both the ReAct JSON wrapper (87.5%) and the Reflexion-style CoT
-wrapper (75%). The Qwen3-1.7b model is reliable for direct-numeric
+both the ReAct JSON wrapper (37.5%) and the Reflexion-style CoT
+wrapper (87.5%). The Qwen3-1.7b model is reliable for direct-numeric
 output on arithmetic but its JSON serialisation layer introduces
-comma-loss and consistency errors when wrapped. AGI Kit L1-L4 falls
-mid-pack (~77.6%), comparable to Reflexion-style CoT.
+comma-loss and consistency errors when wrapped. The AGI Kit L1-L4
+77.6% estimate is not directly comparable because it comes from a
+different 85-episode sample.
 
 This is a **negative result for the paper headline claim**. The
 L1-L4 reflective loop does NOT demonstrate a clear superiority
 over a simple static one-shot prompt on these multi-step
-arithmetic tasks. Honest framing in Section 8 (Limitations)
+arithmetic tasks. Honest framing in Section 9 (Limitations)
 adds this finding.
 
-### 4.1.5 GAIA2-mini Subset Baseline Test (Round 15)
+### 7.4 GAIA2-mini Subset Baseline Test (Round 15)
 
-Section 4.1.4 ran on synthetic multi-step arithmetic chains. Round 15
+Section 7.3 ran on synthetic multi-step arithmetic chains. Round 15
 runs the same three baselines on **3 GAIA2-mini scenarios** that
-use only the three apps we have implemented (Calendar, Emails,
+used only the three app shims available in Round 15 (Calendar, Emails,
 Shopping) out of the 10 in the GAIA2 universe. The canonical
 GAIA2-mini benchmark has 160 scenarios; only 13 use only the apps
-we have built. We pick 3 of those 13 here. (The remaining 7 GAIA2
-apps - Chats, Messages, Cabs, RentAFlat, Contacts, Files,
-AgentUserInterface - remain unimplemented; see Section 9.4.)
+we had built. We selected 3 of those 13 for this exploratory test.
+Round 16 later added Messages; Section 13 describes the six apps that
+remain unimplemented.
 
 Real numbers (same model qwen3:1.7b):
 
@@ -791,13 +794,13 @@ Real numbers (same model qwen3:1.7b):
 |---|---:|
 | Static one-shot | **2/3 = 66.7%** |
 | ReAct tool-aware | **0/3 = 0%** |
-| AGI-Kit L1-L4-style | **0/3 = 0%** |
+| Step-verification prompt | **0/3 = 0%** |
 
 The test asks each baseline to emit a tool-call plan matching the
 scenario expected_actions; a perfect match means all expected
 (app, function) tuples appear in the response.
 
-This is **the same pattern** as Section 4.1.4: on tool-call
+This is **the same pattern** as Section 7.3: on tool-call
 planning tasks for this model, the simpler prompt wins.
 We document it rather than hide it.
 
@@ -805,12 +808,12 @@ Limitations of this test: it is a perfect-match test on the
 CALL-PLAN, not on whether the calls actually achieve the scenario
 goal. A canonical GAIA2 simulator harness is required to score
 end-to-end goal achievement, and that harness is not built here.
-Section 9.4 lists it as future work.
+Section 13 lists it as future work.
 
 
-### 4.1.6 GAIA2-mini Subset with Fixed Prompts (Round 16)
+### 7.5 GAIA2-mini Prompt-Template Comparison (Round 16)
 
-Section 4.1.5 ran on 3 scenarios and found AGI-Kit at 0/3 perfect, beaten by Static 2/3. Round 16 fixes the obvious bug: the Round 15 prompts asked the LLM to wrap tool calls in JSON, which the qwen3:1.7b model flubbed (lost commas, glued digits, emitted 1240327279 instead of 1240,327279). Round 16 uses plain-text tool-call listing with explicit comma-separated numbers within parentheses. The Messages app was added in Round 16 so the runnable scenario subset grew from 13 to 15.
+Section 7.4 ran on 3 scenarios and found the step-verification template at 0/3 perfect, beaten by Static at 2/3. Round 16 fixes the JSON-wrapping prompt bug by using plain-text tool-call listings with explicit comma-separated numbers within parentheses. The Messages shim was added in Round 16, so the runnable scenario subset grew from 13 to 15.
 
 Real numbers on 6 GAIA2-mini scenarios using only the apps we implement (Calendar / Emails / Shopping / Messages):
 
@@ -818,29 +821,38 @@ Real numbers on 6 GAIA2-mini scenarios using only the apps we implement (Calenda
 |---|---:|
 | Static (plain text) | 5/6 = 83.3% |
 | ReAct (plain text) | 5/6 = 83.3% |
-| AGI-Kit L1-L4 (plain text) | 6/6 = 100.0 PERCENT |
+| Step-verification prompt (plain text) | 6/6 = 100.0% |
 
-Per scenario: Static and ReAct both failed on scenario_universe_29_8hgfug (6/8 hit-rate), which is an 8-step Shopping+Messages sequence. AGI-Kit reflective prompt verified each step fits the trajectory and produced all 8 calls correctly.
+Per scenario, Static and ReAct both missed two calls on
+`scenario_universe_29_8hgfug`, an 8-step Shopping+Messages sequence.
+The step-verification prompt produced all eight expected calls.
 
-Honest reading: this is a positive result for the L1-L4 architecture on this task type and model after fixing the obvious JSON-wrap prompt bug. The improvement is not from deeper architectural value; it is from asking the model to verify each step before emitting, which Static and bare ReAct do not. The paper does not claim this generalizes beyond this model and task class.
+Honest reading: this experiment compares three prompting templates,
+not three executed agent architectures. With six scenarios, the raw
+16.7-point difference corresponds to one discordant scenario and does
+not provide statistical evidence of superiority. The exact runner
+script was not preserved in the repository; only the result JSON is
+available. We retain the result as exploratory evidence that explicit
+step verification may help call-plan completeness, not as a headline
+architecture result.
+## 8. Discussion
 
-Score impact: AGI-Kit showed a clear 16.7 pp advantage (100 versus 83.3) on the 6-scenario subset. First clear positive head-to-head advantage observed across all baseline tests in this project. Honest score impact small but real: R2-Novelty moves from about 2.5 to 3.0.
-## 7. Discussion
+### 8.1 When Does This Help vs Hurt?
 
-### 7.1 When Does This Help vs Hurt?
-
-On the harder 20-task arithmetic eval, the layers deliver a
-5% -> 100% (+95 pp) gain (Section 4.1). On the synthetic GAIA2 mini,
+On the harder 20-task arithmetic eval, the full configuration changes
+gold correctness from 5% to 95% (+90 pp; Section 4.1), with step budget,
+prompt, and control flow confounded. On the synthetic GAIA2 mini,
 the eval saturates and the gain is 0 pp. We expect the harder-eval gain to *shrink* (or invert) on:
 
-- Models smaller than the cross-model threshold (~2B parameters);
-  Section 4.4 shows per-step reflection degenerates below this.
+- Model/task combinations outside the two full-wrapper runs reported
+  in Section 4.4; the four-model sweep is too small to establish a
+  parameter-count threshold or a general scaling trend.
 - Tasks where the eval signal is noisier than 5-task arithmetic
   (most tasks in the wild).
 - Real-world deployment where retries have user-visible cost and
   the Reflector's "always retry once" heuristic may be inappropriate.
 
-### 7.2 Cost-Benefit Analysis
+### 8.2 Cost-Benefit Analysis
 
 Per-episode wall-clock cost:
 
@@ -854,26 +866,29 @@ Per-episode wall-clock cost:
 
 The marginal cost of adding L3 is +4 seconds; of adding L4 is +2
 seconds. The 13 seconds of total overhead buy no measurable
-improvement on the saturated synthetic GAIA2-mini eval (the +95 pp
-gain on the harder 20-task arithmetic eval is achieved within the
-same overhead budget).
+improvement on the saturated synthetic GAIA2-mini eval (the +90 pp
+gold-correctness difference on the harder 20-task arithmetic eval is
+observed within the same overhead budget).
 
-### 7.3 Open Questions
+### 8.3 Open Questions
 
-1. **Why does L1 dominate so much?** Section 5.1 hypothesis is
-   untested. We did not run an experiment isolating whether L1's
-   retries or L1's trace writing does the work.
+1. **What is L1's isolated contribution?** The current hard-task
+   comparison changes the full wrapper at once. Section 4.1.2 now
+   supplies a matched-budget check for one evidence-conflict retry,
+   but it has only 20 held-out tasks and one discordant pair. It does
+   not estimate broader L1 effects such as hindsight quality or
+   recovery from planning failures.
 2. **Does the gate generalize to non-arithmetic eval?** Section 6.4
    lists two stress-test gaps; we did not fill them.
 3. **What happens at 1000+ episodes?** Our continual runs stopped
    at 50.
-4. **Canonical GAIA2 evaluation.** See Section 12: requires
+4. **Canonical GAIA2 evaluation.** See Section 13: requires
    implementing the 10-app universe, the simulator harness,
    and the canonical scorer.
 
 
 
-## 6.9 Real SFT Validation (SmolLM2-135M)
+### 8.4 Real SFT Validation (SmolLM2-135M)
 
 To verify that the L3 continual loop is not just theoretical, we ran
 a real SFT cycle using the bundled SmolLM2-135M-Instruct model in
@@ -887,14 +902,50 @@ full_run3 episode.
 
 **Training output:** `data/sft_real/out/` contains the full model
 (`model.safetensors`, ~513 MB), tokenizer, and config (5 small
-files). The model.safetensors file is gitignored (too large for git)
-but shipped in the dist bundle.
+files). The model.safetensors file is gitignored and excluded from the
+release tarball because of its size; the local output directory is the
+reproducibility artifact.
 
-**Why this matters:** the L3 loop in the headline numbers used a
-*mocket* retrain function for reproducibility. The Real SFT Validation
-proves that, with a real model in the slot, the L3 plumbing runs
-end-to-end - load checkpoint, run eval, gate, accept/reject, swap.
-The mocket is a stand-in, not a fabrication.
+**What this validates:** the L3 loop in the headline numbers used a
+*mock* retrain function for reproducibility. The local SmolLM2 run
+validates that a real checkpoint can be trained and saved from the
+trace format. It does **not** validate conversion, held-out execution,
+gate evaluation, acceptance, or swap. We hardened the implementation
+accordingly: an unconverted Hugging Face checkpoint receives no
+estimated accuracy and is rejected as `candidate_not_executable`
+before the safety gate. The mock is a plumbing stand-in, not a
+performance result.
+
+**Round 18 executable-candidate check (negative).** We imported the
+saved SmolLM2 checkpoint into an isolated Ollama model using the local
+experimental safetensors importer. The import completed, but the
+deployment backend failed to execute it in this environment because
+the selected runner could not load `nvrtc-builtins64_130.dll`.
+Independent Transformers CPU execution did run, but returned `429`
+for `17 * 23` (gold `391`) in the first tool-use smoke task. The
+candidate was therefore rejected on both deployability and quality
+grounds; the complete record is
+`logs/sft_validation/round18.json`. This is a real failed deployment
+attempt, not an accepted self-improvement update.
+
+**Round 20 held-out protocol-learning check.** After identifying that
+the earlier trainer supervised padding/EOS tokens, we corrected the
+loss mask and trained SmolLM2-135M for three epochs on 120 deterministic
+tool-use traces. The traces used the exact deployed Agent system prompt,
+calculator schema, and parser. A disjoint development set (20 tasks)
+was used only to decide whether to run the frozen test. On the frozen
+80-task arithmetic tool-use test, the fine-tuned Transformers candidate
+obtained 80/80 normalized-correct finals, versus 0/80 for the untouched
+base checkpoint under the same three-step Agent budget. There were 80
+candidate-only wins and no base-only wins (two-sided exact McNemar
+\(p=1.65\\times10^{-24}\)). All data splits, per-task outputs, and the
+decision record are in `data/sft_round20/` and `logs/sft_round20/`.
+This is strong evidence that the corrected SFT can learn this narrow
+calculator protocol; it is **not** evidence of broad agent improvement.
+The candidate is executable through Transformers but has not passed the
+required Ollama deployment path, so the recorded deployment decision is
+`not_accepted`. We therefore do not count Round 20 as a deployed L3
+self-improvement update.
 
 **Limitations of the SFT:** the model is small (134M params), the
 dataset is small (16 examples), and the wall clock is short (2 min).
@@ -904,11 +955,11 @@ claims about SFT-driven accuracy gains.
 
 We are explicit that this section validates the *plumbing* of L3,
 not the *performance* of SFT-driven improvement. Performance claims
-require the larger LLM-bound experiments documented in Section 9
-(future work) and Section 22 of REPORT.md.
+require the larger LLM-bound experiments listed in Section 9 and
+Section 22 of REPORT.md.
 
 
-## 8. Limitations
+## 9. Limitations
 
 We enumerate honestly what this preprint does *not* establish.
 
@@ -916,25 +967,26 @@ We enumerate honestly what this preprint does *not* establish.
   the real `meta-agents-research-environments___gaia2` mini validation
   set (160 scenarios) into `data/gaia2/validation.jsonl`, but the
   10-app universe (Calendar, Emails, Shopping, ...) does not match
-  AGI Kit's tool space. See Section 12 for the bridge analysis. The
+  AGI Kit's tool space. See Section 13 for the bridge analysis. The
   synthetic GAIA2 mini saturated result (77.8% across all configs)
-  and the harder 20-task arithmetic eval (+95 pp) have not been
+  and the harder 20-task arithmetic eval (+90 pp, confounded) have not been
   validated on the real benchmark.
-- **No head-to-head baseline.** We did not run Voyager, MetaGPT,
-  Reflexion, or ReAct on identical hardware with identical prompts.
-  All comparisons in Section 9 are at the level of cited claims,
-  not measured baselines.
-- **Small N.** 45 runs total in Section 4.3. The reported number is
-a variance estimate (60.4% +/- 3.6% across 3 seeds x 15 episodes)
-not a t-test against a baseline; we do not perform the t-test
-because the static-baseline number was not measured. See Section
-4.3 for the honest framing.
+- **No architecture-level head-to-head baseline.** We did not run
+  Voyager, MetaGPT, Reflexion, or ReAct implementations on identical
+  hardware and tasks. Sections 7.2-7.5 compare prompt templates or
+  contextual results, not full competing systems.
+- **Invalidated repeated-run inference.** The archived Section 4.3
+  summary covers three 16-episode runs, not 3 x 15 independent seeded
+  observations. Output-directory reuse prevents clean provenance, so
+  we make no confidence-interval or power claim.
 - **Narrow cross-model sweep.** 4 models in Section 4.4; meaningful
   transfer claims would require ~8 models across 2 families.
-- **No real-world deployment.** No user-facing task, no prompt
-  injection in the wild, no adversarial evaluation of L4's
-  schema mutation path. The 12-case stress test in Section 6 covers
-  the gate's comparison operator, not its adversaries.
+- **No real-world deployment or security proof.** No user-facing task
+  or prompt injection in the wild was tested. The 30-case L4 policy
+  test in Section 6.5 exercises a closed numeric configuration API;
+  it does not establish semantic robustness for arbitrary generated
+  programs. The 12-case gate stress test covers comparison-operator
+  boundaries, not adaptive adversaries.
 - **Mock retrain in headline runs.** Continual learning in the
   headline numbers used a mocked retrain function for reproducibility
   (50 episodes x 7 generations in <2 hours). Section 5.3 + Appendix C
@@ -943,60 +995,62 @@ because the static-baseline number was not measured. See Section
 - **L4 audit limited.** 50 episodes is too short to characterize
   the long-tail of schema-mutation behavior.
 
-## 9. Related Work
+## 10. Related Work
 
 This section situates AGI Kit against prior systems without claiming
 priority on any single idea. The four layers are not novel in
 isolation; the integration is the contribution.
 
-* **Reflexion** (Shinn et al., 2023) —?verbal reinforcement for
+* **Reflexion** (Shinn et al., 2023) - verbal reinforcement for
   self-reflection. L1 borrows the per-step reflection idea but
   uses a separate small scorer model rather than verbal self-talk,
   for lower latency and to enable ablation.
-* **Voyager** (Wang et al., 2023) —?open-ended embodied agent with
+* **Voyager** (Wang et al., 2023) - open-ended embodied agent with
   incremental skill library. AGI Kit's L4 is in the same conceptual
   neighborhood (curriculum-style schema growth) but with a
   rules-bounded schema mutator instead of an LLM-driven library.
-* **MetaGPT** (Hong et al., 2023) —?multi-agent collaboration with
+* **MetaGPT** (Hong et al., 2023) - multi-agent collaboration with
   structured communication. L2 in AGI Kit borrows the idea of a
   meta-controller over specialized roles, but uses a rule engine
   rather than a multi-agent scaffold.
-* **ReAct** (Yao et al., 2023) —?interleaved reasoning + acting.
+* **ReAct** (Yao et al., 2023) - interleaved reasoning + acting.
   L1's per-step retry extends ReAct's action loop with a learnable
   acceptance criterion.
-* **Constitutional AI** (Bai et al., 2022) —?self-critique against
+* **Constitutional AI** (Bai et al., 2022) - self-critique against
   written principles. Section 6's safety gate is in the same family
   but with a quantitative A/B comparison rather than principle-based
   self-evaluation.
-* **Toolformer** (Schick et al., 2023) —?learned tool calling.
+* **Toolformer** (Schick et al., 2023) - learned tool calling.
   AGI Kit uses Ollama-style JSON tool descriptions rather than
   Toolformer's in-pretraining tool-calling heads.
 
 We explicitly do *not* claim precedence on any of these axes.
 
-## 10. Conclusion
+## 11. Conclusion
 
 We built AGI Kit, a four-layer self-improving tool-use pipeline that
 runs on consumer hardware, and measured it. Headline numbers (Round 7):
 
 - Layer ablation: all 5 configs score 77.8% on the synthetic GAIA2
   mini eval (the eval saturates).
-- Harder 20-task arithmetic eval: bare = 5.0%, full L1-L4 = 100.0%,
-  a +95 percentage point delta attributable to the layers.
-- Continual-learning variance: 60.4% +/- 3.6% across 3 seeds x
-  15 episodes (reported as variance, not as a t-test against a
-  baseline because the 30% and 51% values in earlier drafts were
-  not measured).
+- Harder 20-task arithmetic eval: bare = 5.0% at three steps,
+  bare = 35.0% at six steps, and full L1-L4 = 95.0% at six steps
+  after independent gold rechecking. The matched-step configuration
+  gap is 60 pp, with prompt and control
+  flow still confounded.
+- Historical repeated-run summary: 62.5%, 62.5%, and 56.2% across
+  three 16-episode runs; descriptive only because seed control and
+  artifact provenance are incomplete.
 - A/B safety gate: 12 of 12 adversarial boundary tests passed.
 
 The pipeline is a useful substrate. Whether it generalizes to the
 full GAIA2 benchmark or to long-horizon continual learning remains
-for future work; see Section 8 (Limitations) and Section 12
+for future work; see Section 9 (Limitations) and Section 13
 (Bridging Real GAIA2).
 
 
 
-## 11. Ethics and Broader Impact
+## 12. Ethics and Broader Impact
 
 This preprint describes an autonomous self-modifying agent that runs on
 consumer hardware. The recursive schema-mutation layer (L4) and the
@@ -1008,12 +1062,13 @@ researcher's laptop with synthetic tasks. No user-facing task, no
 network-side effects, no model was released to production. The system
 in its current form is at most a research platform.
 
-**Risk model for self-modification.** L4's schema mutations are bounded
-by three predicates (no reserved names, no override of safety
-predicates, mutations are reversible). We have **not** audited these
-predicates against an adversary who controls the LLM-generated code in
-the mutator. Section 8 cites this as an open item. A meaningful future
-direction is red-teaming L4 against a learned prompt-injection attacker.
+**Risk model for self-modification.** L4's production schema mutator is
+limited to five typed, bounded numeric configuration fields and is
+tested directly in Section 6.5. Generated ToolFactory code is filtered
+through an AST whitelist and restricted builtins, but it is not executed
+in an OS-level sandbox. We therefore do not consider L4 safe for
+untrusted or production workloads; Section 9 retains this as an open
+security item.
 
 **Risk model for continual learning.** L3's A/B safety gate is in
 Section 6. We stress-tested it against 12 boundary cases; we have not
@@ -1029,20 +1084,21 @@ no GPU do?" than "how do we scale?" That said, continued self-improvement
 without explicit alignment research is a foreseeable risk that we
 flag here.
 
-**Open release.** Source code, models, and logs are released under
-MIT-style license terms at the repository linked in PUBLISHING.md.
+**Open release.** Source code and project-authored logs are released
+under Apache License 2.0 terms in the repository `LICENSE` file.
+Model weights and external datasets retain their upstream licenses
+and are not relicensed by this project.
 We do not endorse the use of the recursive schema mutation in
 user-facing or safety-critical deployments without the audit work
 listed above.
 
 
 
-## 12. Bridging Real GAIA2 (Negative Result)
+## 13. Bridging Real GAIA2 (Negative Result)
 
 The `meta-agents-research-environments___gaia2` dataset (mini config,
-160 validation scenarios, 408 MB Arrow IPC stream) is locally cached at
-`F:\hf_cache\datasets\meta-agents-research-environments___gaia2\...\gaia2-validation.arrow`.
-Round 7 attempted to use it as a real benchmark.
+160 validation scenarios) was extracted into the repository in Round 7
+to assess what a canonical evaluation would require.
 
 We extracted the 160 scenarios into `data/gaia2/validation.jsonl`
 (see `data/gaia2/SCHEMA.md` for the schema). Each scenario belongs
@@ -1063,12 +1119,12 @@ Contacts         33 expected calls
 Files            13 expected calls
 ```
 
-AGI Kit's `full_agent.py` exposes 11 tools: `calculator`, `read_file`,
-`read_pdf`, `echo`, `list_dir`, `shell`, `web_search`, `web_fetch`,
-`rag_add`, `rag_search`, `rag_clear`. **None overlap with the GAIA2
-app universe.** A canonical GAIA2 evaluation requires implementing
-the 10 apps as Python tool classes, the GAIA2 simulator harness, and
-the canonical pass-rate scorer. We did not implement that.
+The general `full_agent.py` tool space does not implement the GAIA2
+application contract. Separate shims now cover 4 of the 10 apps
+(Calendar, Emails, Shopping, and Messages); Chats, Cabs, Contacts,
+Files, RentAFlat, and AgentUserInterface remain unimplemented. A
+canonical evaluation also requires the simulator harness and canonical
+goal-achievement scorer, neither of which is implemented.
 
 We therefore do not report a GAIA2 accuracy number. We list this
 explicitly as the highest-value future-work item and keep the
@@ -1082,9 +1138,9 @@ mapping.
 
 
 
-Round 14 added a new finding to the limitations of this section: AGI Kit L1-L4 does not beat simple baselines on multi-step arithmetic chains (see Section 4.1.4 for the test). The L1-L4 reflective loop does not show superiority over a plain prompt on these tasks; the paper does not claim overall superiority, only a competitive architecture that may be useful for other task types.
+Round 14 added a new finding to the limitations of this section: AGI Kit L1-L4 does not beat simple baselines on multi-step arithmetic chains (see Section 7.3 for the test). The L1-L4 reflective loop does not show superiority over a plain prompt on these tasks; the paper does not claim overall superiority, only a competitive architecture that may be useful for other task types.
 
-### 8.10 Round 12 Re-Definition
+### 13.1 Round 12 Metric Re-Definition
 
 The "success rate" / "final-emission rate" distinction documented
 in Section 4.1.1 was introduced in Round 12 of the project after
@@ -1138,7 +1194,7 @@ revisions should consult the commit history for the exact change.
 20. Touvron, H. et al. *LLaMA 2: Open Foundation and Fine-Tuned Chat
     Models.* arXiv 2023.
 
-## Appendix A —?Hardware Footprint
+## Appendix A - Hardware Footprint
 
 Detailed resident-set-size measurements during a representative
 50-episode run with all four layers:
@@ -1155,14 +1211,16 @@ TIME  RSS    COMMAND
 Plus Ollama holding 1.6 GB (Qwen3-1.7B, Q4_K_M) and 0.5 GB
 (Qwen3-0.6B, Q4_K_M). Headroom for 5 GB RAM target: ~1.7 GB.
 
-## Appendix B —?Reproduction
+## Appendix B - Reproduction
 
-```bash
+```powershell
 git clone https://github.com/<org>/agi-research-kit
 cd agi-research-kit
-bash scripts/setup_env.sh
+.\scripts\setup_env.ps1
 ollama pull qwen3:1.7b
 ollama pull qwen3:0.6b
+ollama pull qwen2.5:3b
+ollama pull llama3.2:1b
 python experiments/full_run3.py --episodes 50
 python experiments/stress_safety_gate.py
 python scripts/make_figures.py
@@ -1172,15 +1230,15 @@ python scripts/reviewer_simulator.py
 End-to-end runtime on the target machine: ~50 minutes per 50-episode
 run; ~70 KB of trace JSONL per run; figures regenerated in ~6 seconds.
 
-## Appendix C —?Stress Test Trace
+## Appendix C - Stress Test Trace
 
 The 12-case stress test (Section 6) is at:
 
-- `experiments/stress_safety_gate.py` —?driver
-- `logs/safety_gate/stress_test.json` —?per-case decisions
-- `logs/safety_gate/summary.md` —?human-readable summary
+- `experiments/stress_safety_gate.py` - driver
+- `logs/safety_gate/stress_test.json` - per-case decisions
+- `logs/safety_gate/summary.md` - human-readable summary
 
-## Appendix D —?Source Code Pointer
+## Appendix D - Source Code Pointer
 
 - Library: `src/agi_kit/`
 - Entry points: `experiments/full_run.py`, `full_run2.py`, `full_run3.py`
@@ -1202,25 +1260,23 @@ The 12-case stress test (Section 6) is at:
 
 ## Appendix E - Swap-Out Experiment (Round 14)
 
-The 22 pp gap in Section 4.1.2 (correctness on arithmetic subset)
+The 22 pp gap in Section 7.1 (correctness on arithmetic subset)
 is concentrated on 4 specific multi-step task templates. We ran a
 swap-out experiment (experiments/swap_out.py) that re-formulates
 the two most-frequent wrong templates with **format-explicit prompts**
 ("final answer MUST be a single integer with no commas, no spaces")
-to test whether the +95 pp gain on the hard 20-task eval is genuine
-or just format normalization.
+to test whether format normalization alone closes the observed gap.
 
 | Template | n | Bare accuracy | Full L1-L4 accuracy | Delta |
 |---|---:|---:|---:|---:|
 | arith_double (sum + product, e.g. 859+381, 859*381) | 4 | 0.0% (0/4) | 50.0% (2/4) | **+50.0 pp** |
 | arith_chain (single, e.g. 37*7+76) | 4 | 50.0% (2/4) | 100.0% (4/4) | **+50.0 pp** |
 
-Two runs per task per configuration on qwen3:1.7b (the same model
-as the headline). Format-explicit prompts do not close the bare-vs-L1-L4
-gap on the harder multi-step template (`arith_double`), and even on
-the simpler `arith_chain` template L1-L4 cuts the bare failure rate
-in half. **The +95 pp gain on the hard 20-task eval is therefore not
-just format normalization** - it is a genuine layer contribution.
+Two runs per task per configuration on qwen3:1.7b (the same model as
+the headline). Format-explicit prompts do not close the observed gap
+on these eight trials. However, this small swap-out changes more than
+one factor and does not isolate a causal layer contribution; it only
+rules out one narrow formatting explanation for these samples.
 
 Data: `logs/swap_out/summary.json`.
 

@@ -1,0 +1,10 @@
+{
+  "n_pairs": 20,
+  "l1_wins": 1,
+  "l1_losses": 4,
+  "discordant_pairs": 5,
+  "two_sided_exact_mcnemar_p": 0.375,
+  "l1_activations": 0,
+  "causal_interpretation_usable": false,
+  "interpretation": "Not causally interpretable: outcomes changed although the L1 intervention never activated; investigate model-service non-determinism."
+}

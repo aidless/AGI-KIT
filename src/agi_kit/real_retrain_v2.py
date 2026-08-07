@@ -45,14 +45,14 @@ def real_retrain_v2(samples,
             "train_samples": len(samples),
             "trained": False,
             "ollama_model": ollama_model_name,
-            "expected_acc": 0.55 + 0.005 * len(samples),
+            "eval_status": "not_trained",
             "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         }
         with (out / "gen_meta.json").open("w", encoding="utf-8") as f:
             json.dump(meta, f, indent=2)
         return {"out_dir": str(out), "samples": len(samples),
                 "trained": False, "ollama_model": ollama_model_name,
-                "expected_acc": meta["expected_acc"]}
+                "eval_status": meta["eval_status"]}
 
     # Step 1: save chat-format data
     data_path = out / "data.jsonl"
@@ -75,14 +75,14 @@ def real_retrain_v2(samples,
             "train_samples": len(samples),
             "trained": False,
             "error": sft_info.get("error"),
-            "expected_acc": 0.55 + 0.005 * len(samples),
+            "eval_status": "training_failed",
             "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         }
         with (out / "gen_meta.json").open("w", encoding="utf-8") as f:
             json.dump(meta, f, indent=2)
         return {"out_dir": str(out), "samples": len(samples),
                 "trained": False, "error": sft_info.get("error"),
-                "expected_acc": meta["expected_acc"]}
+                "eval_status": meta["eval_status"]}
 
     trained_model_path = sft_info["model_path"]
     print("[retrain] SFT done in", round(sft_info["seconds"], 1), "s ->", trained_model_path)
@@ -102,8 +102,8 @@ def real_retrain_v2(samples,
         real_acc = eval_arithmetic(ollama_name, n_tasks=5, max_steps=3,
                                     timeout_per_task=30.0)
     else:
-        print("[retrain] Ollama conversion skipped/failed; using estimated acc")
-        real_acc = 0.55 + 0.005 * len(samples)
+        print("[retrain] Ollama conversion failed; candidate is not deployable")
+        real_acc = None
         if ollama_result.get("error"):
             print("  reason:", ollama_result["error"])
 
@@ -114,7 +114,8 @@ def real_retrain_v2(samples,
         "model_path": trained_model_path,
         "ollama_model": ollama_name if ollama_result.get("ok") else None,
         "ollama_create_ok": ollama_result.get("ok", False),
-        "expected_acc": min(0.95, real_acc),
+        "eval_acc": real_acc,
+        "eval_status": "real_ollama_eval" if real_acc is not None else "not_executable",
         "train_seconds": sft_info["seconds"],
         "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     }
@@ -125,7 +126,8 @@ def real_retrain_v2(samples,
         "trained": True, "trained_model_path": trained_model_path,
         "ollama_model": meta["ollama_model"],
         "ollama_ok": ollama_result.get("ok", False),
-        "expected_acc": meta["expected_acc"],
+        "eval_acc": meta["eval_acc"],
+        "eval_status": meta["eval_status"],
         "train_seconds": sft_info["seconds"],
     }
 
@@ -137,16 +139,15 @@ def mock_retrain_v2(samples, base_model, out_dir, **kwargs) -> dict:
     with (out / "samples.jsonl").open("w", encoding="utf-8") as f:
         for s in samples:
             f.write(json.dumps(s, ensure_ascii=False) + "\n")
-    expected_acc = 0.55 + 0.005 * len(samples)
     meta = {
         "base_model": str(base_model),
         "train_samples": len(samples),
         "trained": False,
-        "expected_acc": expected_acc,
+        "eval_status": "mock_not_deployable",
         "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     }
     with (out / "gen_meta.json").open("w", encoding="utf-8") as f:
         json.dump(meta, f, indent=2)
     return {"out_dir": str(out), "samples": len(samples),
-            "trained": False, "expected_acc": expected_acc,
+            "trained": False, "eval_status": "mock_not_deployable",
             "train_seconds": 0.05}

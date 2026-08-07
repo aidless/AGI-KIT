@@ -1,0 +1,38 @@
+{
+  "model": "logs\\sft_round19\\candidate24e1",
+  "label": "candidate24e1_smoke",
+  "n": 5,
+  "correct": 0,
+  "rows": [
+    {
+      "id": "r19-120",
+      "gold": "424",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-121",
+      "gold": "1042",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-122",
+      "gold": "1885",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-123",
+      "gold": "2882",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r19-124",
+      "gold": "367",
+      "pred": "[agent] max steps",
+      "correct": false
+    }
+  ]
+}

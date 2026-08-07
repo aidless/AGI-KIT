@@ -1,0 +1,172 @@
+{
+  "scenario_id": "scenario_universe_27_fcbx0i",
+  "gold_actions": 6,
+  "predicted_actions": 7,
+  "step_matches": 0,
+  "exact_sequence": false,
+  "development_only": true,
+  "oracle_exposed_to_model": false,
+  "selected_apps": [
+    "AgentUserInterface",
+    "Emails",
+    "Calendar",
+    "Shopping"
+  ],
+  "user_text": "At exactly 4 minutes from now, reply to each new email I received during these 4 minutes with \"You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball.\" Exactly 30 seconds after you have sent these replies, add to my cart a mini blue mattel magic 8 ball for each unique email address you replied to, and then check out. Then, set a reminder on my calendar titled \"Reminder: Hand Out Gifts,\" for all day on the 31st of this month so I remember to hand out these gifts to the winners.",
+  "phases": [
+    "notify",
+    "notify",
+    "notify",
+    "notify",
+    "notify",
+    "notify",
+    "notify"
+  ],
+  "raw_outputs": [
+    "{\n    \"app\": \"Emails\",\n    \"function\": \"reply_to_email\",\n    \"args\": {\n        \"email_id\": \"154fd39de6084bd3be80dbfec7ad5c52\",\n        \"folder_name\": \"INBOX\",\n        \"content\": \"You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball.\"\n    }\n}",
+    "{\n    \"app\": \"Emails\",\n    \"function\": \"reply_to_email\",\n    \"args\": {\n        \"email_id\": \"18e5c350d558464993e0668b7cbccefa\",\n        \"folder_name\": \"INBOX\",\n        \"content\": \"You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball.\"\n    }\n}",
+    "{\n    \"app\": \"Emails\",\n    \"function\": \"reply_to_email\",\n    \"args\": {\n        \"email_id\": \"18967597867a4385a1346a783d7b7e3c\",\n        \"folder_name\": \"INBOX\",\n        \"content\": \"You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball.\"\n    }\n}",
+    "{\n    \"app\": \"Emails\",\n    \"function\": \"reply_to_email\",\n    \"args\": {\n        \"email_id\": \"009f19b7ab77459cae959dcdf86cdd9e\",\n        \"folder_name\": \"INBOX\",\n        \"content\": \"You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball.\"\n    }\n}",
+    "{\n    \"app\": \"Emails\",\n    \"function\": \"reply_to_email\",\n    \"args\": {\n        \"email_id\": \"1b578bf501f5476d84ee83c414500da3\",\n        \"folder_name\": \"INBOX\",\n        \"content\": \"You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball.\"\n    }\n}",
+    "{\n    \"app\": \"Emails\",\n    \"function\": \"reply_to_email\",\n    \"args\": {\n        \"email_id\": \"1b0b12423fe94342ac387af9c97b0c21\",\n        \"folder_name\": \"INBOX\",\n        \"content\": \"You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball.\"\n    }\n}",
+    "{\n    \"app\": \"Emails\",\n    \"function\": \"reply_to_email\",\n    \"args\": {\n        \"email_id\": \"1c83620e8ce14b5e9c7b9a0c9a58d666\",\n        \"folder_name\": \"INBOX\",\n        \"content\": \"You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball.\"\n    }\n}"
+  ],
+  "invocation_results": [
+    {
+      "ok": true,
+      "app": "Emails",
+      "function": "reply_to_email",
+      "args": {
+        "email_id": "154fd39de6084bd3be80dbfec7ad5c52",
+        "folder_name": "INBOX",
+        "content": "You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball."
+      }
+    },
+    {
+      "ok": true,
+      "app": "Emails",
+      "function": "reply_to_email",
+      "args": {
+        "email_id": "18e5c350d558464993e0668b7cbccefa",
+        "folder_name": "INBOX",
+        "content": "You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball."
+      }
+    },
+    {
+      "ok": true,
+      "app": "Emails",
+      "function": "reply_to_email",
+      "args": {
+        "email_id": "18967597867a4385a1346a783d7b7e3c",
+        "folder_name": "INBOX",
+        "content": "You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball."
+      }
+    },
+    {
+      "ok": true,
+      "app": "Emails",
+      "function": "reply_to_email",
+      "args": {
+        "email_id": "009f19b7ab77459cae959dcdf86cdd9e",
+        "folder_name": "INBOX",
+        "content": "You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball."
+      }
+    },
+    {
+      "ok": true,
+      "app": "Emails",
+      "function": "reply_to_email",
+      "args": {
+        "email_id": "1b578bf501f5476d84ee83c414500da3",
+        "folder_name": "INBOX",
+        "content": "You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball."
+      }
+    },
+    {
+      "ok": true,
+      "app": "Emails",
+      "function": "reply_to_email",
+      "args": {
+        "email_id": "1b0b12423fe94342ac387af9c97b0c21",
+        "folder_name": "INBOX",
+        "content": "You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball."
+      }
+    },
+    {
+      "ok": true,
+      "app": "Emails",
+      "function": "reply_to_email",
+      "args": {
+        "email_id": "1c83620e8ce14b5e9c7b9a0c9a58d666",
+        "folder_name": "INBOX",
+        "content": "You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball."
+      }
+    }
+  ],
+  "environment_events_applied": 3,
+  "predictions": [
+    {
+      "app": "Emails",
+      "function": "reply_to_email",
+      "args": {
+        "email_id": "154fd39de6084bd3be80dbfec7ad5c52",
+        "folder_name": "INBOX",
+        "content": "You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball."
+      }
+    },
+    {
+      "app": "Emails",
+      "function": "reply_to_email",
+      "args": {
+        "email_id": "18e5c350d558464993e0668b7cbccefa",
+        "folder_name": "INBOX",
+        "content": "You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball."
+      }
+    },
+    {
+      "app": "Emails",
+      "function": "reply_to_email",
+      "args": {
+        "email_id": "18967597867a4385a1346a783d7b7e3c",
+        "folder_name": "INBOX",
+        "content": "You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball."
+      }
+    },
+    {
+      "app": "Emails",
+      "function": "reply_to_email",
+      "args": {
+        "email_id": "009f19b7ab77459cae959dcdf86cdd9e",
+        "folder_name": "INBOX",
+        "content": "You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball."
+      }
+    },
+    {
+      "app": "Emails",
+      "function": "reply_to_email",
+      "args": {
+        "email_id": "1b578bf501f5476d84ee83c414500da3",
+        "folder_name": "INBOX",
+        "content": "You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball."
+      }
+    },
+    {
+      "app": "Emails",
+      "function": "reply_to_email",
+      "args": {
+        "email_id": "1b0b12423fe94342ac387af9c97b0c21",
+        "folder_name": "INBOX",
+        "content": "You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball."
+      }
+    },
+    {
+      "app": "Emails",
+      "function": "reply_to_email",
+      "args": {
+        "email_id": "1c83620e8ce14b5e9c7b9a0c9a58d666",
+        "folder_name": "INBOX",
+        "content": "You've been blessed by the powerful witch Baba Yaga. She has gifted you one of her rare magical artifacts: Magic 8 Ball."
+      }
+    }
+  ]
+}

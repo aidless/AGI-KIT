@@ -1,0 +1,1 @@
+{"task_id": "scenario_universe_21_xvc7uo", "trace_id": null, "score": 0.0, "metadata": {"scenario_id": "scenario_universe_21_xvc7uo", "status": "failed", "has_exception": true, "exception_type": "AttributeError", "exception_message": "module 'signal' has no attribute 'SIGALRM'"}}

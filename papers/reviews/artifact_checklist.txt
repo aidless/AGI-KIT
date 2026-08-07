@@ -1,6 +1,6 @@
 # AGI Kit Artifact Checklist
 
-Generated: 2026-08-01T11:58:14.235893
+Generated: 2026-08-02T00:55:52.966707
 
 This is an honest inventory. No score is calculated.
 Each artifact is either present on disk or missing.
@@ -12,24 +12,24 @@ which calibrated a rubric to award 4.5) with this checklist.
 
 | # | Item | Expected path | Status |
 |---|---|---|---|
-| 1 | Preprint (markdown) | `papers/preprint_unified_en.md` | PRESENT (49517 bytes) |
-| 2 | Preprint (PDF) | `papers/preprint_unified_en.pdf` | PRESENT (46231 bytes) |
-| 3 | Preprint (DOCX) | `papers/docx/preprint_unified_en.docx` | PRESENT (56510 bytes) |
-| 4 | Paper INDEX | `papers/00_INDEX_en.pdf` | PRESENT (3062 bytes) |
-| 5 | Cover letter | `papers/COVER_LETTER.md` | PRESENT (3190 bytes) |
-| 6 | Publishing guide | `papers/PUBLISHING.md` | PRESENT (4490 bytes) |
-| 7 | Figure 1 - layer ablation | `papers/figures/fig1_layer_ablation.png` | PRESENT (168426 bytes) |
+| 1 | Preprint (markdown) | `papers/preprint_unified_en.md` | PRESENT (58748 bytes) |
+| 2 | Preprint (PDF) | `papers/preprint_unified_en.pdf` | PRESENT (565184 bytes) |
+| 3 | Preprint (DOCX) | `papers/docx/preprint_unified_en.docx` | PRESENT (448180 bytes) |
+| 4 | Paper INDEX | `papers/00_INDEX_en.pdf` | PRESENT (4946 bytes) |
+| 5 | Cover letter | `papers/COVER_LETTER.md` | PRESENT (2801 bytes) |
+| 6 | Publishing guide | `papers/PUBLISHING.md` | PRESENT (2998 bytes) |
+| 7 | Figure 1 - layer ablation | `papers/figures/fig1_layer_ablation.png` | PRESENT (146492 bytes) |
 | 8 | Figure 2 - generation curve | `papers/figures/fig2_generation_curve.png` | PRESENT (120874 bytes) |
-| 9 | Figure 3 - L1 scoring | `papers/figures/fig3_l1_scoring_ablation.png` | PRESENT (118806 bytes) |
+| 9 | Figure 3 - L1 scoring | `papers/figures/fig3_l1_scoring_ablation.png` | PRESENT (97138 bytes) |
 | 10 | Figure 4 - L2 stuck latency | `papers/figures/fig4_l2_stuck_latency.png` | PRESENT (83524 bytes) |
-| 11 | Figure 5 - L4 mutator activity | `papers/figures/fig5_l4_mutator_activity.png` | PRESENT (131547 bytes) |
+| 11 | Figure 5 - L4 mutator activity | `papers/figures/fig5_l4_mutator_activity.png` | PRESENT (148051 bytes) |
 | 12 | A/B safety gate boundary tests | `logs/safety_gate/stress_test.json` | PRESENT (2772 bytes) |
 | 13 | A/B safety gate summary | `logs/safety_gate/summary.md` | PRESENT (1515 bytes) |
-| 14 | L4 red-team trace | `logs/redteam/l4_redteam.jsonl` | PRESENT (10388 bytes) |
-| 15 | L4 red-team summary | `logs/redteam/l4_redteam_summary.md` | PRESENT (2058 bytes) |
+| 14 | L4 red-team trace | `logs/redteam/l4_redteam.jsonl` | PRESENT (5846 bytes) |
+| 15 | L4 red-team summary | `logs/redteam/l4_redteam_summary.md` | PRESENT (2397 bytes) |
 | 16 | Gate calibration grid | `logs/calibration/gate_calibration.json` | PRESENT (10702 bytes) |
 | 17 | Gate calibration summary | `logs/calibration/gate_calibration_summary.md` | PRESENT (4300 bytes) |
-| 18 | Statistical tests summary | `logs/stat_tests/summary.md` | PRESENT (1425 bytes) |
+| 18 | Statistical tests summary | `logs/stat_tests/summary.md` | PRESENT (654 bytes) |
 | 19 | Cross-model summary | `logs/cross_model/summary.md` | PRESENT (3251 bytes) |
 | 20 | Arithmetic eval JSON | `logs/seeds_arith/arith_qwen3_1_7b_n10.json` | PRESENT (1437 bytes) |
 | 21 | Real GAIA2-mini scenarios | `data/gaia2/validation.jsonl` | PRESENT (385865 bytes) |
@@ -42,17 +42,17 @@ which calibrated a rubric to award 4.5) with this checklist.
 | 28 | Ablation - l1_l2 | `logs/ablation/l1_l2` | PRESENT (2 child file(s)) |
 | 29 | Ablation - l1_l2_l3 | `logs/ablation/l1_l2_l3` | PRESENT (5 child file(s)) |
 | 30 | LICENSE | `LICENSE` | PRESENT (743 bytes) |
-| 31 | Project README | `README.md` | PRESENT (3893 bytes) |
-| 32 | Papers README | `papers/README.md` | PRESENT (3825 bytes) |
+| 31 | Project README | `README.md` | PRESENT (4649 bytes) |
+| 32 | Papers README | `papers/README.md` | PRESENT (1660 bytes) |
 | 33 | Tarball (off-band) | `dist/agi-research-kit.tar.gz` | PRESENT (500603969 bytes) |
-| 34 | GitHub Actions CI | `.github/workflows/ci.yml` | PRESENT (1794 bytes) |
+| 34 | GitHub Actions CI | `.github/workflows/ci.yml` | PRESENT (1829 bytes) |
 | 35 | push.sh with self-checks | `dist/push.sh` | PRESENT (3920 bytes) |
 | 36 | L1 Reflector | `src/agi_kit/reflect.py` | PRESENT (9123 bytes) |
 | 37 | L2 Meta-Controller | `src/agi_kit/meta.py` | PRESENT (6484 bytes) |
 | 38 | L3 Continual Loop + safety gate | `src/agi_kit/loop.py` | PRESENT (15431 bytes) |
-| 39 | L4 Recursive Modifier | `src/agi_kit/recursive.py` | PRESENT (11184 bytes) |
+| 39 | L4 Recursive Modifier | `src/agi_kit/recursive.py` | PRESENT (14793 bytes) |
 | 40 | Safety gate boundary test driver | `experiments/stress_safety_gate.py` | PRESENT (4712 bytes) |
-| 41 | L4 red-team test driver | `experiments/redteam/l4_redteam.py` | PRESENT (5263 bytes) |
+| 41 | L4 red-team test driver | `experiments/redteam/l4_redteam.py` | PRESENT (5014 bytes) |
 | 42 | Gate calibration test driver | `experiments/gate_calibration.py` | PRESENT (3180 bytes) |
 
 ## Summary

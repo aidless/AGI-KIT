@@ -67,7 +67,10 @@ def main():
 
     def tok_fn(batch):
         out = tok(batch["text"], truncation=True, max_length=args.max_len, padding="max_length")
-        out["labels"] = [list(ids) for ids in out["input_ids"]]
+        out["labels"] = [
+            [token if mask else -100 for token, mask in zip(ids, attention)]
+            for ids, attention in zip(out["input_ids"], out["attention_mask"])
+        ]
         return out
 
     from datasets import Dataset
@@ -91,7 +94,7 @@ def main():
         logging_steps=20,
         save_strategy="epoch",
         save_total_limit=1,
-        fp16=False,
+        fp16=torch.cuda.is_available(),
         report_to="none",
         remove_unused_columns=False,
     )

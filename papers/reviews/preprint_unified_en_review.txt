@@ -1,7 +1,7 @@
 ======================================================================
 REVIEWER REPORT — AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on Consumer Hardware
 File: preprint_unified_en.md
-Word count: 9367
+Word count: 8621
 Has figure: True, Has table: True
 Has ethics: True, Has ablation: True
 Has reproducibility: True

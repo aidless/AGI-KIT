@@ -1,0 +1,148 @@
+{
+  "scenario_id": "scenario_universe_21_xvc7uo",
+  "gold_actions": 7,
+  "predicted_actions": 7,
+  "step_matches": 3,
+  "exact_sequence": false,
+  "development_only": true,
+  "oracle_exposed_to_model": false,
+  "selected_apps": [
+    "AgentUserInterface",
+    "Contacts",
+    "Messages",
+    "RentAFlat"
+  ],
+  "user_text": "I need to move out, but my budget is tight at the moment. Delete all properties in Stockholm from my saved apartments list that are not in the 1000-1800 price range. Save all unsaved properties in Stockholm within that price range to my list. If any properties matching my criteria are listed within 4 minutes from now, immediately send a Messages to my friend Linnea Svensson each time a new property within their budget is listed, as she is also looking to move out. Don't notify me, I'll check my list later.",
+  "phases": [
+    "remove",
+    "save",
+    "save",
+    "save",
+    "save",
+    "notify",
+    "notify"
+  ],
+  "raw_outputs": [
+    "{\n  \"app\": \"RentAFlat\",\n  \"function\": \"remove_saved_apartment\",\n  \"args\": {\n    \"apartment_id\": \"6a572b8b24f445cd851709f559a0f8d6\"\n  }\n}",
+    "{\n  \"app\": \"RentAFlat\",\n  \"function\": \"save_apartment\",\n  \"args\": {\n    \"apartment_id\": \"aae6d8011d49417390f7cdc050c4e39a\"\n  }\n}",
+    "{\n  \"app\": \"RentAFlat\",\n  \"function\": \"save_apartment\",\n  \"args\": {\n    \"apartment_id\": \"bf9d37569e064982924362e5e6023990\"\n  }\n}",
+    "{\n  \"app\": \"RentAFlat\",\n  \"function\": \"save_apartment\",\n  \"args\": {\n    \"apartment_id\": \"26060fbbac9e4f49abdbf9494794e2ad\"\n  }\n}",
+    "{\n  \"app\": \"RentAFlat\",\n  \"function\": \"save_apartment\",\n  \"args\": {\n    \"apartment_id\": \"63d3239ad97148afa5586d029cd1471b\"\n  }\n}",
+    "{\n  \"app\": \"Messages\",\n  \"function\": \"send_message\",\n  \"args\": {\n    \"content\": \"Checking for new apartments in Stockholm within your budget. I'll notify you if any are listed.\",\n    \"user_id\": \"+46700234567\"\n  }\n}\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+    "{\n  \"app\": \"Messages\",\n  \"function\": \"send_message\",\n  \"args\": {\n    \"content\": \"Checking for new apartments in Stockholm within your budget. I will notify you if any are listed.\",\n    \"user_id\": \"+46700234567\"\n  }\n}\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+  ],
+  "invocation_results": [
+    {
+      "ok": true,
+      "app": "RentAFlat",
+      "function": "remove_saved_apartment",
+      "args": {
+        "apartment_id": "6a572b8b24f445cd851709f559a0f8d6"
+      }
+    },
+    {
+      "ok": true,
+      "app": "RentAFlat",
+      "function": "save_apartment",
+      "args": {
+        "apartment_id": "aae6d8011d49417390f7cdc050c4e39a"
+      }
+    },
+    {
+      "ok": true,
+      "app": "RentAFlat",
+      "function": "save_apartment",
+      "args": {
+        "apartment_id": "bf9d37569e064982924362e5e6023990"
+      }
+    },
+    {
+      "ok": true,
+      "app": "RentAFlat",
+      "function": "save_apartment",
+      "args": {
+        "apartment_id": "26060fbbac9e4f49abdbf9494794e2ad"
+      }
+    },
+    {
+      "ok": true,
+      "app": "RentAFlat",
+      "function": "save_apartment",
+      "args": {
+        "apartment_id": "63d3239ad97148afa5586d029cd1471b"
+      }
+    },
+    {
+      "ok": true,
+      "app": "Messages",
+      "function": "send_message",
+      "args": {
+        "content": "Checking for new apartments in Stockholm within your budget. I'll notify you if any are listed.",
+        "user_id": "+46700234567"
+      }
+    },
+    {
+      "ok": true,
+      "app": "Messages",
+      "function": "send_message",
+      "args": {
+        "content": "Checking for new apartments in Stockholm within your budget. I will notify you if any are listed.",
+        "user_id": "+46700234567"
+      }
+    }
+  ],
+  "environment_events_applied": 6,
+  "predictions": [
+    {
+      "app": "RentAFlat",
+      "function": "remove_saved_apartment",
+      "args": {
+        "apartment_id": "6a572b8b24f445cd851709f559a0f8d6"
+      }
+    },
+    {
+      "app": "RentAFlat",
+      "function": "save_apartment",
+      "args": {
+        "apartment_id": "aae6d8011d49417390f7cdc050c4e39a"
+      }
+    },
+    {
+      "app": "RentAFlat",
+      "function": "save_apartment",
+      "args": {
+        "apartment_id": "bf9d37569e064982924362e5e6023990"
+      }
+    },
+    {
+      "app": "RentAFlat",
+      "function": "save_apartment",
+      "args": {
+        "apartment_id": "26060fbbac9e4f49abdbf9494794e2ad"
+      }
+    },
+    {
+      "app": "RentAFlat",
+      "function": "save_apartment",
+      "args": {
+        "apartment_id": "63d3239ad97148afa5586d029cd1471b"
+      }
+    },
+    {
+      "app": "Messages",
+      "function": "send_message",
+      "args": {
+        "content": "Checking for new apartments in Stockholm within your budget. I'll notify you if any are listed.",
+        "user_id": "+46700234567"
+      }
+    },
+    {
+      "app": "Messages",
+      "function": "send_message",
+      "args": {
+        "content": "Checking for new apartments in Stockholm within your budget. I will notify you if any are listed.",
+        "user_id": "+46700234567"
+      }
+    }
+  ]
+}

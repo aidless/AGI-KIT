@@ -207,10 +207,12 @@ class TransformersBackend(LLM):
         from transformers import AutoModelForCausalLM, AutoTokenizer
         self.tokenizer = AutoTokenizer.from_pretrained(model)
         self.model = AutoModelForCausalLM.from_pretrained(model, torch_dtype="auto")
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.model.to(self.device)
     def chat(self, messages, max_tokens=512, temperature=0.0):
         import torch
         prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-        inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
+        inputs = self.tokenizer(prompt, return_tensors="pt").to(self.device)
         with torch.no_grad():
             out = self.model.generate(**inputs, max_new_tokens=max_tokens, do_sample=False)
         return self.tokenizer.decode(out[0][inputs.input_ids.shape[1]:], skip_special_tokens=True)
@@ -235,6 +237,7 @@ def parse_action(text):
 class Agent:
     llm: LLM
     max_steps: int = 10
+    max_tokens: int = 160
     history: list = field(default_factory=list)
 
     def run(self, task):
@@ -245,7 +248,7 @@ class Agent:
         for step in range(1, self.max_steps + 1):
             print("\n--- step", step, "of", self.max_steps, "---")
             t0 = time.time()
-            reply = self.llm.chat(self.history)
+            reply = self.llm.chat(self.history, max_tokens=self.max_tokens)
             _llm = reply[:200].encode("ascii", "replace").decode("ascii")
             print("[LLM", round(time.time()-t0, 1), "s]", _llm)
             action = parse_action(reply)

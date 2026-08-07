@@ -1,0 +1,11 @@
+{
+  "run_name": "logs\\controlled_arithmetic\\smoke-llama-v2-20260802",
+  "model": "llama3.2:3b-instruct-q8_0",
+  "seed": 20260802,
+  "max_steps": 6,
+  "timeout_s": 180.0,
+  "split": "test",
+  "n_tasks": 2,
+  "manifest_sha256": "499b7835c2fbeb2036759e5ee6eb9c44a922af0ed6629939c2f50f2f85b47fe1",
+  "system_prompt_sha256": "d78f9a94bbe1a40204c48515c0e37f49592f1708c75c14fef0e6bf2b0c411a0d"
+}

@@ -1,0 +1,21 @@
+{
+  "run": "round18",
+  "candidate_model": "agi-sft-smollm2-validation:round18",
+  "checkpoint": "data/sft_real/out",
+  "ollama_import": {
+    "attempted": true,
+    "result": "created_safetensors_model"
+  },
+  "ollama_execution": {
+    "result": "failed",
+    "error": "mlx runner failed: nvrtc: error: failed to open nvrtc-builtins64_130.dll"
+  },
+  "transformers_cpu_smoke": {
+    "task": "Use calculator to compute 17 * 23, then final",
+    "gold": "391",
+    "prediction": "429",
+    "correct": false
+  },
+  "deployment_decision": "reject",
+  "reason": "candidate is not both executable in the deployment backend and correct on the smoke task"
+}

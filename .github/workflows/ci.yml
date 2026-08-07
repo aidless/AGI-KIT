@@ -26,11 +26,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          .\.venv\Scripts\pip.exe install -r requirements.txt || \
-          .\.venv\Scripts\pip.exe install transformers torch accelerate safetensors \
-            huggingface_hub datasets tokenizers openai httpx rich pydantic \
-            gradio pyyaml tiktoken ollama litellm sentence-transformers \
-            rank-bm25 faiss-cpu pypdf markdown xhtml2pdf matplotlib structlog
+          .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+
+      - name: Run tests
+        run: .\.venv\Scripts\python.exe -m pytest
 
       - name: Smoke test L1
         run: |
@@ -53,9 +52,15 @@ jobs:
         run: |
           .\.venv\Scripts\python.exe scripts/make_figures.py
           .\.venv\Scripts\python.exe scripts/build_papers_pdf_en.py
+          .\.venv\Scripts\python.exe scripts/make_docx.py
+
+      - name: Submission artifact preflight
+        run: .\.venv\Scripts\python.exe scripts/preflight_submission.py --allow-dirty --allow-placeholders
 
       - name: Upload PDFs
         uses: actions/upload-artifact@v4
         with:
-          name: papers-pdf
-          path: papers/*_en.pdf
+          name: submission-artifacts
+          path: |
+            papers/*_en.pdf
+            papers/docx/preprint_unified_en.docx

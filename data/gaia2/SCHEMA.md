@@ -37,6 +37,15 @@ Each scenario is a virtual multi-turn agent interaction. Fields:
 
 Total expected AGENT calls: ~1,042 across the 160 scenarios.
 
+## Raw Event Availability
+
+The original Arrow cache includes a `data` JSON field containing initial app
+state and the complete `USER`, `ENV`, and oracle `AGENT` event stream. The
+tracked `validation.jsonl` is a compact derivative that retains only oracle
+actions. Use `scripts/extract_gaia2_raw_events.py` on the Arrow cache to
+regenerate complete scenarios for a simulator; never use oracle actions as
+the model input or prediction.
+
 ## Why AGI Kit Cannot Evaluate On This Data Without New Implementation
 
 AGI Kit's `full_agent.py` exposes 11 tools (calculator, read_file, read_pdf,

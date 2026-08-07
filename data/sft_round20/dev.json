@@ -1,0 +1,542 @@
+[
+  {
+    "id": "r20-dev-0000",
+    "expression": "(945*12)+461",
+    "gold": "11801",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (945*12)+461. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(945*12)+461\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 11801"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"11801\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0001",
+    "expression": "(551+16)*70",
+    "gold": "39690",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (551+16)*70. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(551+16)*70\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 39690"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"39690\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0002",
+    "expression": "(663*66)-394",
+    "gold": "43364",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (663*66)-394. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(663*66)-394\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 43364"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"43364\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0003",
+    "expression": "(642/3)+346",
+    "gold": "560",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (642/3)+346. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(642/3)+346\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 560"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"560\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0004",
+    "expression": "(82*37)+331",
+    "gold": "3365",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (82*37)+331. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(82*37)+331\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 3365"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"3365\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0005",
+    "expression": "(496+71)*314",
+    "gold": "178038",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (496+71)*314. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(496+71)*314\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 178038"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"178038\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0006",
+    "expression": "(549*22)-295",
+    "gold": "11783",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (549*22)-295. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(549*22)-295\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 11783"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"11783\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0007",
+    "expression": "(1208/8)+173",
+    "gold": "324",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (1208/8)+173. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(1208/8)+173\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 324"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"324\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0008",
+    "expression": "(628*55)+179",
+    "gold": "34719",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (628*55)+179. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(628*55)+179\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 34719"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"34719\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0009",
+    "expression": "(67+32)*242",
+    "gold": "23958",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (67+32)*242. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(67+32)*242\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 23958"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"23958\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0010",
+    "expression": "(215*27)-466",
+    "gold": "5339",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (215*27)-466. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(215*27)-466\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 5339"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"5339\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0011",
+    "expression": "(1411/17)+38",
+    "gold": "121",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (1411/17)+38. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(1411/17)+38\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 121"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"121\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0012",
+    "expression": "(773*20)+386",
+    "gold": "15846",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (773*20)+386. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(773*20)+386\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 15846"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"15846\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0013",
+    "expression": "(126+71)*94",
+    "gold": "18518",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (126+71)*94. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(126+71)*94\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 18518"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"18518\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0014",
+    "expression": "(856*97)-159",
+    "gold": "82873",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (856*97)-159. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(856*97)-159\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 82873"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"82873\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0015",
+    "expression": "(2665/13)+325",
+    "gold": "530",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (2665/13)+325. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(2665/13)+325\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 530"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"530\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0016",
+    "expression": "(53*24)+63",
+    "gold": "1335",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (53*24)+63. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(53*24)+63\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 1335"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"1335\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0017",
+    "expression": "(366+77)*276",
+    "gold": "122268",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (366+77)*276. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(366+77)*276\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 122268"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"122268\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0018",
+    "expression": "(131*93)-478",
+    "gold": "11705",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (131*93)-478. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(131*93)-478\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 11705"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"11705\"}\n```"
+      }
+    ]
+  },
+  {
+    "id": "r20-dev-0019",
+    "expression": "(1140/20)+39",
+    "gold": "96",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are an AGI research assistant. Local ReAct Agent.\nTools:\n- calculator: Evaluate an arithmetic expression (supports +,-,*,/,**,%,(),^) | params {'expr': 'str expression'}\n- read_file: Read a local text file | params {'path': 'str abs path', 'max_chars': 'int=3000'}\n- read_pdf: Read a PDF file (returns first N pages text) | params {'path': 'str', 'max_pages': 'int=5'}\n- echo: Echo a string back (sanity test) | params {'msg': 'str'}\n- list_dir: List files in a directory | params {'path': 'str dir path', 'pattern': 'str glob optional e.g. *.pdf'}\n- shell: Run a short shell command (pwd/ls/cat/type etc, no pipes) | params {'cmd': 'str short command'}\n- web_search: Search Bing, returns top N titles+urls+snippets | params {'query': 'str', 'top_k': 'int=5'}\n- web_fetch: Fetch URL content as plain text | params {'url': 'str http url', 'max_chars': 'int=3000'}\n- rag_add: Index a file (txt/md/pdf) into local RAG store | params {'path': 'str'}\n- rag_search: Semantic search over indexed documents | params {'query': 'str', 'top_k': 'int=3'}\n- rag_clear: Clear the RAG index | params {}\n\nOutput strict JSON in ```json ... ```.\nTool call: {\"tool\": \"<name>\", \"args\": {...}}\nFinal answer: {\"final\": \"<answer>\"}\nBe concise. Use tools step by step."
+      },
+      {
+        "role": "user",
+        "content": "Use calculator to compute (1140/20)+39. Return the result."
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"tool\":\"calculator\",\"args\":{\"expr\":\"(1140/20)+39\"}}\n```"
+      },
+      {
+        "role": "user",
+        "content": "Observation: 96"
+      },
+      {
+        "role": "assistant",
+        "content": "```json\n{\"final\":\"96\"}\n```"
+      }
+    ]
+  }
+]

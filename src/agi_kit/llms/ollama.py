@@ -23,11 +23,13 @@ class OllamaBackend(LLM):
         host: str = "http://127.0.0.1:11434",
         timeout_s: float = 60.0,
         auto_pull: bool = True,
+        seed: int | None = None,
     ) -> None:
         super().__init__(model=model)
         self.host = host
         self.timeout_s = timeout_s
         self.auto_pull = auto_pull
+        self.seed = seed
         self._client: Any = None
 
     def _get_client(self) -> Any:
@@ -64,11 +66,18 @@ class OllamaBackend(LLM):
         }
         if stop:
             options["stop"] = stop
+        # Ollama accepts a generation seed in its options object.  Keeping it
+        # here makes a run manifest sufficient to replay the model calls.
+        if self.seed is not None:
+            options["seed"] = self.seed
 
         with metrics.timed_llm(backend="ollama", model=self.model):
             t0 = time.perf_counter()
             try:
-                r = client.chat(model=self.model, messages=msg_dicts, options=options)
+                request_kwargs: dict[str, Any] = {}
+                if kwargs.get("format") is not None:
+                    request_kwargs["format"] = kwargs["format"]
+                r = client.chat(model=self.model, messages=msg_dicts, options=options, **request_kwargs)
             except Exception as e:
                 raise LLMError(f"Ollama call failed: {e}") from e
             dt = time.perf_counter() - t0

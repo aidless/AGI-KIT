@@ -1,0 +1,11 @@
+{
+  "round": 20,
+  "seed_train": 20260820,
+  "seed_dev": 20260821,
+  "seed_test": 20260822,
+  "n_train": 480,
+  "n_dev": 20,
+  "n_test": 80,
+  "deployment_prompt": "experiments.full_agent.render_system_prompt",
+  "disjoint_expression_sets": true
+}

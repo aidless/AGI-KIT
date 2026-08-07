@@ -1,119 +1,85 @@
-# Publishing Guide (AGI Kit Unified Preprint v2)
+# Publishing Guide (Unified Preprint v2)
 
-This guide covers submission to **TMLR** (primary target) with
-**arXiv** as the always-available pre-print venue. The venue priorities
-reflect the Round 9 reviewer-sim result of **3.50 / 5.0 (Weak Accept)**
-which is sufficient for TMLR submission but not for a typical TMLR
-Accept decision; arXiv is the safer immediate target.
+The manuscript is a submission draft, not a published preprint. Use
+this checklist before any arXiv or TMLR upload.
 
-## 1. Repository Snapshot (as of 2026-08-01)
+## 1. Required Metadata
 
-- `papers/preprint_unified_en.md` (and `.pdf` / `.docx`): the unified preprint.
-- `papers/_deprecated/`: the predecessor 5-paper TMLR bundle, preserved
-  unmodified for archival/audit (DO NOT submit; not the record of submission).
-- `papers/COVER_LETTER.md`: TMLR cover letter (with arXiv fallback note).
-- `papers/00_INDEX_en.pdf`: short index page for the preprint.
-- `papers/figures/`: 5 matplotlib figures, 200 DPI.
-- `papers/reviews/`: heuristic reviewer simulator output
-  (`summary.txt` + `preprint_unified_en_review.txt`).
-- `dist/agi-research-kit.tar.gz`: full bundle for supplementary upload.
-- `REPORT.md`: 23 sections including Round 9 ceiling analysis.
+- Replace `AGI Research Kit Contributors` with final author names.
+- Add affiliations, contact author, and ORCID identifiers if available.
+- Create the public repository and replace every `<org>` or `your-org`
+  URL placeholder.
+- Confirm that the author list, title, abstract, license, and repository
+  URL agree across Markdown, PDF, DOCX, package metadata, and forms.
 
-## 2. TMLR Submission Workflow
+## 2. Reproducibility Gate
 
-### Step 1: Confirm Working Tree
+Start Ollama and pull every model tag referenced by the reported
+experiments before running the gate:
 
-```bash
-cd /path/to/agi-research-kit
-bash dist/push.sh --check-only dummy dummy
-# Expected: All self-checks passed.
+```powershell
+ollama serve
+ollama pull qwen3:1.7b
+ollama pull qwen3:0.6b
+ollama pull qwen2.5:3b
+ollama pull llama3.2:1b
 ```
 
-### Step 2: Push to GitHub
+Run from the repository root:
 
-```bash
-bash dist/push.sh <your-github-username> agi-research-kit
+```powershell
+python scripts\preflight_submission.py
+python -m pytest
+python experiments\stress_safety_gate.py
+python experiments\redteam\l4_redteam.py
 ```
 
-The script runs six pre-push guards (working tree clean, tarball
-not tracked, no >50 MB files, LICENSE/README present, .env absent,
-push.sh executable). If any fail, fix and retry.
+The historical `logs/stat_tests/results.json` summary is not a valid
+inferential experiment. Before making seed-level statistical claims,
+rerun with fresh per-run directories, explicit seeds for Python, NumPy,
+PyTorch, and the model backend, a fixed task manifest, and at least ten
+independent runs. Report effect sizes and uncertainty at the run level.
 
-### Step 3: Submit via OpenReview
+## 3. Build and Inspect
 
-- URL: https://openreview.net/group?id=TMLR
-- New Submission
-- Upload `papers/docx/preprint_unified_en.docx` (Times Roman 11pt, A4)
-- Cover letter: paste contents of `papers/COVER_LETTER.md`
-- Supplementary: `dist/agi-research-kit.tar.gz`
-
-## 3. arXiv Submission Workflow (Fallback or Primary)
-
-### Step 1: Re-Verify PDF
-
-```bash
-explorer papers/preprint_unified_en.pdf
-# Confirm 8-12 pages A4 with figures embedded
+```powershell
+python scripts\make_figures.py
+python scripts\build_papers_pdf_en.py
+python scripts\make_docx.py
 ```
 
-### Step 2: Submit via arXiv
+Inspect every PDF and DOCX page. Confirm that Figures 1, 2, and 5 render,
+tables are present and readable, no corrupted punctuation, replacement glyphs, internal
+self-scores, stale five-paper text, or placeholder URLs remain.
 
-- URL: https://arxiv.org/submit
-- Primary subject: `cs.AI` (Artificial Intelligence)
-- Cross-list: `cs.LG` (Machine Learning)
-- Title: *AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on
-  Consumer Hardware �� Empirical Observations*
-- Authors: AGI Research Kit Contributors
-- Abstract: copy from `papers/preprint_unified_en.md` front matter.
-- Comments: include the GitHub repo URL (after Round 10 push).
-- File: `papers/preprint_unified_en.pdf` (or a `.tar.gz` of `.tex` source).
+## 4. Repository Release
 
-arXiv typically processes in 24-72 hours. Once accepted, the
-preprint DOI is permanent and can be cited in the TMLR submission.
+The repository uses the Apache License 2.0. Do not publish until the Git
+worktree is clean, tests pass, no secrets are present, and no tracked
+file exceeds the hosting limit. The Bash helper in `dist/push.sh` is
+optional; `scripts/preflight_submission.py` is the cross-platform gate.
 
-## 4. Why arXiv Works as Either Fallback or Primary
+Create a tagged release for the exact manuscript snapshot and archive
+it in a DOI-granting repository such as Zenodo before citing a DOI.
 
-| | TMLR | arXiv |
-|---|---|---|
-| Review bar | typically 4.0+/5.0 | none |
-| Acceptance time | 3-6 months | 24-72 hours |
-| Our reviewer-sim score | 3.50 (Weak Accept) | n/a |
-| Verdict for our work | needs minor revision; can be accepted with revisions | acceptable as system report |
+## 5. arXiv
 
-We have reframed the contribution honestly (��8 Limitations). For a
-venue that demands a benchmark-beating result, this work is not yet
-ready; arXiv publication as a system report is appropriate. The
-empirical artifacts and consolidated lessons are valuable to the
-community.
+- Primary category: `cs.AI`; optional cross-list: `cs.LG`.
+- Upload the final PDF or a self-contained TeX source bundle.
+- Use the exact title, authors, abstract, and public repository URL.
+- Do not claim the paper is already published or has a DOI before arXiv
+  processing is complete.
 
-## 5. Final Integrity Sweep (Run Before Submission)
+## 6. TMLR
 
-Run all five from `experiments/`:
+- Submit through OpenReview at `https://openreview.net/group?id=TMLR`.
+- Upload the venue-compliant manuscript format requested by the current
+  TMLR instructions.
+- Paste the finalized cover letter; remove all placeholder author text.
+- Describe the 6-scenario prompt comparison as exploratory and the
+  historical three-run summary as descriptive only.
 
-```bash
-python experiments/stress_safety_gate.py
-# Expected: 12/12 OK
-python experiments/redteam/l4_redteam.py
-# Expected: 18/18 blocked, 0/5 false positives
-python experiments/gate_calibration.py
-# Expected: 60-trial grid, monotone acceptance rates
-python experiments/arith_eval.py qwen3:1.7b 10
-# Expected: 10/10 correct (warm Ollama required, ~5 min wall clock)
-bash dist/push.sh --check-only dummy dummy
-# Expected: all six guards pass
-```
+## 7. Post-Submission
 
-If any output differs from expectation, file a Round 11 fix before
-submitting.
-
-## 6. Future Work After arXiv Submission
-
-- Round 10 follow-up: real SFT loop with SmolLM2-135M (Stream A.5)
-- Round 11 follow-up: 10-seed statistical robustness (Stream A.3)
-- Round 12 follow-up: head-to-head baselines (Stream B.1)
-- Beyond: complete the remaining 7 GAIA2 apps (currently 3/10 covered)
-- Beyond: deployment simulation with adversarial user (Stream C.2)
-
-The README and PUBLISHING should be updated with the arXiv DOI within
-7 days of acceptance.
-
+After a public identifier exists, update the README, manuscript,
+package metadata, citation block, and release notes in one commit.

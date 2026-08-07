@@ -1,0 +1,23 @@
+{
+  "base_model": "SmolLM2-135M-Instruct",
+  "candidate": "candidate120e3_gpu",
+  "training": {
+    "train_examples": 120,
+    "epochs": 3,
+    "learning_rate": 0.00002,
+    "runtime": "PyTorch 2.13.0+cu126 on NVIDIA GeForce RTX 3060 Laptop GPU",
+    "seconds": 47.044
+  },
+  "held_out_protocol": {
+    "n_tasks": 40,
+    "max_steps": 4,
+    "max_tokens_per_step": 128,
+    "agent_prompt": "full_agent.TransformersBackend"
+  },
+  "results": {
+    "base_correct": 0,
+    "candidate_correct": 0
+  },
+  "decision": "reject",
+  "reason": "candidate did not improve on any held-out task; it repeatedly emitted invalid calculator argument schemas"
+}

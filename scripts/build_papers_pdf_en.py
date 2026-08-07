@@ -11,6 +11,7 @@ preprint; the archived 5-paper assets live in papers/_deprecated/.
 from __future__ import annotations
 
 from pathlib import Path
+import re
 import markdown
 from xhtml2pdf import pisa
 
@@ -34,28 +35,33 @@ h1 {
     margin-top: 0.5cm;
     margin-bottom: 0.5cm;
     font-weight: bold;
-    page-break-before: always;
     page-break-after: avoid;
 }
 h2 {
+    display: block;
     font-size: 14pt;
     margin-top: 0.6cm;
     margin-bottom: 0.3cm;
     color: #003366;
     border-bottom: 1px solid #999;
     padding-bottom: 2pt;
+    page-break-after: avoid;
 }
 h3 {
+    display: block;
     font-size: 12pt;
     margin-top: 0.5cm;
     margin-bottom: 0.2cm;
     color: #003366;
+    page-break-after: avoid;
 }
 h4 {
+    display: block;
     font-size: 11pt;
     margin-top: 0.4cm;
     margin-bottom: 0.2cm;
     color: #555;
+    page-break-after: avoid;
 }
 p {
     margin: 0.3em 0;
@@ -81,6 +87,10 @@ pre {
     margin: 6pt 0;
     white-space: pre-wrap;
     word-wrap: break-word;
+    page-break-inside: avoid;
+}
+.codehilite {
+    page-break-inside: avoid;
 }
 table {
     border-collapse: collapse;
@@ -112,6 +122,7 @@ img {
     display: block;
     margin: 0.5cm auto;
     max-width: 90%;
+    page-break-inside: avoid;
 }
 .abstract {
     background: #f4f8ff;
@@ -129,57 +140,102 @@ PAPER_FILES = [
 
 
 def md_to_html(md_text: str) -> str:
-    md_text = md_text.replace("<", "&lt;").replace(">", "&gt;")
     html_body = markdown.markdown(
         md_text,
         extensions=["tables", "fenced_code", "codehilite", "toc", "sane_lists", "attr_list"],
     )
-    return f'<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>{html_body}</body></html>'
+    hard_eval_table = "<table>\n<thead>\n<tr>\n<th>Configuration on hard 20-task eval</th>"
+    html_body = html_body.replace(
+        hard_eval_table,
+        "<pdf:nextpage />\n" + hard_eval_table,
+        1,
+    )
+    round15_table = (
+        "<table>\n<thead>\n<tr>\n<th>Configuration</th>\n"
+        '<th style="text-align: right;">Perfect (3/3)</th>'
+    )
+    html_body = html_body.replace(
+        round15_table,
+        "<pdf:nextpage />\n" + round15_table,
+        1,
+    )
+    baseline_table = (
+        "<table>\n<thead>\n<tr>\n<th>Configuration</th>\n"
+        '<th style="text-align: right;">Emission</th>\n'
+        '<th style="text-align: right;">Correctness</th>\n<th>Note</th>'
+    )
+    first_baseline = html_body.find(baseline_table)
+    second_baseline = html_body.find(
+        baseline_table,
+        first_baseline + len(baseline_table),
+    )
+    if second_baseline >= 0:
+        html_body = (
+            html_body[:second_baseline]
+            + "<pdf:nextpage />\n"
+            + html_body[second_baseline:]
+        )
+    swapout_table = (
+        "<table>\n<thead>\n<tr>\n<th>Template</th>\n"
+        '<th style="text-align: right;">n</th>\n'
+        '<th style="text-align: right;">Bare accuracy</th>\n'
+        '<th style="text-align: right;">Full L1-L4 accuracy</th>\n'
+        '<th style="text-align: right;">Delta</th>'
+    )
+    html_body = html_body.replace(
+        swapout_table,
+        "<pdf:nextpage />\n" + swapout_table,
+        1,
+    )
+    appendix_b = html_body.find('<h2 id="appendix-b-reproduction">')
+    reproduction_code = html_body.find('<div class="codehilite">', appendix_b)
+    if reproduction_code >= 0:
+        html_body = (
+            html_body[:reproduction_code]
+            + "<pdf:nextpage />\n"
+            + html_body[reproduction_code:]
+        )
+    html_body = re.sub(
+        r"(<pre><code[^>]*>)(.*?)(</code></pre>)",
+        lambda match: match.group(1) + match.group(2).replace("\n", "<br />") + match.group(3),
+        html_body,
+        flags=re.DOTALL,
+    )
+    return (
+        '<!DOCTYPE html><html><head><meta charset="utf-8">'
+        f"<style>{HTML_CSS}</style></head><body>{html_body}</body></html>"
+    )
 
 
 def html_to_pdf(html: str, pdf_path: str) -> bool:
+    def resolve_asset(uri: str, _rel: str) -> str:
+        if uri.startswith(("data:", "http://", "https://")):
+            return uri
+        return str((PAPERS_DIR / uri).resolve())
+
+    if Path(pdf_path).name in {"00_INDEX_en.pdf", "COVER_LETTER_en.pdf"}:
+        html = html.replace(
+            "</style>",
+            "body { font-size: 10pt; line-height: 1.3; } "
+            "p { margin: 0.22em 0; } li { margin: 0.12em 0; }"
+            "</style>",
+            1,
+        )
     with open(pdf_path, "wb") as f:
-        result = pisa.CreatePDF(src=html, dest=f, default_css=HTML_CSS)
+        result = pisa.CreatePDF(
+            src=html,
+            dest=f,
+            path=str(PAPERS_DIR),
+            link_callback=resolve_asset,
+        )
     return not result.err
-
-
-INDEX_MD = """# AGI Research Kit: Unified Preprint v1
-
-## AGI Kit: An End-to-End Self-Improving Tool-Use Pipeline on Consumer Hardware
-
-**Authors:** AGI Research Kit Contributors  **Date:** 2026-08-01  **Type:** Single arXiv preprint, replacing the predecessor 5-paper TMLR bundle (archived).
-
----
-
-## Headline Numbers
-
-- End-to-end task success: **68%** vs 30% static baseline (+38 pp)
-- Continual-learning eval: **60.4% +/- 3.6%**, **p<0.01** vs static
-- A/B safety gate: **12/12** adversarial boundary tests passed
-- Cross-model transfer: collapses below **~2B parameters**
-- Hardware: ~3.3 GB RSS, ~20 s/episode, no GPU
-
-## Companion Artifacts
-
-- Source: src/agi_kit/, experiments/, scripts/
-- Logs: logs/{cross_model,stat_tests,safety_gate,full_run*,continual,l4}
-- Real SFT validation: data/sft_real/ (SmolLM2-135M, 2 min on CPU)
-- Figures: papers/figures/ (5 matplotlib PNGs at 200 DPI)
-
-## Why One Preprint Instead of Five?
-
-The five-paper TMLR bundle achieved an average reviewer score of 3.43 / 5.0 (Major Revision), driven by structural issues that additional polishing could not resolve: synthetic GAIA2 eval, no head-to-head baselines, small N. We honestly consolidated the bundle into a single preprint that frames the work as an empirical system report rather than a benchmark-beating contribution.
-
----
-
-See `preprint_unified_en.pdf` for the full paper. The original five papers (paper1_l1_self_critique, paper2_l2_meta_control, paper3_l3_continual_loop, paper4_l4_recursive, paper5_l1_l4_system) are preserved unchanged at `papers/_deprecated/`.
-"""
 
 
 def main():
     print("=== Building English PDF bundle ===")
-    # Index
-    if html_to_pdf(md_to_html(INDEX_MD), str(PAPERS_DIR / "00_INDEX_en.pdf")):
+    # Index: generated from the same source delivered to readers.
+    index_md = (PAPERS_DIR / "00_INDEX_en.md").read_text(encoding="utf-8")
+    if html_to_pdf(md_to_html(index_md), str(PAPERS_DIR / "00_INDEX_en.pdf")):
         print("  00_INDEX_en.pdf")
 
     # Cover letter
