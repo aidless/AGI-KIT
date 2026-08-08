@@ -1,0 +1,26 @@
+{
+  "round": 22,
+  "split": "dev",
+  "start": 0,
+  "model": "agi-sft-qwen3-0.6b:round22",
+  "label": "candidate_smoke",
+  "max_steps": 3,
+  "n": 2,
+  "correct": 0,
+  "rows": [
+    {
+      "id": "r20-dev-0000",
+      "expression": "(945*12)+461",
+      "gold": "11801",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-dev-0001",
+      "expression": "(551+16)*70",
+      "gold": "39690",
+      "pred": "[agent] max steps",
+      "correct": false
+    }
+  ]
+}

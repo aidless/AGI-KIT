@@ -1,0 +1,12 @@
+{
+  "base_model": "Qwen/Qwen3-0.6B",
+  "n_train": 120,
+  "epochs": 3,
+  "steps": 360,
+  "final_loss": 4.404477294883691e-06,
+  "mean_loss": 0.030518324008883407,
+  "lora_r": 16,
+  "lora_alpha": 32.0,
+  "seconds": 1828.6,
+  "merged_dir": "logs\\sft_round22\\candidate_qwen3_0p6b_merged"
+}

@@ -1,0 +1,19 @@
+{
+  "config": "time",
+  "model": "qwen2.5:3b",
+  "endpoint": "http://127.0.0.1:11434/v1",
+  "n_scenarios": 1,
+  "n_success": 0,
+  "n_failed": 1,
+  "success_rate": 0.0,
+  "rows": [
+    {
+      "scenario_id": "scenario_universe_22_bv95nt",
+      "run_number": null,
+      "success": false,
+      "rationale": "Failure: \nAgent and oracle counters do not match for the following tools:\n- Tool 'RentAFlat__remove_saved_apartment': Agent count 0, Oracle count 4\n- Tool 'RentAFlat__update_apartment': Agent count 1, Oracle count 5\n- Tool 'RentAFlat__save_apartment': Agent count 0, Oracle count 4\n- Tool 'EmailClientV2__send_email': Agent count 0, Oracle count 1",
+      "exception": null,
+      "duration_s": 46.3206787109375
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "round": 22,
+  "timestamp": "2026-08-08T12:10:33",
+  "candidate": "agi-sft-qwen3-0.6b:round22",
+  "base": "qwen3:0.6b",
+  "criterion_1_executable_ollama": {
+    "smoke_returncode": 0,
+    "smoke_stdout_tail": "\n55\n[OBS] unknown tool: None\n\n--- step 3 of 3 ---\n[LLM 2.0 s] \n\nFirst compute 551+16:\n551 + 16 = 567\n\nThen compute 567 * 70:\n567 * 70 = 39690\n\nFirst compute 551+16:\n551 + 16 = 567\n\nThen compute 567 *\n{\n  \"model\": \"agi-sft-qwen3-0.6b:round22\",\n  \"label\": \"candidate_smoke\",\n  \"n\": 2,\n  \"correct\": 0\n}\n",
+    "smoke_stderr_tail": "",
+    "passed": true
+  },
+  "criterion_2_frozen_heldout": {
+    "split": "test",
+    "n": 80,
+    "candidate_correct": 0,
+    "base_correct": 0,
+    "manifest": "data/sft_round20/test.json"
+  },
+  "criterion_3_statistical": {
+    "discordant_pairs": 0,
+    "candidate_wins": 0,
+    "base_wins": 0,
+    "two_sided_exact_mcnemar_p": 1.0
+  },
+  "criterion_4_gate": {
+    "threshold": 0.85,
+    "ratio": null,
+    "accepted": false
+  },
+  "criterion_5_audited_swap": {
+    "swap_executed": false,
+    "running_model_after": "qwen3:0.6b",
+    "audit_file": "F:\\agent to AGI\\agi-research-kit\\logs\\sft_round22\\swap_audit.json"
+  }
+}

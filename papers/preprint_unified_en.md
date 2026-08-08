@@ -1080,6 +1080,20 @@ The candidate is executable through Transformers but has not passed the
 required Ollama deployment path, so the recorded deployment decision is
 `not_accepted`. We therefore do not count Round 20 as a deployed L3
 self-improvement update.
+**Round 22 deployed Qwen3-0.6B candidate check (negative).** We
+trained a LoRA adapter on Qwen3-0.6B (120 traces, 3 epochs, final
+loss $4.4\times10^{-6}$), merged it, converted the merged weights to
+GGUF, and deployed it as an Ollama model
+(`agi-sft-qwen3-0.6b:round22`). This is the first candidate that is
+executable through the actual deployment backend. On the same frozen
+80-task protocol test, both the candidate and the untouched base
+obtained **0/80** (no discordant pairs), so the A/B gate rejected the
+swap (threshold 0.85, `accepted: false`). The near-zero training loss
+indicates memorization of the 120 training traces rather than
+protocol generalization. The candidate is deployable but not an
+accuracy-improving update; the full record is
+`logs/sft_round22/swap_audit.json`.
+
 
 **Limitations of the SFT:** the model is small (134M params), the
 dataset is small (16 examples), and the wall clock is short (2 min).
@@ -1128,8 +1142,9 @@ We enumerate honestly what this preprint does *not* establish.
   80-task protocol-learning test passes, but no candidate has completed
   the full deployed acceptance protocol defined in Section 5.3.
 - **No accepted L3 update.** None of the real SFT candidates (Round 18,
-  Round 20) satisfies the five-criterion acceptance protocol in Section
-  5.3. The strongest positive result (80/80 protocol learning) is not a
+  Round 20, Round 22) satisfies the five-criterion acceptance protocol
+  in Section 5.3; Round 22 is the first that is deployable via Ollama,
+  but it scored 0/80 on the frozen protocol test and was rejected. The strongest positive result (80/80 protocol learning) is not a
   deployed self-improvement update and is reported as such.
 - **Underpowered small-sample designs.** Exact 95% intervals are wide
   wherever n is small: the 9-task ablation CI spans [40.0%, 97.2%], the
@@ -1279,6 +1294,21 @@ bridge without re-extracting from the Arrow file.
 The Round 7 deliverable is honest enumeration of what a real
 evaluation would require, not a synthetic number on a non-canonical
 mapping.
+
+
+Round 22 added a native tool-calling adapter for the official ARE
+harness (`scripts/run_gaia2_canonical.py`) that keeps the official
+environment, scenario, and validator while replacing the ReAct text
+loop with OpenAI-style function calling. The adapter introduces an
+anti-spin guard, compacted tool observations, and a higher iteration
+budget; this measurably increased tool invocation (e.g., 5/5 matched
+`RentAFlat__update_apartment` calls and a successful
+`list_saved_apartments` lookup on one scenario, versus zero expected
+tool calls before the adapter). No scenario nevertheless reached a
+valid full score with the small local models available on this
+machine (Qwen3-0.6B and Qwen2.5-3B), so the canonical evaluation
+remains unpassed and no GAIA2 accuracy number is reported.
+
 
 
 

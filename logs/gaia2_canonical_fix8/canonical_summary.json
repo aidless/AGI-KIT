@@ -1,0 +1,19 @@
+{
+  "config": "ambiguity",
+  "model": "qwen2.5:3b",
+  "endpoint": "http://127.0.0.1:11434/v1",
+  "n_scenarios": 1,
+  "n_success": 0,
+  "n_failed": 1,
+  "success_rate": 0.0,
+  "rows": [
+    {
+      "scenario_id": "scenario_universe_23_qqp7ys",
+      "run_number": null,
+      "success": false,
+      "rationale": "Failure: \nAgent and oracle counters do not match for the following tools:\n- Tool 'RentAFlat__save_apartment': Agent count 0, Oracle count 1",
+      "exception": null,
+      "duration_s": 245.5521080493927
+    }
+  ]
+}

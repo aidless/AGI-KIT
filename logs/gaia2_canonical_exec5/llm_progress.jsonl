@@ -1,0 +1,60 @@
+{"t": 1786106708.5920212, "tool": "Calendar__get_calendar_events_from_to", "args": {"start_datetime": "2024-10-15 00:00:00", "end_datetime": "2024-10-31 23:59:59"}, "tokens": 4184}
+{"t": 1786106710.5266984, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106712.495327, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106714.551323, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106716.611128, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106720.2694948, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106724.2464747, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106728.7779257, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106733.6548736, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106738.4877732, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106743.4851048, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106748.3023176, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106753.2102776, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106758.104769, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106763.0206764, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106808.6917722, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106811.14145, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786106813.887622, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786106816.5635984, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786106819.4479272, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786106822.39737, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786106825.5421221, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786106828.5442991, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786106831.565706, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786106834.821249, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786106838.257664, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786106841.7182689, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786106845.1145535, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786106848.555862, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786106852.2961805, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786106938.5734386, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786106941.3286731, "tool": "Chats__read_conversation", "args": {"conversation_id": "1234567890"}, "tokens": 4130}
+{"t": 1786106946.0117674, "tool": "Chats__read_conversation", "args": {"conversation_id": "1234567890", "offset": 0, "limit": 10}, "tokens": 4143}
+{"t": 1786106950.0116088, "tool": "Chats__read_conversation", "args": {"conversation_id": "1234567890", "offset": 0, "limit": 10}, "tokens": 4143}
+{"t": 1786106953.2458763, "tool": "Chats__read_conversation", "args": {"limit": 10, "conversation_id": "1234567890", "offset": 0}, "tokens": 4143}
+{"t": 1786106956.5582945, "tool": "Chats__read_conversation", "args": {"conversation_id": "1234567890", "offset": 0, "limit": 10}, "tokens": 4143}
+{"t": 1786106960.0922763, "tool": "Chats__read_conversation", "args": {"conversation_id": "1234567890", "offset": 0, "limit": 10}, "tokens": 4143}
+{"t": 1786106963.75242, "tool": "Chats__read_conversation", "args": {"conversation_id": "1234567890", "offset": 0, "limit": 10}, "tokens": 4143}
+{"t": 1786106969.3897233, "tool": "Chats__read_conversation", "args": {"conversation_id": "1234567890", "offset": 0, "limit": 10}, "tokens": 4143}
+{"t": 1786106975.0018075, "tool": "Chats__read_conversation", "args": {"offset": 0, "limit": 10, "conversation_id": "1234567890"}, "tokens": 4143}
+{"t": 1786106980.707024, "tool": "Chats__read_conversation", "args": {"conversation_id": "1234567890", "offset": 0, "limit": 10}, "tokens": 4143}
+{"t": 1786106986.505523, "tool": "Chats__read_conversation", "args": {"offset": 0, "limit": 10, "conversation_id": "1234567890"}, "tokens": 4143}
+{"t": 1786106992.446274, "tool": "Chats__read_conversation", "args": {"conversation_id": "1234567890", "offset": 0, "limit": 10}, "tokens": 4143}
+{"t": 1786106998.5540414, "tool": "Chats__read_conversation", "args": {"conversation_id": "1234567890", "offset": 0, "limit": 10}, "tokens": 4143}
+{"t": 1786107004.4850311, "tool": "Chats__read_conversation", "args": {"conversation_id": "1234567890", "offset": 0, "limit": 10}, "tokens": 4143}
+{"t": 1786107052.827585, "tool": "SystemApp__get_current_time", "args": {}, "tokens": 4116}
+{"t": 1786107057.3840914, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786107061.3103075, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786107064.1456926, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786107066.9545305, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786107069.9711344, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786107073.0433028, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786107076.1471288, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786107079.3418655, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786107082.5213313, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786107085.733039, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786107089.0029795, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786107092.336175, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786107095.742488, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}
+{"t": 1786107099.4419317, "tool": "SystemApp__wait_for_notification", "args": {"timeout": 60}, "tokens": 4121}

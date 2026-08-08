@@ -43,3 +43,15 @@ Microsoft/Windows/PowerShell/ModuleAnalysisCache
 *.swp
 dist/agi-research-kit.tar.gz
 
+
+# Round 22 generated model dirs and verbose run logs
+logs/sft_round22/candidate_qwen3_0p6b_merged/
+logs/sft_round22/candidate_qwen3_0p6b_clean/
+logs/sft_round22_smoke/
+logs/gaia2_canonical_*_run.log
+logs/gaia2_canonical_run*.log
+logs/gaia2_canonical_run*.err
+logs/gaia2_canonical_exec5.log
+logs/gaia2_canonical_exec5.err
+logs/gaia2_load_debug.log
+logs/gaia2_preprocess_debug.log

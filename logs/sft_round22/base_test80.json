@@ -1,0 +1,572 @@
+{
+  "round": 22,
+  "split": "test",
+  "start": 0,
+  "model": "qwen3:0.6b",
+  "label": "base_test80",
+  "max_steps": 3,
+  "n": 80,
+  "correct": 0,
+  "rows": [
+    {
+      "id": "r20-test-0000",
+      "expression": "(551*16)+70",
+      "gold": "8886",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0001",
+      "expression": "(663+66)*394",
+      "gold": "287226",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0002",
+      "expression": "(477*43)-346",
+      "gold": "20165",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0003",
+      "expression": "(2808/27)+331",
+      "gold": "435",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0004",
+      "expression": "(496*71)+314",
+      "gold": "35530",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0005",
+      "expression": "(549+22)*295",
+      "gold": "168445",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0006",
+      "expression": "(948*49)-173",
+      "gold": "46279",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0007",
+      "expression": "(1058/23)+179",
+      "gold": "225",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0008",
+      "expression": "(67*32)+242",
+      "gold": "2386",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0009",
+      "expression": "(215+27)*466",
+      "gold": "112772",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0010",
+      "expression": "(213*25)-38",
+      "gold": "5287",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0011",
+      "expression": "(5015/17)+386",
+      "gold": "681",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0012",
+      "expression": "(126*71)+94",
+      "gold": "9040",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0013",
+      "expression": "(856+97)*159",
+      "gold": "151527",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0014",
+      "expression": "(317*39)-325",
+      "gold": "12038",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0015",
+      "expression": "(4862/17)+63",
+      "gold": "349",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0016",
+      "expression": "(366*77)+276",
+      "gold": "28458",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0017",
+      "expression": "(131+93)*478",
+      "gold": "107072",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0018",
+      "expression": "(393*19)-39",
+      "gold": "7428",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0019",
+      "expression": "(3010/14)+234",
+      "gold": "449",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0020",
+      "expression": "(589*34)+338",
+      "gold": "20364",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0021",
+      "expression": "(277+41)*379",
+      "gold": "120522",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0022",
+      "expression": "(800*71)-169",
+      "gold": "56631",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0023",
+      "expression": "(1458/9)+44",
+      "gold": "206",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0024",
+      "expression": "(919*83)+34",
+      "gold": "76311",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0025",
+      "expression": "(822+72)*81",
+      "gold": "72414",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0026",
+      "expression": "(818*30)-339",
+      "gold": "24201",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0027",
+      "expression": "(4104/18)+484",
+      "gold": "712",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0028",
+      "expression": "(12*59)+460",
+      "gold": "1168",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0029",
+      "expression": "(559+75)*456",
+      "gold": "289104",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0030",
+      "expression": "(619*32)-91",
+      "gold": "19717",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0031",
+      "expression": "(382/2)+311",
+      "gold": "502",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0032",
+      "expression": "(736*40)+157",
+      "gold": "29597",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0033",
+      "expression": "(839+40)*448",
+      "gold": "393792",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0034",
+      "expression": "(448*91)-240",
+      "gold": "40528",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0035",
+      "expression": "(7250/25)+243",
+      "gold": "533",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0036",
+      "expression": "(47*74)+271",
+      "gold": "3749",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0037",
+      "expression": "(605+61)*252",
+      "gold": "167832",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0038",
+      "expression": "(132*95)-119",
+      "gold": "12421",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0039",
+      "expression": "(5548/19)+50",
+      "gold": "342",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0040",
+      "expression": "(780*6)+168",
+      "gold": "4848",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0041",
+      "expression": "(828+69)*330",
+      "gold": "296010",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0042",
+      "expression": "(486*73)-25",
+      "gold": "35453",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0043",
+      "expression": "(3556/14)+73",
+      "gold": "327",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0044",
+      "expression": "(131*44)+356",
+      "gold": "6120",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0045",
+      "expression": "(95+95)*462",
+      "gold": "87780",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0046",
+      "expression": "(255*32)-290",
+      "gold": "7870",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0047",
+      "expression": "(585/3)+63",
+      "gold": "258",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0048",
+      "expression": "(444*57)+114",
+      "gold": "25422",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0049",
+      "expression": "(918+13)*451",
+      "gold": "419881",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0050",
+      "expression": "(237*90)-415",
+      "gold": "20915",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0051",
+      "expression": "(1674/6)+198",
+      "gold": "477",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0052",
+      "expression": "(836*57)+310",
+      "gold": "47962",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0053",
+      "expression": "(442+56)*191",
+      "gold": "95118",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0054",
+      "expression": "(27*64)-479",
+      "gold": "1249",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0055",
+      "expression": "(5980/23)+105",
+      "gold": "365",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0056",
+      "expression": "(850*63)+133",
+      "gold": "53683",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0057",
+      "expression": "(325+19)*411",
+      "gold": "141384",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0058",
+      "expression": "(673*89)-260",
+      "gold": "59637",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0059",
+      "expression": "(2616/24)+496",
+      "gold": "605",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0060",
+      "expression": "(278*7)+203",
+      "gold": "2149",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0061",
+      "expression": "(974+92)*77",
+      "gold": "82082",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0062",
+      "expression": "(35*3)-427",
+      "gold": "-322",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0063",
+      "expression": "(1736/31)+373",
+      "gold": "429",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0064",
+      "expression": "(860*13)+446",
+      "gold": "11626",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0065",
+      "expression": "(343+46)*260",
+      "gold": "101140",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0066",
+      "expression": "(988*85)-390",
+      "gold": "83590",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0067",
+      "expression": "(2151/9)+109",
+      "gold": "348",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0068",
+      "expression": "(806*73)+194",
+      "gold": "59032",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0069",
+      "expression": "(708+50)*157",
+      "gold": "119006",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0070",
+      "expression": "(737*23)-137",
+      "gold": "16814",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0071",
+      "expression": "(476/7)+462",
+      "gold": "530",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0072",
+      "expression": "(661*79)+177",
+      "gold": "52396",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0073",
+      "expression": "(506+75)*157",
+      "gold": "91217",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0074",
+      "expression": "(598*61)-461",
+      "gold": "36017",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0075",
+      "expression": "(3390/15)+126",
+      "gold": "352",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0076",
+      "expression": "(564*36)+282",
+      "gold": "20586",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0077",
+      "expression": "(357+9)*264",
+      "gold": "96624",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0078",
+      "expression": "(925*46)-356",
+      "gold": "42194",
+      "pred": "[agent] max steps",
+      "correct": false
+    },
+    {
+      "id": "r20-test-0079",
+      "expression": "(7560/28)+15",
+      "gold": "285",
+      "pred": "[agent] max steps",
+      "correct": false
+    }
+  ]
+}

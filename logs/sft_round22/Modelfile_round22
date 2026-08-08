@@ -1,0 +1,2 @@
+FROM F:/agent to AGI/agi-research-kit/logs/sft_round22/candidate_qwen3_0p6b_f16.gguf
+PARAMETER temperature 0
