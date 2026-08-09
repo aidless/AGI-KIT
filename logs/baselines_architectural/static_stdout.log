@@ -1,0 +1,21 @@
+[1/20] FAIL gold=391 final={"tool":"calculator","args":{"expr":" 4s
+[2/20] FAIL gold=1045 final= 6s
+[3/20] FAIL gold=1024 final= 8s
+[4/20] FAIL gold=7744 final={"tool":"calculator","args":{"expr":"88*8 10s
+[5/20] FAIL gold=2 final= 13s
+[6/20] FAIL gold=42 final= 15s
+[7/20] FAIL gold=768 final= 18s
+[8/20] FAIL gold=9801 final= 20s
+[9/20] FAIL gold=121 final= 23s
+[10/20] FAIL gold=169 final= 25s
+[11/20] FAIL gold=999 final= 28s
+[12/20] FAIL gold=81 final= 30s
+[13/20] FAIL gold=25 final= 32s
+[14/20] FAIL gold=1900 final= 34s
+[15/20] FAIL gold=60 final= 37s
+[16/20] FAIL gold=8765 final= 39s
+[17/20] FAIL gold=6912 final= 42s
+[18/20] FAIL gold=12 final= 44s
+[19/20] FAIL gold=256 final= 46s
+[20/20] FAIL gold=25 final= 48s
+{"config": "static", "n": 20, "correct": 0, "accuracy": 0.0, "seconds": 48.1}

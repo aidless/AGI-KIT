@@ -55,3 +55,6 @@ logs/gaia2_canonical_exec5.log
 logs/gaia2_canonical_exec5.err
 logs/gaia2_load_debug.log
 logs/gaia2_preprocess_debug.log
+
+# GAIA2 canonical debug scenario dirs (large trace artifacts)
+logs/gaia2_canonical_fix*/

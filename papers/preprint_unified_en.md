@@ -38,7 +38,11 @@ one-shot** baseline with appropriate prompting reaches 8/8 = 100%
 on a small multi-step arithmetic chain set, while AGI Kit L1-L4
 scores ~77.6% on a different, larger historical arithmetic subset
 (the two samples are not directly comparable); prompt design is
-therefore a material confound. We therefore report the
+therefore a material confound. Round 23 (Section 7.6) extends this to
+the full 20-task set: a **Static one-shot** baseline reaches
+**20/20 = 100%** on the same tasks, while Voyager- and MetaGPT-style
+lite reproductions reach 17/20 and the full AGI Kit stack reaches
+19/20. We therefore report the
 +90 pp gold-correctness difference as a *configuration* effect involving layers, step
 budget, and prompt structure, not a pure layer effect.
 **Cross-model-family check:** Llama-3.2-1B (a different model
@@ -100,10 +104,12 @@ We therefore treat this result as descriptive only. The A/B safety
 gate passes **12 of 12**
 adversarial boundary tests. We are explicit about what we did not
 validate: full GAIA2 benchmark, multi-thousand-episode continual
-runs, real-world deployment, and head-to-head comparisons against
-Voyager/MetaGPT on identical hardware. This preprint should be read
-as a *negative-and-positive* system report, not a benchmark-beating
-contribution.
+runs, real-world deployment, and head-to-head comparisons against full
+implementations of Voyager/MetaGPT. Round 23 (Section 7.6) adds
+head-to-head comparisons against Reflexion-, Voyager-, and
+MetaGPT-style *lite* reproductions on identical hardware and tasks.
+This preprint should be read as a *negative-and-positive* system
+report, not a benchmark-beating contribution.
 
 ## 1. Introduction
 
@@ -545,6 +551,7 @@ carries no inferential interpretation.
 | Safety gate behaves correctly at numeric boundaries | Section 6.1-6.2, 12 hand-crafted cases | Deterministic policy check | 12/12 [73.5, 100] |
 | SchemaMutator blocks invalid changes, accepts valid controls | Section 6.5, 30 cases | Deterministic policy check | 18/18 [81.5, 100]; 12/12 [73.5, 100] |
 | Step-verification prompt may help call-plan completeness | Section 7.5, 6 GAIA2-mini scenarios | Exploratory; one discordant pair; runner not preserved | 6/6 [54.1, 100] vs 5/6 [35.9, 99.6] |
+| Well-prompted Static/Reflexion match or beat layered architectures on 20-task arithmetic | Section 7.6, 20 tasks, same model/tool/budget | Descriptive; lite reproductions, one task set | Static 20/20 [83.2, 100.0]; Reflexion 20/20 [83.2, 100.0]; Voyager/MetaGPT 17/20 [62.1, 96.8]; full AGI Kit 19/20 [75.1, 99.9] |
 | Historical repeated-run emission rate is about 60% | Section 4.3, 3 runs x 16 episodes | Descriptive only; clustered runs | No CI computed by design |
 
 Any future revision that adds a number must also update this ledger.
@@ -966,13 +973,62 @@ step verification may help call-plan completeness, not as a headline
 architecture result. The arm-level exact 95% intervals overlap
 heavily: Static 5/6 = 83.3% [35.9%, 99.6%] and step-verification
 6/6 = 100.0% [54.1%, 100.0%].
+
+### 7.6 Architecture-Level Baselines (Round 23)
+
+Round 23 runs lightweight but faithful reproductions of three
+architecture patterns — Reflexion-style verbal reflection,
+Voyager-style skill library, and MetaGPT-style PM/Engineer/Reviewer
+roles — head-to-head on the identical 20-task hard arithmetic eval,
+with the same Ollama model (qwen3:1.7b), the same calculator tool, and
+the same 6-step budget (`experiments/baselines_architectural.py`).
+All configurations use temperature 0 with a fixed seed and an
+identical empty-response retry policy (up to 3 identical retries).
+
+| Configuration | Correct | Accuracy | Wall (s) | Failure modes |
+|---|---|---|---:|---|
+| Static one-shot | 20/20 | 100.0% | 184 | none |
+| Reflexion-lite | 20/20 | 100.0% | 171 | none |
+| Voyager-lite | 17/20 | 85.0% | 422 | 3 empty first completions after skill injection |
+| MetaGPT-lite | 17/20 | 85.0% | 470 | 99*99 -> 98.01; 11*11 -> 12.1; 7*6 -> 6 |
+| AGI Kit L1-L4 (Section 4.1) | 19/20 | 95.0% | ~938 | 100 % 7 -> 5 |
+| Bare qwen3:1.7b, no tool (max_steps=3) | 1/20 | 5.0% | — | no tool access |
+
+Honest reading: on these 20 arithmetic tasks a well-prompted Static
+one-shot agent with the calculator tool reaches the ceiling, the full
+AGI Kit stack reaches 95.0% (one arithmetic slip), Reflexion-lite
+matches Static, and both Voyager-lite and MetaGPT-lite *lose* 15
+points. The three Voyager failures are not strategy errors: after the
+skill library injects two retrieved skills into the system prompt,
+qwen3:1.7b returns empty completions on the same 3 tasks in two
+independent runs (3 identical retries each), while the same tasks pass
+under Static and Reflexion — a reliability cost of context injection
+on this small model. The MetaGPT failures are genuine execution errors
+(decimal misplacement on 99*99 and 11*11, and a wrong final of 6 for
+7*6 after a reviewer feedback cycle). Architecture overhead therefore
+buys no accuracy on this task set and can reduce reliability; prompt
+design remains the dominant factor (Section 7.3).
+
+Caveats: these are *lite* reproductions, not the original systems.
+Voyager-lite used TF-IDF skill retrieval (the frozen environment's
+embedding stack is broken); MetaGPT-lite uses one PM and one Reviewer
+cycle instead of the full multi-agent protocol; Reflexion-lite uses one
+reflection sentence per attempt. The 20-task set is simple arithmetic;
+task sets requiring memory or open-ended skill composition could favor
+Voyager-style libraries. Exact 95% Clopper-Pearson intervals: Static
+and Reflexion 20/20 [83.2, 100.0]; Voyager and MetaGPT 17/20 [62.1,
+96.8]; full AGI Kit 19/20 [75.1, 99.9].
+
 ## 8. Discussion
 
 ### 8.1 When Does This Help vs Hurt?
 
 On the harder 20-task arithmetic eval, the full configuration changes
 gold correctness from 5% to 95% (+90 pp; Section 4.1), with step budget,
-prompt, and control flow confounded. On the synthetic GAIA2 mini,
+prompt, and control flow confounded. Round 23
+(Section 7.6) shows that a well-prompted Static one-shot baseline
+reaches 20/20 on the same tasks, so the +90 pp difference is not
+attributable to the layered architecture. On the synthetic GAIA2 mini,
 the eval saturates and the gain is 0 pp. We expect the harder-eval gain to *shrink* (or invert) on:
 
 - Model/task combinations outside the two full-wrapper runs reported
@@ -1119,10 +1175,12 @@ We enumerate honestly what this preprint does *not* establish.
   synthetic GAIA2 mini saturated result (77.8% across all configs)
   and the harder 20-task arithmetic eval (+90 pp, confounded) have not been
   validated on the real benchmark.
-- **No architecture-level head-to-head baseline.** We did not run
-  Voyager, MetaGPT, Reflexion, or ReAct implementations on identical
-  hardware and tasks. Sections 7.2-7.5 compare prompt templates or
-  contextual results, not full competing systems.
+- **No full competing implementations.** Round 23 (Section 7.6) runs
+  Reflexion-, Voyager-, and MetaGPT-style *lite* reproductions on the
+  20-task arithmetic set with the same model, tool, and step budget;
+  the original systems' full implementations (multi-agent protocols,
+  environment interaction, learned skill libraries on stronger models)
+  were not run. Sections 7.2-7.5 remain prompt-template comparisons.
 - **Invalidated repeated-run inference.** The archived Section 4.3
   summary covers three 16-episode runs, not 3 x 15 independent seeded
   observations. Output-directory reuse prevents clean provenance, so
@@ -1421,6 +1479,7 @@ run; ~70 KB of trace JSONL per run; figures regenerated in ~6 seconds.
 | Controlled L1 check | `experiments/controlled_arithmetic_eval.py`; `logs/controlled_arithmetic/run-llama3b-20260802/` | yes (paired, call-level repeatability) | yes | yes |
 | GAIA2-mini prompt comparison (Round 16) | `logs/gaia2_baselines/compare_gaia2_v2.json` | n/a | n/a (expected-action match) | **no** (result JSON only) |
 | SFT Round 20 | `experiments/eval_round20_sft.py`; `data/sft_round20/`, `logs/sft_round20/` | yes (deterministic) | yes | yes |
+| Architecture baselines (Round 23) | `experiments/baselines_architectural.py`; `logs/baselines_architectural/summary_{static,reflexion,voyager,metagpt}.json` | yes (fixed seed, temperature 0) | yes (gold-tagged) | yes |
 | Safety gate | `experiments/stress_safety_gate.py`; `logs/safety_gate/` | deterministic | n/a | yes |
 | L4 policy | `experiments/redteam/l4_redteam.py`; `logs/redteam/` | deterministic | n/a | yes |
 

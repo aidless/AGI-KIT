@@ -1,0 +1,798 @@
+{
+  "config": "reflexion",
+  "model": "qwen3:1.7b",
+  "n": 20,
+  "correct": 20,
+  "accuracy": 1.0,
+  "seconds": 170.5,
+  "rows": [
+    {
+      "index": 0,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute 17 * 23, then final",
+      "gold": "391",
+      "final": "391",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 9.9,
+      "details": {
+        "final": "391",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"17 * 23\"}}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "17 * 23"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\": \"391\"}",
+            "parsed": [
+              "final",
+              {
+                "final": "391"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 1,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute 256 + 789, then final",
+      "gold": "1045",
+      "final": "1045",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 9.1,
+      "details": {
+        "final": "1045",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"256 + 789\"}}  \n{\"final\":1045}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "256 + 789"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":1045}",
+            "parsed": [
+              "final",
+              {
+                "final": "1045"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 2,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute 2**10, then final",
+      "gold": "1024",
+      "final": "1024",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 7.1,
+      "details": {
+        "final": "1024",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"2**10\"}}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "2**10"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":\"1024\"}",
+            "parsed": [
+              "final",
+              {
+                "final": "1024"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 3,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute 88 * 88, then final",
+      "gold": "7744",
+      "final": "7744",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 5.7,
+      "details": {
+        "final": "7744",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"88 * 88\"}}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "88 * 88"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":\"7744\"}",
+            "parsed": [
+              "final",
+              {
+                "final": "7744"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 4,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute 100 % 7, then final",
+      "gold": "2",
+      "final": "2",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 11.4,
+      "details": {
+        "final": "2",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"100%7\"}}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "100%7"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":\"2\"}",
+            "parsed": [
+              "final",
+              {
+                "final": "2"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 5,
+      "task_type": "chained",
+      "task": "Use calculator to compute 7*6, then echo the result, then final",
+      "gold": "42",
+      "final": "42",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 6.5,
+      "details": {
+        "final": "42",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"7*6\"}}\n{\"final\":\"42\"}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "7*6"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":\"42\"}",
+            "parsed": [
+              "final",
+              {
+                "final": "42"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 6,
+      "task_type": "chained",
+      "task": "Use calculator to compute 1024-256, then echo the result, then final",
+      "gold": "768",
+      "final": "768",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 10.7,
+      "details": {
+        "final": "768",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"1024-256\"}}  \n{\"final\":768}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "1024-256"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":768}",
+            "parsed": [
+              "final",
+              {
+                "final": "768"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 7,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute 99*99, then final",
+      "gold": "9801",
+      "final": "9801",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 5.4,
+      "details": {
+        "final": "9801",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"99*99\"}}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "99*99"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\": \"9801\"}",
+            "parsed": [
+              "final",
+              {
+                "final": "9801"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 8,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute 11*11, then final",
+      "gold": "121",
+      "final": "121",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 4.7,
+      "details": {
+        "final": "121",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"11*11\"}}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "11*11"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":\"121\"}",
+            "parsed": [
+              "final",
+              {
+                "final": "121"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 9,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute 13*13, then final",
+      "gold": "169",
+      "final": "169",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 6.4,
+      "details": {
+        "final": "169",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"13*13\"}}\n{\"final\":169}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "13*13"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":169}",
+            "parsed": [
+              "final",
+              {
+                "final": "169"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 10,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute 1000-1, then final",
+      "gold": "999",
+      "final": "999",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 12.9,
+      "details": {
+        "final": "999",
+        "steps": [
+          {
+            "raw": "{\"final\": 999}",
+            "parsed": [
+              "final",
+              {
+                "final": "999"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 11,
+      "task_type": "chained",
+      "task": "Use calculator to compute 3**4, then echo the result, then final",
+      "gold": "81",
+      "final": "81",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 4.5,
+      "details": {
+        "final": "81",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"3**4\"}}\n{\"final\":81}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "3**4"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":81}",
+            "parsed": [
+              "final",
+              {
+                "final": "81"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 12,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute 100/4, then final",
+      "gold": "25",
+      "final": "25.0",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 6.4,
+      "details": {
+        "final": "25.0",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"100/4\"}}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "100/4"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":\"25.0\"}",
+            "parsed": [
+              "final",
+              {
+                "final": "25.0"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 13,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute 50*40-100, then final",
+      "gold": "1900",
+      "final": "1900",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 11.2,
+      "details": {
+        "final": "1900",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"50*40-100\"}}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "50*40-100"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\": \"1900\"}",
+            "parsed": [
+              "final",
+              {
+                "final": "1900"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 14,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute (15+5)*3, then final",
+      "gold": "60",
+      "final": "60",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 11.5,
+      "details": {
+        "final": "60",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"(15+5)*3\"}}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "(15+5)*3"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\": \"60\"}",
+            "parsed": [
+              "final",
+              {
+                "final": "60"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 15,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute 9999 - 1234, then final",
+      "gold": "8765",
+      "final": "8765",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 5.8,
+      "details": {
+        "final": "8765",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"9999 - 1234\"}}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "9999 - 1234"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":\"8765\"}",
+            "parsed": [
+              "final",
+              {
+                "final": "8765"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 16,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute 1234 + 5678, then final",
+      "gold": "6912",
+      "final": "6912",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 8.1,
+      "details": {
+        "final": "6912",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"1234 + 5678\"}}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "1234 + 5678"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":\"6912\"}",
+            "parsed": [
+              "final",
+              {
+                "final": "6912"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 17,
+      "task_type": "arithmetic",
+      "task": "Use calculator to compute 144 / 12, then final",
+      "gold": "12",
+      "final": "12",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 7.0,
+      "details": {
+        "final": "12",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"144 / 12\"}}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "144 / 12"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":12}",
+            "parsed": [
+              "final",
+              {
+                "final": "12"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 18,
+      "task_type": "chained",
+      "task": "Use calculator to compute 2**8, then echo the result, then final",
+      "gold": "256",
+      "final": "256",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 19.6,
+      "details": {
+        "final": "256",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"2**8\"}}\n{\"final\":256}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "2**8"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":256}",
+            "parsed": [
+              "final",
+              {
+                "final": "256"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    },
+    {
+      "index": 19,
+      "task_type": "chained",
+      "task": "Use calculator to compute 100/4, then echo the result, then final",
+      "gold": "25",
+      "final": "25",
+      "correct": true,
+      "attempts": 1,
+      "cycles": null,
+      "seconds": 6.4,
+      "details": {
+        "final": "25",
+        "steps": [
+          {
+            "raw": "{\"tool\":\"calculator\",\"args\":{\"expr\":\"100/4\"}}",
+            "parsed": [
+              "tool",
+              {
+                "tool": "calculator",
+                "args": {
+                  "expr": "100/4"
+                }
+              }
+            ]
+          },
+          {
+            "raw": "{\"final\":\"25\"}",
+            "parsed": [
+              "final",
+              {
+                "final": "25"
+              }
+            ]
+          }
+        ],
+        "ok": true,
+        "attempt": 1,
+        "reflections": []
+      }
+    }
+  ]
+}
