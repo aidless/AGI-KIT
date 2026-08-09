@@ -237,15 +237,68 @@ class NativeToolEngine:
                 calls.append(parsed)
         return calls
 
+    @staticmethod
+    def _app_mutation_flags(tools: list[Any]) -> dict[str, bool]:
+        """Which apps expose state-changing tools (save/create/remove/send/buy)."""
+        flags: dict[str, bool] = {}
+        for tool in tools:
+            name = tool.name.lower()
+            app = tool.name.split("__", 1)[0]
+            if app == "SystemApp":
+                continue
+            if any(
+                marker in name
+                for marker in ("save", "create", "add", "remove", "delete", "send", "buy", "purchase", "update", "edit", "book")
+            ):
+                flags[app] = True
+            else:
+                flags.setdefault(app, False)
+        return flags
+
+    def _ranked_inspection_tools(self) -> list[str]:
+        """No-arg read-only tools, task-app-first."""
+        tools = self._tool_schema_tools()
+        mutation = self._app_mutation_flags(tools)
+        scored = []
+        for tool in tools:
+            name = tool.name
+            lower = name.lower()
+            if name.startswith("SystemApp__") or lower in ("agentuserinterface__send_message_to_user",):
+                continue
+            inputs = getattr(tool, "inputs", {}) or {}
+            if inputs:
+                continue
+            if not any(marker in lower for marker in ("list_", "get_", "read_", "search_")):
+                continue
+            app = name.split("__", 1)[0]
+            score = 0
+            if mutation.get(app):
+                score += 100
+            if "saved" in lower or "all_" in lower or "current" in lower:
+                score += 20
+            if lower.startswith("list_"):
+                score += 10
+            if "contact" in lower:
+                score -= 30  # Contacts is rarely the task's central state
+            scored.append((score, name))
+        scored.sort(key=lambda item: (-item[0], item[1]))
+        return [name for _, name in scored]
+
     def _inspection_tool(self) -> str | None:
         """Prefer a no-argument list/search tool from a relevant app."""
-        for tool in self._tool_schema_tools():
-            inputs = getattr(tool, "inputs", {}) or {}
-            if not inputs and any(
-                marker in tool.name.lower() for marker in ("list_", "get_", "read_", "search_")
-            ) and not tool.name.startswith("SystemApp__"):
-                return tool.name
-        return None
+        ranked = self._ranked_inspection_tools()
+        return ranked[0] if ranked else None
+
+    def _first_turn_state_bootstrap(self, messages: list[dict[str, Any]]) -> tuple[str, dict[str, Any]] | None:
+        """On the very first step, force one read-only query so real state and
+        legal IDs enter the context before the model acts."""
+        for message in messages:
+            if message.get("role") == "tool_response" and "Observation" in str(message.get("content", "")):
+                return None
+        tool_name = self._inspection_tool()
+        if tool_name is None:
+            return None
+        return tool_name, {}
 
     def _tool_schema_tools(self) -> list[Any]:
         all_tools = list(self.tools_provider().values())
@@ -260,6 +313,32 @@ class NativeToolEngine:
     ) -> tuple[str, dict[str, Any]]:
         started = time.time()
         self._current_messages = messages
+        bootstrap = self._first_turn_state_bootstrap(messages)
+        if bootstrap is not None:
+            tool_name, tool_args = bootstrap
+            if self.progress_path:
+                with open(self.progress_path, "a", encoding="utf-8") as f:
+                    f.write(
+                        json.dumps(
+                            {
+                                "t": time.time(),
+                                "tool": tool_name,
+                                "args": tool_args,
+                                "requested_tool": None,
+                                "state_bootstrap": True,
+                                "tokens": 0,
+                            },
+                            ensure_ascii=False,
+                        )
+                        + "\n"
+                    )
+            return self._render_react_action(tool_name, tool_args), {
+                "completion_duration": 0.0,
+                "prompt_tokens": 0,
+                "completion_tokens": 0,
+                "total_tokens": 0,
+                "state_bootstrap": True,
+            }
         converted = self._convert_messages(messages)
         has_business_state = any(
             message.get("role") == "tool_response"
