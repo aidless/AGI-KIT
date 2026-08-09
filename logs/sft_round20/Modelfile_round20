@@ -1,0 +1,2 @@
+﻿FROM F:/agent to AGI/agi-research-kit/logs/sft_round20/candidate120e3_fp16_retry
+PARAMETER temperature 0
