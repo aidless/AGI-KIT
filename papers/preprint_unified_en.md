@@ -1019,6 +1019,69 @@ Voyager-style libraries. Exact 95% Clopper-Pearson intervals: Static
 and Reflexion 20/20 [83.2, 100.0]; Voyager and MetaGPT 17/20 [62.1,
 96.8]; full AGI Kit 19/20 [75.1, 99.9].
 
+
+## 7.7 Controlled Self-Evolving Loop Experiment (10 Rounds, Guarded Skill Transfer)
+
+To test whether a *self-improving* loop can accumulate transferable skills with a
+trustworthy safety envelope, we ran ten formal rounds of a minimal
+observe -> diagnose -> propose -> evaluate -> promote/reject repair agent
+(`outputs/selfevolve/d5_frozen_taskflow_2026-08-08/`). The setup: a 2.6B local model
+(lfm2.5-2.6b via llama.cpp), a frozen hash-chained governance plane, three arms per
+round (base / token-matched neutral placebo / curated skills), majority voting
+(k=3) with raw runs preserved, a dual-oracle promotion gate (target behavior +
+no regression), and eleven pre-registered protocol amendments (A-K). Task banks
+grew from 64 to 84 tasks across four rule families; validation tasks were never
+exposed to skill acquisition; fixed rechecks (tool_03/tool_h3/tool_04) ran after
+every round.
+
+Main empirical findings:
+
+1. **Determinism is a loop property, not a sampler property.** At temperature 0 /
+   seed 42, single completions were deterministic but agentic loops were bimodal
+   because llama.cpp emits random tool-call ids into context. Fixing the sampler
+   (`--top-k 1`) and normalizing ids converged loops (tool_04: 2/4 -> 4/4, 3/3).
+   Single-run arm comparisons are noise-dominated without this.
+
+2. **Retrieval specificity was the bottleneck.** Literal keyword matching injected
+   skills into 1/36 tasks; a tiered policy (category fallback) reached 27/36;
+   normalizing diagnose categories to the evidence-task family finally enabled
+   tool_error-family coverage. Without injection, the skills arm equals base.
+
+3. **Neutral injection is not inert.** An instruction-flavored placebo block
+   dropped tool_h6 to 0/6 (base 6/6); a descriptive neutral corpus calibrated to
+   3/3. Separately, neutral text alone solved state_h7 (placebo 3/3 in two
+   rounds) while skill content did not reliably - injection-mechanism effects must
+   be separated from skill-content effects.
+
+4. **Skill content transfers both ways, unstably.** With placebo controls,
+   tool_03/tool_h3 showed reproducible skill-specific gains (3/3 vs placebo 0/3
+   for 4-5 consecutive rechecks), while tool_04/state_h3/state_01 showed
+   direction-specific harm from over-applied "graceful degradation /
+   early-termination / domain-mismatched" skills. Three harm mechanisms were
+   categorized and partially intercepted by curator guards and a conflict scanner
+   (31, 23, and 14 flagged candidate-task pairs in rounds 8-10).
+
+5. **The gate worked.** Eight REJECTs were conservative-correct (rounds 1-2 were
+   pre-injection noise artifacts; the remaining six REJECTs each vetoed genuine
+   same-family regressions), and two PROMOTEs were safety-pass events (validation
+   delta = 0.0, zero regressions). No round produced delta > 0 on validation
+   outcomes; the single positive delta (+0.25, state_h7) was vetoed by a
+   same-family regression. There is therefore **no evidence of net positive
+   skill-driven improvement yet**; the confirmatory phase requires three
+   consecutive stable rechecks under delta_min = 0.1 (current streak 1/3 after
+   round 10).
+
+Round 10 (a fourth validation batch, h9) reproduced the tool-family
+bidirectional pattern (tool_h9/tool_01 harmed, five tool tasks gained) and the
+recheck stabilized again (tool_03 restored to 3/3), advancing the confirmatory
+streak to 1/3; the ten-round validation budget is now exhausted, so the
+confirmatory phase will use a freshly rebuilt set (h10, task_bank v7).
+
+Injection also carries a budget cost: skills and placebo arms consumed more tokens than base in 6 of 7 rounds (max +4079, R8), and the only positive validation delta was effort-bought, not efficiency-bought (Section 4.8 of the full report).
+
+Full methods, per-round tables, recheck histories, and artifact inventory:
+`outputs/selfevolve/d5_frozen_taskflow_2026-08-08/SELFEVOLVE_COMPREHENSIVE_REPORT_20260810.md`.
+
 ## 8. Discussion
 
 ### 8.1 When Does This Help vs Hurt?

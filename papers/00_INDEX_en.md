@@ -28,6 +28,12 @@
 - Retroactive gold re-evaluation: **77.6% correctness** on the
   85-episode arithmetic subset of 138 historical episodes.
 - Safety gate: **12/12** deterministic boundary cases passed.
+- Guarded self-evolving loop (Section 7.7, 10 rounds): 8 conservative
+  REJECTs (6 on genuinely injected rounds), 2 safety-pass PROMOTEs
+  REJECTs, 2 safety-pass PROMOTEs (delta=0.0), zero net-positive rounds;
+  placebo-controlled skill-specific gains (tool_03/tool_h3) and
+  direction-specific harm (tool_04/state_h3/state_01) documented with
+  fixed rechecks and conflict scans.
 - Production SchemaMutator policy test: **18/18** invalid changes
   blocked and **12/12** valid in-range controls accepted.
 - Historical repeated-run result: 62.5%, 62.5%, and 56.2% over three
