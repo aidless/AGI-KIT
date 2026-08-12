@@ -1430,6 +1430,28 @@ valid full score with the small local models available on this
 machine (Qwen3-0.6B and Qwen2.5-3B), so the canonical evaluation
 remains unpassed and no GAIA2 accuracy number is reported.
 
+Round 24 runs the same adapter on a clean rented Ubuntu 24.04
+instance (4 vCPU / 8 GB, CPU-only, Aliyun ECS, US Virginia) to remove
+local memory contention, and adds a first-turn state bootstrap: the
+very first LLM step is forced to be a read-only query of the task's
+app (e.g., `Calendar__get_all_tags`) so real state and legal IDs
+enter context before the agent acts (previously the model exhausted
+all 40 steps waiting without ever inspecting app state). On a smoke
+run of one `execution`-category scenario
+(`scenario_universe_30_mx4mzo`, a Calendar + Shopping + Cab + Email
+task), the official harness executed to completion (740 s, 40 steps)
+but the agent still performed 0 of the 6 oracle-required
+state-changing calls (`Calendar__add_event`,
+`Calendar__delete_event`, `Shopping__add_to_cart`,
+`Shopping__checkout`, `CabApp__order_ride`,
+`EmailClientV2__send_email`): the model looped on
+`SystemApp__wait_for_notification` throughout, and the anti-spin
+guard's single forced inspection did not break the loop. A 5-scenario
+`execution`-category pass with the same bootstrap runs under
+`logs/gaia2_ecs_exec5/` on the same instance; the canonical
+evaluation remains unpassed and no GAIA2 accuracy number is
+reported.
+
 
 
 
