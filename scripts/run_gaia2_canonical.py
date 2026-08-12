@@ -114,6 +114,7 @@ class NativeToolEngine:
             "assistant": "assistant",
             "tool_call": "assistant",
             "tool_response": "user",
+            "tool-response": "user",
             "tool": "tool",
         }
         for message in messages:
@@ -293,7 +294,7 @@ class NativeToolEngine:
         """On the very first step, force one read-only query so real state and
         legal IDs enter the context before the model acts."""
         for message in messages:
-            if message.get("role") == "tool_response" and "Observation" in str(message.get("content", "")):
+            if message.get("role") in ("tool_response", "tool-response") and "Observation" in str(message.get("content", "")):
                 return None
         tool_name = self._inspection_tool()
         if tool_name is None:
@@ -341,7 +342,7 @@ class NativeToolEngine:
             }
         converted = self._convert_messages(messages)
         has_business_state = any(
-            message.get("role") == "tool_response"
+            message.get("role") in ("tool_response", "tool-response")
             and "Observation" in str(message.get("content", ""))
             and not str(message.get("content", "")).startswith("ERROR")
             for message in messages
