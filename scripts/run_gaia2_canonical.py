@@ -61,14 +61,20 @@ class NativeToolEngine:
         model: str,
         timeout_s: float = 240.0,
         progress_path: str | None = None,
+        observation_transform: str = "decision_fields",
     ):
         self.tools_provider = tools_provider
         self.endpoint = endpoint.rstrip("/")
         self.model = model
         self.timeout_s = timeout_s
+        if observation_transform not in {"raw_truncate_3500", "legacy_id_name", "decision_fields"}:
+            raise ValueError(f"unsupported_observation_transform:{observation_transform}")
         self.progress_path = progress_path
+        self.observation_transform = observation_transform
         self.client = httpx.Client(timeout=timeout_s)
         self._current_messages: list[dict[str, Any]] = []
+        self._last_observation_raw_chars = 0
+        self._last_observation_transformed_chars = 0
 
     def _tool_schema(self) -> list[dict[str, Any]]:
         all_tools = list(self.tools_provider().values())
@@ -107,6 +113,8 @@ class NativeToolEngine:
         return schema
 
     def _convert_messages(self, messages: list[dict[str, Any]]) -> list[dict[str, str]]:
+        self._last_observation_raw_chars = 0
+        self._last_observation_transformed_chars = 0
         out = []
         role_map = {
             "system": "system",
@@ -123,27 +131,74 @@ class NativeToolEngine:
             if content is None:
                 content = ""
             if role == "user" and "Observation" in str(content):
-                content = self._compact_tool_response(str(content))
+                raw_content = str(content)
+                content = self._transform_observation(raw_content)
+                self._last_observation_raw_chars += len(raw_content)
+                self._last_observation_transformed_chars += len(content)
             out.append({"role": role, "content": str(content)})
         return out
 
+    def _transform_observation(self, content: str) -> str:
+        if self.observation_transform == "raw_truncate_3500":
+            return content[:3500]
+        if self.observation_transform == "legacy_id_name":
+            return self._legacy_compact_tool_response(content)
+        return self._compact_tool_response(content)
+
     @staticmethod
-    def _compact_tool_response(content: str) -> str:
-        """Compress large visible app-state observations to fit small models."""
+    def _legacy_compact_tool_response(content: str) -> str:
+        """Retain the fix8 lossier transform for the pre-registered diagnostic."""
         entries = re.findall(
             r"'([0-9a-fA-F]{8,})': Apartment\(name='([^']*)'",
             content,
         )
         if entries:
-            lines = [
-                f"{apartment_id} | {name}" for apartment_id, name in entries
-            ]
+            lines = [f"{apartment_id} | {name}" for apartment_id, name in entries]
             return (
                 "STATE SUMMARY (saved/all apartments):\n"
                 + "\n".join(lines)
                 + "\n(original observation truncated; use the exact IDs above)"
             )
-        return str(content)[:3500]
+        return content[:3500]
+
+    @staticmethod
+    def _compact_tool_response(content: str) -> str:
+        """Compress RentAFlat observations without dropping action-decision fields.
+
+        The ARE Apartment dataclass repr is large, but reducing it to only an ID
+        and name prevents a model from checking location, price, or saved status
+        before choosing a save/remove action. Preserve a stable, bounded subset
+        of those fields for every recognized apartment. Fall back to the legacy
+        character cap only when the input is not an ARE Apartment observation.
+        """
+        apartment_pattern = re.compile(
+            r"'(?P<apartment_id>[0-9a-fA-F]{8,})': Apartment\("
+            r"name=(?P<name>.*?), "
+            r"location=(?P<location>.*?), "
+            r"zip_code=(?P<zip_code>.*?), "
+            r"price=(?P<price>-?\d+(?:\.\d+)?), "
+            r"bedrooms=(?P<bedrooms>\d+), "
+            r"bathrooms=(?P<bathrooms>\d+), "
+            r"property_type=(?P<property_type>.*?), "
+            r".*? saved=(?P<saved>True|False)\)",
+            re.DOTALL,
+        )
+        entries = list(apartment_pattern.finditer(content))
+        if entries:
+            lines = [
+                "{apartment_id} | name={name} | location={location} | "
+                "zip_code={zip_code} | price={price} | bedrooms={bedrooms} | "
+                "bathrooms={bathrooms} | property_type={property_type} | saved={saved}".format(
+                    **entry.groupdict()
+                )
+                for entry in entries
+            ]
+            return (
+                "STATE SUMMARY (all apartments; decision fields preserved):\n"
+                + "\n".join(lines)
+                + "\n(use the exact IDs and visible decision fields above)"
+            )
+        return content[:3500]
 
     def _render_react_action(self, name: str, args: dict[str, Any]) -> str:
         return (
@@ -314,6 +369,8 @@ class NativeToolEngine:
     ) -> tuple[str, dict[str, Any]]:
         started = time.time()
         self._current_messages = messages
+        self._last_observation_raw_chars = 0
+        self._last_observation_transformed_chars = 0
         bootstrap = self._first_turn_state_bootstrap(messages)
         if bootstrap is not None:
             tool_name, tool_args = bootstrap
@@ -327,7 +384,11 @@ class NativeToolEngine:
                                 "args": tool_args,
                                 "requested_tool": None,
                                 "state_bootstrap": True,
+                                "observation_transform": self.observation_transform,
+                                "observation_chars_raw": 0,
+                                "observation_chars_transformed": 0,
                                 "tokens": 0,
+                                "usage_available": False,
                             },
                             ensure_ascii=False,
                         )
@@ -380,11 +441,16 @@ class NativeToolEngine:
         response.raise_for_status()
         data = response.json()
         choice = data["choices"][0]["message"]
+        usage = data.get("usage") or {}
         metadata = {
             "completion_duration": time.time() - started,
-            "prompt_tokens": data.get("usage", {}).get("prompt_tokens", 0),
-            "completion_tokens": data.get("usage", {}).get("completion_tokens", 0),
-            "total_tokens": data.get("usage", {}).get("total_tokens", 0),
+            "prompt_tokens": usage.get("prompt_tokens"),
+            "completion_tokens": usage.get("completion_tokens"),
+            "total_tokens": usage.get("total_tokens"),
+            "usage_available": bool(usage),
+            "observation_transform": self.observation_transform,
+            "observation_chars_raw": self._last_observation_raw_chars,
+            "observation_chars_transformed": self._last_observation_transformed_chars,
         }
         tool_calls = choice.get("tool_calls") or []
         if tool_calls:
@@ -409,7 +475,12 @@ class NativeToolEngine:
                                 "tool": final_name,
                                 "args": final_args,
                                 "requested_tool": name if forced_name else None,
+                                "forced_rewrite": bool(forced_name),
+                                "observation_transform": self.observation_transform,
+                                "observation_chars_raw": self._last_observation_raw_chars,
+                                "observation_chars_transformed": self._last_observation_transformed_chars,
                                 "tokens": metadata["total_tokens"],
+                                "usage_available": metadata["usage_available"],
                             },
                             ensure_ascii=False,
                         )
@@ -430,7 +501,11 @@ class NativeToolEngine:
                                 "args": fallback_args,
                                 "requested_tool": None,
                                 "fallback": True,
+                                "observation_transform": self.observation_transform,
+                                "observation_chars_raw": self._last_observation_raw_chars,
+                                "observation_chars_transformed": self._last_observation_transformed_chars,
                                 "tokens": metadata["total_tokens"],
+                                "usage_available": metadata["usage_available"],
                             },
                             ensure_ascii=False,
                         )
@@ -441,11 +516,18 @@ class NativeToolEngine:
 
 
 class NativeToolAgentBuilder(AgentBuilder):
-    def __init__(self, endpoint: str, model: str, progress_path: str | None = None):
+    def __init__(
+        self,
+        endpoint: str,
+        model: str,
+        progress_path: str | None = None,
+        observation_transform: str = "decision_fields",
+    ):
         super().__init__()
         self.endpoint = endpoint
         self.model = model
         self.progress_path = progress_path
+        self.observation_transform = observation_transform
 
     def build(self, agent_config, env=None, mock_responses=None):
         agent = super().build(agent_config, env=env, mock_responses=mock_responses)
@@ -459,6 +541,7 @@ class NativeToolAgentBuilder(AgentBuilder):
             endpoint=self.endpoint,
             model=self.model,
             progress_path=self.progress_path,
+            observation_transform=self.observation_transform,
         )
         agent.max_iterations = 40
         agent.react_agent.max_iterations = 40
@@ -476,6 +559,12 @@ def main() -> None:
     parser.add_argument("--endpoint", default="http://127.0.0.1:11434/v1")
     parser.add_argument("--out", default=str(ROOT / "logs" / "gaia2_canonical"))
     parser.add_argument("--scenario-timeout", type=int, default=600)
+    parser.add_argument(
+        "--observation-transform",
+        choices=["raw_truncate_3500", "legacy_id_name", "decision_fields"],
+        default="decision_fields",
+        help="Observation transform for the C0A-08 diagnostic; keep fixed within a run.",
+    )
     args = parser.parse_args()
 
     out_dir = Path(args.out)
@@ -537,7 +626,10 @@ def main() -> None:
     final_scenarios = preprocess_scenarios_iterator(multiplied, runner_config)
     runner = MultiScenarioRunner(
         agent_builder=NativeToolAgentBuilder(
-            args.endpoint, args.model, progress_path=progress_path
+            args.endpoint,
+            args.model,
+            progress_path=progress_path,
+            observation_transform=args.observation_transform,
         )
     )
     result = runner.run_with_events(
@@ -566,6 +658,7 @@ def main() -> None:
         "config": args.config,
         "model": args.model,
         "endpoint": args.endpoint,
+        "observation_transform": args.observation_transform,
         "n_scenarios": len(rows),
         "n_success": sum(1 for r in rows if r["success"] is True),
         "n_failed": sum(1 for r in rows if r["success"] is False),
