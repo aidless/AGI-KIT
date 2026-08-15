@@ -1,0 +1,50 @@
+{
+  "name": "meta-agents-research-environments",
+  "import_package": "are",
+  "distribution_strategy": "git",
+  "source_url": "https://github.com/facebookresearch/meta-agents-research-environments.git",
+  "source_revision": "7946367413129784139e785ae4c351090002a0bb",
+  "source_revision_date": "2026-05-21",
+  "source_archive_sha256": "sha256:df4c02006678bd05def8191eecf8b2655397b867a08898e685db7d1bdcc0a219",
+  "source_archive_format": "git archive --format=tar at source_revision",
+  "source_archive_sha256_status": "verified locally from the pinned Git commit; this is a Git archive hash, not a GitHub generated archive hash.",
+  "package_version_declared": "1.2.0",
+  "release_tag": null,
+  "license": "MIT",
+  "python_requires": ">=3.10",
+  "install_command": "python -m pip install --no-cache-dir /path/to/meta-agents-research-environments-at-7946367413129784139e785ae4c351090002a0bb",
+  "canonical_requirement": "meta-agents-research-environments @ git+https://github.com/facebookresearch/meta-agents-research-environments.git@7946367413129784139e785ae4c351090002a0bb",
+  "pyproject_sha256": "sha256:a989ab576027633a91bdc0b2d1724cb967a8f58419018f1ba819aad6acabbd65",
+  "validated_at_commit": "af5b4558f4718f60dfa435e7341c0fcc290b0be1",
+  "validated_python": "3.12.3",
+  "clean_install": {
+    "status": "passed",
+    "method": "fresh Python 3.12 virtual environment, local source cloned with GitHub CLI and detached at source_revision",
+    "python_module_identity": "passed: all 258 installed Python modules byte-match the pinned source tree; non-packaged GUI assets were excluded",
+    "evidence_directory": "logs/c0a_clean_install/"
+  },
+  "validated_imports": [
+    "are.simulation.agents.agent_builder",
+    "are.simulation.benchmark.scenario_executor",
+    "are.simulation.benchmark.scenario_loader",
+    "are.simulation.multi_scenario_runner",
+    "are.simulation.scenarios.config",
+    "are.simulation.utils.countable_iterator",
+    "are.simulation.agents.are_simulation_agent_config",
+    "are.simulation.agents.default_agent.base_agent"
+  ],
+  "runner_smoke_test": {
+    "command": "python scripts/run_gaia2_canonical.py --help",
+    "status": "passed",
+    "evidence": "logs/c0a_clean_install/runner_help.log"
+  },
+  "local_patches": [],
+  "open_gates": [
+    "C0A-04 scenario manifest",
+    "C0A-05 runtime tool catalog",
+    "C0A-06 ARE counter semantics",
+    "C0A-07 effective iteration-bound precedence",
+    "C0A-08 observation fidelity: failed structural probe; _compact_tool_response removed location and price evidence from a location/price-constrained apartment observation",
+    "C0A-09 send_message_to_user runtime behavior"
+  ]
+}
