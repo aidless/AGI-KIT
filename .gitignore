@@ -58,3 +58,7 @@ logs/gaia2_preprocess_debug.log
 
 # GAIA2 canonical debug scenario dirs (large trace artifacts)
 logs/gaia2_canonical_fix*/
+
+# C0A-08 diagnostic full run dirs (kept external as artifact; summary in logs/c0a08_diagnostic_summary.json)
+logs/c0a08_*/
+
