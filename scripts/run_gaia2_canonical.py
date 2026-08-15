@@ -62,6 +62,7 @@ class NativeToolEngine:
         timeout_s: float = 240.0,
         progress_path: str | None = None,
         observation_transform: str = "decision_fields",
+        tool_catalog_path: str | None = None,
     ):
         self.tools_provider = tools_provider
         self.endpoint = endpoint.rstrip("/")
@@ -71,10 +72,45 @@ class NativeToolEngine:
             raise ValueError(f"unsupported_observation_transform:{observation_transform}")
         self.progress_path = progress_path
         self.observation_transform = observation_transform
+        self.tool_catalog_path = tool_catalog_path
+        self._tool_catalog_written = False
         self.client = httpx.Client(timeout=timeout_s)
         self._current_messages: list[dict[str, Any]] = []
         self._last_observation_raw_chars = 0
         self._last_observation_transformed_chars = 0
+
+    def _dump_tool_catalog(self) -> None:
+        """Authoritative runtime tool catalog from the initialized ARE tool
+        OBJECTS, written once before the first model request. This is the
+        single source of truth for tool_count / sorted SHA-256; regex-based
+        extraction is debug-only and never enters research conclusions."""
+        import hashlib
+        import subprocess
+        from pathlib import Path as _Path
+
+        names = sorted((self.tools_provider() or {}).keys())
+        commit = "unknown"
+        try:
+            commit = subprocess.run(
+                ["git", "rev-parse", "--short", "HEAD"],
+                capture_output=True, text=True, timeout=10,
+                cwd=str(ROOT)).stdout.strip() or "unknown"
+        except Exception:
+            pass
+        catalog = {
+            "tool_count": len(names),
+            "tools": names,
+            "sha256": "sha256:" + hashlib.sha256(json.dumps(names).encode("utf-8")).hexdigest(),
+            "source": "are-initialized runtime tool objects (react_agent.tools)",
+            "runner_commit": commit,
+        }
+        try:
+            _Path(self.tool_catalog_path).parent.mkdir(parents=True, exist_ok=True)
+            _Path(self.tool_catalog_path).write_text(
+                json.dumps(catalog, indent=2, ensure_ascii=False), encoding="utf-8")
+            self._tool_catalog_written = True
+        except Exception as exc:  # pragma: no cover
+            print(f"WARN tool catalog dump failed: {exc}")
 
     def _tool_schema(self) -> list[dict[str, Any]]:
         all_tools = list(self.tools_provider().values())
@@ -369,6 +405,8 @@ class NativeToolEngine:
     ) -> tuple[str, dict[str, Any]]:
         started = time.time()
         self._current_messages = messages
+        if self.tool_catalog_path and not self._tool_catalog_written:
+            self._dump_tool_catalog()
         self._last_observation_raw_chars = 0
         self._last_observation_transformed_chars = 0
         bootstrap = self._first_turn_state_bootstrap(messages)
@@ -522,12 +560,14 @@ class NativeToolAgentBuilder(AgentBuilder):
         model: str,
         progress_path: str | None = None,
         observation_transform: str = "decision_fields",
+        tool_catalog_path: str | None = None,
     ):
         super().__init__()
         self.endpoint = endpoint
         self.model = model
         self.progress_path = progress_path
         self.observation_transform = observation_transform
+        self.tool_catalog_path = tool_catalog_path
 
     def build(self, agent_config, env=None, mock_responses=None):
         agent = super().build(agent_config, env=env, mock_responses=mock_responses)
@@ -542,6 +582,7 @@ class NativeToolAgentBuilder(AgentBuilder):
             model=self.model,
             progress_path=self.progress_path,
             observation_transform=self.observation_transform,
+            tool_catalog_path=self.tool_catalog_path,
         )
         agent.max_iterations = 40
         agent.react_agent.max_iterations = 40
@@ -630,6 +671,7 @@ def main() -> None:
             args.model,
             progress_path=progress_path,
             observation_transform=args.observation_transform,
+            tool_catalog_path=str(out_dir / "tool_catalog.json"),
         )
     )
     result = runner.run_with_events(
