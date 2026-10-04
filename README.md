@@ -63,6 +63,8 @@ cd "F:\agent to AGI\agi-research-kit"
 
 ```powershell
 # 1. 启动 Ollama 后台(它会跑在 http://127.0.0.1:11434)
+
+[![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](LICENSE)  [![CI](https://github.com/aidless/AGI-KIT/actions/workflows/ci.yml/badge.svg)](https://github.com/aidless/AGI-KIT/actions/workflows/ci.yml/badge.svg)
 ollama serve
 
 # 2. 拉模型(首次,会下载到 C:\Users\<你>\.ollama)
