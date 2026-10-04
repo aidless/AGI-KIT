@@ -58,3 +58,8 @@ logs/gaia2_preprocess_debug.log
 
 # GAIA2 canonical debug scenario dirs (large trace artifacts)
 logs/gaia2_canonical_fix*/
+# Runtime logs (stdout/stderr) — evidence archives live under evidence/
+*.log
+*.err
+*.out
+*.logfile
