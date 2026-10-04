@@ -6,7 +6,7 @@ torch>=2.5
 accelerate>=1.0
 safetensors>=0.4
 huggingface_hub>=0.30
-datasets>=3.0
+datasets>=5.0.1
 tokenizers>=0.21
 
 openai>=1.50
