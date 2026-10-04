@@ -1,4 +1,6 @@
-﻿# AGI 研究完整套装 (AGI Research Kit)
+# AGI 研究完整套装 (AGI Research Kit)
+
+[![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](LICENSE)  [![CI](https://github.com/aidless/AGI-KIT/actions/workflows/ci.yml/badge.svg)](https://github.com/aidless/AGI-KIT/actions/workflows/ci.yml)
 
 > 本地小机器 + Agent 研究 + AGI 兴趣 - 一站式研究工作台
 
