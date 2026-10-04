@@ -63,3 +63,7 @@ logs/gaia2_canonical_fix*/
 *.err
 *.out
 *.logfile
+# 以下目录保留汇总与评测记录，训练 stdout 不入库
+logs/**/*.log
+logs/**/*.err
+logs/**/*.out

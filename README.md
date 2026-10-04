@@ -30,7 +30,7 @@ agi-research-kit/
   experiments/            # 实验代码
     hello_agent.py        # 最小可跑 Tool-Use Agent(ReAct)
     eval_gaia2.py         # GAIA / GAIA2 评测脚手架
-  logs/                   # 评测结果 / 训练日志
+  logs/                   # 评测结果（运行日志不入库，见 .gitignore）
   scripts/
     setup_env.ps1         # Python + Ollama 安装
     download_agi_set.ps1  # 30 GB 模型下载

@@ -1,7 +1,0 @@
-Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-Loading weights:   0%|          | 0/272 [00:00<?, ?it/s]Loading weights:  34%|███▍      | 93/272 [00:00<00:00, 773.64it/s]Loading weights:  63%|██████▎   | 171/272 [00:00<00:00, 652.58it/s]Loading weights:  87%|████████▋ | 237/272 [00:00<00:00, 346.31it/s]Loading weights: 100%|██████████| 272/272 [00:00<00:00, 356.14it/s]
-Map:   0%|          | 0/500 [00:00<?, ? examples/s]Map:  20%|██        | 100/500 [00:00<00:01, 321.95 examples/s]Map:  40%|████      | 200/500 [00:00<00:00, 444.44 examples/s]Map:  60%|██████    | 300/500 [00:00<00:00, 482.31 examples/s]Map:  80%|████████  | 400/500 [00:00<00:00, 533.82 examples/s]Map: 100%|██████████| 500/500 [00:00<00:00, 569.71 examples/s]Map: 100%|██████████| 500/500 [00:00<00:00, 508.06 examples/s]
-  0%|          | 0/63 [00:00<?, ?it/s]F:\agent to AGI\agi-research-kit\.venv\Lib\site-packages\torch\utils\data\dataloader.py:759: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
-  super().__init__(loader)
-  2%|▏         | 1/63 [01:42<1:45:39, 102.24s/it]
