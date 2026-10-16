@@ -67,3 +67,6 @@ logs/gaia2_canonical_fix*/
 logs/**/*.log
 logs/**/*.err
 logs/**/*.out
+
+# Model artifacts inside run logs; logs/ itself holds the paper evidence chain
+logs/*/*/tokenizer.json
