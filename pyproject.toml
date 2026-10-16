@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "agi-kit"
 version = "0.1.0"
-description = "Enterprise-grade AGI research platform: agents, tools, RAG, evals, training, and serving"
+description = "CPU-oriented research prototype for tool-use agents: reflection, strategy memory, a continual-learning safety gate, and bounded schema mutation"
 readme = "README.md"
 license = { text = "Apache-2.0" }
 authors = [{ name = "Zewen Liu" }]
