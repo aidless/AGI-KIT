@@ -1,6 +1,8 @@
-﻿# AGI 研究完整套装 (AGI Research Kit)
+# AGI 研究完整套装 (AGI Research Kit)
 
-> 本地小机器 + Agent 研究 + AGI 兴趣 - 一站式研究工作台
+[![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](LICENSE)  [![CI](https://github.com/aidless/AGI-KIT/actions/workflows/ci.yml/badge.svg)](https://github.com/aidless/AGI-KIT/actions/workflows/ci.yml)
+
+> 面向 CPU 小机器的 tool-use Agent 研究套件：反思回路、策略记忆、持续学习安全门与有界 schema 变更。
 
 AGI Research Kit is a CPU-oriented research prototype for tool-use
 agents with reflection, semantic strategy memory, a continual-learning
@@ -24,26 +26,38 @@ and external datasets retain their own licenses.
 ## 目录结构
 
 ```
-agi-research-kit/
-  models/                 # 模型权重(Qwen3-1.7B 等)
-  data/                   # 数据集(GAIA2 / smoltalk 等)
-  experiments/            # 实验代码
-    hello_agent.py        # 最小可跑 Tool-Use Agent(ReAct)
-    eval_gaia2.py         # GAIA / GAIA2 评测脚手架
-  logs/                   # 评测结果 / 训练日志
-  scripts/
-    setup_env.ps1         # Python + Ollama 安装
-    download_agi_set.ps1  # 30 GB 模型下载
-  python/                 # Python 安装包缓存
-  .venv/                  # Python 虚拟环境
+AGI-KIT/
+├── src/agi_kit/          # 可安装的包：agents / tools / rag / llms / evals
+│   ├── agents/           # ReAct、plan-execute 等 agent 实现
+│   ├── tools/            # 工具实现
+│   ├── rag/              # 检索层
+│   └── loop.py, reflect.py, meta.py, strategy_miner.py  # agent 循环 + 反思 + 策略记忆
+├── experiments/          # 约 36 个可运行的 study / eval 脚本（不属于包）
+│   ├── hello_agent.py    # 最小可跑 Tool-Use Agent(ReAct)
+│   └── eval_gaia2.py     # GAIA / GAIA2 评测脚手架
+├── tests/unit/           # 单元测试（make test）
+├── papers/               # 稿件、图、TMLR 投稿包
+├── configs/              # 实验配置
+├── data/                 # 数据集与本地模型产物（体积大，约 400 MB，已随仓库提交）
+├── logs/                 # 评测输出（大体积 trace / 采样文件由 .gitignore 排除）
+├── Makefile, pyproject.toml  # 打包入口：make dev / make test / make lint / make serve
+└── scripts/              # 辅助与构建脚本（含 Windows 用的 setup_env.ps1 / download_agi_set.ps1）
 ```
 
 ## 一键安装(在 PowerShell 里)
 
 ```powershell
-cd "F:\agent to AGI\agi-research-kit"
+cd path\to\AGI-KIT      # 你的克隆目录（不要用别人机器上的绝对路径）
 .\scripts\setup_env.ps1         # 装 Python 3.12 + Ollama + Python 包
 .\scripts\download_agi_set.ps1 -HFToken "hf_你的token"   # 下载模型
+```
+
+安装包本身、跑测试与静态检查（跨平台，不依赖 PowerShell）：
+
+```bash
+make dev      # 可编辑安装 + 开发依赖
+make test     # 单元测试
+make lint     # ruff / black / isort / mypy
 ```
 
 模型清单(约 30 GB,按 `tier` 可选):
