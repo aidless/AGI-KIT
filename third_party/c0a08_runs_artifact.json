@@ -1,0 +1,21 @@
+{
+  "artifact_file": "c0a08_runs.zip",
+  "artifact_sha256": "sha256:795cb80827584d04f9571c2dedf1090e3d92d2c8d60012ca938834246b5fd1c4",
+  "artifact_size_bytes": 178867,
+  "generation_commit": "2a350d7",
+  "model": "qwen2.5:3b",
+  "model_digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "ollama_server_env": {
+    "OLLAMA_NUM_PARALLEL": "4",
+    "OLLAMA_KEEP_ALIVE": "5m"
+  },
+  "runs": {
+    "raw_truncate_3500_run1": "sha256:b4f800ce613ecf3ad81f190186377595a2ee9bd5432e5656203f0194f875fb29",
+    "raw_truncate_3500_run2": "sha256:df13e46af24b370d893394f3a0f85c9d36fa7161761fa25a85844ec95c0a2b40",
+    "legacy_id_name_run1": "sha256:37401f79d85c68098b29f3623c268e569cf3b072ce230dfe02fd74f996838828",
+    "legacy_id_name_run2": "sha256:9a055ecb9bb6a17f7a94b93ca8dde79a1d829c92fc1b745f68ef18e065f4d1d1",
+    "decision_fields_run1": "sha256:d24d1f2464570f14f9b205b1dbfaf7ff98d9ce1fec5d4ccccb18498811804e82",
+    "decision_fields_run2": "sha256:0195a35cd2412781105cedc80e6d415ed1450be9d28f44dfb7d7d0277d3d69cb"
+  },
+  "location": "attached to PR/release; in-repo summary at logs/c0a08_diagnostic_summary.json"
+}

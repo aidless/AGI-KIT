@@ -27,6 +27,12 @@ jobs:
       - name: Install dependencies
         run: |
           .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+          # The two C0A test modules (test_c0a_observation_compaction,
+          # test_c0a_iteration_error_semantics) import `are` (Meta Agents
+          # Research Environments). Install the exact upstream revision
+          # pinned in third_party/are.provenance.json so those tests run
+          # instead of dying at collection with ModuleNotFoundError.
+          .\.venv\Scripts\python.exe -m pip install "meta-agents-research-environments @ git+https://github.com/facebookresearch/meta-agents-research-environments.git@7946367413129784139e785ae4c351090002a0bb"
 
       - name: Run tests
         run: .\.venv\Scripts\python.exe -m pytest

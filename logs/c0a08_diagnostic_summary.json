@@ -1,0 +1,128 @@
+{
+  "schema": "c0a08_diagnostic_summary_v1",
+  "repo_commit": "2a350d7",
+  "model": "qwen2.5:3b",
+  "scenario_id": "scenario_universe_23_qqp7ys",
+  "pinned_scenario_file": "0144_vi1f41yua26coj8qk0ffkhxlml2ww326.json",
+  "runs": {
+    "raw_truncate_3500_run1": {
+      "exit_code": 0,
+      "success": true,
+      "n_steps": 45,
+      "wait_executed": 30,
+      "wait_requested_forced": 0,
+      "save_apartment": 0,
+      "tokens": 177143,
+      "duration_s": 1451.6,
+      "scenario_id_observed": "scenario_universe_23_qqp7ys",
+      "scenario_pin_ok": true,
+      "tool_catalog": {
+        "count": 101,
+        "hash": "sha256:d6a4e2fca23af46a41772f4791c6a88b75f0780e8dd9fd6f3914540079203990",
+        "regex_debug_count": 111
+      },
+      "environment_manifest_sha256": "sha256:b4f800ce613ecf3ad81f190186377595a2ee9bd5432e5656203f0194f875fb29"
+    },
+    "raw_truncate_3500_run2": {
+      "exit_code": 0,
+      "success": true,
+      "n_steps": 26,
+      "wait_executed": 19,
+      "wait_requested_forced": 0,
+      "save_apartment": 0,
+      "tokens": 102984,
+      "duration_s": 1066.8,
+      "scenario_id_observed": "scenario_universe_23_qqp7ys",
+      "scenario_pin_ok": true,
+      "tool_catalog": {
+        "count": 101,
+        "hash": "sha256:d6a4e2fca23af46a41772f4791c6a88b75f0780e8dd9fd6f3914540079203990",
+        "regex_debug_count": 111
+      },
+      "environment_manifest_sha256": "sha256:df13e46af24b370d893394f3a0f85c9d36fa7161761fa25a85844ec95c0a2b40"
+    },
+    "legacy_id_name_run1": {
+      "exit_code": 0,
+      "success": true,
+      "n_steps": 40,
+      "wait_executed": 30,
+      "wait_requested_forced": 0,
+      "save_apartment": 0,
+      "tokens": 160650,
+      "duration_s": 318.8,
+      "scenario_id_observed": "scenario_universe_23_qqp7ys",
+      "scenario_pin_ok": true,
+      "tool_catalog": {
+        "count": 101,
+        "hash": "sha256:d6a4e2fca23af46a41772f4791c6a88b75f0780e8dd9fd6f3914540079203990",
+        "regex_debug_count": 111
+      },
+      "environment_manifest_sha256": "sha256:37401f79d85c68098b29f3623c268e569cf3b072ce230dfe02fd74f996838828"
+    },
+    "legacy_id_name_run2": {
+      "exit_code": 0,
+      "success": true,
+      "n_steps": 40,
+      "wait_executed": 31,
+      "wait_requested_forced": 0,
+      "save_apartment": 0,
+      "tokens": 160651,
+      "duration_s": 317.0,
+      "scenario_id_observed": "scenario_universe_23_qqp7ys",
+      "scenario_pin_ok": true,
+      "tool_catalog": {
+        "count": 101,
+        "hash": "sha256:d6a4e2fca23af46a41772f4791c6a88b75f0780e8dd9fd6f3914540079203990",
+        "regex_debug_count": 111
+      },
+      "environment_manifest_sha256": "sha256:9a055ecb9bb6a17f7a94b93ca8dde79a1d829c92fc1b745f68ef18e065f4d1d1"
+    },
+    "decision_fields_run1": {
+      "exit_code": 0,
+      "success": true,
+      "n_steps": 40,
+      "wait_executed": 30,
+      "wait_requested_forced": 0,
+      "save_apartment": 0,
+      "tokens": 160655,
+      "duration_s": 306.7,
+      "scenario_id_observed": "scenario_universe_23_qqp7ys",
+      "scenario_pin_ok": true,
+      "tool_catalog": {
+        "count": 101,
+        "hash": "sha256:d6a4e2fca23af46a41772f4791c6a88b75f0780e8dd9fd6f3914540079203990",
+        "regex_debug_count": 111
+      },
+      "environment_manifest_sha256": "sha256:d24d1f2464570f14f9b205b1dbfaf7ff98d9ce1fec5d4ccccb18498811804e82"
+    },
+    "decision_fields_run2": {
+      "exit_code": 0,
+      "success": true,
+      "n_steps": 40,
+      "wait_executed": 30,
+      "wait_requested_forced": 0,
+      "save_apartment": 0,
+      "tokens": 160660,
+      "duration_s": 315.1,
+      "scenario_id_observed": "scenario_universe_23_qqp7ys",
+      "scenario_pin_ok": true,
+      "tool_catalog": {
+        "count": 101,
+        "hash": "sha256:d6a4e2fca23af46a41772f4791c6a88b75f0780e8dd9fd6f3914540079203990",
+        "regex_debug_count": 111
+      },
+      "environment_manifest_sha256": "sha256:0195a35cd2412781105cedc80e6d415ed1450be9d28f44dfb7d7d0277d3d69cb"
+    }
+  },
+  "a12_n1_gate": {
+    "passed": true,
+    "criterion": "save_apartment==0 and wait_executed>15 and n_steps<=40 (legacy_id_name runs)"
+  },
+  "conclusion": {
+    "c0a_closed": true,
+    "v1_failure_reproduced": true,
+    "observation_transform_behavioral_effect": "none observed: all 6 runs failed identically (wait loop, save_apartment=0)",
+    "dominant_hypothesis_rejected": "observation compaction is not the dominant cause of the wait loop",
+    "phase1_v2_plan": "preregistered testing of task-relevant candidate sets and event-dependency wait gating"
+  }
+}
