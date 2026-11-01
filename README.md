@@ -23,6 +23,66 @@ does not support a general superiority claim from one discordant pair.
 The source code is licensed under the Apache License 2.0. Model weights
 and external datasets retain their own licenses.
 
+## 测试与复算
+
+### 单元测试（2026-11-01 实测）
+
+```bash
+python -m pytest tests/unit -q     # 43 passed（2026-11-01 基线）
+```
+
+### 受控 L1 配对分析复算
+
+README 顶部"19/20 Static 对 20/20 L1"的**唯一不一致对**来自
+`logs/controlled_arithmetic/run-llama3b-20260802/`。复算：
+
+```bash
+python scripts/analyze_controlled_arithmetic.py \
+    logs/controlled_arithmetic/run-llama3b-20260802
+# 输出：n_pairs=20, l1_wins=1, l1_losses=0, discordant_pairs=1,
+#       l1_activations=1, two_sided_exact_mcnemar_p=1.0
+```
+
+即 19/20 (Static) vs 20/20 (L1)，仅 1 对不一致，且 L1 干预激活 1 次——这是
+可审计的修正（可归因到 reflection-retry 激活），但 McNemar p=1.0，**不构成
+L1 优于 Static 的一般性声明**（README 顶部已如此限定）。
+
+各受控运行逐对复算（2026-11-01 实测）：
+
+| 运行 | n_pairs | L1 wins/losses | 不一致对 | L1 激活 | 精确 McNemar p |
+|---|---:|---:|---:|---:|---:|
+| `heldout-qwen25-20260802T1223` | 20 | 0/0 | 0 | 0 | 1.0 |
+| `run-llama3b-20260802` | 20 | 1/0 | 1 | 1 | 1.0 |
+| `run-qwen0.6b-20260802` | 20 | 1/4 | 5 | 0 | 0.375 |
+| `smoke-llama-20260802` | 2 | 0/0 | 0 | 0 | 1.0 |
+| `smoke-llama-v3-20260802` | 2 | 0/0 | 0 | 0 | 1.0 |
+
+### 提交前预检
+
+```bash
+python scripts/preflight_submission.py   # 提交前完整性预检（干净 worktree 下）
+```
+
+## 证明什么 / 不证明什么
+
+**证明什么**：
+- 受控 L1 评测：固定 30 任务清单（20 held-out 测试任务）、arm 间
+  prompt/tools/budget/seeds 匹配、原始 JSONL trace、精确配对分析，能产出一组
+  可审计的逐对修正（`scripts/analyze_controlled_arithmetic.py` 复算）。
+- 安全门 12/12、SchemaMutator 18/18 阻断 + 12/12 合法控制、自我进化环
+  10 轮的保守拒绝与 delta=0.0 提升，均为**可复算的工程性质**（见
+  `papers/00_INDEX_en.md` Evidence Summary）。
+
+**不证明什么**：
+- 从**一个**不一致对（19/20 vs 20/20，McNemar p=1.0）**不能**推广出
+  "L1 反思验证普遍优于 Static"——README 顶部已如此声明，且无一般性优越
+  声明可支撑。
+- 历史三跑结果（62.5% / 62.5% / 56.2%）是**描述性**的：seed 控制与产物
+  溯源不完整，不得作为能力声明复用（README 顶部已警示废弃 `p<0.01`、
+  30% static-baseline、内部 4.5-score 声明）。
+- 评测饱和（77.8% final-emission 对每种配置）说明该消融**不区分**组件效应。
+- 本仓库为**研究原型**，非生产系统：模型权重与外部数据集保留各自许可证。
+
 ## 目录结构
 
 ```
