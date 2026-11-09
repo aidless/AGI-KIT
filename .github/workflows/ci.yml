@@ -7,9 +7,13 @@ on:
     branches: [main]
 
 jobs:
+  # Offline unit gate. Matches `make test`.
+  # Live evals (experiments/), Torch (`requirements.txt`), PDF builds, and
+  # the C0A modules (they import Meta `are`) are outside this job. Those
+  # steps need large downloads and are not the fresh-clone unit path.
   test:
-    runs-on: windows-latest
-    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v4
@@ -19,57 +23,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Create venv
-        run: |
-          python -m venv .venv
-          .\.venv\Scripts\python.exe -m pip install --upgrade pip
+      - name: Install offline test dependencies
+        run: python3 -m pip install -r requirements-test.txt
 
-      - name: Install dependencies
-        run: |
-          .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-          # The two C0A test modules (test_c0a_observation_compaction,
-          # test_c0a_iteration_error_semantics) import `are` (Meta Agents
-          # Research Environments). Install the exact upstream revision
-          # pinned in third_party/are.provenance.json so those tests run
-          # instead of dying at collection with ModuleNotFoundError.
-          .\.venv\Scripts\python.exe -m pip install "meta-agents-research-environments @ git+https://github.com/facebookresearch/meta-agents-research-environments.git@7946367413129784139e785ae4c351090002a0bb"
-
-      - name: Run tests
-        run: .\.venv\Scripts\python.exe -m pytest
-
-      - name: Smoke test L1
-        run: |
-          .\.venv\Scripts\python.exe -m py_compile src/agi_kit/reflect.py
-
-      - name: Smoke test L2
-        run: |
-          .\.venv\Scripts\python.exe -m py_compile src/agi_kit/playbook.py
-          .\.venv\Scripts\python.exe -m py_compile src/agi_kit/meta.py
-
-      - name: Smoke test L3
-        run: |
-          .\.venv\Scripts\python.exe -m py_compile src/agi_kit/loop.py
-
-      - name: Smoke test L4
-        run: |
-          .\.venv\Scripts\python.exe -m py_compile src/agi_kit/recursive.py
-
-      - name: Build PDFs
-        run: |
-          .\.venv\Scripts\python.exe scripts/make_figures.py
-          .\.venv\Scripts\python.exe scripts/build_papers_pdf_en.py
-          .\.venv\Scripts\python.exe scripts/make_docx.py
-
-      - name: Submission artifact preflight
-        run: .\.venv\Scripts\python.exe scripts/preflight_submission.py --allow-dirty --allow-placeholders
-
-      - name: Upload PDFs
-        uses: actions/upload-artifact@v4
-        with:
-          name: submission-artifacts
-          path: |
-            papers/*_en.pdf
-            papers/docx/preprint_unified_en.docx
+      - name: Unit tests
+        run: make test
 
   secret-scan:
     # .gitleaks.toml and .pre-commit-config.yaml are present, but a pre-commit

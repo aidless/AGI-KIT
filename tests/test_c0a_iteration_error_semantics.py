@@ -5,9 +5,15 @@ import sys
 from pathlib import Path
 from types import MethodType
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+pytest.importorskip(
+    "are",
+    reason="C0A tests need meta-agents-research-environments; not part of make test",
+)
 from are.simulation.agents.default_agent.base_agent import BaseAgent, TerminationStep
 from are.simulation.agents.agent_log import ErrorLog
 from are.simulation.agents.default_agent.tools.json_action_executor import JsonActionExecutor

@@ -130,18 +130,9 @@ def try_convert_safetensors_to_gguf(safetensors_path: str,
 
     Returns path to .gguf on success, None otherwise.
     """
-    convert_script = shutil.which("convert_hf_to_gguf.py")
-    if convert_script is None:
-        # Try common location
-        candidates = [
-            Path("C:/Users/Administrator/llama.cpp/convert_hf_to_gguf.py"),
-            Path("C:/llama.cpp/convert_hf_to_gguf.py"),
-            Path("F:/llama.cpp/convert_hf_to_gguf.py"),
-        ]
-        for c in candidates:
-            if c.exists():
-                convert_script = str(c)
-                break
+    convert_script = os.environ.get("LLAMA_CPP_CONVERT") or shutil.which(
+        "convert_hf_to_gguf.py"
+    )
     if convert_script is None:
         return None
     out_path = Path(out_dir) / "model.gguf"

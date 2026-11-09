@@ -1,4 +1,4 @@
-"""hello_agent.py - AGI research minimal tool-use agent"""
+"""Live experiment (not `make test`): minimal local tool-use agent."""
 from __future__ import annotations
 import argparse, json, re, time
 from dataclasses import dataclass, field

@@ -4,7 +4,7 @@
 
 - **Dataset**: `meta-agents-research-environments___gaia2`, **mini config**
 - **Split**: validation (160 scenarios)
-- **Path on disk**: `F:\hf_cache\datasets\meta-agents-research-environments___gaia2\mini\0.0.0\<snapshot-hash>\`
+- **Path on disk**: the local Hugging Face datasets cache for `meta-agents-research-environments___gaia2` / `mini` / `0.0.0` / `<snapshot-hash>` (not committed; set `HF_DATASETS_CACHE` or the default HF cache, not a machine drive path)
 - **Format**: Apache Arrow IPC stream (`gaia2-validation.arrow`)
 - **Cached size**: 408 MB
 

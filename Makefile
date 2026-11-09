@@ -9,8 +9,8 @@ install:                ## Install package in production mode
 dev:                    ## Install with dev + optional deps
 	pip install -e ".[dev,playwright]"
 
-test:                   ## Run unit tests
-	pytest tests/unit -v
+test:                   ## Offline unit tests (no model or data download)
+	python3 -m pytest tests/unit -q
 
 test-integration:       ## Run integration tests (requires services)
 	pytest tests/integration -v -m integration

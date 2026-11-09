@@ -1,4 +1,4 @@
-"""Paired, prompt-matched L1 reflection evaluation.
+"""Live experiment (not `make test`): paired, prompt-matched L1 reflection evaluation.
 
 Static and L1 runs receive identical task text, system prompt, calculator,
 step budget, model and generation seed.  The L1 arm alone receives a retry

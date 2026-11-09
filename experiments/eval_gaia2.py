@@ -1,4 +1,7 @@
-"""eval_gaia2.py - GAIA / GAIA2 evaluation scaffold for local Agent"""
+"""Live experiment (not `make test`): GAIA / GAIA2 scaffold for the local agent.
+
+This file does not score the GAIA2 app universe. See FAILURE_MODES.md.
+"""
 from __future__ import annotations
 import argparse, json, re, sys, time, traceback
 from datetime import datetime

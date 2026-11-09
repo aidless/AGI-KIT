@@ -59,7 +59,7 @@ def synth_tasks(n=20, seed=0):
             out.append({"task": "Calculate " + str(a) + "**3 then echo result, then final.",
                         "kind": kind, "gold": str(a ** 3)})
         elif kind == "file":
-            out.append({"task": "Read the first 60 chars of C:/Windows/win.ini.", "kind": kind,
+            out.append({"task": "Read the first 60 chars of configs/default.yaml.", "kind": kind,
                         "gold": None})
         elif kind == "logic":
             out.append({"task": "If x=" + str(i + 2) + ", compute x*2+1 using calculator.",
@@ -125,7 +125,7 @@ def _plan_for(kind, success_rate):
         ]
     if kind == "file":
         return [
-            '```json\n{"tool":"read_file","args":{"path":"C:/Windows/win.ini","max_chars":60}}\n```',
+            '```json\n{"tool":"read_file","args":{"path":"configs/default.yaml","max_chars":60}}\n```',
             '```json\n{"final":"first line"}\n```',
         ]
     if kind == "logic":

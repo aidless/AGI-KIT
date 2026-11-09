@@ -1,0 +1,11 @@
+# Offline unit-test dependencies for `make test` / CI.
+# Does not install Torch, Transformers, or dataset libraries.
+# Live experiments use requirements.txt instead.
+
+pytest>=8.3
+pytest-asyncio>=0.24
+pydantic>=2.8
+pydantic-settings>=2.5
+PyYAML>=6.0
+structlog>=24.4
+prometheus-client>=0.21

@@ -241,7 +241,7 @@ that we expect to scale to larger agent stacks.
 ## Appendix A — Reproducibility
 
 ```powershell
-cd "F:\agent to AGI\agi-research-kit"
+# From the repository root.
 .\.venv\Scripts\python.exe experiments\l4_smoke.py
 .\.venv\Scripts\python.exe -u experiments\full_run3.py --n 30 --tool-factory-every 10
 ```

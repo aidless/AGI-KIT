@@ -1,5 +1,6 @@
-# AGI Research Kit — runtime dependencies
-# Pinned to versions known to work together as of 2026-07-31
+# AGI Research Kit — live-experiment dependencies (Torch, Transformers, datasets).
+# Not the offline unit-test path. For `make test`, install requirements-test.txt.
+# Pinned to versions known to work together as of 2026-07-31.
 
 transformers>=4.55
 torch>=2.5

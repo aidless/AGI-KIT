@@ -211,7 +211,7 @@ self-modification capacity to the meta-controller and tool registry.
 ## Appendix A — Reproducibility
 
 ```powershell
-cd "F:\agent to AGI\agi-research-kit"
+# From the repository root.
 .\.venv\Scripts\python.exe -u experiments\full_run2.py --n 50 --retrain-every 8 --no-sft
 ```
 

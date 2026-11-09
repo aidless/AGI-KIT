@@ -1,7 +1,10 @@
-﻿<# AGI 研究环境一键安装 #>
+﻿<# AGI live-stack helper (Windows). Not the offline unit-test path.
+   Unit tests: pip install -r requirements-test.txt; make test
+#>
 param([switch]$SkipPython,[switch]$SkipOllama,[switch]$SkipDeps)
-$pythonDir = "F:\agent to AGI\agi-research-kit\python"
-$venvDir   = "F:\agent to AGI\agi-research-kit\.venv"
+$root = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
+$pythonDir = Join-Path $root "python"
+$venvDir   = Join-Path $root ".venv"
 
 function Test-Tool($n) { $null -ne (Get-Command $n -ErrorAction SilentlyContinue) }
 

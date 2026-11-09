@@ -3,9 +3,15 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+pytest.importorskip(
+    "are",
+    reason="C0A tests need meta-agents-research-environments; not part of make test",
+)
 from are.simulation.apps.apartment_listing import Apartment
 from scripts.run_gaia2_canonical import NativeToolEngine
 

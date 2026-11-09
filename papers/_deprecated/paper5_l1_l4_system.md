@@ -202,7 +202,7 @@ real GAIA2, and explore cross-agent strategy sharing.
 ## Appendix B — Reproduction
 
 ```powershell
-cd "F:\agent to AGI\agi-research-kit"
+# From the repository root.
 ollama pull qwen3:1.7b
 ollama pull qwen3:0.6b
 .\.venv\Scripts\python.exe -u experiments\full_run3.py --n 30 --retrain-every 8 --tool-factory-every 10 --no-sft

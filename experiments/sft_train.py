@@ -15,7 +15,7 @@ def main():
     p.add_argument("--grad-accum", type=int, default=4)
     p.add_argument("--epochs", type=int, default=1)
     p.add_argument("--lr", type=float, default=5e-5)
-    p.add_argument("--out", default="F:/agent to AGI/agi-research-kit/models/sft-out")
+    p.add_argument("--out", default="models/sft-out")
     p.add_argument("--no-train", action="store_true")
     args = p.parse_args()
 
