@@ -261,7 +261,7 @@ into a measured number and completes the AGI self-improvement loop.
 ## Appendix A — Reproduction
 
 ```powershell
-cd "F:\agent to AGI\agi-research-kit"
+# From the repository root.
 ollama pull qwen3:1.7b
 ollama pull qwen3:0.6b
 

@@ -3,7 +3,7 @@
   AGI 研究完整套装 - Hugging Face 模型一键下载(约 30 GB)
 .DESCRIPTION
   用纯 PowerShell 调 Invoke-WebRequest 走 hf-mirror / huggingface.co 官方下载。
-  支持断点续传,默认放到 F:\agent to AGI\agi-research-kit\models
+  支持断点续传,默认放到仓库内 models/（可用 -TargetRoot 覆盖）
 .NOTES
   - 用法: .\download_agi_set.ps1 -HFToken "hf_xxxx"
   - HFToken 在 https://huggingface.co/settings/tokens 申请(免费)
@@ -12,12 +12,15 @@
 
 [CmdletBinding()]
 param(
-    [string]$TargetRoot = "F:\agent to AGI\agi-research-kit\models",
+    [string]$TargetRoot = "",
     [string]$HFToken = "",
     [string]$Tier = "agi-complete"   # 备选: "minimal", "standard"
 )
 
 $ErrorActionPreference = "Stop"
+if ([string]::IsNullOrWhiteSpace($TargetRoot)) {
+    $TargetRoot = Join-Path (Resolve-Path (Join-Path $PSScriptRoot "..")) "models"
+}
 
 # ---- 模型清单 ----
 $tiers = @{

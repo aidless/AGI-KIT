@@ -7,7 +7,7 @@
 
 | 组件 | 状态 | 大小 / 备注 |
 |---|---|---|
-| Python 3.12.7 | ✅ 安装 | C:\Program Files\Python312 |
+| Python 3.12.7 | ✅ 安装 | workstation install (path omitted; machine-local) |
 | Ollama 0.24.0 | ✅ 安装 + 后台运行 | 后台服务 |
 | Qwen3-1.7B | ✅ 拉取 | 1.4 GB |
 | Qwen3-0.6B | ✅ 拉取 | 522 MB |
@@ -191,7 +191,7 @@ sig = mc.decide(state, playbook=pb, query=task)
 
 ### һ��ʹ��
 ```powershell
-cd "F:\agent to AGI\agi-research-kit"
+# From the repository root.
 .\.venv\Scripts\python.exe experiments\l2_meta_smoke.py
 ```
 �״��� 22-27s(BGE ģ�ͼ���),֮�� 0.1s ������
@@ -298,7 +298,7 @@ SUMMARY:
 
 ### һ��ʹ��
 ```powershell
-cd "F:\agent to AGI\agi-research-kit"
+# From the repository root.
 
 # mock ģʽ(�� GPU):
 .\.venv\Scripts\python.exe experiments\continual_runner.py --mock --n 10 --retrain-every 3
@@ -365,7 +365,7 @@ L4 ��**�ݹ����ҸĽ�** ���� �� MetaController ���
 
 ### һ������
 ```powershell
-cd "F:\agent to AGI\agi-research-kit"
+# From the repository root.
 
 # 1. ȷ�� Ollama ���� + qwen3 ����:
 ollama list    # Ӧ�ÿ��� qwen3:1.7b + qwen3:0.6b
@@ -457,7 +457,7 @@ SUMMARY:
 
 ### һ������
 ```powershell
-cd "F:\agent to AGI\agi-research-kit"
+# From the repository root.
 .\.venv\Scripts\python.exe -u experiments\full_run.py --n 20 --retrain-every 8
 ```
 
@@ -516,7 +516,7 @@ cd "F:\agent to AGI\agi-research-kit"
 
 ### һ������
 ```powershell
-cd "F:\agent to AGI\agi-research-kit"
+# From the repository root.
 .\.venv\Scripts\python.exe -u experiments\full_run2.py --n 50 --retrain-every 8 --no-sft
 ```
 
@@ -584,7 +584,7 @@ cd "F:\agent to AGI\agi-research-kit"
 
 ### һ������
 ```powershell
-cd "F:\agent to AGI\agi-research-kit"
+# From the repository root.
 .\.venv\Scripts\python.exe -u experiments\full_run3.py --n 100 --retrain-every 15 --tool-factory-every 10 --no-sft
 ```
 
@@ -654,7 +654,7 @@ cd "F:\agent to AGI\agi-research-kit"
 
 ### һ������
 ```powershell
-cd "F:\agent to AGI\agi-research-kit"
+# From the repository root.
 .\.venv\Scripts\python.exe scripts\build_papers_pdf.py   # ������ PDF
 Get-Content papers\README.md
 Get-Content papers\00_INDEX.pdf  # ʵ���ϲ����� cat �� PDF
@@ -781,7 +781,7 @@ git log --oneline
 export GH_TOKEN=ghp_xxx
 
 # 3. ����:
-cd "F:\agent to AGI\agi-research-kit"
+# From the repository root.
 bash dist/push.sh myname agi-research-kit
 # ��:
 git remote add origin https://github.com/myname/agi-research-kit.git
@@ -1046,7 +1046,7 @@ User requested path 1 of the +0.5 menu: "do real full GAIA2 evaluation".
 
 Round 7 discovered that the **real GAIA2 dataset** (mini config,
 `meta-agents-research-environments___gaia2` mini validation) is already
-locally cached at `F:\hf_cache\datasets\meta-agents-research-environments___gaia2\`.
+locally cached in the Hugging Face datasets cache for `meta-agents-research-environments___gaia2`.
 160 validation scenarios across 5 categories (32 each: `time`, `search`,
 `execution`, `ambiguity`, `adaptability`).
 

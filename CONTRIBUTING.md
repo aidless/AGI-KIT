@@ -7,17 +7,18 @@ Thanks for your interest in improving this repository.
 ```bash
 git clone https://github.com/aidless/AGI-KIT.git
 cd AGI-KIT
-pip install -r requirements.txt   # if present
+pip install -r requirements-test.txt
 ```
+
+`requirements.txt` is the live experiment stack (Torch and similar). It is not required to run the unit tests.
 
 ## Verifying your change
 
 ```bash
-python3 -m pytest -q
+make test
 ```
 
-If the repository has a `Makefile`, `make check` or the closest equivalent runs the same
-checks as CI. Please run it before opening a pull request.
+`make test` is the CI gate: `pytest tests/unit`. It does not download models or `data/`. Live scripts under `experiments/` are separate.
 
 ## Pull requests
 

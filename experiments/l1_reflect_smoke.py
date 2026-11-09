@@ -25,7 +25,7 @@ TASKS = [
     {"q": "Calculate 2**10 + 3*4 using calculator tool.", "kind": "calc", "expect": "1044"},
     {"q": "Calculate (17*23 + 144/12) using calculator tool.", "kind": "calc", "expect": "403"},
     {"q": "Use calculator to compute 99*99 - 1, then echo the result.", "kind": "chained", "expect": "9800"},
-    {"q": "Read the file at C:/Windows/win.ini (limit 80 chars), then echo the first line.", "kind": "file", "expect": None},
+    {"q": "Read the file at configs/default.yaml (limit 80 chars), then echo the first line.", "kind": "file", "expect": None},
     {"q": "Calculate 7*8 with calculator.", "kind": "calc", "expect": "56"},
 ]
 
@@ -97,7 +97,7 @@ def _make_plan(kind):
         ]
     if kind == "file":
         return [
-            '```json\n{"tool":"read_file","args":{"path":"C:/Windows/win.ini","max_chars":80}}\n```',
+            '```json\n{"tool":"read_file","args":{"path":"configs/default.yaml","max_chars":80}}\n```',
             '```json\n{"tool":"echo","args":{"msg":"first line seen"}}\n```',
             '```json\n{"final":"first line seen"}\n```',
         ]

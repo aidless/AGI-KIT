@@ -14,8 +14,9 @@ from pathlib import Path
 
 
 def main() -> None:
-    src = Path(r"F:\agent to AGI\agi-research-kit\logs\sft_round22\candidate_qwen3_0p6b_merged")
-    dst = Path(r"F:\agent to AGI\agi-research-kit\logs\sft_round22\candidate_qwen3_0p6b_clean")
+    root = Path(__file__).resolve().parents[1]
+    src = root / "logs" / "sft_round22" / "candidate_qwen3_0p6b_merged"
+    dst = root / "logs" / "sft_round22" / "candidate_qwen3_0p6b_clean"
     dst.mkdir(parents=True, exist_ok=True)
 
     raw = (src / "model.safetensors").read_bytes()[:8]

@@ -19,8 +19,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-ROOT = Path(__file__).resolve().parents[1]
-os.environ.setdefault("HF_HOME", r"F:\hf_cache")
+ROOT = Path(__file__).resolve().parents[4]
 os.environ.setdefault("HF_HUB_OFFLINE", "1")
 torch.set_num_threads(4)
 

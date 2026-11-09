@@ -197,7 +197,7 @@ Recursive Self-Modification) to compose cleanly on top.
 ## Appendix A — Reproducibility
 
 ```powershell
-cd "F:\agent to AGI\agi-research-kit"
+# From the repository root.
 ollama pull qwen3:1.7b
 ollama pull qwen3:0.6b
 .\.venv\Scripts\python.exe -u experiments\l1_reflect_smoke.py

@@ -284,7 +284,7 @@ The full pipeline runs on a 16 GB consumer laptop with no GPU required.
 ## Reproduction
 
 ```powershell
-cd "F:\\agent to AGI\\agi-research-kit"
+# From the repository root.
 ollama pull qwen3:1.7b
 ollama pull qwen3:0.6b
 .\\.venv\\Scripts\\python.exe -u experiments\\full_run3.py --n 50 --retrain-every 10 --tool-factory-every 12 --no-sft

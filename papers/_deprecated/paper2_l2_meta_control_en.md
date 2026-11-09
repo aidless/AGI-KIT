@@ -223,7 +223,7 @@ making it a natural building block for self-improving agents.
 ## Appendix A — Reproducibility
 
 ```powershell
-cd "F:\agent to AGI\agi-research-kit"
+# From the repository root.
 .\.venv\Scripts\python.exe -u experiments\l2_meta_smoke.py
 ```
 

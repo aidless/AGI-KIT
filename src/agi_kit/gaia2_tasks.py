@@ -20,10 +20,13 @@ ROOT = Path(__file__).parent.parent.parent
 
 def _try_load_real_gaia2(split="validation", limit=20):
     """Try to load real GAIA2 from local cache or HF."""
+    hf_home = os.environ.get("HF_HOME")
     cache_paths = [
-        Path(os.environ.get("HF_HOME", str(Path.home() / ".cache/huggingface"))) / "hub",
-        Path("F:/hf_cache"),
+        Path(hf_home) / "hub" if hf_home else Path.home() / ".cache" / "huggingface" / "hub"
     ]
+    datasets_cache = os.environ.get("HF_DATASETS_CACHE")
+    if datasets_cache:
+        cache_paths.append(Path(datasets_cache))
     for base in cache_paths:
         if not base.exists():
             continue
