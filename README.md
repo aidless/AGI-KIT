@@ -103,6 +103,64 @@ ollama pull llama3.2:1b
 .venv\Scripts\python.exe experiments\eval_gaia2.py --subset meta-agents-research-environments/gaia2 --limit 20
 ```
 
+## L1 评测结果表（数字全部取自仓库已有评测产物）
+
+来源：`papers/preprint_unified_en.md`（§4.1.2 受控对比、§7 架构基线）、
+`papers/00_INDEX_en.md`、`logs/controlled_arithmetic/`。所有任务为固定 30 题
+manifest 中的 20 题 held-out 测试集，prompt/工具/预算/种子跨臂一致，
+温度 0 固定种子，配对 exact 检验。模型：Llama-3.2-3B-Instruct-Q8_0。
+
+### 受控 L1 对比（Static vs L1 evidence-check）
+
+| 配置 | 金标正确 | 归一化完整 JSON | 严格 fenced JSON | 平均步数 | 证据-重试 |
+|---|---:|---:|---:|---:|---:|
+| Static | **19/20 (95.0%)** [75.1%, 99.9%] | 20/20 | 0/20 | 2.00 | 0 |
+| L1 evidence-check | **20/20 (100.0%)** [83.2%, 100.0%] | 20/20 | 0/20 | 2.05 | 1 |
+
+- 唯一分歧任务 `ca020`：Static 的最终答案与其 calculator 观测冲突；L1 收到
+  mismatch 消息后下一步改正。1 胜 0 负 → 双侧 exact McNemar **p=1.0**。
+- **解读边界**：单一分歧对的配对证据只说明「L1 修正路径 causal 生效」，
+  **不**支持任何总体准确率优势声明（区间高度重叠）。
+
+### 架构基线（同一 20 题算术集，qwen3:1.7b，calculator 工具，6 步预算）
+
+| 配置 | 正确 | 准确率 | 墙钟 (s) | 失败模式 |
+|---|---:|---:|---:|---|
+| Static one-shot | 20/20 | 100.0% | 184 | 无 |
+| Reflexion-lite | 20/20 | 100.0% | 171 | 无 |
+| Voyager-lite | 17/20 | 85.0% | 422 | 技能注入后 3 次空完成 |
+| MetaGPT-lite | 17/20 | 85.0% | 470 | 99*99→98.01 等 3 题算错 |
+| AGI Kit L1-L4 | 19/20 | 95.0% | ~938 | 100%7→5 |
+| Bare qwen3:1.7b 无工具 | 1/20 | 5.0% | — | 无工具访问 |
+
+其他受控数字：bare→full wrapper（Llama-3.2-1B）0/20→19/20（+95 pp）；
+Round 20 SFT 校准 80/80 vs 0/80（McNemar p=1.65e-24，narrow protocol，非部署级 L3 更新）。
+
+### L1 运行示例（ASCII trace，复现自 `ca020` 分歧任务的机制）
+
+```text
+[Static 臂]
+step1  tool: calculator("100%7")      -> observation: 2
+step2  final: "100 % 7 -> 5"          # 与 calculator 观测冲突，直接提交 => 判错
+[L1 臂 — 仅当最终答案与最近成功工具观测冲突时注入一条反思]
+step1  tool: calculator("100%7")      -> observation: 2
+step2  final draft: "... 5"           -> L1 gate: final(5) != last_tool_obs(2)
+       inject reflection: "你的最终答案与 calculator 观测不一致，请在预算内修正"
+step3  final: "2"                     # 修正提交 => gold correct
+```
+
+## Quickstart 验证记录
+
+跨平台验证（2026-11-10，Linux · Python 3.12，真实输出）：
+
+```text
+$ python3 -m pytest tests/unit -q
+...........................................                              [100%]
+43 passed
+```
+
+（`make test` 等价；要求 `pytest` 在 PATH 上。PowerShell 一键安装脚本仅限 Windows。）
+
 ## 下一步研究路径建议
 
 - **Week 1**: 跑通 hello_agent.py,理解 ReAct 循环
@@ -111,6 +169,14 @@ ollama pull llama3.2:1b
 - **Week 4**: 对比 SmolLM3-3B vs Qwen3-1.7B,分析小模型差距
 - **进阶**: 学 [smol-course](https://huggingface.co/learn/smol-course) 自己 SFT
 - **进阶**: 学 [agents-course](https://huggingface.co/learn/agents-course) 高级 Agent
+
+## What this doesn't claim / Limits
+
+- **统一稿件是 submission draft，未投稿**（见 `papers/PUBLISHING.md`）；历史三次运行的描述性结果已废弃——不要再引用被替代的 `p<0.01`、30% 静态基线或内部 4.5 分制口径。
+- L1 受控对比只有 **1 个分歧对**（McNemar p=1.0）：它是「修正路径生效」的可审计证据，**不是**总体准确率优势的证据；两臂区间高度重叠。
+- 20 题算术集上 Static/Reflexion-lite 已到天花板；分层架构（AGI Kit L1-L4 95.0%）在该任务集上**不优于** well-prompted Static，反而更慢（~938s vs 184s）。
+- GAIA2 mini 实测 0/5 完成：缺专用 app shell（邮件/日历/文件系统），见 `REPORT.md` §5。
+- 本机未验证项：`make test` 要求 pytest 在 PATH；PowerShell 安装脚本与 Ollama 模型下载仅在 Windows 验证过。
 
 ## 资源链接
 
