@@ -19,7 +19,6 @@ import os
 os.environ.setdefault("HF_HUB_OFFLINE", "1")
 os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
 
-from collections import deque
 from dataclasses import dataclass
 from pathlib import Path
 

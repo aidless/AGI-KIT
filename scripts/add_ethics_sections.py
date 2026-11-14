@@ -5,7 +5,6 @@ Reads each paper, inserts new sections before References, regenerates PDF.
 """
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
 PAPERS_DIR = Path(__file__).parent.parent / "papers"

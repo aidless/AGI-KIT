@@ -5,7 +5,6 @@ from typing import Any
 
 from agi_kit.agents.base import Agent
 from agi_kit.llms.base import LLM
-from agi_kit.tools.base import ToolRegistry
 
 
 def create_agent(paradigm: str, llm: LLM, **kwargs: Any) -> Agent:

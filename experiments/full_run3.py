@@ -30,7 +30,7 @@ from agi_kit.meta import MetaController, AgentState, update_state_from_step, Con
 from agi_kit.loop import ContinualLoop, ExperienceBuffer
 from agi_kit.strategy_miner import extract_strategies_from_episode, write_extracted_to_playbook, ExtractedStrategy
 from agi_kit.gaia2_tasks import load_gaia2_tasks
-from agi_kit.evals_arith import make_eval_fn, eval_arithmetic
+from agi_kit.evals_arith import make_eval_fn
 from agi_kit.real_retrain_v2 import real_retrain_v2, mock_retrain_v2
 from agi_kit.recursive import SchemaMutator, MetaControllerConfig, ToolFactory
 from agi_kit.tool_factory_tasks import get_trigger_tasks

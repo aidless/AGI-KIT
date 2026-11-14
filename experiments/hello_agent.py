@@ -2,7 +2,6 @@
 from __future__ import annotations
 import argparse, json, re, time
 from dataclasses import dataclass, field
-from typing import Callable
 
 TOOLS = {}
 
@@ -57,7 +56,6 @@ class OllamaBackend(LLM):
 
 class TransformersBackend(LLM):
     def __init__(self, model="Qwen/Qwen3-1.7B"):
-        import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
         self.tokenizer = AutoTokenizer.from_pretrained(model)
         self.model = AutoModelForCausalLM.from_pretrained(model, torch_dtype="auto")

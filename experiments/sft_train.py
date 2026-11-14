@@ -1,6 +1,6 @@
 """sft_train.py - SFT fine-tune a small model on smoltalk for tool-use style"""
 from __future__ import annotations
-import argparse, os, sys, time
+import argparse, time
 from pathlib import Path
 
 

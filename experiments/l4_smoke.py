@@ -15,11 +15,9 @@ sys.path.insert(0, str(ROOT / "src"))
 os.environ.setdefault("HF_HUB_OFFLINE", "1")
 os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
 
-from agi_kit.meta import MetaController, AgentState
 from agi_kit.recursive import (
     SchemaMutator, MetaControllerConfig,
-    ToolFactory, ToolSpec,
-    PromptMutator,
+    ToolFactory, PromptMutator,
 )
 
 

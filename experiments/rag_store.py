@@ -1,5 +1,5 @@
 """rag_store.py - Lightweight local RAG: sentence-transformers + FAISS"""
-import os, hashlib
+import os
 from pathlib import Path
 
 class RagStore:
@@ -43,7 +43,6 @@ class RagStore:
         return [c for c in out if c.strip()]
 
     def add_text(self, text, source="text"):
-        import json
         chunks = self._chunk(text)
         if not chunks:
             return 0
@@ -82,7 +81,6 @@ class RagStore:
         return out
 
     def clear(self):
-        import json
         self.index.reset()
         self.docs = []
         if self.index_path.exists():

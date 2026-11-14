@@ -3,7 +3,7 @@
 Runs the same 20 tasks through both models, computes accuracy.
 """
 from __future__ import annotations
-import argparse, json, sys, time, os
+import argparse, json, sys, time
 from datetime import datetime
 from pathlib import Path
 

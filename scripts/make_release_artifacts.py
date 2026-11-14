@@ -7,8 +7,6 @@
 from __future__ import annotations
 
 import os
-import shutil
-import sys
 import tarfile
 from pathlib import Path
 
@@ -234,7 +232,7 @@ def main():
     ci_dir.mkdir(parents=True, exist_ok=True)
     ci_file = ci_dir / "ci.yml"
     ci_file.write_text(CI_YML, encoding="utf-8")
-    print(f"  .github/workflows/ci.yml")
+    print("  .github/workflows/ci.yml")
 
     # 4. requirements.txt
     req = ROOT / "requirements.txt"
@@ -244,7 +242,7 @@ def main():
     # 5. RELEASE_NOTES.md
     rel = DIST / "RELEASE_NOTES.md"
     rel.write_text(RELEASE_NOTES, encoding="utf-8")
-    print(f"  dist/RELEASE_NOTES.md")
+    print("  dist/RELEASE_NOTES.md")
 
     print()
     print("Tarball contents:")

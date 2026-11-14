@@ -7,7 +7,6 @@ from typing import Any
 
 from agi_kit.agents.base import Agent, AgentStep
 from agi_kit.llms.base import LLMMessage, MessageRole
-from agi_kit.tools.base import ToolRegistry
 
 
 class PlanExecuteAgent(Agent):

@@ -12,12 +12,10 @@ Usage:
 from __future__ import annotations
 
 import json
-import re
 import time
 import uuid
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Any
 
 from agi_kit.observability import get_logger
 
@@ -139,7 +137,6 @@ class Playbook:
         if self._index is None or self._dirty:
             self._rebuild_index()
         q_emb = self.embedder.encode([query], normalize_embeddings=True)
-        import numpy as np
         scores, idxs = self._index.search(q_emb.astype("float32"), min(k, len(self.strategies)))
         out = []
         for score, idx in zip(scores[0], idxs[0]):

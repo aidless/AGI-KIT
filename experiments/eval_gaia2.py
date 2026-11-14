@@ -5,7 +5,7 @@ from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from full_agent import Agent, OllamaBackend, TransformersBackend, TOOLS
+from full_agent import Agent, OllamaBackend, TransformersBackend
 
 LOG_DIR = Path(__file__).parent.parent / "logs"
 LOG_DIR.mkdir(exist_ok=True)

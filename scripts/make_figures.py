@@ -10,8 +10,6 @@ Produces:
 from __future__ import annotations
 
 import json
-import os
-import sys
 from pathlib import Path
 
 import matplotlib
@@ -53,7 +51,6 @@ def fig1_layer_ablation():
       Right: harder 20-task arithmetic (bare/full configuration endpoints)
     """
     import json
-    from pathlib import Path
     abl_dir = ROOT / "logs" / "ablation"
     configs = ["static", "l1_only", "l1_l2", "l1_l2_l3", "full"]
     labels = ["Static", "L1", "L1+L2", "L1+L2+L3", "Full"]

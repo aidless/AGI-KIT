@@ -15,10 +15,8 @@ Outputs ControlSignal which the Agent loop should act on:
 """
 from __future__ import annotations
 
-from collections import deque
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Deque
 
 from agi_kit.observability import get_logger
 

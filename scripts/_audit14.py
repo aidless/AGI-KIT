@@ -2,7 +2,6 @@
 import sys
 sys.stdout.reconfigure(encoding="utf-8")
 import json
-from pathlib import Path
 
 content = open("papers/preprint_unified_en.md", encoding="utf-8").read()
 

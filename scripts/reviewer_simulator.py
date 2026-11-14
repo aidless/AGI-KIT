@@ -11,7 +11,6 @@ Outputs:
 """
 from __future__ import annotations
 
-import re
 from pathlib import Path
 
 PAPERS_DIR = Path(__file__).parent.parent / "papers"

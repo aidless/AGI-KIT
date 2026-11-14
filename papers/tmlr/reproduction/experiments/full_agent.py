@@ -1,8 +1,7 @@
 """full_agent.py - AGI research agent with browser + RAG + tools"""
 from __future__ import annotations
-import argparse, json, re, sys, time, os
+import argparse, json, re, time, os
 from dataclasses import dataclass, field
-from typing import Callable
 
 TOOLS = {}
 

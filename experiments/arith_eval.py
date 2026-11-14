@@ -1,5 +1,5 @@
 # Fast arithmetic eval via Ollama
-import json, urllib.request, time, sys, statistics
+import json, urllib.request, time, sys
 from pathlib import Path
 
 ROOT = Path("experiments") if not (Path()/"a").exists() else Path()

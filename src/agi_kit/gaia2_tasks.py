@@ -13,7 +13,7 @@ import json
 import os
 import random
 from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 ROOT = Path(__file__).parent.parent.parent
 

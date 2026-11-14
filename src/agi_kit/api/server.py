@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import time
 from contextlib import asynccontextmanager
-from typing import Any
 
 import jwt
 from fastapi import Depends, FastAPI, HTTPException, Request, Security
@@ -25,7 +24,7 @@ from agi_kit.api.schemas import (
 )
 from agi_kit.config import get_settings
 from agi_kit.llms.factory import create_llm
-from agi_kit.observability import get_logger, metrics
+from agi_kit.observability import get_logger
 from agi_kit.tools.base import ToolRegistry
 
 log = get_logger(__name__)

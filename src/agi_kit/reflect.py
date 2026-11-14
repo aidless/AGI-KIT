@@ -22,9 +22,8 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from threading import Lock
-from typing import Any
 
-from agi_kit.llms.base import LLM, LLMMessage, MessageRole
+from agi_kit.llms.base import LLMMessage, MessageRole
 from agi_kit.observability import get_logger
 
 log = get_logger(__name__)

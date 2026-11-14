@@ -5,7 +5,6 @@ Provides JSON-formatted logs in production, pretty console logs in dev.
 from __future__ import annotations
 
 import logging
-import sys
 from typing import Any
 
 import structlog

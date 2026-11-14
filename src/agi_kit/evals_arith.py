@@ -6,12 +6,10 @@ candidate for this evaluator and must never receive an estimated score.
 from __future__ import annotations
 
 import json
-import os
-import re
 import sys
 import time
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Callable
 
 ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(ROOT / "experiments"))

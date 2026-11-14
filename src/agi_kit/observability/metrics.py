@@ -5,7 +5,7 @@ import time
 from contextlib import contextmanager
 from typing import Any, Iterator
 
-from prometheus_client import Counter, Gauge, Histogram
+from prometheus_client import Counter, Histogram
 
 # LLM metrics
 llm_requests_total = Counter(
